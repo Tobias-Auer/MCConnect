@@ -1,6 +1,6 @@
 # MCConnect
 
-MCConnect is a further development of my other mc-stats site.
+MCConnect is a further development of my [other mc-stats site.](https://github.com/Tobias-Auer/Full-Stack/tree/main/minecraft_webserver)
 
 
 This will be version 2.0, with an improved and optimized backend with Postgres.
