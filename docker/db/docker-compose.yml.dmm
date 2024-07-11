@@ -1,6 +1,6 @@
 {
 	"tables": {
-		"08005a20-2e51-496b-8980-38e6b32734a9": {
+		"dc96190a-91f9-4164-b2a3-ee46c44dfe00": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -14,12 +14,12 @@
 				"schema": "public"
 			},
 			"desc": "Stores all the relevant data regarding the player statistics.\nIn  \"uuid\" is the player stored\nin \"object\" it is stated what the other data refers to (stone_block, diamond_sword, zombie,....)\nin \"category\" is stated in which context the item should be interpretet (mined blocks, collected blocks, item usage, killed mobs, ....)\n\"value\" is the corresponding value ",
-			"id": "08005a20-2e51-496b-8980-38e6b32734a9",
+			"id": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
 			"name": "actions",
 			"cols": [
 				{
 					"data": "",
-					"id": "4ecf3f9d-9f50-4618-9428-08a22560c228",
+					"id": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b",
 					"name": "id",
 					"datatype": "integer",
 					"param": "",
@@ -40,9 +40,9 @@
 				},
 				{
 					"data": "",
-					"id": "458d3466-4f90-44c3-844b-e3f89e913e48",
+					"id": "7ecf10f4-1463-445e-954c-3655d08db019",
 					"name": "player_id",
-					"datatype": "integer",
+					"datatype": "uuid",
 					"param": "",
 					"pk": false,
 					"nn": true,
@@ -61,7 +61,7 @@
 				},
 				{
 					"data": "",
-					"id": "c1802ab6-0e61-46ee-9166-7b42e254645f",
+					"id": "e7d40d7c-d739-4b8c-b631-434b76a940cd",
 					"name": "object",
 					"datatype": "text",
 					"param": "",
@@ -82,7 +82,7 @@
 				},
 				{
 					"data": "",
-					"id": "8213fd57-50eb-418a-8f54-9f89fb13a047",
+					"id": "e3246323-b914-4dd7-b5ef-98cadd80bcd1",
 					"name": "category",
 					"datatype": "smallint",
 					"param": "",
@@ -103,7 +103,7 @@
 				},
 				{
 					"data": "",
-					"id": "6185955b-8220-4a63-acd6-ec1a40b46186",
+					"id": "451e0a62-9b54-4949-b228-411e027e02f7",
 					"name": "value",
 					"datatype": "integer",
 					"param": "",
@@ -124,17 +124,17 @@
 				}
 			],
 			"relations": [
-				"18fc86d9-e18e-4939-a5c4-3b005b9b413f"
+				"cb84411c-793b-4b5b-af0b-43898ac25a53"
 			],
 			"keys": [
 				{
-					"id": "3077cfb9-792a-4e79-ab11-a3a630e1390c",
+					"id": "ff7e2830-9c05-4da7-85de-85a16a961948",
 					"isPk": true,
 					"name": "actions_pkey",
 					"cols": [
 						{
-							"id": "4f373622-f4db-4d95-89ac-a5d0576c2877",
-							"colid": "4ecf3f9d-9f50-4618-9428-08a22560c228"
+							"id": "c81b57b6-993b-4d87-b871-189a1138e2a8",
+							"colid": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b"
 						}
 					]
 				}
@@ -146,7 +146,7 @@
 			"generateCustomCode": true,
 			"customCode": ""
 		},
-		"a2a74101-5822-4129-ab0e-4c26d3d91bfc": {
+		"6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -160,16 +160,16 @@
 				"schema": "public"
 			},
 			"desc": "Contains the uuids and informations about banned players",
-			"id": "a2a74101-5822-4129-ab0e-4c26d3d91bfc",
+			"id": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
 			"name": "banned_players",
 			"cols": [
 				{
 					"data": "",
-					"id": "922d7b92-a30b-4bbd-a093-1186eb249121",
+					"id": "b288a6c0-7d66-4bc8-a4a6-d2297af79846",
 					"name": "id",
 					"datatype": "integer",
 					"param": "",
-					"pk": false,
+					"pk": true,
 					"nn": true,
 					"comment": "",
 					"defaultvalue": "",
@@ -186,12 +186,12 @@
 				},
 				{
 					"data": "",
-					"id": "0d20eed8-7baf-40a2-be77-3811dc48c320",
+					"id": "04420b8f-e8d0-4769-bf81-ef4c94bf156f",
 					"name": "player_id",
-					"datatype": "integer",
+					"datatype": "uuid",
 					"param": "",
 					"pk": false,
-					"nn": false,
+					"nn": true,
 					"comment": "",
 					"defaultvalue": "",
 					"collation": "",
@@ -207,9 +207,9 @@
 				},
 				{
 					"data": "",
-					"id": "1890d208-f1ef-4636-adc9-5e758b281dd9",
+					"id": "3fa66c19-5acb-467d-b20a-3ccb9e4661dd",
 					"name": "admin",
-					"datatype": "integer",
+					"datatype": "uuid",
 					"param": "",
 					"pk": false,
 					"nn": true,
@@ -228,7 +228,7 @@
 				},
 				{
 					"data": "",
-					"id": "0d15f060-703e-4dd2-9fc6-2a6950995cdf",
+					"id": "b9ebeb05-9791-44cc-9eb2-b3d87fe56bac",
 					"name": "ban_reason",
 					"datatype": "text",
 					"param": "",
@@ -249,7 +249,7 @@
 				},
 				{
 					"data": "",
-					"id": "5cbac7e9-c538-4c68-8faf-8c1f15e6c985",
+					"id": "9281c314-540f-4e1a-a734-a2d98afce38c",
 					"name": "ban_start",
 					"datatype": "timestamp without time zone",
 					"param": "",
@@ -270,7 +270,7 @@
 				},
 				{
 					"data": "",
-					"id": "1239343b-8f2b-4a21-a6b9-662f5509a477",
+					"id": "a9b49df6-9f53-4f96-8dc4-e832a54bb734",
 					"name": "ban_end",
 					"datatype": "timestamp without time zone",
 					"param": "",
@@ -291,14 +291,19 @@
 				}
 			],
 			"relations": [
-				"0d766fca-9ee7-41aa-9dc3-fca1f7f597c7"
+				"985898e7-093c-42f8-b294-3e873ee9f41f"
 			],
 			"keys": [
 				{
-					"id": "bcd09dc8-0f83-4774-b4e8-b120d34b291a",
+					"id": "5b2c5490-6428-4acd-b06b-a66d9c81522a",
 					"isPk": true,
 					"name": "banned_players_pkey",
-					"cols": []
+					"cols": [
+						{
+							"id": "19081a7a-425b-422d-bf84-1a7e2398b48f",
+							"colid": "b288a6c0-7d66-4bc8-a4a6-d2297af79846"
+						}
+					]
 				}
 			],
 			"indexes": [],
@@ -308,7 +313,7 @@
 			"generateCustomCode": true,
 			"customCode": ""
 		},
-		"ec33b620-17c3-4fde-a50d-0f66499eb715": {
+		"80ff33a2-3643-4e33-b866-22401e4852ac": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -322,12 +327,12 @@
 				"schema": "public"
 			},
 			"desc": "Stores the pin the player is required to provide on login",
-			"id": "ec33b620-17c3-4fde-a50d-0f66499eb715",
+			"id": "80ff33a2-3643-4e33-b866-22401e4852ac",
 			"name": "login",
 			"cols": [
 				{
 					"data": "",
-					"id": "99d03483-a61f-4eaf-8ca0-56071ab31da1",
+					"id": "a86ebc27-fe88-410b-8753-75a80b3085d9",
 					"name": "id",
 					"datatype": "integer",
 					"param": "",
@@ -348,9 +353,9 @@
 				},
 				{
 					"data": "",
-					"id": "ba46631b-79a4-402d-9057-06dd7e031518",
+					"id": "390563c2-2466-450b-aa4d-cebe3a01979c",
 					"name": "player_id",
-					"datatype": "integer",
+					"datatype": "uuid",
 					"param": "",
 					"pk": false,
 					"nn": true,
@@ -369,7 +374,7 @@
 				},
 				{
 					"data": "",
-					"id": "28ede73c-82b4-40c3-bff4-1b4210b1086f",
+					"id": "4a9c246f-885c-4493-826b-6c4a24f786b1",
 					"name": "pin",
 					"datatype": "integer",
 					"param": "",
@@ -390,7 +395,7 @@
 				},
 				{
 					"data": "",
-					"id": "f7209abf-6546-4942-9685-b01171fd95e8",
+					"id": "8771af03-6c85-47f4-88cf-19b2b32fb995",
 					"name": "timestamp",
 					"datatype": "timestamp without time zone",
 					"param": "",
@@ -411,17 +416,17 @@
 				}
 			],
 			"relations": [
-				"2105ce42-57e0-4460-b766-648360298a46"
+				"c328ac67-6ddb-42ab-a796-0d672d22b8c1"
 			],
 			"keys": [
 				{
-					"id": "5dce2ecb-0dd7-4787-ad1b-ec4d014325ce",
+					"id": "f8d25a8c-884d-4426-ba79-5804c4e28249",
 					"isPk": true,
 					"name": "login_pkey",
 					"cols": [
 						{
-							"id": "295c93e7-f0d7-4904-8c28-ff17a4444af3",
-							"colid": "99d03483-a61f-4eaf-8ca0-56071ab31da1"
+							"id": "4a8b3423-180e-447b-b1e7-a19e32243f3f",
+							"colid": "a86ebc27-fe88-410b-8753-75a80b3085d9"
 						}
 					]
 				}
@@ -433,7 +438,7 @@
 			"generateCustomCode": true,
 			"customCode": ""
 		},
-		"003797f1-7bfa-4925-ad44-787ee42d8d8a": {
+		"055539e4-167e-4965-82ca-7fd1973c2c2f": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -447,14 +452,14 @@
 				"schema": "public"
 			},
 			"desc": "",
-			"id": "003797f1-7bfa-4925-ad44-787ee42d8d8a",
+			"id": "055539e4-167e-4965-82ca-7fd1973c2c2f",
 			"name": "player",
 			"cols": [
 				{
 					"data": "",
-					"id": "cc18a72f-85df-44f5-91c7-f7fa816b6851",
-					"name": "id",
-					"datatype": "integer",
+					"id": "64234d48-e491-4e3d-9a74-8ee070628e8b",
+					"name": "uuid",
+					"datatype": "uuid",
 					"param": "",
 					"pk": true,
 					"nn": true,
@@ -473,28 +478,7 @@
 				},
 				{
 					"data": "",
-					"id": "ddf6614b-197c-4958-ae00-c00178baf040",
-					"name": "uuid",
-					"datatype": "integer",
-					"param": "",
-					"pk": false,
-					"nn": true,
-					"comment": "",
-					"defaultvalue": "",
-					"collation": "",
-					"fk": true,
-					"after": "",
-					"pg": {
-						"generatedIdentity": "no",
-						"storage": "",
-						"compression": ""
-					},
-					"list": false,
-					"estimatedSize": ""
-				},
-				{
-					"data": "",
-					"id": "5cea804c-32ca-42fa-99f2-9344732681a4",
+					"id": "69c76c5f-e077-4790-9a9d-1ee3a33b3e8f",
 					"name": "name",
 					"datatype": "text",
 					"param": "",
@@ -515,17 +499,28 @@
 				}
 			],
 			"relations": [
-				"7e6dfaa5-fc8a-4b28-93a7-6f9595fb8ae2"
+				"f26b1c39-d8f1-4f4d-9509-cb974e104aee"
 			],
 			"keys": [
 				{
-					"id": "b48f0604-c720-4dbf-a10c-e2bb7b84aec8",
-					"isPk": true,
-					"name": "player_pkey1",
+					"id": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
+					"isPk": false,
+					"name": "player_key",
 					"cols": [
 						{
-							"id": "92f48a48-861c-4093-8926-7f91e9587eeb",
-							"colid": "cc18a72f-85df-44f5-91c7-f7fa816b6851"
+							"id": "8495dff2-2092-490e-84e8-9cfc94e577b9",
+							"colid": "64234d48-e491-4e3d-9a74-8ee070628e8b"
+						}
+					]
+				},
+				{
+					"id": "71f131f0-dac5-48aa-8565-330e6422888c",
+					"isPk": true,
+					"name": "player_pkey",
+					"cols": [
+						{
+							"id": "c3ba9362-b985-4c51-ba62-f6bccdb01b4f",
+							"colid": "64234d48-e491-4e3d-9a74-8ee070628e8b"
 						}
 					]
 				}
@@ -537,7 +532,7 @@
 			"generateCustomCode": true,
 			"customCode": ""
 		},
-		"fd7128df-d897-45d6-94b7-09a5f11adf9d": {
+		"db052761-90ba-4dca-88d8-d19f98cb65b5": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -551,16 +546,16 @@
 				"schema": "public"
 			},
 			"desc": "The prefix which a player can configure on the website",
-			"id": "fd7128df-d897-45d6-94b7-09a5f11adf9d",
+			"id": "db052761-90ba-4dca-88d8-d19f98cb65b5",
 			"name": "player_prefixes",
 			"cols": [
 				{
 					"data": "",
-					"id": "83943af2-df3b-4097-833b-403edb272318",
+					"id": "077457c3-5bf6-42a7-a460-663fe160b88a",
 					"name": "id",
 					"datatype": "integer",
 					"param": "",
-					"pk": false,
+					"pk": true,
 					"nn": true,
 					"comment": "",
 					"defaultvalue": "",
@@ -577,9 +572,9 @@
 				},
 				{
 					"data": "",
-					"id": "76c06e49-e085-432a-b2e6-1437170f33af",
+					"id": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa",
 					"name": "player_id",
-					"datatype": "integer",
+					"datatype": "uuid",
 					"param": "",
 					"pk": false,
 					"nn": true,
@@ -598,7 +593,7 @@
 				},
 				{
 					"data": "",
-					"id": "a6f19d63-abf9-48ec-a40a-3879aabab1ec",
+					"id": "a3afa60c-f970-46d2-89d6-d08eec84c8b5",
 					"name": "prefix",
 					"datatype": "text",
 					"param": "",
@@ -619,7 +614,7 @@
 				},
 				{
 					"data": "",
-					"id": "ba902b43-995d-40e1-b9ed-3eaaaeac2b5a",
+					"id": "8d60172a-9138-4ac2-8ae6-2c40a4994639",
 					"name": "password",
 					"datatype": "text",
 					"param": "",
@@ -640,9 +635,9 @@
 				},
 				{
 					"data": "",
-					"id": "dda8227b-2fd2-41a4-91c7-43fec2757fe4",
+					"id": "c4501b08-abc6-4b2c-86da-0f91f54b9b26",
 					"name": "members",
-					"datatype": "integer",
+					"datatype": "uuid",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -656,19 +651,24 @@
 						"storage": "",
 						"compression": ""
 					},
-					"list": false,
+					"list": true,
 					"estimatedSize": ""
 				}
 			],
 			"relations": [
-				"186dba34-9fc7-47f0-bc2d-47c7f747c5c0"
+				"2072b35f-68ca-4670-9d24-91eab02b13c2"
 			],
 			"keys": [
 				{
-					"id": "a800f5ee-4705-48c3-8c65-7df01850aaab",
+					"id": "88573917-94d0-4b35-a78c-d5ef86edfcd7",
 					"isPk": true,
 					"name": "player_prefixes_pkey",
-					"cols": []
+					"cols": [
+						{
+							"id": "7ddc1440-4509-4b80-8654-236101b02105",
+							"colid": "077457c3-5bf6-42a7-a460-663fe160b88a"
+						}
+					]
 				}
 			],
 			"indexes": [],
@@ -678,7 +678,7 @@
 			"generateCustomCode": true,
 			"customCode": ""
 		},
-		"ecfeb0d1-aca2-41bd-933d-99c6c03f7a39": {
+		"6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -692,14 +692,14 @@
 				"schema": "public"
 			},
 			"desc": "Saves player data regarding the online status, last seen,...",
-			"id": "ecfeb0d1-aca2-41bd-933d-99c6c03f7a39",
+			"id": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
 			"name": "player_server_info",
 			"cols": [
 				{
 					"data": "",
-					"id": "cf85242b-78c9-4577-92a2-36c176e7e044",
+					"id": "b2d55569-068b-4600-a42f-031acc7c0711",
 					"name": "id",
-					"datatype": "integer",
+					"datatype": "uuid",
 					"param": "",
 					"pk": true,
 					"nn": true,
@@ -718,222 +718,7 @@
 				},
 				{
 					"data": "",
-					"id": "642d471b-d1b0-4b28-8bf4-94b1eb64dcfc",
-					"name": "server_id",
-					"datatype": "integer",
-					"param": "",
-					"pk": false,
-					"nn": true,
-					"comment": "",
-					"defaultvalue": "",
-					"collation": "",
-					"fk": false,
-					"after": "",
-					"pg": {
-						"generatedIdentity": "no",
-						"storage": "",
-						"compression": ""
-					},
-					"list": false,
-					"estimatedSize": ""
-				},
-				{
-					"data": "",
-					"id": "95e6d59f-b9b7-4b01-80ac-5230b0d921d9",
-					"name": "player_uuid",
-					"datatype": "integer",
-					"param": "",
-					"pk": false,
-					"nn": true,
-					"comment": "",
-					"defaultvalue": "",
-					"collation": "",
-					"fk": false,
-					"after": "",
-					"pg": {
-						"generatedIdentity": "no",
-						"storage": "",
-						"compression": ""
-					},
-					"list": false,
-					"estimatedSize": ""
-				},
-				{
-					"data": "",
-					"id": "ef907535-b998-4b3e-be2e-877fe8658faa",
-					"name": "online",
-					"datatype": "bit",
-					"param": "1",
-					"pk": false,
-					"nn": true,
-					"comment": "",
-					"defaultvalue": "",
-					"collation": "",
-					"fk": false,
-					"after": "",
-					"pg": {
-						"generatedIdentity": "no",
-						"storage": "",
-						"compression": ""
-					},
-					"list": false,
-					"estimatedSize": ""
-				},
-				{
-					"data": "",
-					"id": "49a3e80c-1600-4199-a413-fa81f8b26624",
-					"name": "first_seen",
-					"datatype": "timestamp without time zone",
-					"param": "",
-					"pk": false,
-					"nn": true,
-					"comment": "",
-					"defaultvalue": "",
-					"collation": "",
-					"fk": false,
-					"after": "",
-					"pg": {
-						"generatedIdentity": "no",
-						"storage": "",
-						"compression": ""
-					},
-					"list": false,
-					"estimatedSize": ""
-				},
-				{
-					"data": "",
-					"id": "f47feec2-e497-4d34-90b5-4b75e7c79120",
-					"name": "last_seen",
-					"datatype": "timestamp without time zone",
-					"param": "",
-					"pk": false,
-					"nn": true,
-					"comment": "",
-					"defaultvalue": "",
-					"collation": "",
-					"fk": false,
-					"after": "",
-					"pg": {
-						"generatedIdentity": "no",
-						"storage": "",
-						"compression": ""
-					},
-					"list": false,
-					"estimatedSize": ""
-				},
-				{
-					"data": "",
-					"id": "7bef9af5-3e07-43ab-bf94-3c81d0daf88d",
-					"name": "web_access_permissions",
-					"datatype": "smallint",
-					"param": "",
-					"pk": false,
-					"nn": true,
-					"comment": "",
-					"defaultvalue": "",
-					"collation": "",
-					"fk": false,
-					"after": "",
-					"pg": {
-						"generatedIdentity": "no",
-						"storage": "",
-						"compression": ""
-					},
-					"list": false,
-					"estimatedSize": ""
-				}
-			],
-			"relations": [
-				"18fc86d9-e18e-4939-a5c4-3b005b9b413f",
-				"0d766fca-9ee7-41aa-9dc3-fca1f7f597c7",
-				"2105ce42-57e0-4460-b766-648360298a46",
-				"7e6dfaa5-fc8a-4b28-93a7-6f9595fb8ae2",
-				"186dba34-9fc7-47f0-bc2d-47c7f747c5c0",
-				"91a1b3e9-b04f-4fd5-845c-6b71272bcf06"
-			],
-			"keys": [
-				{
-					"id": "35b79145-f60d-4254-9add-7d15d225a995",
-					"isPk": false,
-					"name": "player_server_info_key",
-					"cols": [
-						{
-							"id": "96d534e4-4bb7-4034-a1b6-99a269576d48",
-							"colid": "642d471b-d1b0-4b28-8bf4-94b1eb64dcfc"
-						}
-					]
-				},
-				{
-					"id": "0d25bef8-62ba-45f0-9c73-afbdb5b952ca",
-					"isPk": false,
-					"name": "player_server_info_key1",
-					"cols": [
-						{
-							"id": "a8c44b37-8e84-40c4-a0d6-de876e708d30",
-							"colid": "95e6d59f-b9b7-4b01-80ac-5230b0d921d9"
-						}
-					]
-				},
-				{
-					"id": "74445bb3-b6a1-472d-bda1-59be1ad1e5a2",
-					"isPk": true,
-					"name": "player_server_info_pkey",
-					"cols": [
-						{
-							"id": "9b5473ce-1f18-4393-aea6-75c4fe135201",
-							"colid": "cf85242b-78c9-4577-92a2-36c176e7e044"
-						}
-					]
-				}
-			],
-			"indexes": [],
-			"estimatedSize": "",
-			"visible": true,
-			"generate": true,
-			"generateCustomCode": true,
-			"customCode": ""
-		},
-		"e569a16c-cfae-4193-9b7c-a1c99250e733": {
-			"lines": [],
-			"embeddable": false,
-			"objectType": "table",
-			"pg": {
-				"tablespace": "",
-				"inherits": "",
-				"storageParameters": "",
-				"partition": "",
-				"rowsecurity": false,
-				"partitionNames": [],
-				"schema": "public"
-			},
-			"desc": "",
-			"id": "e569a16c-cfae-4193-9b7c-a1c99250e733",
-			"name": "server",
-			"cols": [
-				{
-					"data": "",
-					"id": "a90dfcf6-bfa4-4c6b-9454-ba4dfa839903",
-					"name": "id",
-					"datatype": "integer",
-					"param": "",
-					"pk": true,
-					"nn": true,
-					"comment": "",
-					"defaultvalue": "",
-					"collation": "",
-					"fk": false,
-					"after": "",
-					"pg": {
-						"generatedIdentity": "no",
-						"storage": "",
-						"compression": ""
-					},
-					"list": false,
-					"estimatedSize": ""
-				},
-				{
-					"data": "",
-					"id": "b7418deb-2217-4742-8160-09a089d36214",
+					"id": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399",
 					"name": "server_id",
 					"datatype": "integer",
 					"param": "",
@@ -954,7 +739,201 @@
 				},
 				{
 					"data": "",
-					"id": "49ceae3d-a5ce-44b8-a4ac-5e48ed220b64",
+					"id": "930a6909-2045-49e8-b022-25af34a503e7",
+					"name": "player_uuid",
+					"datatype": "uuid",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "fa4a6be5-f813-4d47-80c8-b58a3ba03480",
+					"name": "online",
+					"datatype": "boolean",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "c40f454b-ab62-4ecf-a2b4-8630c5d33a4b",
+					"name": "first_seen",
+					"datatype": "timestamp without time zone",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "584dae6c-3ab4-4e8a-8f73-bf0a74e4bb40",
+					"name": "last_seen",
+					"datatype": "timestamp without time zone",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "891d05e8-f091-4c24-8011-f550023f52f9",
+					"name": "web_access_permissions",
+					"datatype": "smallint",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"cb84411c-793b-4b5b-af0b-43898ac25a53",
+				"985898e7-093c-42f8-b294-3e873ee9f41f",
+				"c328ac67-6ddb-42ab-a796-0d672d22b8c1",
+				"2072b35f-68ca-4670-9d24-91eab02b13c2",
+				"f26b1c39-d8f1-4f4d-9509-cb974e104aee",
+				"de1b22a0-75c2-4399-849f-1c81792a4084"
+			],
+			"keys": [
+				{
+					"id": "9ba53e7f-6ec2-4541-824f-3b50eca4f4ee",
+					"isPk": false,
+					"name": "player_server_info_key",
+					"cols": [
+						{
+							"id": "24e91e67-b11d-4321-b427-872cc27bff6d",
+							"colid": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
+						}
+					]
+				},
+				{
+					"id": "d68f4c8d-3422-463f-8e1b-57ccc4d6586d",
+					"isPk": false,
+					"name": "player_server_info_key1",
+					"cols": [
+						{
+							"id": "cc61e721-063c-4690-8b71-460213600805",
+							"colid": "930a6909-2045-49e8-b022-25af34a503e7"
+						}
+					]
+				},
+				{
+					"id": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"isPk": true,
+					"name": "player_server_info_pkey",
+					"cols": [
+						{
+							"id": "80620921-0523-40fa-a044-034441ebe68d",
+							"colid": "b2d55569-068b-4600-a42f-031acc7c0711"
+						}
+					]
+				}
+			],
+			"indexes": [],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"551caf61-9c12-430e-a1f5-c70ac324ab2b": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "",
+			"id": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+			"name": "server",
+			"cols": [
+				{
+					"data": "",
+					"id": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
+					"name": "server_id",
+					"datatype": "integer",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "7e5c62e7-813f-40fd-b73e-ae11c91aa496",
 					"name": "subdomain",
 					"datatype": "text",
 					"param": "",
@@ -975,7 +954,7 @@
 				},
 				{
 					"data": "",
-					"id": "12e3f146-0fca-4a2b-a75a-11c9650c8922",
+					"id": "d949fc4d-e2a8-4fe8-bd0c-afe6476ecd14",
 					"name": "owner_name",
 					"datatype": "text",
 					"param": "",
@@ -996,7 +975,7 @@
 				},
 				{
 					"data": "",
-					"id": "630114e6-8ab1-4038-aa52-4e146daefe10",
+					"id": "e04eb1a4-5e7b-4848-85c4-889301699a9d",
 					"name": "mc_server_domain",
 					"datatype": "text",
 					"param": "",
@@ -1017,17 +996,28 @@
 				}
 			],
 			"relations": [
-				"91a1b3e9-b04f-4fd5-845c-6b71272bcf06"
+				"de1b22a0-75c2-4399-849f-1c81792a4084"
 			],
 			"keys": [
 				{
-					"id": "d570acc5-27a4-42ec-9a6e-ea735b90ad38",
+					"id": "e3a0322f-3547-4405-b903-3639ae063416",
+					"isPk": false,
+					"name": "server_key",
+					"cols": [
+						{
+							"id": "8db3864f-5bd6-42df-9ff9-b267831fa742",
+							"colid": "8fc0440e-b120-42b1-836d-3d4a4c07ac61"
+						}
+					]
+				},
+				{
+					"id": "65197089-9172-4ca0-9b79-f50322e08e4e",
 					"isPk": true,
 					"name": "server_pkey",
 					"cols": [
 						{
-							"id": "27fb9925-5377-46d2-9460-03f53df14bf2",
-							"colid": "a90dfcf6-bfa4-4c6b-9454-ba4dfa839903"
+							"id": "d217b23b-b29e-43ab-891e-4e3a13444682",
+							"colid": "8fc0440e-b120-42b1-836d-3d4a4c07ac61"
 						}
 					]
 				}
@@ -1041,18 +1031,18 @@
 		}
 	},
 	"relations": {
-		"18fc86d9-e18e-4939-a5c4-3b005b9b413f": {
-			"id": "18fc86d9-e18e-4939-a5c4-3b005b9b413f",
+		"cb84411c-793b-4b5b-af0b-43898ac25a53": {
+			"id": "cb84411c-793b-4b5b-af0b-43898ac25a53",
 			"type": "identifying",
 			"cols": [
 				{
-					"id": "0211c837-2724-4f1e-92fb-40f27870fd4b",
-					"parentcol": "cf85242b-78c9-4577-92a2-36c176e7e044",
-					"childcol": "458d3466-4f90-44c3-844b-e3f89e913e48"
+					"id": "000ff20f-7dac-42db-bdb5-6e1481d3dfd6",
+					"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+					"childcol": "7ecf10f4-1463-445e-954c-3655d08db019"
 				}
 			],
-			"child": "08005a20-2e51-496b-8980-38e6b32734a9",
-			"parent": "ecfeb0d1-aca2-41bd-933d-99c6c03f7a39",
+			"child": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
+			"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
 			"c_mp": "true",
 			"c_mch": "true",
 			"c_ch": "many",
@@ -1061,7 +1051,7 @@
 			"c_cch": "",
 			"name": "actions_player_id_fkey",
 			"desc": "",
-			"parent_key": "74445bb3-b6a1-472d-bda1-59be1ad1e5a2",
+			"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
 			"ri_pd": "No action",
 			"ri_pu": "No action",
 			"generate": true,
@@ -1070,18 +1060,18 @@
 			"relationColor": "transparent",
 			"visible": true
 		},
-		"0d766fca-9ee7-41aa-9dc3-fca1f7f597c7": {
-			"id": "0d766fca-9ee7-41aa-9dc3-fca1f7f597c7",
+		"985898e7-093c-42f8-b294-3e873ee9f41f": {
+			"id": "985898e7-093c-42f8-b294-3e873ee9f41f",
 			"type": "identifying",
 			"cols": [
 				{
-					"id": "1c30fc80-189b-4b3f-ac3d-e161de846c5d",
-					"parentcol": "cf85242b-78c9-4577-92a2-36c176e7e044",
-					"childcol": "0d20eed8-7baf-40a2-be77-3811dc48c320"
+					"id": "e0eb4466-52f2-447d-8f8a-cfc7ffe45e30",
+					"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+					"childcol": "04420b8f-e8d0-4769-bf81-ef4c94bf156f"
 				}
 			],
-			"child": "a2a74101-5822-4129-ab0e-4c26d3d91bfc",
-			"parent": "ecfeb0d1-aca2-41bd-933d-99c6c03f7a39",
+			"child": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
+			"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
 			"c_mp": "true",
 			"c_mch": "false",
 			"c_ch": "many",
@@ -1090,7 +1080,7 @@
 			"c_cch": "",
 			"name": "banned_players_player_id_fkey",
 			"desc": "",
-			"parent_key": "74445bb3-b6a1-472d-bda1-59be1ad1e5a2",
+			"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
 			"ri_pd": "No action",
 			"ri_pu": "No action",
 			"generate": true,
@@ -1099,18 +1089,18 @@
 			"relationColor": "transparent",
 			"visible": true
 		},
-		"2105ce42-57e0-4460-b766-648360298a46": {
-			"id": "2105ce42-57e0-4460-b766-648360298a46",
+		"c328ac67-6ddb-42ab-a796-0d672d22b8c1": {
+			"id": "c328ac67-6ddb-42ab-a796-0d672d22b8c1",
 			"type": "identifying",
 			"cols": [
 				{
-					"id": "f24e166e-840b-49c8-9076-0a7b4e5c9052",
-					"parentcol": "cf85242b-78c9-4577-92a2-36c176e7e044",
-					"childcol": "ba46631b-79a4-402d-9057-06dd7e031518"
+					"id": "33451233-5079-4b05-9211-44d1b27ba293",
+					"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+					"childcol": "390563c2-2466-450b-aa4d-cebe3a01979c"
 				}
 			],
-			"child": "ec33b620-17c3-4fde-a50d-0f66499eb715",
-			"parent": "ecfeb0d1-aca2-41bd-933d-99c6c03f7a39",
+			"child": "80ff33a2-3643-4e33-b866-22401e4852ac",
+			"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
 			"c_mp": "true",
 			"c_mch": "true",
 			"c_ch": "many",
@@ -1119,7 +1109,7 @@
 			"c_cch": "",
 			"name": "login_player_id_fkey",
 			"desc": "",
-			"parent_key": "74445bb3-b6a1-472d-bda1-59be1ad1e5a2",
+			"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
 			"ri_pd": "No action",
 			"ri_pu": "No action",
 			"generate": true,
@@ -1128,47 +1118,18 @@
 			"relationColor": "transparent",
 			"visible": true
 		},
-		"7e6dfaa5-fc8a-4b28-93a7-6f9595fb8ae2": {
-			"id": "7e6dfaa5-fc8a-4b28-93a7-6f9595fb8ae2",
+		"2072b35f-68ca-4670-9d24-91eab02b13c2": {
+			"id": "2072b35f-68ca-4670-9d24-91eab02b13c2",
 			"type": "identifying",
 			"cols": [
 				{
-					"id": "0304100c-dc6c-4f33-b189-7a9eb1307c40",
-					"parentcol": "95e6d59f-b9b7-4b01-80ac-5230b0d921d9",
-					"childcol": "ddf6614b-197c-4958-ae00-c00178baf040"
+					"id": "40147bd6-a227-4616-86a5-96b0c504dc0a",
+					"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+					"childcol": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa"
 				}
 			],
-			"child": "003797f1-7bfa-4925-ad44-787ee42d8d8a",
-			"parent": "ecfeb0d1-aca2-41bd-933d-99c6c03f7a39",
-			"c_mp": "true",
-			"c_mch": "true",
-			"c_ch": "many",
-			"c_p": "one",
-			"c_cp": "",
-			"c_cch": "",
-			"name": "player_uuid_fkey",
-			"desc": "",
-			"parent_key": "0d25bef8-62ba-45f0-9c73-afbdb5b952ca",
-			"ri_pd": "No action",
-			"ri_pu": "No action",
-			"generate": true,
-			"generateCustomCode": true,
-			"customCode": "",
-			"relationColor": "transparent",
-			"visible": true
-		},
-		"186dba34-9fc7-47f0-bc2d-47c7f747c5c0": {
-			"id": "186dba34-9fc7-47f0-bc2d-47c7f747c5c0",
-			"type": "identifying",
-			"cols": [
-				{
-					"id": "2df610b0-04ed-4f7c-a4c0-53f9864405e9",
-					"parentcol": "cf85242b-78c9-4577-92a2-36c176e7e044",
-					"childcol": "76c06e49-e085-432a-b2e6-1437170f33af"
-				}
-			],
-			"child": "fd7128df-d897-45d6-94b7-09a5f11adf9d",
-			"parent": "ecfeb0d1-aca2-41bd-933d-99c6c03f7a39",
+			"child": "db052761-90ba-4dca-88d8-d19f98cb65b5",
+			"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
 			"c_mp": "true",
 			"c_mch": "true",
 			"c_ch": "many",
@@ -1177,7 +1138,7 @@
 			"c_cch": "",
 			"name": "player_prefixes_player_id_fkey",
 			"desc": "",
-			"parent_key": "74445bb3-b6a1-472d-bda1-59be1ad1e5a2",
+			"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
 			"ri_pd": "No action",
 			"ri_pu": "No action",
 			"generate": true,
@@ -1186,27 +1147,56 @@
 			"relationColor": "transparent",
 			"visible": true
 		},
-		"91a1b3e9-b04f-4fd5-845c-6b71272bcf06": {
-			"id": "91a1b3e9-b04f-4fd5-845c-6b71272bcf06",
+		"f26b1c39-d8f1-4f4d-9509-cb974e104aee": {
+			"id": "f26b1c39-d8f1-4f4d-9509-cb974e104aee",
 			"type": "identifying",
 			"cols": [
 				{
-					"id": "5fa943d4-29e9-4f51-b52e-394188429701",
-					"parentcol": "642d471b-d1b0-4b28-8bf4-94b1eb64dcfc",
-					"childcol": "b7418deb-2217-4742-8160-09a089d36214"
+					"id": "c4ae39e5-cb4b-4866-b138-b207d8bb3e99",
+					"parentcol": "64234d48-e491-4e3d-9a74-8ee070628e8b",
+					"childcol": "930a6909-2045-49e8-b022-25af34a503e7"
 				}
 			],
-			"child": "e569a16c-cfae-4193-9b7c-a1c99250e733",
-			"parent": "ecfeb0d1-aca2-41bd-933d-99c6c03f7a39",
+			"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+			"parent": "055539e4-167e-4965-82ca-7fd1973c2c2f",
 			"c_mp": "true",
 			"c_mch": "true",
-			"c_ch": "many",
+			"c_ch": "one",
 			"c_p": "one",
 			"c_cp": "",
 			"c_cch": "",
-			"name": "server_server_id_fkey",
+			"name": "player_server_info_player_uuid_fkey",
 			"desc": "",
-			"parent_key": "35b79145-f60d-4254-9add-7d15d225a995",
+			"parent_key": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		},
+		"de1b22a0-75c2-4399-849f-1c81792a4084": {
+			"id": "de1b22a0-75c2-4399-849f-1c81792a4084",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "427cf291-d812-4a73-bbca-9900de4484ff",
+					"parentcol": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
+					"childcol": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
+				}
+			],
+			"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+			"parent": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_ch": "one",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "player_server_info_server_id_fkey",
+			"desc": "",
+			"parent_key": "e3a0322f-3547-4405-b903-3639ae063416",
 			"ri_pd": "No action",
 			"ri_pu": "No action",
 			"generate": true,
@@ -1216,23 +1206,47 @@
 			"visible": true
 		}
 	},
-	"notes": {},
+	"notes": {
+		"5da773d1-dfad-46fa-ab36-b6107c54d030": {
+			"id": "5da773d1-dfad-46fa-ab36-b6107c54d030",
+			"visible": true,
+			"name": "note1",
+			"desc": "<p>Minecraft UUID</p><p>(not random)</p>",
+			"lines": [],
+			"type": "Note"
+		},
+		"9f683b1c-fc1c-44a4-b360-2c6bab124301": {
+			"id": "9f683b1c-fc1c-44a4-b360-2c6bab124301",
+			"visible": true,
+			"name": "note2",
+			"desc": "<p>internal id</p><p>(random)</p>",
+			"lines": [],
+			"type": "Note"
+		},
+		"f30fefa6-ab43-4a2d-84d8-df8503ab489b": {
+			"id": "f30fefa6-ab43-4a2d-84d8-df8503ab489b",
+			"visible": true,
+			"name": "note3",
+			"desc": "<p>server id</p><p>(random)</p>",
+			"lines": [],
+			"type": "Note"
+		}
+	},
 	"lines": {},
 	"model": {
-		"connectionId": "6e1fd154-5bcd-48de-92b3-eb6ec10a3659",
-		"connectionVersion": "PostgreSQL 13.15 (Debian 13.15-1.pgdg120+1)",
-		"activeDiagram": "be79e182-653a-449f-b8d5-b8d8e710479b",
-		"caseConvention": "under",
-		"color": "transparent",
-		"def_coltopk": true,
+		"name": "MC-DB Layout V1",
+		"id": "1989aa0a-5cf4-445a-81d5-93a4bd9c2b63",
+		"activeDiagram": "d10c04f7-f3bb-427f-a3ac-99531676f05a",
 		"desc": "",
-		"id": "e7c25905-c685-4fb0-84f7-8d9a82036939",
-		"isDirty": true,
-		"name": "test",
-		"parentTableInFkCols": true,
 		"path": "",
+		"type": "PG",
+		"version": 1,
+		"parentTableInFkCols": true,
+		"caseConvention": "under",
 		"replaceSpace": "_",
+		"color": "transparent",
 		"sideSelections": true,
+		"isDirty": true,
 		"storedin": {
 			"major": 8,
 			"minor": 5,
@@ -1243,9 +1257,11 @@
 			"minor": 5,
 			"extra": 1
 		},
-		"type": "PG",
-		"version": 1,
-		"lastSaved": "",
+		"writeFileParam": false,
+		"authorName": "",
+		"companyDetails": "",
+		"companyUrl": "",
+		"def_coltopk": true,
 		"pg": {
 			"schema": "public"
 		},
@@ -1270,160 +1286,3175 @@
 			"indexes": true,
 			"relations": true
 		},
-		"writeFileParam": false,
-		"authorName": "",
-		"companyDetails": "",
-		"companyUrl": ""
+		"connectionVersion": "PostgreSQL 13.15 (Debian 13.15-1.pgdg120+1)",
+		"lastSaved": "",
+		"connectionId": "6e1fd154-5bcd-48de-92b3-eb6ec10a3659"
 	},
 	"otherObjects": {},
 	"diagrams": {
-		"be79e182-653a-449f-b8d5-b8d8e710479b": {
-			"id": "be79e182-653a-449f-b8d5-b8d8e710479b",
-			"lineColor": "transparent",
+		"d10c04f7-f3bb-427f-a3ac-99531676f05a": {
+			"name": "Main Diagram",
 			"description": "",
+			"id": "d10c04f7-f3bb-427f-a3ac-99531676f05a",
+			"keysgraphics": false,
+			"linegraphics": "detailed",
+			"zoom": 1.1,
+			"background": "transparent",
+			"lineColor": "transparent",
+			"isOpen": true,
+			"main": true,
 			"diagramItems": {
-				"08005a20-2e51-496b-8980-38e6b32734a9": {
-					"x": 817,
-					"y": 47,
+				"dc96190a-91f9-4164-b2a3-ee46c44dfe00": {
+					"x": 898,
+					"y": 41,
 					"gHeight": 117,
 					"gWidth": 190,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "08005a20-2e51-496b-8980-38e6b32734a9",
+					"referencedItemId": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"a2a74101-5822-4129-ab0e-4c26d3d91bfc": {
-					"x": 828,
-					"y": 201,
+				"6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad": {
+					"x": 835,
+					"y": 253,
 					"gHeight": 135,
 					"gWidth": 305,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "a2a74101-5822-4129-ab0e-4c26d3d91bfc",
+					"referencedItemId": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"ec33b620-17c3-4fde-a50d-0f66499eb715": {
-					"x": 848,
-					"y": 505,
+				"80ff33a2-3643-4e33-b866-22401e4852ac": {
+					"x": 812,
+					"y": 556,
 					"gHeight": 99,
 					"gWidth": 313,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "ec33b620-17c3-4fde-a50d-0f66499eb715",
+					"referencedItemId": "80ff33a2-3643-4e33-b866-22401e4852ac",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"003797f1-7bfa-4925-ad44-787ee42d8d8a": {
-					"x": 101,
-					"y": 457,
-					"gHeight": 81,
-					"gWidth": 163,
+				"055539e4-167e-4965-82ca-7fd1973c2c2f": {
+					"x": 175,
+					"y": 341,
+					"gHeight": 63,
+					"gWidth": 153,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "003797f1-7bfa-4925-ad44-787ee42d8d8a",
+					"referencedItemId": "055539e4-167e-4965-82ca-7fd1973c2c2f",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"fd7128df-d897-45d6-94b7-09a5f11adf9d": {
-					"x": 907,
-					"y": 364,
+				"db052761-90ba-4dca-88d8-d19f98cb65b5": {
+					"x": 892,
+					"y": 418,
 					"gHeight": 117,
-					"gWidth": 192,
+					"gWidth": 196,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "fd7128df-d897-45d6-94b7-09a5f11adf9d",
+					"referencedItemId": "db052761-90ba-4dca-88d8-d19f98cb65b5",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"ecfeb0d1-aca2-41bd-933d-99c6c03f7a39": {
-					"x": 150,
-					"y": 70,
+				"6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7": {
+					"x": 145,
+					"y": 79,
 					"gHeight": 153,
 					"gWidth": 306,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "ecfeb0d1-aca2-41bd-933d-99c6c03f7a39",
+					"referencedItemId": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"e569a16c-cfae-4193-9b7c-a1c99250e733": {
-					"x": 50,
-					"y": 554,
-					"gHeight": 117,
+				"551caf61-9c12-430e-a1f5-c70ac324ab2b": {
+					"x": 153,
+					"y": 447,
+					"gHeight": 99,
 					"gWidth": 227,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "e569a16c-cfae-4193-9b7c-a1c99250e733",
+					"referencedItemId": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
+				},
+				"5da773d1-dfad-46fa-ab36-b6107c54d030": {
+					"referencedItemId": "5da773d1-dfad-46fa-ab36-b6107c54d030",
+					"x": 602,
+					"y": 767,
+					"gHeight": 38,
+					"gWidth": 94,
+					"color": "#333",
+					"background": "#f9e79f",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10",
+					"collapsed": false
+				},
+				"9f683b1c-fc1c-44a4-b360-2c6bab124301": {
+					"referencedItemId": "9f683b1c-fc1c-44a4-b360-2c6bab124301",
+					"x": 471,
+					"y": 775,
+					"gHeight": 38,
+					"gWidth": 65,
+					"color": "#333",
+					"background": "#f9e79f",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10",
+					"collapsed": false
+				},
+				"f30fefa6-ab43-4a2d-84d8-df8503ab489b": {
+					"referencedItemId": "f30fefa6-ab43-4a2d-84d8-df8503ab489b",
+					"x": 742,
+					"y": 769,
+					"gHeight": 38,
+					"gWidth": 60,
+					"color": "#333",
+					"background": "#f9e79f",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10",
+					"collapsed": false
 				}
 			},
-			"isOpen": true,
-			"main": true,
-			"name": "Main Diagram",
-			"keysgraphics": true,
-			"linegraphics": "detailed",
-			"zoom": 1,
-			"background": "transparent",
 			"scroll": {
 				"x": 0,
 				"y": 0
 			},
 			"type": "erd",
-			"showEstimatedSize": false,
-			"showSchemaContainer": false,
-			"showEmbeddedInParents": true,
-			"showCardinalityCaptions": false,
-			"showRelationshipNames": false,
-			"showLineCaptions": true,
-			"showColumns": true,
-			"showColumnDataTypes": true,
-			"showSampleData": false,
-			"showTableIndexes": false,
-			"showTableDescriptions": false,
-			"showRelations": true,
-			"showHorizontal": false,
+			"showHorizontal": true,
 			"showDescriptions": true,
-			"showIndicators": false,
-			"showProgress": false,
-			"showIndicatorCaptions": false,
-			"backgroundImage": "na",
-			"descriptionsColor": "transparent",
+			"showIndicators": true,
+			"showProgress": true,
+			"lineWidth": "2",
 			"boxSize": "0",
 			"boxSpacing": "2",
 			"boxAlign": "center",
-			"lineWidth": "2",
+			"showIndicatorCaptions": true,
+			"showEstimatedSize": false,
+			"showSchemaContainer": true,
+			"showEmbeddedInParents": true,
+			"showCardinalityCaptions": true,
+			"showRelationshipNames": false,
+			"showLineCaptions": false,
+			"showColumns": true,
+			"showColumnDataTypes": true,
+			"showSampleData": false,
+			"showTableIndexes": true,
+			"showTableDescriptions": false,
+			"showRelations": true,
+			"backgroundImage": "na",
+			"descriptionsColor": "transparent",
 			"embeddedSpacing": "2",
-			"showLabels": true,
 			"showMainIcon": true,
+			"showLabels": true,
 			"showCustomizations": false
 		}
 	},
 	"diagramsOrder": [],
 	"order": [
-		"ecfeb0d1-aca2-41bd-933d-99c6c03f7a39",
-		"08005a20-2e51-496b-8980-38e6b32734a9",
-		"a2a74101-5822-4129-ab0e-4c26d3d91bfc",
-		"ec33b620-17c3-4fde-a50d-0f66499eb715",
-		"003797f1-7bfa-4925-ad44-787ee42d8d8a",
-		"fd7128df-d897-45d6-94b7-09a5f11adf9d",
-		"e569a16c-cfae-4193-9b7c-a1c99250e733",
-		"18fc86d9-e18e-4939-a5c4-3b005b9b413f",
-		"0d766fca-9ee7-41aa-9dc3-fca1f7f597c7",
-		"2105ce42-57e0-4460-b766-648360298a46",
-		"186dba34-9fc7-47f0-bc2d-47c7f747c5c0",
-		"7e6dfaa5-fc8a-4b28-93a7-6f9595fb8ae2",
-		"91a1b3e9-b04f-4fd5-845c-6b71272bcf06"
+		"055539e4-167e-4965-82ca-7fd1973c2c2f",
+		"551caf61-9c12-430e-a1f5-c70ac324ab2b",
+		"6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+		"dc96190a-91f9-4164-b2a3-ee46c44dfe00",
+		"6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
+		"80ff33a2-3643-4e33-b866-22401e4852ac",
+		"db052761-90ba-4dca-88d8-d19f98cb65b5",
+		"cb84411c-793b-4b5b-af0b-43898ac25a53",
+		"985898e7-093c-42f8-b294-3e873ee9f41f",
+		"c328ac67-6ddb-42ab-a796-0d672d22b8c1",
+		"2072b35f-68ca-4670-9d24-91eab02b13c2",
+		"f26b1c39-d8f1-4f4d-9509-cb974e104aee",
+		"de1b22a0-75c2-4399-849f-1c81792a4084"
 	],
 	"collapsedTreeItems": [],
-	"reverseStats": {}
+	"reverseStats": {
+		"diffReport": {
+			"statistics": [
+				{
+					"caption": "Tables",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 2,
+							"idNames": [
+								{
+									"name": "player",
+									"id": "055539e4-167e-4965-82ca-7fd1973c2c2f"
+								},
+								{
+									"name": "server",
+									"id": "551caf61-9c12-430e-a1f5-c70ac324ab2b"
+								}
+							]
+						},
+						"total": 7
+					}
+				},
+				{
+					"caption": "Composites",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				},
+				{
+					"caption": "Columns",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 2,
+							"idNames": [
+								{
+									"name": "player.uuid",
+									"id": "64234d48-e491-4e3d-9a74-8ee070628e8b"
+								},
+								{
+									"name": "server.server_id",
+									"id": "8fc0440e-b120-42b1-836d-3d4a4c07ac61"
+								}
+							]
+						},
+						"total": 33
+					}
+				},
+				{
+					"caption": "Indexes",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				},
+				{
+					"caption": "Relations",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 2,
+							"idNames": [
+								{
+									"name": "player_server_info_player_uuid_fkey",
+									"id": "f26b1c39-d8f1-4f4d-9509-cb974e104aee"
+								},
+								{
+									"name": "player_server_info_server_id_fkey",
+									"id": "de1b22a0-75c2-4399-849f-1c81792a4084"
+								}
+							]
+						},
+						"total": 6
+					}
+				},
+				{
+					"caption": "Functions",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				},
+				{
+					"caption": "Procedures",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				},
+				{
+					"caption": "Rule",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				},
+				{
+					"caption": "Policies",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				},
+				{
+					"caption": "Sequences",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				},
+				{
+					"caption": "Enum",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				},
+				{
+					"caption": "Domains",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				},
+				{
+					"caption": "Views",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				},
+				{
+					"caption": "Materialized Views",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				},
+				{
+					"caption": "Triggers",
+					"count": {
+						"added": {
+							"count": 0,
+							"idNames": []
+						},
+						"removed": {
+							"count": 0,
+							"idNames": []
+						},
+						"modified": {
+							"count": 0,
+							"idNames": []
+						},
+						"total": 0
+					}
+				}
+			],
+			"attributes": {
+				"tables": {
+					"caption": "Tables",
+					"attributes": {
+						"055539e4-167e-4965-82ca-7fd1973c2c2f": {
+							"caption": "player",
+							"objectCaption": true,
+							"attributes": {
+								"cols": {
+									"caption": "Columns",
+									"description": "List of table columns",
+									"diff": {
+										"idArray": true,
+										"order": [
+											"64234d48-e491-4e3d-9a74-8ee070628e8b",
+											"69c76c5f-e077-4790-9a9d-1ee3a33b3e8f"
+										]
+									},
+									"attributes": {
+										"64234d48-e491-4e3d-9a74-8ee070628e8b": {
+											"caption": "uuid",
+											"objectCaption": true,
+											"attributes": {
+												"pk": {
+													"caption": "Primary key",
+													"startState": true,
+													"finishState": false
+												}
+											}
+										}
+									}
+								},
+								"keys": {
+									"caption": "Keys",
+									"description": "List of table keys",
+									"diff": {
+										"idArray": true,
+										"startOrder": [
+											"e31fb6ae-b5e1-4333-a3b5-103243d83a91"
+										],
+										"finishOrder": [
+											"e31fb6ae-b5e1-4333-a3b5-103243d83a91"
+										]
+									},
+									"attributes": {
+										"71f131f0-dac5-48aa-8565-330e6422888c": {
+											"diff": {
+												"finishMissing": true
+											},
+											"caption": "player_pkey1",
+											"objectCaption": true,
+											"attributes": {
+												"isPk": {
+													"caption": "Primary key",
+													"startState": true,
+													"finishMissing": true
+												},
+												"name": {
+													"caption": "Name",
+													"startState": "player_pkey1",
+													"finishMissing": true
+												}
+											}
+										}
+									}
+								}
+							},
+							"generated": {
+								"startCode": "CREATE TABLE public.player\n  (uuid uuid NOT NULL, \"name\" text NOT NULL, CONSTRAINT player_key UNIQUE(uuid))\n  ;\n",
+								"finishCode": "CREATE TABLE public.player\n  (uuid uuid NOT NULL, \"name\" text NOT NULL, CONSTRAINT player_key UNIQUE(uuid))\n  ;\n"
+							}
+						},
+						"551caf61-9c12-430e-a1f5-c70ac324ab2b": {
+							"caption": "server",
+							"objectCaption": true,
+							"attributes": {
+								"cols": {
+									"caption": "Columns",
+									"description": "List of table columns",
+									"diff": {
+										"idArray": true,
+										"order": [
+											"8fc0440e-b120-42b1-836d-3d4a4c07ac61",
+											"7e5c62e7-813f-40fd-b73e-ae11c91aa496",
+											"d949fc4d-e2a8-4fe8-bd0c-afe6476ecd14",
+											"e04eb1a4-5e7b-4848-85c4-889301699a9d"
+										]
+									},
+									"attributes": {
+										"8fc0440e-b120-42b1-836d-3d4a4c07ac61": {
+											"caption": "server_id",
+											"objectCaption": true,
+											"attributes": {
+												"pk": {
+													"caption": "Primary key",
+													"startState": true,
+													"finishState": false
+												}
+											}
+										}
+									}
+								},
+								"keys": {
+									"caption": "Keys",
+									"description": "List of table keys",
+									"diff": {
+										"idArray": true,
+										"startOrder": [
+											"e3a0322f-3547-4405-b903-3639ae063416"
+										],
+										"finishOrder": [
+											"e3a0322f-3547-4405-b903-3639ae063416"
+										]
+									}
+								}
+							},
+							"generated": {
+								"startCode": "CREATE TABLE public.\"server\"(\n  server_id integer NOT NULL,\n  subdomain text NOT NULL,\n  owner_name text,\n  mc_server_domain text,\n  CONSTRAINT server_key UNIQUE(server_id)\n);\n",
+								"finishCode": "CREATE TABLE public.\"server\"(\n  server_id integer NOT NULL,\n  subdomain text NOT NULL,\n  owner_name text,\n  mc_server_domain text,\n  CONSTRAINT server_key UNIQUE(server_id)\n);\n"
+							}
+						}
+					}
+				},
+				"relations": {
+					"caption": "Relationships",
+					"description": "List of relations",
+					"attributes": {
+						"f26b1c39-d8f1-4f4d-9509-cb974e104aee": {
+							"caption": "player_server_info_player_uuid_fkey",
+							"objectCaption": true,
+							"attributes": {
+								"ri_pd": {
+									"caption": "RI delete",
+									"startMissing": true,
+									"finishState": "No action"
+								},
+								"ri_pu": {
+									"caption": "RI update",
+									"startMissing": true,
+									"finishState": "No action"
+								},
+								"c_ch": {
+									"caption": "Ordinality child",
+									"description": "Child cardinality",
+									"startState": "many",
+									"finishState": "one"
+								}
+							},
+							"generated": {
+								"startCode": "ALTER TABLE public.player_server_info\n  ADD CONSTRAINT player_server_info_player_uuid_fkey\n    FOREIGN KEY (player_uuid) REFERENCES public.player (uuid);\n",
+								"finishCode": "ALTER TABLE public.player_server_info\n  ADD CONSTRAINT player_server_info_player_uuid_fkey\n    FOREIGN KEY (player_uuid) REFERENCES public.player (uuid) ON DELETE No action\n      ON UPDATE No action;\n"
+							}
+						},
+						"de1b22a0-75c2-4399-849f-1c81792a4084": {
+							"caption": "player_server_info_server_id_fkey",
+							"objectCaption": true,
+							"attributes": {
+								"ri_pd": {
+									"caption": "RI delete",
+									"startMissing": true,
+									"finishState": "No action"
+								},
+								"ri_pu": {
+									"caption": "RI update",
+									"startMissing": true,
+									"finishState": "No action"
+								},
+								"c_ch": {
+									"caption": "Ordinality child",
+									"description": "Child cardinality",
+									"startState": "many",
+									"finishState": "one"
+								}
+							},
+							"generated": {
+								"startCode": "ALTER TABLE public.player_server_info\n  ADD CONSTRAINT player_server_info_server_id_fkey\n    FOREIGN KEY (server_id) REFERENCES public.\"server\" (server_id);\n",
+								"finishCode": "ALTER TABLE public.player_server_info\n  ADD CONSTRAINT player_server_info_server_id_fkey\n    FOREIGN KEY (server_id) REFERENCES public.\"server\" (server_id)\n      ON DELETE No action ON UPDATE No action;\n"
+							}
+						}
+					}
+				}
+			}
+		},
+		"currentModel": {
+			"model": {
+				"name": "MC-DB Layout V1",
+				"id": "1989aa0a-5cf4-445a-81d5-93a4bd9c2b63",
+				"activeDiagram": "d10c04f7-f3bb-427f-a3ac-99531676f05a",
+				"desc": "",
+				"path": "",
+				"type": "PG",
+				"version": 1,
+				"parentTableInFkCols": true,
+				"caseConvention": "under",
+				"replaceSpace": "_",
+				"color": "transparent",
+				"sideSelections": true,
+				"isDirty": true,
+				"storedin": {
+					"major": 8,
+					"minor": 5,
+					"extra": 1
+				},
+				"laststoredin": {
+					"major": 8,
+					"minor": 5,
+					"extra": 1
+				},
+				"writeFileParam": false,
+				"authorName": "",
+				"companyDetails": "",
+				"companyUrl": "",
+				"def_coltopk": true,
+				"pg": {
+					"schema": "public"
+				},
+				"sqlSettings": {
+					"wrapLines": true,
+					"wrapOffset": 80,
+					"indent": true,
+					"indentationString": "spaces",
+					"indentationSize": 2,
+					"limitItemsOnLine": true,
+					"maxListItemsOnLine": 3,
+					"statementDelimiter": ";",
+					"routineDelimiter": ";",
+					"keywordCase": "upper",
+					"identiferCase": "original",
+					"includeSchema": "always",
+					"quotation": "if_needed",
+					"includeGeneratedNames": "always"
+				},
+				"nameAutoGeneration": {
+					"keys": true,
+					"indexes": true,
+					"relations": true
+				},
+				"connectionVersion": "PostgreSQL 13.15 (Debian 13.15-1.pgdg120+1)",
+				"lastSaved": "",
+				"filePath": "",
+				"connectionId": "6e1fd154-5bcd-48de-92b3-eb6ec10a3659"
+			},
+			"tables": {
+				"dc96190a-91f9-4164-b2a3-ee46c44dfe00": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "Stores all the relevant data regarding the player statistics.\nIn  \"uuid\" is the player stored\nin \"object\" it is stated what the other data refers to (stone_block, diamond_sword, zombie,....)\nin \"category\" is stated in which context the item should be interpretet (mined blocks, collected blocks, item usage, killed mobs, ....)\n\"value\" is the corresponding value ",
+					"id": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
+					"name": "actions",
+					"cols": [
+						{
+							"data": "",
+							"id": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b",
+							"name": "id",
+							"datatype": "integer",
+							"param": "",
+							"pk": true,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "7ecf10f4-1463-445e-954c-3655d08db019",
+							"name": "player_id",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "e7d40d7c-d739-4b8c-b631-434b76a940cd",
+							"name": "object",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "e3246323-b914-4dd7-b5ef-98cadd80bcd1",
+							"name": "category",
+							"datatype": "smallint",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "what type of item is it?\nA block? A tool? A pickable item? A mob? \nAlso block mined, block collected, block crafted.... Mob killed or killed by mob,.....\n1: Blocks mined\n2: Blocks collected\n3: Blocks dropped\n4: Blocks crafted\n5: tool crafted\n6: tool used\n7: Killed Mob\n8: Killed by mob\n...\n...",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "451e0a62-9b54-4949-b228-411e027e02f7",
+							"name": "value",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"cb84411c-793b-4b5b-af0b-43898ac25a53"
+					],
+					"keys": [
+						{
+							"id": "ff7e2830-9c05-4da7-85de-85a16a961948",
+							"isPk": true,
+							"name": "actions_pkey",
+							"cols": [
+								{
+									"id": "c81b57b6-993b-4d87-b871-189a1138e2a8",
+									"colid": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b"
+								}
+							]
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "Contains the uuids and informations about banned players",
+					"id": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
+					"name": "banned_players",
+					"cols": [
+						{
+							"data": "",
+							"id": "b288a6c0-7d66-4bc8-a4a6-d2297af79846",
+							"name": "id",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "04420b8f-e8d0-4769-bf81-ef4c94bf156f",
+							"name": "player_id",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "3fa66c19-5acb-467d-b20a-3ccb9e4661dd",
+							"name": "admin",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "b9ebeb05-9791-44cc-9eb2-b3d87fe56bac",
+							"name": "ban_reason",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "9281c314-540f-4e1a-a734-a2d98afce38c",
+							"name": "ban_start",
+							"datatype": "timestamp without time zone",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "a9b49df6-9f53-4f96-8dc4-e832a54bb734",
+							"name": "ban_end",
+							"datatype": "timestamp without time zone",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"985898e7-093c-42f8-b294-3e873ee9f41f"
+					],
+					"keys": [
+						{
+							"id": "5b2c5490-6428-4acd-b06b-a66d9c81522a",
+							"isPk": true,
+							"name": "banned_players_pkey",
+							"cols": []
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"80ff33a2-3643-4e33-b866-22401e4852ac": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "Stores the pin the player is required to provide on login",
+					"id": "80ff33a2-3643-4e33-b866-22401e4852ac",
+					"name": "login",
+					"cols": [
+						{
+							"data": "",
+							"id": "a86ebc27-fe88-410b-8753-75a80b3085d9",
+							"name": "id",
+							"datatype": "integer",
+							"param": "",
+							"pk": true,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "390563c2-2466-450b-aa4d-cebe3a01979c",
+							"name": "player_id",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "4a9c246f-885c-4493-826b-6c4a24f786b1",
+							"name": "pin",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "8771af03-6c85-47f4-88cf-19b2b32fb995",
+							"name": "timestamp",
+							"datatype": "timestamp without time zone",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"c328ac67-6ddb-42ab-a796-0d672d22b8c1"
+					],
+					"keys": [
+						{
+							"id": "f8d25a8c-884d-4426-ba79-5804c4e28249",
+							"isPk": true,
+							"name": "login_pkey",
+							"cols": [
+								{
+									"id": "4a8b3423-180e-447b-b1e7-a19e32243f3f",
+									"colid": "a86ebc27-fe88-410b-8753-75a80b3085d9"
+								}
+							]
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"055539e4-167e-4965-82ca-7fd1973c2c2f": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "",
+					"id": "055539e4-167e-4965-82ca-7fd1973c2c2f",
+					"name": "player",
+					"cols": [
+						{
+							"data": "",
+							"id": "64234d48-e491-4e3d-9a74-8ee070628e8b",
+							"name": "uuid",
+							"datatype": "uuid",
+							"param": "",
+							"pk": true,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "69c76c5f-e077-4790-9a9d-1ee3a33b3e8f",
+							"name": "name",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"f26b1c39-d8f1-4f4d-9509-cb974e104aee"
+					],
+					"keys": [
+						{
+							"id": "71f131f0-dac5-48aa-8565-330e6422888c",
+							"isPk": true,
+							"name": "player_pkey1",
+							"cols": []
+						},
+						{
+							"id": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
+							"isPk": false,
+							"name": "player_key",
+							"cols": [
+								{
+									"id": "8495dff2-2092-490e-84e8-9cfc94e577b9",
+									"colid": "64234d48-e491-4e3d-9a74-8ee070628e8b"
+								}
+							]
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"db052761-90ba-4dca-88d8-d19f98cb65b5": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "The prefix which a player can configure on the website",
+					"id": "db052761-90ba-4dca-88d8-d19f98cb65b5",
+					"name": "player_prefixes",
+					"cols": [
+						{
+							"data": "",
+							"id": "077457c3-5bf6-42a7-a460-663fe160b88a",
+							"name": "id",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa",
+							"name": "player_id",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "a3afa60c-f970-46d2-89d6-d08eec84c8b5",
+							"name": "prefix",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "8d60172a-9138-4ac2-8ae6-2c40a4994639",
+							"name": "password",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "c4501b08-abc6-4b2c-86da-0f91f54b9b26",
+							"name": "members",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": true,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"2072b35f-68ca-4670-9d24-91eab02b13c2"
+					],
+					"keys": [
+						{
+							"id": "88573917-94d0-4b35-a78c-d5ef86edfcd7",
+							"isPk": true,
+							"name": "player_prefixes_pkey",
+							"cols": []
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "Saves player data regarding the online status, last seen,...",
+					"id": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"name": "player_server_info",
+					"cols": [
+						{
+							"data": "",
+							"id": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"name": "id",
+							"datatype": "uuid",
+							"param": "",
+							"pk": true,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399",
+							"name": "server_id",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "930a6909-2045-49e8-b022-25af34a503e7",
+							"name": "player_uuid",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "fa4a6be5-f813-4d47-80c8-b58a3ba03480",
+							"name": "online",
+							"datatype": "boolean",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "c40f454b-ab62-4ecf-a2b4-8630c5d33a4b",
+							"name": "first_seen",
+							"datatype": "timestamp without time zone",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "584dae6c-3ab4-4e8a-8f73-bf0a74e4bb40",
+							"name": "last_seen",
+							"datatype": "timestamp without time zone",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "891d05e8-f091-4c24-8011-f550023f52f9",
+							"name": "web_access_permissions",
+							"datatype": "smallint",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"cb84411c-793b-4b5b-af0b-43898ac25a53",
+						"985898e7-093c-42f8-b294-3e873ee9f41f",
+						"c328ac67-6ddb-42ab-a796-0d672d22b8c1",
+						"2072b35f-68ca-4670-9d24-91eab02b13c2",
+						"f26b1c39-d8f1-4f4d-9509-cb974e104aee",
+						"de1b22a0-75c2-4399-849f-1c81792a4084"
+					],
+					"keys": [
+						{
+							"id": "9ba53e7f-6ec2-4541-824f-3b50eca4f4ee",
+							"isPk": false,
+							"name": "player_server_info_key",
+							"cols": [
+								{
+									"id": "24e91e67-b11d-4321-b427-872cc27bff6d",
+									"colid": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
+								}
+							]
+						},
+						{
+							"id": "d68f4c8d-3422-463f-8e1b-57ccc4d6586d",
+							"isPk": false,
+							"name": "player_server_info_key1",
+							"cols": [
+								{
+									"id": "cc61e721-063c-4690-8b71-460213600805",
+									"colid": "930a6909-2045-49e8-b022-25af34a503e7"
+								}
+							]
+						},
+						{
+							"id": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+							"isPk": true,
+							"name": "player_server_info_pkey",
+							"cols": [
+								{
+									"id": "80620921-0523-40fa-a044-034441ebe68d",
+									"colid": "b2d55569-068b-4600-a42f-031acc7c0711"
+								}
+							]
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"551caf61-9c12-430e-a1f5-c70ac324ab2b": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "",
+					"id": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+					"name": "server",
+					"cols": [
+						{
+							"data": "",
+							"id": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
+							"name": "server_id",
+							"datatype": "integer",
+							"param": "",
+							"pk": true,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "7e5c62e7-813f-40fd-b73e-ae11c91aa496",
+							"name": "subdomain",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "d949fc4d-e2a8-4fe8-bd0c-afe6476ecd14",
+							"name": "owner_name",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "e04eb1a4-5e7b-4848-85c4-889301699a9d",
+							"name": "mc_server_domain",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"de1b22a0-75c2-4399-849f-1c81792a4084"
+					],
+					"keys": [
+						{
+							"id": "65197089-9172-4ca0-9b79-f50322e08e4e",
+							"isPk": true,
+							"name": "server_pkey",
+							"cols": []
+						},
+						{
+							"id": "e3a0322f-3547-4405-b903-3639ae063416",
+							"isPk": false,
+							"name": "server_key",
+							"cols": [
+								{
+									"id": "8db3864f-5bd6-42df-9ff9-b267831fa742",
+									"colid": "8fc0440e-b120-42b1-836d-3d4a4c07ac61"
+								}
+							]
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				}
+			},
+			"relations": {
+				"cb84411c-793b-4b5b-af0b-43898ac25a53": {
+					"id": "cb84411c-793b-4b5b-af0b-43898ac25a53",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "000ff20f-7dac-42db-bdb5-6e1481d3dfd6",
+							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"childcol": "7ecf10f4-1463-445e-954c-3655d08db019"
+						}
+					],
+					"child": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
+					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_ch": "many",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
+					"name": "actions_player_id_fkey",
+					"desc": "",
+					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent",
+					"visible": true
+				},
+				"985898e7-093c-42f8-b294-3e873ee9f41f": {
+					"id": "985898e7-093c-42f8-b294-3e873ee9f41f",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "e0eb4466-52f2-447d-8f8a-cfc7ffe45e30",
+							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"childcol": "04420b8f-e8d0-4769-bf81-ef4c94bf156f"
+						}
+					],
+					"child": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
+					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"c_mp": "true",
+					"c_mch": "false",
+					"c_ch": "many",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
+					"name": "banned_players_player_id_fkey",
+					"desc": "",
+					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent",
+					"visible": true
+				},
+				"c328ac67-6ddb-42ab-a796-0d672d22b8c1": {
+					"id": "c328ac67-6ddb-42ab-a796-0d672d22b8c1",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "33451233-5079-4b05-9211-44d1b27ba293",
+							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"childcol": "390563c2-2466-450b-aa4d-cebe3a01979c"
+						}
+					],
+					"child": "80ff33a2-3643-4e33-b866-22401e4852ac",
+					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_ch": "many",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
+					"name": "login_player_id_fkey",
+					"desc": "",
+					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent",
+					"visible": true
+				},
+				"2072b35f-68ca-4670-9d24-91eab02b13c2": {
+					"id": "2072b35f-68ca-4670-9d24-91eab02b13c2",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "40147bd6-a227-4616-86a5-96b0c504dc0a",
+							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"childcol": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa"
+						}
+					],
+					"child": "db052761-90ba-4dca-88d8-d19f98cb65b5",
+					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_ch": "many",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
+					"name": "player_prefixes_player_id_fkey",
+					"desc": "",
+					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent",
+					"visible": true
+				},
+				"f26b1c39-d8f1-4f4d-9509-cb974e104aee": {
+					"id": "f26b1c39-d8f1-4f4d-9509-cb974e104aee",
+					"visible": true,
+					"name": "player_server_info_player_uuid_fkey",
+					"desc": "",
+					"type": "identifying",
+					"parent_key": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
+					"parent": "055539e4-167e-4965-82ca-7fd1973c2c2f",
+					"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_p": "one",
+					"c_ch": "many",
+					"c_cp": "",
+					"c_cch": "",
+					"cols": [
+						{
+							"id": "c4ae39e5-cb4b-4866-b138-b207d8bb3e99",
+							"parentcol": "64234d48-e491-4e3d-9a74-8ee070628e8b",
+							"childcol": "930a6909-2045-49e8-b022-25af34a503e7"
+						}
+					],
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent"
+				},
+				"de1b22a0-75c2-4399-849f-1c81792a4084": {
+					"id": "de1b22a0-75c2-4399-849f-1c81792a4084",
+					"visible": true,
+					"name": "player_server_info_server_id_fkey",
+					"desc": "",
+					"type": "identifying",
+					"parent_key": "e3a0322f-3547-4405-b903-3639ae063416",
+					"parent": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+					"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_p": "one",
+					"c_ch": "many",
+					"c_cp": "",
+					"c_cch": "",
+					"cols": [
+						{
+							"id": "427cf291-d812-4a73-bbca-9900de4484ff",
+							"parentcol": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
+							"childcol": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
+						}
+					],
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent"
+				}
+			},
+			"otherObjects": {}
+		},
+		"updatedModel": {
+			"model": {
+				"name": "MC-DB Layout V1",
+				"id": "1989aa0a-5cf4-445a-81d5-93a4bd9c2b63",
+				"activeDiagram": "d10c04f7-f3bb-427f-a3ac-99531676f05a",
+				"desc": "",
+				"path": "",
+				"type": "PG",
+				"version": 1,
+				"parentTableInFkCols": true,
+				"caseConvention": "under",
+				"replaceSpace": "_",
+				"color": "transparent",
+				"sideSelections": true,
+				"isDirty": true,
+				"storedin": {
+					"major": 8,
+					"minor": 5,
+					"extra": 1
+				},
+				"laststoredin": {
+					"major": 8,
+					"minor": 5,
+					"extra": 1
+				},
+				"writeFileParam": false,
+				"authorName": "",
+				"companyDetails": "",
+				"companyUrl": "",
+				"def_coltopk": true,
+				"pg": {
+					"schema": "public"
+				},
+				"sqlSettings": {
+					"wrapLines": true,
+					"wrapOffset": 80,
+					"indent": true,
+					"indentationString": "spaces",
+					"indentationSize": 2,
+					"limitItemsOnLine": true,
+					"maxListItemsOnLine": 3,
+					"statementDelimiter": ";",
+					"routineDelimiter": ";",
+					"keywordCase": "upper",
+					"identiferCase": "original",
+					"includeSchema": "always",
+					"quotation": "if_needed",
+					"includeGeneratedNames": "always"
+				},
+				"nameAutoGeneration": {
+					"keys": true,
+					"indexes": true,
+					"relations": true
+				},
+				"connectionVersion": "PostgreSQL 13.15 (Debian 13.15-1.pgdg120+1)",
+				"lastSaved": "",
+				"filePath": "",
+				"connectionId": "6e1fd154-5bcd-48de-92b3-eb6ec10a3659"
+			},
+			"tables": {
+				"dc96190a-91f9-4164-b2a3-ee46c44dfe00": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "Stores all the relevant data regarding the player statistics.\nIn  \"uuid\" is the player stored\nin \"object\" it is stated what the other data refers to (stone_block, diamond_sword, zombie,....)\nin \"category\" is stated in which context the item should be interpretet (mined blocks, collected blocks, item usage, killed mobs, ....)\n\"value\" is the corresponding value ",
+					"id": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
+					"name": "actions",
+					"cols": [
+						{
+							"data": "",
+							"id": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b",
+							"name": "id",
+							"datatype": "integer",
+							"param": "",
+							"pk": true,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "7ecf10f4-1463-445e-954c-3655d08db019",
+							"name": "player_id",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "e7d40d7c-d739-4b8c-b631-434b76a940cd",
+							"name": "object",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "e3246323-b914-4dd7-b5ef-98cadd80bcd1",
+							"name": "category",
+							"datatype": "smallint",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "what type of item is it?\nA block? A tool? A pickable item? A mob? \nAlso block mined, block collected, block crafted.... Mob killed or killed by mob,.....\n1: Blocks mined\n2: Blocks collected\n3: Blocks dropped\n4: Blocks crafted\n5: tool crafted\n6: tool used\n7: Killed Mob\n8: Killed by mob\n...\n...",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "451e0a62-9b54-4949-b228-411e027e02f7",
+							"name": "value",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"cb84411c-793b-4b5b-af0b-43898ac25a53"
+					],
+					"keys": [
+						{
+							"id": "ff7e2830-9c05-4da7-85de-85a16a961948",
+							"isPk": true,
+							"name": "actions_pkey",
+							"cols": [
+								{
+									"id": "c81b57b6-993b-4d87-b871-189a1138e2a8",
+									"colid": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b"
+								}
+							]
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "Contains the uuids and informations about banned players",
+					"id": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
+					"name": "banned_players",
+					"cols": [
+						{
+							"data": "",
+							"id": "b288a6c0-7d66-4bc8-a4a6-d2297af79846",
+							"name": "id",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "04420b8f-e8d0-4769-bf81-ef4c94bf156f",
+							"name": "player_id",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "3fa66c19-5acb-467d-b20a-3ccb9e4661dd",
+							"name": "admin",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "b9ebeb05-9791-44cc-9eb2-b3d87fe56bac",
+							"name": "ban_reason",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "9281c314-540f-4e1a-a734-a2d98afce38c",
+							"name": "ban_start",
+							"datatype": "timestamp without time zone",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "a9b49df6-9f53-4f96-8dc4-e832a54bb734",
+							"name": "ban_end",
+							"datatype": "timestamp without time zone",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"985898e7-093c-42f8-b294-3e873ee9f41f"
+					],
+					"keys": [
+						{
+							"id": "5b2c5490-6428-4acd-b06b-a66d9c81522a",
+							"isPk": true,
+							"name": "banned_players_pkey",
+							"cols": []
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"80ff33a2-3643-4e33-b866-22401e4852ac": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "Stores the pin the player is required to provide on login",
+					"id": "80ff33a2-3643-4e33-b866-22401e4852ac",
+					"name": "login",
+					"cols": [
+						{
+							"data": "",
+							"id": "a86ebc27-fe88-410b-8753-75a80b3085d9",
+							"name": "id",
+							"datatype": "integer",
+							"param": "",
+							"pk": true,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "390563c2-2466-450b-aa4d-cebe3a01979c",
+							"name": "player_id",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "4a9c246f-885c-4493-826b-6c4a24f786b1",
+							"name": "pin",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "8771af03-6c85-47f4-88cf-19b2b32fb995",
+							"name": "timestamp",
+							"datatype": "timestamp without time zone",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"c328ac67-6ddb-42ab-a796-0d672d22b8c1"
+					],
+					"keys": [
+						{
+							"id": "f8d25a8c-884d-4426-ba79-5804c4e28249",
+							"isPk": true,
+							"name": "login_pkey",
+							"cols": [
+								{
+									"id": "4a8b3423-180e-447b-b1e7-a19e32243f3f",
+									"colid": "a86ebc27-fe88-410b-8753-75a80b3085d9"
+								}
+							]
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"055539e4-167e-4965-82ca-7fd1973c2c2f": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "",
+					"id": "055539e4-167e-4965-82ca-7fd1973c2c2f",
+					"name": "player",
+					"cols": [
+						{
+							"data": "",
+							"id": "64234d48-e491-4e3d-9a74-8ee070628e8b",
+							"name": "uuid",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "69c76c5f-e077-4790-9a9d-1ee3a33b3e8f",
+							"name": "name",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"f26b1c39-d8f1-4f4d-9509-cb974e104aee"
+					],
+					"keys": [
+						{
+							"id": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
+							"isPk": false,
+							"name": "player_key",
+							"cols": [
+								{
+									"id": "8495dff2-2092-490e-84e8-9cfc94e577b9",
+									"colid": "64234d48-e491-4e3d-9a74-8ee070628e8b"
+								}
+							]
+						},
+						{
+							"id": "71f131f0-dac5-48aa-8565-330e6422888c",
+							"isPk": true,
+							"name": "player_pkey",
+							"cols": []
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"db052761-90ba-4dca-88d8-d19f98cb65b5": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "The prefix which a player can configure on the website",
+					"id": "db052761-90ba-4dca-88d8-d19f98cb65b5",
+					"name": "player_prefixes",
+					"cols": [
+						{
+							"data": "",
+							"id": "077457c3-5bf6-42a7-a460-663fe160b88a",
+							"name": "id",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa",
+							"name": "player_id",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "a3afa60c-f970-46d2-89d6-d08eec84c8b5",
+							"name": "prefix",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "8d60172a-9138-4ac2-8ae6-2c40a4994639",
+							"name": "password",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "c4501b08-abc6-4b2c-86da-0f91f54b9b26",
+							"name": "members",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": true,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"2072b35f-68ca-4670-9d24-91eab02b13c2"
+					],
+					"keys": [
+						{
+							"id": "88573917-94d0-4b35-a78c-d5ef86edfcd7",
+							"isPk": true,
+							"name": "player_prefixes_pkey",
+							"cols": []
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "Saves player data regarding the online status, last seen,...",
+					"id": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"name": "player_server_info",
+					"cols": [
+						{
+							"data": "",
+							"id": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"name": "id",
+							"datatype": "uuid",
+							"param": "",
+							"pk": true,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399",
+							"name": "server_id",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "930a6909-2045-49e8-b022-25af34a503e7",
+							"name": "player_uuid",
+							"datatype": "uuid",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": true,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "fa4a6be5-f813-4d47-80c8-b58a3ba03480",
+							"name": "online",
+							"datatype": "boolean",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "c40f454b-ab62-4ecf-a2b4-8630c5d33a4b",
+							"name": "first_seen",
+							"datatype": "timestamp without time zone",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "584dae6c-3ab4-4e8a-8f73-bf0a74e4bb40",
+							"name": "last_seen",
+							"datatype": "timestamp without time zone",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "891d05e8-f091-4c24-8011-f550023f52f9",
+							"name": "web_access_permissions",
+							"datatype": "smallint",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"cb84411c-793b-4b5b-af0b-43898ac25a53",
+						"985898e7-093c-42f8-b294-3e873ee9f41f",
+						"c328ac67-6ddb-42ab-a796-0d672d22b8c1",
+						"2072b35f-68ca-4670-9d24-91eab02b13c2",
+						"f26b1c39-d8f1-4f4d-9509-cb974e104aee",
+						"de1b22a0-75c2-4399-849f-1c81792a4084"
+					],
+					"keys": [
+						{
+							"id": "9ba53e7f-6ec2-4541-824f-3b50eca4f4ee",
+							"isPk": false,
+							"name": "player_server_info_key",
+							"cols": [
+								{
+									"id": "24e91e67-b11d-4321-b427-872cc27bff6d",
+									"colid": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
+								}
+							]
+						},
+						{
+							"id": "d68f4c8d-3422-463f-8e1b-57ccc4d6586d",
+							"isPk": false,
+							"name": "player_server_info_key1",
+							"cols": [
+								{
+									"id": "cc61e721-063c-4690-8b71-460213600805",
+									"colid": "930a6909-2045-49e8-b022-25af34a503e7"
+								}
+							]
+						},
+						{
+							"id": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+							"isPk": true,
+							"name": "player_server_info_pkey",
+							"cols": [
+								{
+									"id": "80620921-0523-40fa-a044-034441ebe68d",
+									"colid": "b2d55569-068b-4600-a42f-031acc7c0711"
+								}
+							]
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				},
+				"551caf61-9c12-430e-a1f5-c70ac324ab2b": {
+					"lines": [],
+					"embeddable": false,
+					"objectType": "table",
+					"pg": {
+						"tablespace": "",
+						"inherits": "",
+						"storageParameters": "",
+						"partition": "",
+						"rowsecurity": false,
+						"partitionNames": [],
+						"schema": "public"
+					},
+					"desc": "",
+					"id": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+					"name": "server",
+					"cols": [
+						{
+							"data": "",
+							"id": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
+							"name": "server_id",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "7e5c62e7-813f-40fd-b73e-ae11c91aa496",
+							"name": "subdomain",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "d949fc4d-e2a8-4fe8-bd0c-afe6476ecd14",
+							"name": "owner_name",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "e04eb1a4-5e7b-4848-85c4-889301699a9d",
+							"name": "mc_server_domain",
+							"datatype": "text",
+							"param": "",
+							"pk": false,
+							"nn": false,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						}
+					],
+					"relations": [
+						"de1b22a0-75c2-4399-849f-1c81792a4084"
+					],
+					"keys": [
+						{
+							"id": "e3a0322f-3547-4405-b903-3639ae063416",
+							"isPk": false,
+							"name": "server_key",
+							"cols": [
+								{
+									"id": "8db3864f-5bd6-42df-9ff9-b267831fa742",
+									"colid": "8fc0440e-b120-42b1-836d-3d4a4c07ac61"
+								}
+							]
+						},
+						{
+							"id": "65197089-9172-4ca0-9b79-f50322e08e4e",
+							"isPk": true,
+							"name": "server_pkey",
+							"cols": []
+						}
+					],
+					"indexes": [],
+					"estimatedSize": "",
+					"visible": true,
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": ""
+				}
+			},
+			"relations": {
+				"cb84411c-793b-4b5b-af0b-43898ac25a53": {
+					"id": "cb84411c-793b-4b5b-af0b-43898ac25a53",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "000ff20f-7dac-42db-bdb5-6e1481d3dfd6",
+							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"childcol": "7ecf10f4-1463-445e-954c-3655d08db019"
+						}
+					],
+					"child": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
+					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_ch": "many",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
+					"name": "actions_player_id_fkey",
+					"desc": "",
+					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent",
+					"visible": true
+				},
+				"985898e7-093c-42f8-b294-3e873ee9f41f": {
+					"id": "985898e7-093c-42f8-b294-3e873ee9f41f",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "e0eb4466-52f2-447d-8f8a-cfc7ffe45e30",
+							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"childcol": "04420b8f-e8d0-4769-bf81-ef4c94bf156f"
+						}
+					],
+					"child": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
+					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"c_mp": "true",
+					"c_mch": "false",
+					"c_ch": "many",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
+					"name": "banned_players_player_id_fkey",
+					"desc": "",
+					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent",
+					"visible": true
+				},
+				"c328ac67-6ddb-42ab-a796-0d672d22b8c1": {
+					"id": "c328ac67-6ddb-42ab-a796-0d672d22b8c1",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "33451233-5079-4b05-9211-44d1b27ba293",
+							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"childcol": "390563c2-2466-450b-aa4d-cebe3a01979c"
+						}
+					],
+					"child": "80ff33a2-3643-4e33-b866-22401e4852ac",
+					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_ch": "many",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
+					"name": "login_player_id_fkey",
+					"desc": "",
+					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent",
+					"visible": true
+				},
+				"2072b35f-68ca-4670-9d24-91eab02b13c2": {
+					"id": "2072b35f-68ca-4670-9d24-91eab02b13c2",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "40147bd6-a227-4616-86a5-96b0c504dc0a",
+							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"childcol": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa"
+						}
+					],
+					"child": "db052761-90ba-4dca-88d8-d19f98cb65b5",
+					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_ch": "many",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
+					"name": "player_prefixes_player_id_fkey",
+					"desc": "",
+					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent",
+					"visible": true
+				},
+				"f26b1c39-d8f1-4f4d-9509-cb974e104aee": {
+					"id": "f26b1c39-d8f1-4f4d-9509-cb974e104aee",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "c4ae39e5-cb4b-4866-b138-b207d8bb3e99",
+							"parentcol": "64234d48-e491-4e3d-9a74-8ee070628e8b",
+							"childcol": "930a6909-2045-49e8-b022-25af34a503e7"
+						}
+					],
+					"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"parent": "055539e4-167e-4965-82ca-7fd1973c2c2f",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_ch": "one",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
+					"name": "player_server_info_player_uuid_fkey",
+					"desc": "",
+					"parent_key": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent",
+					"visible": true
+				},
+				"de1b22a0-75c2-4399-849f-1c81792a4084": {
+					"id": "de1b22a0-75c2-4399-849f-1c81792a4084",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "427cf291-d812-4a73-bbca-9900de4484ff",
+							"parentcol": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
+							"childcol": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
+						}
+					],
+					"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"parent": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_ch": "one",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
+					"name": "player_server_info_server_id_fkey",
+					"desc": "",
+					"parent_key": "e3a0322f-3547-4405-b903-3639ae063416",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
+					"generate": true,
+					"generateCustomCode": true,
+					"customCode": "",
+					"relationColor": "transparent",
+					"visible": true
+				}
+			},
+			"otherObjects": {}
+		},
+		"updated": true
+	}
 }
