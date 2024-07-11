@@ -1,7 +1,7 @@
-from ast import main
 import logging
 from os import name
 import sys
+import logger as logger
 
 def get_logger(name=None, log_level=logging.INFO, log_file='logs.log'):
     """
