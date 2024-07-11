@@ -13,6 +13,7 @@ def read_sql_file(filepath):
 
 class DatabaseManager:
     TABLE_COUNT = 7
+    LOWEST_WEB_ACCESS_LEVEL = 2
 
     def __init__(self):
         self.conn = psycopg2.connect(
@@ -24,6 +25,9 @@ class DatabaseManager:
         )
         logger.info("Established connection to the database")
         self.cursor = self.conn.cursor()
+
+        if not self.check_database_integrity():
+            self.create_tables()
 
     def create_tables(self):
         """
@@ -92,9 +96,12 @@ class DatabaseManager:
         Returns:
         bool: True if the database integrity check passes, False otherwise.
         """
-        print(len(self.get_all_tables()))
-        if len(self.get_all_tables()) != self.TABLE_COUNT:
+        logger.debug("Database integrity check")
+        logger.debug(f"Expected table count: {self.TABLE_COUNT}")
+        actual_table_count = len(self.get_all_tables())
+        if actual_table_count != self.TABLE_COUNT:
             logger.critical("Database integrity check failed.")
+            logger.debug(f"Actual table count: {actual_table_count}")
             return False
         else:
             logger.info("Database integrity check passed.")
@@ -187,13 +194,28 @@ class DatabaseManager:
             logger.error(f'Failed to register new player: "{player_uuid}". Error: {e}')
             return False
         return True
+    
+    def init_player_server_info_table(self, server_id, player_uuid):
+        web_access_permissions = self.LOWEST_WEB_ACCESS_LEVEL
+        query = "INSERT INTO player_server_info (id, server_id, player_uuid, online, first_seen, last_seen, web_access_permissions) VALUES (uuid_generate_v4(), %s, %s, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, %s)"
+        data = (server_id, player_uuid, web_access_permissions)
+        try:
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            logger.info(f'Initialized player server info for server: "{server_id}" and player: "{player_uuid}"')
+        except Exception as e:
+            logger.error(f'Failed to initialize player server info for server: "{server_id}" and player: "{player_uuid}". Error: {e}')
+            return False
+        return True
 
 if __name__ == "__main__":
     db_manager = DatabaseManager()
-    if not db_manager.check_database_integrity():
-        db_manager.create_tables()
-    #db_manager.register_new_server(0, "tobias", "Tobias Auer", "mc.t-auer.com")
+    db_manager.create_tables()
+    db_manager.register_new_server(0, "tobias", "Tobias Auer", "mc.t-auer.com")
     #db_manager.delete_server(9999)
     db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+
+    db_manager.init_player_server_info_table(0, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    
     logger.info("Database connection closed")
     db_manager.conn.close()
