@@ -1,11 +1,12 @@
-from ast import main
 import psycopg2
 
+from logger import get_logger
 
+
+logger = get_logger('databaseManager')   
 def read_sql_file(filepath):
     with open(filepath, 'r') as file:
         return file.read()
-    
 
 class DatabaseManager:
     TABLE_COUNT = 7
@@ -15,7 +16,7 @@ class DatabaseManager:
                                 user="admin",
                                 password="admin",
                                 port="5432")
-
+        logger.info("Established connection to the database")
         self.cursor = self.conn.cursor()
 
 
@@ -25,17 +26,20 @@ class DatabaseManager:
 
         This function drops the existing database schema and recreates it by executing the SQL query from the initDB.sql file.
         It then commits the changes and prints a success message.
-
-        Parameters:
-        None
         Returns:
-        None
+        bool: True if the tables are successfully initiated, False otherwise.
         """
         self.drop_db()
         query = read_sql_file('socket/queries/initDB.sql')
-        self.cursor.execute(query)
-        self.conn.commit()
-        print("success")
+        try:     
+            self.cursor.execute(query)
+            self.conn.commit()
+            logger.info("Tables initiated successfully")
+            return True
+        except Exception as e:
+            logger.error(f"Error creating tables: {e}")
+            return False
+    
 
     def get_all_tables(self):
         """
@@ -49,7 +53,7 @@ class DatabaseManager:
         query = "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema');"
         self.cursor.execute(query)
         tables = self.cursor.fetchall()
-        print(tables)
+        logger.debug(f"Table names retrieved: {tables}")
         return tables
     
     def drop_db(self):
@@ -65,6 +69,7 @@ class DatabaseManager:
         """
         query = "DROP SCHEMA public CASCADE;CREATE SCHEMA public;"
         self.cursor.execute(query)
+        logger.warn("Database dropped")
         self.conn.commit()
 
     def check_database_integrity(self):
@@ -78,15 +83,16 @@ class DatabaseManager:
         """
         print(len(self.get_all_tables()))
         if len(self.get_all_tables()) != self.TABLE_COUNT:
-            print("Database integrity check failed.")
+            logger.critical("Database integrity check failed.")
             return False
         else:
-            print("Database integrity check passed.")
+            logger.info("Database integrity check passed.")
             return True
 
 if __name__ == "__main__":
     db_manager = DatabaseManager()
     
+    db_manager.create_tables()
     db_manager.check_database_integrity()
 
 
