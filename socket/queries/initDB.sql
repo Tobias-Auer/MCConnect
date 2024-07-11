@@ -1,5 +1,6 @@
 SET check_function_bodies = false
 ;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE public.player(
   uuid uuid NOT NULL,
@@ -25,8 +26,7 @@ CREATE TABLE public.player_server_info(
   first_seen timestamp without time zone NOT NULL,
   last_seen timestamp without time zone NOT NULL,
   web_access_permissions smallint NOT NULL,
-  CONSTRAINT player_server_info_key UNIQUE(server_id),
-  CONSTRAINT player_server_info_key1 UNIQUE(player_uuid),
+  CONSTRAINT player_server_info_server_player_unique UNIQUE(server_id, player_uuid),
   CONSTRAINT player_server_info_pkey PRIMARY KEY(id)
 );
 
