@@ -8,7 +8,7 @@ Unlike before, this program no longer needs to run on the same file system as th
 In addition, the website will support multiple Minecraft servers. 
 
 
-Anyone will be able to add their own Minecraft server to this server with a simple, lightweight plugin.
+Anyone will be able to add their own Minecraft server to this server with a simple, lightweight minecraft plugin.
 
 Legal stuff: 
 
