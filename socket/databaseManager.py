@@ -1,9 +1,10 @@
 import psycopg2
 
 from logger import get_logger
+import logging
 from minecraft import Minecraft
 
-logger = get_logger("databaseManager")
+logger = get_logger("databaseManager",logging.INFO)
 minecraft = Minecraft()
 
 def read_sql_file(filepath):
@@ -16,6 +17,7 @@ class DatabaseManager:
     LOWEST_WEB_ACCESS_LEVEL = 2
 
     def __init__(self):
+        logger.debug("Initializing database manager")
         self.conn = psycopg2.connect(
             database="mcConnect-TestDB-1",
             host="localhost",
@@ -42,8 +44,11 @@ class DatabaseManager:
         Raises:
         Exception: If an error occurs while executing the SQL query or committing the changes.
         """
+        logger.debug("create_tables is called")
+        logger.debug("dropping existing tables")
         self.drop_db()
         query = read_sql_file("socket/queries/initDB.sql")
+        logger.debug(f"executing SQL query: {query}")
         try:
             self.cursor.execute(query)
             self.conn.commit()
@@ -63,7 +68,9 @@ class DatabaseManager:
         Returns:
         tables (list): A list of tuples, where each tuple contains one table name.
         """
+        logger.debug("get_all_tables is called")
         query = "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema');"
+        logger.debug(f"executing SQL query: {query}")
         self.cursor.execute(query)
         tables = self.cursor.fetchall()
         logger.debug(f"Table names retrieved: {tables}")
@@ -81,7 +88,9 @@ class DatabaseManager:
         Returns:
         None
         """
+        logger.debug("drop_db is called")
         query = "DROP SCHEMA public CASCADE;CREATE SCHEMA public;"
+        logger.debug(f"executing SQL query: {query}")
         self.cursor.execute(query)
         logger.warn("Database dropped")
         self.conn.commit()
@@ -96,7 +105,7 @@ class DatabaseManager:
         Returns:
         bool: True if the database integrity check passes, False otherwise.
         """
-        logger.debug("Database integrity check")
+        logger.debug("check_database_integrity is called")
         logger.debug(f"Expected table count: {self.TABLE_COUNT}")
         actual_table_count = len(self.get_all_tables())
         if actual_table_count != self.TABLE_COUNT:
@@ -123,12 +132,14 @@ class DatabaseManager:
         Raises:
         Exception: If an error occurs while executing the SQL query or committing the changes.
         """
-
+        logger.debug("register_new_server is called")
         query = """
             INSERT INTO server (server_id, subdomain, owner_name, mc_server_domain)
             VALUES (%s, %s, %s, %s)
                 """
+        logger.debug(f"executing SQL query: {query}")
         data = (server_id, subdomain, owner_name, mc_server_domain)
+        logger.debug(f"with follwing data: {data}")
         try:
             self.cursor.execute(query, data)
             self.conn.commit()
@@ -153,8 +164,11 @@ class DatabaseManager:
         Raises:
         Exception: If an error occurs while executing the SQL query or committing the changes.
         """
+        logger.debug("delete_server is called")
         query = "DELETE FROM server WHERE server_id = %s"
+        logger.debug(f"executing SQL query: {query}")
         data = (server_id,)
+        logger.debug(f"with following data: {data}")
 
         try:
             self.cursor.execute(query, data)
@@ -179,13 +193,15 @@ class DatabaseManager:
         Raises:
         Exception: If an error occurs while executing the SQL query or committing the changes.
         """
-
+        logger.debug("add_new_player is called")
         logger.debug(f'Attempting to register new player: "{player_uuid}"')
         query = "INSERT INTO player (uuid, name) VALUES (%s, %s)"
         logger.debug("searching playername for uuid: {player_uuid}")
+        logger.debug(f"executing SQL query: {query}")
         player_name = minecraft.get_player_name_from_uuid(player_uuid)
-        logger.debug(f'Found playername: "{player_name}" for uuid: {player_uuid}')
         data = (player_uuid, player_name)
+        logger.debug(f"with following data: {data}")
+        logger.debug(f'Found playername: "{player_name}" for uuid: {player_uuid}')
         try:
             self.cursor.execute(query, data)
             self.conn.commit()
@@ -196,9 +212,12 @@ class DatabaseManager:
         return True
     
     def init_player_server_info_table(self, server_id, player_uuid):
+        logger.debug("init_player_server_info_table is called")
         web_access_permissions = self.LOWEST_WEB_ACCESS_LEVEL
         query = "INSERT INTO player_server_info (id, server_id, player_uuid, online, first_seen, last_seen, web_access_permissions) VALUES (uuid_generate_v4(), %s, %s, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, %s)"
+        logger.debug(f"executing SQL query: {query}")#
         data = (server_id, player_uuid, web_access_permissions)
+        logger.debug(f"with following data: {data}")
         try:
             self.cursor.execute(query, data)
             self.conn.commit()
