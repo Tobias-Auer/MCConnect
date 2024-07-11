@@ -1,16 +1,48 @@
 SET check_function_bodies = false
 ;
 
-CREATE TABLE actions(
+CREATE TABLE public.player(
+  uuid uuid NOT NULL,
+  "name" text NOT NULL,
+  CONSTRAINT player_key UNIQUE(uuid),
+  CONSTRAINT player_pkey PRIMARY KEY(uuid)
+);
+
+CREATE TABLE public."server"(
+  server_id integer NOT NULL,
+  subdomain text NOT NULL,
+  owner_name text,
+  mc_server_domain text,
+  CONSTRAINT server_key UNIQUE(server_id),
+  CONSTRAINT server_pkey PRIMARY KEY(server_id)
+);
+
+CREATE TABLE public.player_server_info(
+  id uuid NOT NULL,
+  server_id integer NOT NULL,
+  player_uuid uuid NOT NULL,
+  online boolean NOT NULL,
+  first_seen timestamp without time zone NOT NULL,
+  last_seen timestamp without time zone NOT NULL,
+  web_access_permissions smallint NOT NULL,
+  CONSTRAINT player_server_info_key UNIQUE(server_id),
+  CONSTRAINT player_server_info_key1 UNIQUE(player_uuid),
+  CONSTRAINT player_server_info_pkey PRIMARY KEY(id)
+);
+
+COMMENT ON TABLE public.player_server_info IS
+  'Saves player data regarding the online status, last seen,...';
+
+CREATE TABLE public.actions(
   id integer NOT NULL,
-  player_id integer NOT NULL,
+  player_id uuid NOT NULL,
   "object" text NOT NULL,
   category smallint NOT NULL,
   "value" integer NOT NULL,
   CONSTRAINT actions_pkey PRIMARY KEY(id)
 );
 
-COMMENT ON COLUMN actions.category IS
+COMMENT ON COLUMN public.actions.category IS
   'what type of item is it?
 A block? A tool? A pickable item? A mob? 
 Also block mined, block collected, block crafted.... Mob killed or killed by mob,.....
@@ -26,7 +58,7 @@ Also block mined, block collected, block crafted.... Mob killed or killed by mob
 ...'
   ;
 
-COMMENT ON TABLE actions IS
+COMMENT ON TABLE public.actions IS
   'Stores all the relevant data regarding the player statistics.
 In  "uuid" is the player stored
 in "object" it is stated what the other data refers to (stone_block, diamond_sword, zombie,....)
@@ -34,92 +66,68 @@ in "category" is stated in which context the item should be interpretet (mined b
 "value" is the corresponding value '
   ;
 
-CREATE TABLE banned_players(
+CREATE TABLE public.banned_players(
   id integer NOT NULL,
-  player_id integer,
-  "admin" integer NOT NULL,
+  player_id uuid NOT NULL,
+  "admin" uuid NOT NULL,
   ban_reason text NOT NULL,
-  ban_start timestamp NOT NULL,
-  ban_end timestamp NOT NULL
+  ban_start timestamp without time zone NOT NULL,
+  ban_end timestamp without time zone NOT NULL,
+  CONSTRAINT banned_players_pkey PRIMARY KEY(id)
 );
 
-COMMENT ON TABLE banned_players IS
+COMMENT ON TABLE public.banned_players IS
   'Contains the uuids and informations about banned players';
 
-CREATE TABLE login(
+CREATE TABLE public.login(
   id integer NOT NULL,
-  player_id integer NOT NULL,
+  player_id uuid NOT NULL,
   pin integer NOT NULL,
-  "timestamp" timestamp NOT NULL,
+  "timestamp" timestamp without time zone NOT NULL,
   CONSTRAINT login_pkey PRIMARY KEY(id)
 );
 
-COMMENT ON TABLE login IS
+COMMENT ON TABLE public.login IS
   'Stores the pin the player is required to provide on login';
 
-CREATE TABLE player(
+CREATE TABLE public.player_prefixes(
   id integer NOT NULL,
-  uuid integer NOT NULL,
-  "name" text NOT NULL,
-  CONSTRAINT player_pkey1 PRIMARY KEY(id)
-);
-
-CREATE TABLE player_prefixes(
-  id integer NOT NULL,
-  player_id integer NOT NULL,
+  player_id uuid NOT NULL,
   prefix text,
   "password" text,
-  members integer
+  members uuid[],
+  CONSTRAINT player_prefixes_pkey PRIMARY KEY(id)
 );
 
-COMMENT ON TABLE player_prefixes IS
+COMMENT ON TABLE public.player_prefixes IS
   'The prefix which a player can configure on the website';
 
-CREATE TABLE player_server_info(
-  id integer NOT NULL,
-  server_id integer NOT NULL,
-  player_uuid integer NOT NULL,
-  online bit NOT NULL,
-  first_seen timestamp NOT NULL,
-  last_seen timestamp NOT NULL,
-  web_access_permissions smallint NOT NULL,
-  CONSTRAINT player_server_info_pkey PRIMARY KEY(id),
-  CONSTRAINT player_server_info_key UNIQUE(server_id),
-  CONSTRAINT player_server_info_key1 UNIQUE(player_uuid)
-);
-
-COMMENT ON TABLE player_server_info IS
-  'Saves player data regarding the online status, last seen,...';
-
-CREATE TABLE "server"(
-  id integer NOT NULL,
-  server_id integer NOT NULL,
-  subdomain text NOT NULL,
-  owner_name text,
-  mc_server_domain text,
-  CONSTRAINT server_pkey PRIMARY KEY(id)
-);
-
-ALTER TABLE actions
+ALTER TABLE public.actions
   ADD CONSTRAINT actions_player_id_fkey
-    FOREIGN KEY (player_id) REFERENCES player_server_info (id);
+    FOREIGN KEY (player_id) REFERENCES public.player_server_info (id)
+      ON DELETE No action ON UPDATE No action;
 
-ALTER TABLE banned_players
+ALTER TABLE public.banned_players
   ADD CONSTRAINT banned_players_player_id_fkey
-    FOREIGN KEY (player_id) REFERENCES player_server_info (id);
+    FOREIGN KEY (player_id) REFERENCES public.player_server_info (id)
+      ON DELETE No action ON UPDATE No action;
 
-ALTER TABLE login
+ALTER TABLE public.login
   ADD CONSTRAINT login_player_id_fkey
-    FOREIGN KEY (player_id) REFERENCES player_server_info (id);
+    FOREIGN KEY (player_id) REFERENCES public.player_server_info (id)
+      ON DELETE No action ON UPDATE No action;
 
-ALTER TABLE player_prefixes
+ALTER TABLE public.player_prefixes
   ADD CONSTRAINT player_prefixes_player_id_fkey
-    FOREIGN KEY (player_id) REFERENCES player_server_info (id);
+    FOREIGN KEY (player_id) REFERENCES public.player_server_info (id)
+      ON DELETE No action ON UPDATE No action;
 
-ALTER TABLE player
-  ADD CONSTRAINT player_uuid_fkey
-    FOREIGN KEY (uuid) REFERENCES player_server_info (player_uuid);
+ALTER TABLE public.player_server_info
+  ADD CONSTRAINT player_server_info_player_uuid_fkey
+    FOREIGN KEY (player_uuid) REFERENCES public.player (uuid) ON DELETE No action
+      ON UPDATE No action;
 
-ALTER TABLE "server"
-  ADD CONSTRAINT server_server_id_fkey
-    FOREIGN KEY (server_id) REFERENCES player_server_info (server_id);
+ALTER TABLE public.player_server_info
+  ADD CONSTRAINT player_server_info_server_id_fkey
+    FOREIGN KEY (server_id) REFERENCES public."server" (server_id)
+      ON DELETE No action ON UPDATE No action;
