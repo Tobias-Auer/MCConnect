@@ -178,7 +178,31 @@ class DatabaseManager:
     
 
     ################################ UPDATE FUNCTIONS #################################
+    def update_prefix(self, player_id, prefix=None, password=None):
+        ...
 
+    def join_prefix(self, player_id, prefix_id):
+        logger.debug("join_prefix is called")
+        query = """ UPDATE player_prefixes
+                    SET members = CASE
+                        WHEN array_position(members, %s) IS NULL THEN array_append(members, %s)
+                        ELSE members
+                    END
+                    WHERE id = '%s';"""
+        data = (player_id, player_id, prefix_id)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            logger.info(f'Joined prefix for player: "{player_id}" with prefix: "{prefix_id}"')
+        except Exception as e:
+            logger.error(f'Failed to join prefix for player: "{player_id}" with prefix: "{prefix_id}". Error: {e}')
+            return False
+        return True
+        
+    def leave_prefix():
+       ...
 
     ################################ DELETE FUNCTIONS #################################
     def drop_db(self):
@@ -247,7 +271,7 @@ class DatabaseManager:
         logger.debug(f"Table names retrieved: {tables}")
         return tables
 
-    def get_player_id_from_uuid_and_server(self, player_uuid, server_id):
+    def get_player_id_from_player_uuid_and_server_id(self, player_uuid, server_id):
         logger.debug("get_player_id_from_uuid_and_server is called")
         query = "SELECT id FROM player_server_info WHERE player_uuid = %s AND server_id = %s"
         logger.debug(f"executing SQL query: {query}")
@@ -285,6 +309,27 @@ class DatabaseManager:
             logger.error(f'Failed to get server id for subdomain: "{subdomain}". Error: {e}')
             return None
 
+    def get_prefix_id_from_player_id(self, player_id):
+        logger.debug("get_prefix_id_from_player_and_server_id is called")
+        query = "SELECT id FROM player_prefixes WHERE player_id = %s ;"
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.info(f'Found prefix id: "{result[0]}" for player: "{player_id}"')
+        except Exception as e:
+            logger.error(f'Failed to get prefix id for player: "{player_id}". Error: {e}')
+            return None
+        return result[0]
+
+    
+    def get_prefix_id_from_server_id_and_prefix_name(self, server_id, prefix_name):
+        ...
+    
+    def get_prefix_name_from_prefix_id(self, prefix_id):
+        ...
     
 
 if __name__ == "__main__":
@@ -296,7 +341,10 @@ if __name__ == "__main__":
 
     db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
     
-    my_id = db_manager.get_player_id_from_uuid_and_server("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
+    my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
     db_manager.init_prefix_table(my_id)
+    my_prefix_id = db_manager.get_prefix_id_from_player_id(my_id)
+    db_manager.join_prefix(my_id, my_prefix_id)
+    
     logger.info("Database connection closed")
     db_manager.conn.close()
