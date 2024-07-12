@@ -4,7 +4,7 @@ from logger import get_logger
 import logging
 from minecraft import Minecraft
 
-logger = get_logger("databaseManager",logging.DEBUG)
+logger = get_logger("databaseManager",logging.INFO)
 minecraft = Minecraft()
 
 def read_sql_file(filepath):
@@ -215,9 +215,24 @@ class DatabaseManager:
             return False
         return True
         
-    def leave_prefix():
-       ...
+    def leave_prefix(self, player_id, prefix_id):
+        logger.debug("leave_prefix is called")
 
+        query = """ UPDATE player_prefixes
+                SET members = array_remove(members, %s)
+                WHERE id = %s;"""
+        data = (player_id, prefix_id)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            logger.info(f'{player_id} left prefix: "{prefix_id}"')
+        except Exception as e:
+            logger.error(f'{player_id} failed to leave prefix: "{prefix_id}". Error: {e}')
+            return False
+        return True
+        
     ################################ DELETE FUNCTIONS #################################
     def drop_db(self):
         """
@@ -360,5 +375,8 @@ if __name__ == "__main__":
     my_prefix_id = db_manager.get_prefix_id_from_player_id(my_id)
     db_manager.join_prefix(my_id, my_prefix_id)
     db_manager.update_prefix(my_id, "NewPrefix", "newpassword")
+    import time
+    time.sleep(6)
+    db_manager.leave_prefix(my_id, my_prefix_id)
     logger.info("Database connection closed")
     db_manager.conn.close()
