@@ -10,7 +10,7 @@ CREATE TABLE public.player(
 );
 
 CREATE TABLE public."server"(
-  server_id integer NOT NULL,
+  server_id SERIAL,
   subdomain text NOT NULL,
   license_type integer NOT NULL,
   owner_name text,
@@ -92,7 +92,7 @@ COMMENT ON TABLE public.login IS
   'Stores the pin the player is required to provide on login';
 
 CREATE TABLE public.player_prefixes(
-  id integer NOT NULL,
+  id SERIAL,
   player_id uuid NOT NULL,
   prefix text,
   "password" text,
