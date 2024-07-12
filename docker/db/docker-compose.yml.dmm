@@ -1227,7 +1227,7 @@
 		},
 		"type": "PG",
 		"version": 1,
-		"lastSaved": "",
+		"lastSaved": 1720793214664,
 		"pg": {
 			"schema": "public"
 		},
@@ -1663,7 +1663,7 @@
 			"isOpen": true,
 			"main": true,
 			"name": "Main Diagram",
-			"keysgraphics": true,
+			"keysgraphics": false,
 			"linegraphics": "detailed",
 			"zoom": 1,
 			"background": "transparent",
