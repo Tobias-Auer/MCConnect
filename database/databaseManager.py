@@ -4,7 +4,7 @@ from logger import get_logger
 import logging
 from minecraft import Minecraft
 
-logger = get_logger("databaseManager",logging.INFO)
+logger = get_logger("databaseManager",logging.DEBUG)
 minecraft = Minecraft()
 
 def read_sql_file(filepath):
@@ -179,7 +179,21 @@ class DatabaseManager:
 
     ################################ UPDATE FUNCTIONS #################################
     def update_prefix(self, player_id, prefix=None, password=None):
-        ...
+        logger.debug("update_prefix is called")
+        query = """ UPDATE player_prefixes
+                    SET prefix = %s, password = %s
+                    WHERE player_id = %s;"""
+        data = (prefix, password, player_id)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            logger.info(f'Updated prefix for player: "{player_id}" to: "{prefix}" with password: "{password}"')
+        except Exception as e:
+            logger.error(f'Failed to update prefix for player: "{player_id}". Error: {e}')
+            return False
+        return True
 
     def join_prefix(self, player_id, prefix_id):
         logger.debug("join_prefix is called")
@@ -345,6 +359,6 @@ if __name__ == "__main__":
     db_manager.init_prefix_table(my_id)
     my_prefix_id = db_manager.get_prefix_id_from_player_id(my_id)
     db_manager.join_prefix(my_id, my_prefix_id)
-    
+    db_manager.update_prefix(my_id, "NewPrefix", "newpassword")
     logger.info("Database connection closed")
     db_manager.conn.close()
