@@ -47,7 +47,7 @@ class DatabaseManager:
         logger.debug("create_tables is called")
         logger.debug("dropping existing tables")
         self.drop_db()
-        query = read_sql_file("socket/queries/initDB.sql")
+        query = read_sql_file("database/queries/initDB.sql")
         logger.debug(f"executing SQL query: {query}")
         try:
             self.cursor.execute(query)
@@ -92,7 +92,7 @@ class DatabaseManager:
         query = "DROP SCHEMA public CASCADE;CREATE SCHEMA public;"
         logger.debug(f"executing SQL query: {query}")
         self.cursor.execute(query)
-        logger.warn("Database dropped")
+        logger.warning("Database dropped")
         self.conn.commit()
 
     def check_database_integrity(self):
@@ -116,7 +116,7 @@ class DatabaseManager:
             logger.info("Database integrity check passed.")
         return True
 
-    def register_new_server(self, server_id, subdomain, owner_name=None, mc_server_domain=None):
+    def register_new_server(self, server_id, subdomain, license_type, owner_name=None, mc_server_domain=None):
         """
         Registers a new server in the database.
 
@@ -134,11 +134,11 @@ class DatabaseManager:
         """
         logger.debug("register_new_server is called")
         query = """
-            INSERT INTO server (server_id, subdomain, owner_name, mc_server_domain)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO server (server_id, subdomain, license_type, owner_name, mc_server_domain)
+            VALUES (%s, %s, %s, %s, %s)
                 """
         logger.debug(f"executing SQL query: {query}")
-        data = (server_id, subdomain, owner_name, mc_server_domain)
+        data = (server_id, subdomain, license_type, owner_name, mc_server_domain)
         logger.debug(f"with follwing data: {data}")
         try:
             self.cursor.execute(query, data)
@@ -226,11 +226,13 @@ class DatabaseManager:
             logger.error(f'Failed to initialize player server info for server: "{server_id}" and player: "{player_uuid}". Error: {e}')
             return False
         return True
+    
+    
 
 if __name__ == "__main__":
     db_manager = DatabaseManager()
     db_manager.create_tables()
-    db_manager.register_new_server(0, "tobias", "Tobias Auer", "mc.t-auer.com")
+    db_manager.register_new_server(0, "tobias", 2, "Tobias Auer", "mc.t-auer.com")
     #db_manager.delete_server(9999)
     db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
 

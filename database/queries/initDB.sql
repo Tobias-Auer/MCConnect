@@ -12,6 +12,7 @@ CREATE TABLE public.player(
 CREATE TABLE public."server"(
   server_id integer NOT NULL,
   subdomain text NOT NULL,
+  license_type integer NOT NULL,
   owner_name text,
   mc_server_domain text,
   CONSTRAINT server_key UNIQUE(server_id),

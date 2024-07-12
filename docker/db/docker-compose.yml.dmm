@@ -1,6 +1,6 @@
 {
 	"tables": {
-		"dc96190a-91f9-4164-b2a3-ee46c44dfe00": {
+		"74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -14,12 +14,12 @@
 				"schema": "public"
 			},
 			"desc": "Stores all the relevant data regarding the player statistics.\nIn  \"uuid\" is the player stored\nin \"object\" it is stated what the other data refers to (stone_block, diamond_sword, zombie,....)\nin \"category\" is stated in which context the item should be interpretet (mined blocks, collected blocks, item usage, killed mobs, ....)\n\"value\" is the corresponding value ",
-			"id": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
+			"id": "74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48",
 			"name": "actions",
 			"cols": [
 				{
 					"data": "",
-					"id": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b",
+					"id": "0140d31a-3993-481f-a701-887771468d86",
 					"name": "id",
 					"datatype": "integer",
 					"param": "",
@@ -40,7 +40,7 @@
 				},
 				{
 					"data": "",
-					"id": "7ecf10f4-1463-445e-954c-3655d08db019",
+					"id": "59f2db71-ffbe-497c-982b-811672ac78c3",
 					"name": "player_id",
 					"datatype": "uuid",
 					"param": "",
@@ -61,7 +61,7 @@
 				},
 				{
 					"data": "",
-					"id": "e7d40d7c-d739-4b8c-b631-434b76a940cd",
+					"id": "d6c95b39-9706-48c1-a842-7f960f84e515",
 					"name": "object",
 					"datatype": "text",
 					"param": "",
@@ -82,7 +82,7 @@
 				},
 				{
 					"data": "",
-					"id": "e3246323-b914-4dd7-b5ef-98cadd80bcd1",
+					"id": "74987ff4-adbc-4ff9-9601-2d99492562bd",
 					"name": "category",
 					"datatype": "smallint",
 					"param": "",
@@ -103,7 +103,7 @@
 				},
 				{
 					"data": "",
-					"id": "451e0a62-9b54-4949-b228-411e027e02f7",
+					"id": "6429419f-c439-4caf-8f59-61b7d6a5f109",
 					"name": "value",
 					"datatype": "integer",
 					"param": "",
@@ -124,17 +124,17 @@
 				}
 			],
 			"relations": [
-				"cb84411c-793b-4b5b-af0b-43898ac25a53"
+				"2a42d927-bea1-4fd9-b8a6-c96a1aa20300"
 			],
 			"keys": [
 				{
-					"id": "ff7e2830-9c05-4da7-85de-85a16a961948",
+					"id": "969e9cfb-8efa-4010-af04-b8fdbf6df5c7",
 					"isPk": true,
 					"name": "actions_pkey",
 					"cols": [
 						{
-							"id": "c81b57b6-993b-4d87-b871-189a1138e2a8",
-							"colid": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b"
+							"id": "c9bc2015-610c-4af9-8418-c99080cd9176",
+							"colid": "0140d31a-3993-481f-a701-887771468d86"
 						}
 					]
 				}
@@ -146,7 +146,7 @@
 			"generateCustomCode": true,
 			"customCode": ""
 		},
-		"6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad": {
+		"de379306-7e09-4205-9767-d8e47028a699": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -160,12 +160,12 @@
 				"schema": "public"
 			},
 			"desc": "Contains the uuids and informations about banned players",
-			"id": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
+			"id": "de379306-7e09-4205-9767-d8e47028a699",
 			"name": "banned_players",
 			"cols": [
 				{
 					"data": "",
-					"id": "b288a6c0-7d66-4bc8-a4a6-d2297af79846",
+					"id": "518dabdc-fc45-4a28-83a3-bec85fd85c9f",
 					"name": "id",
 					"datatype": "integer",
 					"param": "",
@@ -186,7 +186,7 @@
 				},
 				{
 					"data": "",
-					"id": "04420b8f-e8d0-4769-bf81-ef4c94bf156f",
+					"id": "ae6e910b-b5c7-44ad-9e19-c8536a1f1387",
 					"name": "player_id",
 					"datatype": "uuid",
 					"param": "",
@@ -207,7 +207,7 @@
 				},
 				{
 					"data": "",
-					"id": "3fa66c19-5acb-467d-b20a-3ccb9e4661dd",
+					"id": "3abb28bc-694e-41d2-b776-aa7b6255af3a",
 					"name": "admin",
 					"datatype": "uuid",
 					"param": "",
@@ -228,7 +228,7 @@
 				},
 				{
 					"data": "",
-					"id": "b9ebeb05-9791-44cc-9eb2-b3d87fe56bac",
+					"id": "5096b657-dadd-40e7-9616-76278ab461ba",
 					"name": "ban_reason",
 					"datatype": "text",
 					"param": "",
@@ -249,7 +249,7 @@
 				},
 				{
 					"data": "",
-					"id": "9281c314-540f-4e1a-a734-a2d98afce38c",
+					"id": "55faec1d-8eb1-4cde-943e-85b6e21327cf",
 					"name": "ban_start",
 					"datatype": "timestamp without time zone",
 					"param": "",
@@ -270,7 +270,7 @@
 				},
 				{
 					"data": "",
-					"id": "a9b49df6-9f53-4f96-8dc4-e832a54bb734",
+					"id": "51d289b7-9f2d-4d09-8181-1877237e60f2",
 					"name": "ban_end",
 					"datatype": "timestamp without time zone",
 					"param": "",
@@ -291,17 +291,17 @@
 				}
 			],
 			"relations": [
-				"985898e7-093c-42f8-b294-3e873ee9f41f"
+				"192b90d1-6310-46c0-950d-109b0c7186ce"
 			],
 			"keys": [
 				{
-					"id": "5b2c5490-6428-4acd-b06b-a66d9c81522a",
+					"id": "a9197b83-82fb-469c-a2f1-5357391fc791",
 					"isPk": true,
 					"name": "banned_players_pkey",
 					"cols": [
 						{
-							"id": "19081a7a-425b-422d-bf84-1a7e2398b48f",
-							"colid": "b288a6c0-7d66-4bc8-a4a6-d2297af79846"
+							"id": "be6b3db8-0a24-493b-8f2f-2b31b7ea83a1",
+							"colid": "518dabdc-fc45-4a28-83a3-bec85fd85c9f"
 						}
 					]
 				}
@@ -313,7 +313,7 @@
 			"generateCustomCode": true,
 			"customCode": ""
 		},
-		"80ff33a2-3643-4e33-b866-22401e4852ac": {
+		"daa1eb13-6430-4231-9409-642785214b73": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -327,12 +327,12 @@
 				"schema": "public"
 			},
 			"desc": "Stores the pin the player is required to provide on login",
-			"id": "80ff33a2-3643-4e33-b866-22401e4852ac",
+			"id": "daa1eb13-6430-4231-9409-642785214b73",
 			"name": "login",
 			"cols": [
 				{
 					"data": "",
-					"id": "a86ebc27-fe88-410b-8753-75a80b3085d9",
+					"id": "6426b350-f957-4e47-90b3-1672024d59a2",
 					"name": "id",
 					"datatype": "integer",
 					"param": "",
@@ -353,7 +353,7 @@
 				},
 				{
 					"data": "",
-					"id": "390563c2-2466-450b-aa4d-cebe3a01979c",
+					"id": "3a2b4b2b-e8e9-4b2a-8070-dd0073c52900",
 					"name": "player_id",
 					"datatype": "uuid",
 					"param": "",
@@ -374,7 +374,7 @@
 				},
 				{
 					"data": "",
-					"id": "4a9c246f-885c-4493-826b-6c4a24f786b1",
+					"id": "c892d41d-e27d-4c9f-a56f-d5a764809427",
 					"name": "pin",
 					"datatype": "integer",
 					"param": "",
@@ -395,7 +395,7 @@
 				},
 				{
 					"data": "",
-					"id": "8771af03-6c85-47f4-88cf-19b2b32fb995",
+					"id": "592426fc-0641-498a-9722-87ea271e65ec",
 					"name": "timestamp",
 					"datatype": "timestamp without time zone",
 					"param": "",
@@ -416,17 +416,17 @@
 				}
 			],
 			"relations": [
-				"c328ac67-6ddb-42ab-a796-0d672d22b8c1"
+				"0f49a47b-d87a-494c-826a-11494f981b3d"
 			],
 			"keys": [
 				{
-					"id": "f8d25a8c-884d-4426-ba79-5804c4e28249",
+					"id": "2c6b9b24-90ba-43ab-bfb6-b159884571fb",
 					"isPk": true,
 					"name": "login_pkey",
 					"cols": [
 						{
-							"id": "4a8b3423-180e-447b-b1e7-a19e32243f3f",
-							"colid": "a86ebc27-fe88-410b-8753-75a80b3085d9"
+							"id": "e84ceb64-438f-429a-91e4-0c416aff3507",
+							"colid": "6426b350-f957-4e47-90b3-1672024d59a2"
 						}
 					]
 				}
@@ -438,7 +438,7 @@
 			"generateCustomCode": true,
 			"customCode": ""
 		},
-		"055539e4-167e-4965-82ca-7fd1973c2c2f": {
+		"a35787bd-227c-417b-b338-a170c6c6d600": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -452,12 +452,12 @@
 				"schema": "public"
 			},
 			"desc": "",
-			"id": "055539e4-167e-4965-82ca-7fd1973c2c2f",
+			"id": "a35787bd-227c-417b-b338-a170c6c6d600",
 			"name": "player",
 			"cols": [
 				{
 					"data": "",
-					"id": "64234d48-e491-4e3d-9a74-8ee070628e8b",
+					"id": "3b0a0c6a-ab16-430f-b668-ac83b708221a",
 					"name": "uuid",
 					"datatype": "uuid",
 					"param": "",
@@ -478,7 +478,7 @@
 				},
 				{
 					"data": "",
-					"id": "69c76c5f-e077-4790-9a9d-1ee3a33b3e8f",
+					"id": "4b22f1a0-bab2-4f38-8cd3-ac382146c80c",
 					"name": "name",
 					"datatype": "text",
 					"param": "",
@@ -499,28 +499,17 @@
 				}
 			],
 			"relations": [
-				"f26b1c39-d8f1-4f4d-9509-cb974e104aee"
+				"50d178fc-86b7-41e7-a093-cf7597b4564a"
 			],
 			"keys": [
 				{
-					"id": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
-					"isPk": false,
-					"name": "player_key",
-					"cols": [
-						{
-							"id": "8495dff2-2092-490e-84e8-9cfc94e577b9",
-							"colid": "64234d48-e491-4e3d-9a74-8ee070628e8b"
-						}
-					]
-				},
-				{
-					"id": "71f131f0-dac5-48aa-8565-330e6422888c",
+					"id": "08157c63-e202-4674-bda8-49db5f6cacea",
 					"isPk": true,
 					"name": "player_pkey",
 					"cols": [
 						{
-							"id": "c3ba9362-b985-4c51-ba62-f6bccdb01b4f",
-							"colid": "64234d48-e491-4e3d-9a74-8ee070628e8b"
+							"id": "46e54a91-c9f1-4c94-871a-ad18f9477120",
+							"colid": "3b0a0c6a-ab16-430f-b668-ac83b708221a"
 						}
 					]
 				}
@@ -532,7 +521,7 @@
 			"generateCustomCode": true,
 			"customCode": ""
 		},
-		"db052761-90ba-4dca-88d8-d19f98cb65b5": {
+		"742db6fd-d0f3-40c5-bae1-9dd78c0502c2": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -546,12 +535,12 @@
 				"schema": "public"
 			},
 			"desc": "The prefix which a player can configure on the website",
-			"id": "db052761-90ba-4dca-88d8-d19f98cb65b5",
+			"id": "742db6fd-d0f3-40c5-bae1-9dd78c0502c2",
 			"name": "player_prefixes",
 			"cols": [
 				{
 					"data": "",
-					"id": "077457c3-5bf6-42a7-a460-663fe160b88a",
+					"id": "d92aff07-6e62-42ae-810e-ff031be403aa",
 					"name": "id",
 					"datatype": "integer",
 					"param": "",
@@ -572,7 +561,7 @@
 				},
 				{
 					"data": "",
-					"id": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa",
+					"id": "56d52162-58ab-4c67-9889-8696050f393c",
 					"name": "player_id",
 					"datatype": "uuid",
 					"param": "",
@@ -593,7 +582,7 @@
 				},
 				{
 					"data": "",
-					"id": "a3afa60c-f970-46d2-89d6-d08eec84c8b5",
+					"id": "151cb38a-5f6f-40f5-8392-1008c05e94db",
 					"name": "prefix",
 					"datatype": "text",
 					"param": "",
@@ -614,7 +603,7 @@
 				},
 				{
 					"data": "",
-					"id": "8d60172a-9138-4ac2-8ae6-2c40a4994639",
+					"id": "757e0792-75cb-4692-9f0b-2273b95479db",
 					"name": "password",
 					"datatype": "text",
 					"param": "",
@@ -635,7 +624,7 @@
 				},
 				{
 					"data": "",
-					"id": "c4501b08-abc6-4b2c-86da-0f91f54b9b26",
+					"id": "81fdbf50-9272-4fa4-b9b9-3dcb3a5ecdfa",
 					"name": "members",
 					"datatype": "uuid",
 					"param": "",
@@ -656,17 +645,17 @@
 				}
 			],
 			"relations": [
-				"2072b35f-68ca-4670-9d24-91eab02b13c2"
+				"72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c"
 			],
 			"keys": [
 				{
-					"id": "88573917-94d0-4b35-a78c-d5ef86edfcd7",
+					"id": "abde4c90-c400-4d97-9892-b4ab7482ad13",
 					"isPk": true,
 					"name": "player_prefixes_pkey",
 					"cols": [
 						{
-							"id": "7ddc1440-4509-4b80-8654-236101b02105",
-							"colid": "077457c3-5bf6-42a7-a460-663fe160b88a"
+							"id": "4acae076-5811-49cd-ab8d-775c8bede0c6",
+							"colid": "d92aff07-6e62-42ae-810e-ff031be403aa"
 						}
 					]
 				}
@@ -678,7 +667,7 @@
 			"generateCustomCode": true,
 			"customCode": ""
 		},
-		"6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7": {
+		"6c7062ac-6f6b-4d2c-b30d-81165a78e496": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -692,12 +681,12 @@
 				"schema": "public"
 			},
 			"desc": "Saves player data regarding the online status, last seen,...",
-			"id": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+			"id": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 			"name": "player_server_info",
 			"cols": [
 				{
 					"data": "",
-					"id": "b2d55569-068b-4600-a42f-031acc7c0711",
+					"id": "951f2d7a-586a-4d53-960e-4282fa6074b5",
 					"name": "id",
 					"datatype": "uuid",
 					"param": "",
@@ -718,7 +707,7 @@
 				},
 				{
 					"data": "",
-					"id": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399",
+					"id": "763e5828-3f2d-4a92-98ba-7a0d30ae7072",
 					"name": "server_id",
 					"datatype": "integer",
 					"param": "",
@@ -739,7 +728,7 @@
 				},
 				{
 					"data": "",
-					"id": "930a6909-2045-49e8-b022-25af34a503e7",
+					"id": "9df67f26-8ed6-4b2f-881c-3aad8d9b8e73",
 					"name": "player_uuid",
 					"datatype": "uuid",
 					"param": "",
@@ -760,7 +749,7 @@
 				},
 				{
 					"data": "",
-					"id": "fa4a6be5-f813-4d47-80c8-b58a3ba03480",
+					"id": "3c8a439d-58ee-44fd-89ee-3625adfa427f",
 					"name": "online",
 					"datatype": "boolean",
 					"param": "",
@@ -781,7 +770,7 @@
 				},
 				{
 					"data": "",
-					"id": "c40f454b-ab62-4ecf-a2b4-8630c5d33a4b",
+					"id": "ea510a38-e131-404f-8f1d-501c2c339794",
 					"name": "first_seen",
 					"datatype": "timestamp without time zone",
 					"param": "",
@@ -802,7 +791,7 @@
 				},
 				{
 					"data": "",
-					"id": "584dae6c-3ab4-4e8a-8f73-bf0a74e4bb40",
+					"id": "95abd278-1bc7-4782-aa53-84c727eff649",
 					"name": "last_seen",
 					"datatype": "timestamp without time zone",
 					"param": "",
@@ -823,7 +812,7 @@
 				},
 				{
 					"data": "",
-					"id": "891d05e8-f091-4c24-8011-f550023f52f9",
+					"id": "83fe6a5e-f5ac-4eff-800d-667d418ed62b",
 					"name": "web_access_permissions",
 					"datatype": "smallint",
 					"param": "",
@@ -844,44 +833,37 @@
 				}
 			],
 			"relations": [
-				"cb84411c-793b-4b5b-af0b-43898ac25a53",
-				"985898e7-093c-42f8-b294-3e873ee9f41f",
-				"c328ac67-6ddb-42ab-a796-0d672d22b8c1",
-				"2072b35f-68ca-4670-9d24-91eab02b13c2",
-				"f26b1c39-d8f1-4f4d-9509-cb974e104aee",
-				"de1b22a0-75c2-4399-849f-1c81792a4084"
+				"2a42d927-bea1-4fd9-b8a6-c96a1aa20300",
+				"192b90d1-6310-46c0-950d-109b0c7186ce",
+				"0f49a47b-d87a-494c-826a-11494f981b3d",
+				"72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c",
+				"50d178fc-86b7-41e7-a093-cf7597b4564a",
+				"07d644d9-37b7-4a41-8933-04fb78451b16"
 			],
 			"keys": [
 				{
-					"id": "9ba53e7f-6ec2-4541-824f-3b50eca4f4ee",
-					"isPk": false,
-					"name": "player_server_info_key",
-					"cols": [
-						{
-							"id": "24e91e67-b11d-4321-b427-872cc27bff6d",
-							"colid": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
-						}
-					]
-				},
-				{
-					"id": "d68f4c8d-3422-463f-8e1b-57ccc4d6586d",
-					"isPk": false,
-					"name": "player_server_info_key1",
-					"cols": [
-						{
-							"id": "cc61e721-063c-4690-8b71-460213600805",
-							"colid": "930a6909-2045-49e8-b022-25af34a503e7"
-						}
-					]
-				},
-				{
-					"id": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"id": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 					"isPk": true,
 					"name": "player_server_info_pkey",
 					"cols": [
 						{
-							"id": "80620921-0523-40fa-a044-034441ebe68d",
-							"colid": "b2d55569-068b-4600-a42f-031acc7c0711"
+							"id": "b9703222-918a-4bff-b92e-988efdbd4f57",
+							"colid": "951f2d7a-586a-4d53-960e-4282fa6074b5"
+						}
+					]
+				},
+				{
+					"id": "e4ee7b13-7a07-4c01-8363-901d2f07e4aa",
+					"isPk": false,
+					"name": "player_server_info_server_player_unique",
+					"cols": [
+						{
+							"id": "4c55a1d5-6b69-440b-83a7-080ff0c1d6bb",
+							"colid": "763e5828-3f2d-4a92-98ba-7a0d30ae7072"
+						},
+						{
+							"id": "94768f73-6b0c-449b-9f1b-3023e0573fc6",
+							"colid": "9df67f26-8ed6-4b2f-881c-3aad8d9b8e73"
 						}
 					]
 				}
@@ -893,7 +875,7 @@
 			"generateCustomCode": true,
 			"customCode": ""
 		},
-		"551caf61-9c12-430e-a1f5-c70ac324ab2b": {
+		"f33effc9-73f8-4a5d-85c7-dac26bf590ff": {
 			"lines": [],
 			"embeddable": false,
 			"objectType": "table",
@@ -907,12 +889,12 @@
 				"schema": "public"
 			},
 			"desc": "",
-			"id": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+			"id": "f33effc9-73f8-4a5d-85c7-dac26bf590ff",
 			"name": "server",
 			"cols": [
 				{
 					"data": "",
-					"id": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
+					"id": "9d6a4254-7e51-4f95-b8ce-3a37d2df931c",
 					"name": "server_id",
 					"datatype": "integer",
 					"param": "",
@@ -933,7 +915,7 @@
 				},
 				{
 					"data": "",
-					"id": "7e5c62e7-813f-40fd-b73e-ae11c91aa496",
+					"id": "05b3ef8c-5111-4f1f-9965-139d91f97ad9",
 					"name": "subdomain",
 					"datatype": "text",
 					"param": "",
@@ -954,7 +936,28 @@
 				},
 				{
 					"data": "",
-					"id": "d949fc4d-e2a8-4fe8-bd0c-afe6476ecd14",
+					"id": "0c3c4bf2-44e3-4b8e-b0c2-31b346cd5a2b",
+					"name": "license_type",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "f26c4c31-49ad-4f73-a550-86019e96f873",
 					"name": "owner_name",
 					"datatype": "text",
 					"param": "",
@@ -975,7 +978,7 @@
 				},
 				{
 					"data": "",
-					"id": "e04eb1a4-5e7b-4848-85c4-889301699a9d",
+					"id": "40d1855b-85ef-4358-aea3-7e744037cec8",
 					"name": "mc_server_domain",
 					"datatype": "text",
 					"param": "",
@@ -996,28 +999,17 @@
 				}
 			],
 			"relations": [
-				"de1b22a0-75c2-4399-849f-1c81792a4084"
+				"07d644d9-37b7-4a41-8933-04fb78451b16"
 			],
 			"keys": [
 				{
-					"id": "e3a0322f-3547-4405-b903-3639ae063416",
-					"isPk": false,
-					"name": "server_key",
-					"cols": [
-						{
-							"id": "8db3864f-5bd6-42df-9ff9-b267831fa742",
-							"colid": "8fc0440e-b120-42b1-836d-3d4a4c07ac61"
-						}
-					]
-				},
-				{
-					"id": "65197089-9172-4ca0-9b79-f50322e08e4e",
+					"id": "9e8b6733-85ee-47f1-b8b7-746f8126c96d",
 					"isPk": true,
 					"name": "server_pkey",
 					"cols": [
 						{
-							"id": "d217b23b-b29e-43ab-891e-4e3a13444682",
-							"colid": "8fc0440e-b120-42b1-836d-3d4a4c07ac61"
+							"id": "2941e184-19e7-4bd2-bf67-45db80520261",
+							"colid": "9d6a4254-7e51-4f95-b8ce-3a37d2df931c"
 						}
 					]
 				}
@@ -1031,18 +1023,18 @@
 		}
 	},
 	"relations": {
-		"cb84411c-793b-4b5b-af0b-43898ac25a53": {
-			"id": "cb84411c-793b-4b5b-af0b-43898ac25a53",
+		"2a42d927-bea1-4fd9-b8a6-c96a1aa20300": {
+			"id": "2a42d927-bea1-4fd9-b8a6-c96a1aa20300",
 			"type": "identifying",
 			"cols": [
 				{
-					"id": "000ff20f-7dac-42db-bdb5-6e1481d3dfd6",
-					"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-					"childcol": "7ecf10f4-1463-445e-954c-3655d08db019"
+					"id": "6fcdca2c-9dda-4c8a-b948-319e1337622a",
+					"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+					"childcol": "59f2db71-ffbe-497c-982b-811672ac78c3"
 				}
 			],
-			"child": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
-			"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+			"child": "74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48",
+			"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 			"c_mp": "true",
 			"c_mch": "true",
 			"c_ch": "many",
@@ -1051,7 +1043,7 @@
 			"c_cch": "",
 			"name": "actions_player_id_fkey",
 			"desc": "",
-			"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+			"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 			"ri_pd": "No action",
 			"ri_pu": "No action",
 			"generate": true,
@@ -1060,27 +1052,27 @@
 			"relationColor": "transparent",
 			"visible": true
 		},
-		"985898e7-093c-42f8-b294-3e873ee9f41f": {
-			"id": "985898e7-093c-42f8-b294-3e873ee9f41f",
+		"192b90d1-6310-46c0-950d-109b0c7186ce": {
+			"id": "192b90d1-6310-46c0-950d-109b0c7186ce",
 			"type": "identifying",
 			"cols": [
 				{
-					"id": "e0eb4466-52f2-447d-8f8a-cfc7ffe45e30",
-					"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-					"childcol": "04420b8f-e8d0-4769-bf81-ef4c94bf156f"
+					"id": "6d2f8fb8-97d5-4748-946a-175551ec6020",
+					"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+					"childcol": "ae6e910b-b5c7-44ad-9e19-c8536a1f1387"
 				}
 			],
-			"child": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
-			"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+			"child": "de379306-7e09-4205-9767-d8e47028a699",
+			"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 			"c_mp": "true",
-			"c_mch": "false",
+			"c_mch": "true",
 			"c_ch": "many",
 			"c_p": "one",
 			"c_cp": "",
 			"c_cch": "",
 			"name": "banned_players_player_id_fkey",
 			"desc": "",
-			"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+			"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 			"ri_pd": "No action",
 			"ri_pu": "No action",
 			"generate": true,
@@ -1089,18 +1081,18 @@
 			"relationColor": "transparent",
 			"visible": true
 		},
-		"c328ac67-6ddb-42ab-a796-0d672d22b8c1": {
-			"id": "c328ac67-6ddb-42ab-a796-0d672d22b8c1",
+		"0f49a47b-d87a-494c-826a-11494f981b3d": {
+			"id": "0f49a47b-d87a-494c-826a-11494f981b3d",
 			"type": "identifying",
 			"cols": [
 				{
-					"id": "33451233-5079-4b05-9211-44d1b27ba293",
-					"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-					"childcol": "390563c2-2466-450b-aa4d-cebe3a01979c"
+					"id": "af2bc8bc-49a7-4c57-96b1-40cc53f8b924",
+					"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+					"childcol": "3a2b4b2b-e8e9-4b2a-8070-dd0073c52900"
 				}
 			],
-			"child": "80ff33a2-3643-4e33-b866-22401e4852ac",
-			"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+			"child": "daa1eb13-6430-4231-9409-642785214b73",
+			"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 			"c_mp": "true",
 			"c_mch": "true",
 			"c_ch": "many",
@@ -1109,7 +1101,7 @@
 			"c_cch": "",
 			"name": "login_player_id_fkey",
 			"desc": "",
-			"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+			"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 			"ri_pd": "No action",
 			"ri_pu": "No action",
 			"generate": true,
@@ -1118,18 +1110,18 @@
 			"relationColor": "transparent",
 			"visible": true
 		},
-		"2072b35f-68ca-4670-9d24-91eab02b13c2": {
-			"id": "2072b35f-68ca-4670-9d24-91eab02b13c2",
+		"72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c": {
+			"id": "72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c",
 			"type": "identifying",
 			"cols": [
 				{
-					"id": "40147bd6-a227-4616-86a5-96b0c504dc0a",
-					"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-					"childcol": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa"
+					"id": "2caeeeca-22d5-435d-befd-78d66fd74fed",
+					"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+					"childcol": "56d52162-58ab-4c67-9889-8696050f393c"
 				}
 			],
-			"child": "db052761-90ba-4dca-88d8-d19f98cb65b5",
-			"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+			"child": "742db6fd-d0f3-40c5-bae1-9dd78c0502c2",
+			"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 			"c_mp": "true",
 			"c_mch": "true",
 			"c_ch": "many",
@@ -1138,7 +1130,7 @@
 			"c_cch": "",
 			"name": "player_prefixes_player_id_fkey",
 			"desc": "",
-			"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+			"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 			"ri_pd": "No action",
 			"ri_pu": "No action",
 			"generate": true,
@@ -1147,27 +1139,27 @@
 			"relationColor": "transparent",
 			"visible": true
 		},
-		"f26b1c39-d8f1-4f4d-9509-cb974e104aee": {
-			"id": "f26b1c39-d8f1-4f4d-9509-cb974e104aee",
+		"50d178fc-86b7-41e7-a093-cf7597b4564a": {
+			"id": "50d178fc-86b7-41e7-a093-cf7597b4564a",
 			"type": "identifying",
 			"cols": [
 				{
-					"id": "c4ae39e5-cb4b-4866-b138-b207d8bb3e99",
-					"parentcol": "64234d48-e491-4e3d-9a74-8ee070628e8b",
-					"childcol": "930a6909-2045-49e8-b022-25af34a503e7"
+					"id": "dab6bf50-e78b-4ef4-ab51-6b15ca915cce",
+					"parentcol": "3b0a0c6a-ab16-430f-b668-ac83b708221a",
+					"childcol": "9df67f26-8ed6-4b2f-881c-3aad8d9b8e73"
 				}
 			],
-			"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
-			"parent": "055539e4-167e-4965-82ca-7fd1973c2c2f",
+			"child": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
+			"parent": "a35787bd-227c-417b-b338-a170c6c6d600",
 			"c_mp": "true",
 			"c_mch": "true",
-			"c_ch": "one",
+			"c_ch": "many",
 			"c_p": "one",
 			"c_cp": "",
 			"c_cch": "",
 			"name": "player_server_info_player_uuid_fkey",
 			"desc": "",
-			"parent_key": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
+			"parent_key": "08157c63-e202-4674-bda8-49db5f6cacea",
 			"ri_pd": "No action",
 			"ri_pu": "No action",
 			"generate": true,
@@ -1176,27 +1168,27 @@
 			"relationColor": "transparent",
 			"visible": true
 		},
-		"de1b22a0-75c2-4399-849f-1c81792a4084": {
-			"id": "de1b22a0-75c2-4399-849f-1c81792a4084",
+		"07d644d9-37b7-4a41-8933-04fb78451b16": {
+			"id": "07d644d9-37b7-4a41-8933-04fb78451b16",
 			"type": "identifying",
 			"cols": [
 				{
-					"id": "427cf291-d812-4a73-bbca-9900de4484ff",
-					"parentcol": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
-					"childcol": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
+					"id": "bb56e089-cd1b-4a37-be7e-4024f066f471",
+					"parentcol": "9d6a4254-7e51-4f95-b8ce-3a37d2df931c",
+					"childcol": "763e5828-3f2d-4a92-98ba-7a0d30ae7072"
 				}
 			],
-			"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
-			"parent": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+			"child": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
+			"parent": "f33effc9-73f8-4a5d-85c7-dac26bf590ff",
 			"c_mp": "true",
 			"c_mch": "true",
-			"c_ch": "one",
+			"c_ch": "many",
 			"c_p": "one",
 			"c_cp": "",
 			"c_cch": "",
 			"name": "player_server_info_server_id_fkey",
 			"desc": "",
-			"parent_key": "e3a0322f-3547-4405-b903-3639ae063416",
+			"parent_key": "9e8b6733-85ee-47f1-b8b7-746f8126c96d",
 			"ri_pd": "No action",
 			"ri_pu": "No action",
 			"generate": true,
@@ -1206,47 +1198,23 @@
 			"visible": true
 		}
 	},
-	"notes": {
-		"5da773d1-dfad-46fa-ab36-b6107c54d030": {
-			"id": "5da773d1-dfad-46fa-ab36-b6107c54d030",
-			"visible": true,
-			"name": "note1",
-			"desc": "<p>Minecraft UUID</p><p>(not random)</p>",
-			"lines": [],
-			"type": "Note"
-		},
-		"9f683b1c-fc1c-44a4-b360-2c6bab124301": {
-			"id": "9f683b1c-fc1c-44a4-b360-2c6bab124301",
-			"visible": true,
-			"name": "note2",
-			"desc": "<p>internal id</p><p>(random)</p>",
-			"lines": [],
-			"type": "Note"
-		},
-		"f30fefa6-ab43-4a2d-84d8-df8503ab489b": {
-			"id": "f30fefa6-ab43-4a2d-84d8-df8503ab489b",
-			"visible": true,
-			"name": "note3",
-			"desc": "<p>server id</p><p>(random)</p>",
-			"lines": [],
-			"type": "Note"
-		}
-	},
+	"notes": {},
 	"lines": {},
 	"model": {
-		"name": "MC-DB Layout V1",
-		"id": "1989aa0a-5cf4-445a-81d5-93a4bd9c2b63",
-		"activeDiagram": "d10c04f7-f3bb-427f-a3ac-99531676f05a",
-		"desc": "",
-		"path": "",
-		"type": "PG",
-		"version": 1,
-		"parentTableInFkCols": true,
+		"connectionId": "6e1fd154-5bcd-48de-92b3-eb6ec10a3659",
+		"connectionVersion": "PostgreSQL 13.15 (Debian 13.15-1.pgdg120+1)",
+		"activeDiagram": "35e030a7-9c55-445c-b658-627d13608431",
 		"caseConvention": "under",
-		"replaceSpace": "_",
 		"color": "transparent",
-		"sideSelections": true,
+		"def_coltopk": true,
+		"desc": "",
+		"id": "a5b78d0d-26a7-4e75-b6ef-4d4e7c06921c",
 		"isDirty": true,
+		"name": "test",
+		"parentTableInFkCols": true,
+		"path": "",
+		"replaceSpace": "_",
+		"sideSelections": true,
 		"storedin": {
 			"major": 8,
 			"minor": 5,
@@ -1257,11 +1225,9 @@
 			"minor": 5,
 			"extra": 1
 		},
-		"writeFileParam": false,
-		"authorName": "",
-		"companyDetails": "",
-		"companyUrl": "",
-		"def_coltopk": true,
+		"type": "PG",
+		"version": 1,
+		"lastSaved": "",
 		"pg": {
 			"schema": "public"
 		},
@@ -1286,197 +1252,480 @@
 			"indexes": true,
 			"relations": true
 		},
-		"connectionVersion": "PostgreSQL 13.15 (Debian 13.15-1.pgdg120+1)",
-		"lastSaved": "",
-		"connectionId": "6e1fd154-5bcd-48de-92b3-eb6ec10a3659"
+		"writeFileParam": false,
+		"authorName": "",
+		"companyDetails": "",
+		"companyUrl": ""
 	},
-	"otherObjects": {},
+	"otherObjects": {
+		"96d5ca51-1bc2-4efe-b350-da76ed5255db": {
+			"id": "96d5ca51-1bc2-4efe-b350-da76ed5255db",
+			"name": "uuid_nil",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_nil()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_nil$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"56ccb9d0-1b78-4053-a8e7-0c88b04d8c42": {
+			"id": "56ccb9d0-1b78-4053-a8e7-0c88b04d8c42",
+			"name": "uuid_ns_dns",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_dns()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_dns$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"04b5267d-33fd-4c27-8352-e9c2b999f626": {
+			"id": "04b5267d-33fd-4c27-8352-e9c2b999f626",
+			"name": "uuid_ns_url",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_url()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_url$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"0576e8d0-0e0a-43cb-937f-2428e83df54f": {
+			"id": "0576e8d0-0e0a-43cb-937f-2428e83df54f",
+			"name": "uuid_ns_oid",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_oid()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_oid$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"69100b6c-0f63-4292-a7e4-7e0706bc7fad": {
+			"id": "69100b6c-0f63-4292-a7e4-7e0706bc7fad",
+			"name": "uuid_ns_x500",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_x500()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_x500$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"b9fe916e-dc6b-4f36-81e6-d0e8091c34c5": {
+			"id": "b9fe916e-dc6b-4f36-81e6-d0e8091c34c5",
+			"name": "uuid_generate_v1",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v1()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v1$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"140caa0f-1806-4d46-be33-fedea7ead5ba": {
+			"id": "140caa0f-1806-4d46-be33-fedea7ead5ba",
+			"name": "uuid_generate_v1mc",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v1mc()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v1mc$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"81dd9fa3-0eb2-443d-a6ec-904fbd462242": {
+			"id": "81dd9fa3-0eb2-443d-a6ec-904fbd462242",
+			"name": "uuid_generate_v3",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v3(namespace uuid, name text)\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v3$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": "namespace uuid, name text"
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"d6f139fa-7caa-4431-8fdf-c6755888bbca": {
+			"id": "d6f139fa-7caa-4431-8fdf-c6755888bbca",
+			"name": "uuid_generate_v4",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v4()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v4$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"de7b85cb-e86f-4a2e-92e8-3b9cd7842301": {
+			"id": "de7b85cb-e86f-4a2e-92e8-3b9cd7842301",
+			"name": "uuid_generate_v5",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v5(namespace uuid, name text)\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v5$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": "namespace uuid, name text"
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		}
+	},
 	"diagrams": {
-		"d10c04f7-f3bb-427f-a3ac-99531676f05a": {
-			"name": "Main Diagram",
-			"description": "",
-			"id": "d10c04f7-f3bb-427f-a3ac-99531676f05a",
-			"keysgraphics": false,
-			"linegraphics": "detailed",
-			"zoom": 1.1,
-			"background": "transparent",
+		"35e030a7-9c55-445c-b658-627d13608431": {
+			"id": "35e030a7-9c55-445c-b658-627d13608431",
 			"lineColor": "transparent",
-			"isOpen": true,
-			"main": true,
+			"description": "",
 			"diagramItems": {
-				"dc96190a-91f9-4164-b2a3-ee46c44dfe00": {
-					"x": 898,
-					"y": 41,
+				"74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48": {
+					"x": 851,
+					"y": 31,
 					"gHeight": 117,
 					"gWidth": 190,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
+					"referencedItemId": "74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad": {
-					"x": 835,
-					"y": 253,
+				"de379306-7e09-4205-9767-d8e47028a699": {
+					"x": 844,
+					"y": 419,
 					"gHeight": 135,
 					"gWidth": 305,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
+					"referencedItemId": "de379306-7e09-4205-9767-d8e47028a699",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"80ff33a2-3643-4e33-b866-22401e4852ac": {
-					"x": 812,
-					"y": 556,
+				"daa1eb13-6430-4231-9409-642785214b73": {
+					"x": 842,
+					"y": 312,
 					"gHeight": 99,
 					"gWidth": 313,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "80ff33a2-3643-4e33-b866-22401e4852ac",
+					"referencedItemId": "daa1eb13-6430-4231-9409-642785214b73",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"055539e4-167e-4965-82ca-7fd1973c2c2f": {
-					"x": 175,
-					"y": 341,
+				"a35787bd-227c-417b-b338-a170c6c6d600": {
+					"x": 210,
+					"y": 257,
 					"gHeight": 63,
 					"gWidth": 153,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "055539e4-167e-4965-82ca-7fd1973c2c2f",
+					"referencedItemId": "a35787bd-227c-417b-b338-a170c6c6d600",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"db052761-90ba-4dca-88d8-d19f98cb65b5": {
-					"x": 892,
-					"y": 418,
+				"742db6fd-d0f3-40c5-bae1-9dd78c0502c2": {
+					"x": 853,
+					"y": 176,
 					"gHeight": 117,
-					"gWidth": 196,
+					"gWidth": 184,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "db052761-90ba-4dca-88d8-d19f98cb65b5",
+					"referencedItemId": "742db6fd-d0f3-40c5-bae1-9dd78c0502c2",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7": {
-					"x": 145,
-					"y": 79,
+				"6c7062ac-6f6b-4d2c-b30d-81165a78e496": {
+					"x": 154,
+					"y": 47,
 					"gHeight": 153,
 					"gWidth": 306,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"referencedItemId": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"551caf61-9c12-430e-a1f5-c70ac324ab2b": {
-					"x": 153,
-					"y": 447,
-					"gHeight": 99,
+				"f33effc9-73f8-4a5d-85c7-dac26bf590ff": {
+					"x": 189,
+					"y": 343,
+					"gHeight": 117,
 					"gWidth": 227,
 					"background": "#03a9f4",
 					"color": "#ffffff",
-					"referencedItemId": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+					"referencedItemId": "f33effc9-73f8-4a5d-85c7-dac26bf590ff",
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
 				},
-				"5da773d1-dfad-46fa-ab36-b6107c54d030": {
-					"referencedItemId": "5da773d1-dfad-46fa-ab36-b6107c54d030",
-					"x": 602,
-					"y": 767,
-					"gHeight": 38,
-					"gWidth": 94,
-					"color": "#333",
-					"background": "#f9e79f",
+				"96d5ca51-1bc2-4efe-b350-da76ed5255db": {
+					"x": 135,
+					"y": 595,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "96d5ca51-1bc2-4efe-b350-da76ed5255db",
 					"resized": false,
 					"autoExpand": true,
-					"backgroundOpacity": "10",
-					"collapsed": false
+					"backgroundOpacity": "10"
 				},
-				"9f683b1c-fc1c-44a4-b360-2c6bab124301": {
-					"referencedItemId": "9f683b1c-fc1c-44a4-b360-2c6bab124301",
-					"x": 471,
-					"y": 775,
-					"gHeight": 38,
-					"gWidth": 65,
-					"color": "#333",
-					"background": "#f9e79f",
+				"56ccb9d0-1b78-4053-a8e7-0c88b04d8c42": {
+					"x": 420,
+					"y": 595,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "56ccb9d0-1b78-4053-a8e7-0c88b04d8c42",
 					"resized": false,
 					"autoExpand": true,
-					"backgroundOpacity": "10",
-					"collapsed": false
+					"backgroundOpacity": "10"
 				},
-				"f30fefa6-ab43-4a2d-84d8-df8503ab489b": {
-					"referencedItemId": "f30fefa6-ab43-4a2d-84d8-df8503ab489b",
-					"x": 742,
+				"04b5267d-33fd-4c27-8352-e9c2b999f626": {
+					"x": 685,
+					"y": 595,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "04b5267d-33fd-4c27-8352-e9c2b999f626",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"0576e8d0-0e0a-43cb-937f-2428e83df54f": {
+					"x": 950,
+					"y": 595,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "0576e8d0-0e0a-43cb-937f-2428e83df54f",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"69100b6c-0f63-4292-a7e4-7e0706bc7fad": {
+					"x": 135,
+					"y": 682,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "69100b6c-0f63-4292-a7e4-7e0706bc7fad",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"b9fe916e-dc6b-4f36-81e6-d0e8091c34c5": {
+					"x": 420,
+					"y": 682,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "b9fe916e-dc6b-4f36-81e6-d0e8091c34c5",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"140caa0f-1806-4d46-be33-fedea7ead5ba": {
+					"x": 685,
+					"y": 682,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "140caa0f-1806-4d46-be33-fedea7ead5ba",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"81dd9fa3-0eb2-443d-a6ec-904fbd462242": {
+					"x": 950,
+					"y": 682,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "81dd9fa3-0eb2-443d-a6ec-904fbd462242",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"d6f139fa-7caa-4431-8fdf-c6755888bbca": {
+					"x": 135,
 					"y": 769,
-					"gHeight": 38,
-					"gWidth": 60,
-					"color": "#333",
-					"background": "#f9e79f",
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "d6f139fa-7caa-4431-8fdf-c6755888bbca",
 					"resized": false,
 					"autoExpand": true,
-					"backgroundOpacity": "10",
-					"collapsed": false
+					"backgroundOpacity": "10"
+				},
+				"de7b85cb-e86f-4a2e-92e8-3b9cd7842301": {
+					"x": 420,
+					"y": 769,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "de7b85cb-e86f-4a2e-92e8-3b9cd7842301",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
 				}
 			},
+			"isOpen": true,
+			"main": true,
+			"name": "Main Diagram",
+			"keysgraphics": true,
+			"linegraphics": "detailed",
+			"zoom": 1,
+			"background": "transparent",
 			"scroll": {
 				"x": 0,
 				"y": 0
 			},
 			"type": "erd",
-			"showHorizontal": true,
-			"showDescriptions": true,
-			"showIndicators": true,
-			"showProgress": true,
-			"lineWidth": "2",
-			"boxSize": "0",
-			"boxSpacing": "2",
-			"boxAlign": "center",
-			"showIndicatorCaptions": true,
 			"showEstimatedSize": false,
-			"showSchemaContainer": true,
+			"showSchemaContainer": false,
 			"showEmbeddedInParents": true,
-			"showCardinalityCaptions": true,
+			"showCardinalityCaptions": false,
 			"showRelationshipNames": false,
-			"showLineCaptions": false,
+			"showLineCaptions": true,
 			"showColumns": true,
 			"showColumnDataTypes": true,
 			"showSampleData": false,
-			"showTableIndexes": true,
+			"showTableIndexes": false,
 			"showTableDescriptions": false,
 			"showRelations": true,
+			"showHorizontal": false,
+			"showDescriptions": true,
+			"showIndicators": false,
+			"showProgress": false,
+			"showIndicatorCaptions": false,
 			"backgroundImage": "na",
 			"descriptionsColor": "transparent",
+			"boxSize": "0",
+			"boxSpacing": "2",
+			"boxAlign": "center",
+			"lineWidth": "2",
 			"embeddedSpacing": "2",
-			"showMainIcon": true,
 			"showLabels": true,
+			"showMainIcon": true,
 			"showCustomizations": false
 		}
 	},
 	"diagramsOrder": [],
 	"order": [
-		"055539e4-167e-4965-82ca-7fd1973c2c2f",
-		"551caf61-9c12-430e-a1f5-c70ac324ab2b",
-		"6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
-		"dc96190a-91f9-4164-b2a3-ee46c44dfe00",
-		"6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
-		"80ff33a2-3643-4e33-b866-22401e4852ac",
-		"db052761-90ba-4dca-88d8-d19f98cb65b5",
-		"cb84411c-793b-4b5b-af0b-43898ac25a53",
-		"985898e7-093c-42f8-b294-3e873ee9f41f",
-		"c328ac67-6ddb-42ab-a796-0d672d22b8c1",
-		"2072b35f-68ca-4670-9d24-91eab02b13c2",
-		"f26b1c39-d8f1-4f4d-9509-cb974e104aee",
-		"de1b22a0-75c2-4399-849f-1c81792a4084"
+		"a35787bd-227c-417b-b338-a170c6c6d600",
+		"f33effc9-73f8-4a5d-85c7-dac26bf590ff",
+		"6c7062ac-6f6b-4d2c-b30d-81165a78e496",
+		"74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48",
+		"de379306-7e09-4205-9767-d8e47028a699",
+		"daa1eb13-6430-4231-9409-642785214b73",
+		"742db6fd-d0f3-40c5-bae1-9dd78c0502c2",
+		"2a42d927-bea1-4fd9-b8a6-c96a1aa20300",
+		"192b90d1-6310-46c0-950d-109b0c7186ce",
+		"0f49a47b-d87a-494c-826a-11494f981b3d",
+		"72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c",
+		"50d178fc-86b7-41e7-a093-cf7597b4564a",
+		"07d644d9-37b7-4a41-8933-04fb78451b16",
+		"b9fe916e-dc6b-4f36-81e6-d0e8091c34c5",
+		"140caa0f-1806-4d46-be33-fedea7ead5ba",
+		"81dd9fa3-0eb2-443d-a6ec-904fbd462242",
+		"d6f139fa-7caa-4431-8fdf-c6755888bbca",
+		"de7b85cb-e86f-4a2e-92e8-3b9cd7842301",
+		"96d5ca51-1bc2-4efe-b350-da76ed5255db",
+		"56ccb9d0-1b78-4053-a8e7-0c88b04d8c42",
+		"0576e8d0-0e0a-43cb-937f-2428e83df54f",
+		"04b5267d-33fd-4c27-8352-e9c2b999f626",
+		"69100b6c-0f63-4292-a7e4-7e0706bc7fad"
 	],
 	"collapsedTreeItems": [],
 	"reverseStats": {
@@ -1494,15 +1743,11 @@
 							"idNames": []
 						},
 						"modified": {
-							"count": 2,
+							"count": 1,
 							"idNames": [
 								{
-									"name": "player",
-									"id": "055539e4-167e-4965-82ca-7fd1973c2c2f"
-								},
-								{
 									"name": "server",
-									"id": "551caf61-9c12-430e-a1f5-c70ac324ab2b"
+									"id": "f33effc9-73f8-4a5d-85c7-dac26bf590ff"
 								}
 							]
 						},
@@ -1539,19 +1784,15 @@
 							"idNames": []
 						},
 						"modified": {
-							"count": 2,
+							"count": 1,
 							"idNames": [
 								{
-									"name": "player.uuid",
-									"id": "64234d48-e491-4e3d-9a74-8ee070628e8b"
-								},
-								{
-									"name": "server.server_id",
-									"id": "8fc0440e-b120-42b1-836d-3d4a4c07ac61"
+									"name": "server.license_type",
+									"id": "0c3c4bf2-44e3-4b8e-b0c2-31b346cd5a2b"
 								}
 							]
 						},
-						"total": 33
+						"total": 34
 					}
 				},
 				{
@@ -1584,17 +1825,8 @@
 							"idNames": []
 						},
 						"modified": {
-							"count": 2,
-							"idNames": [
-								{
-									"name": "player_server_info_player_uuid_fkey",
-									"id": "f26b1c39-d8f1-4f4d-9509-cb974e104aee"
-								},
-								{
-									"name": "player_server_info_server_id_fkey",
-									"id": "de1b22a0-75c2-4399-849f-1c81792a4084"
-								}
-							]
+							"count": 0,
+							"idNames": []
 						},
 						"total": 6
 					}
@@ -1614,7 +1846,7 @@
 							"count": 0,
 							"idNames": []
 						},
-						"total": 0
+						"total": 10
 					}
 				},
 				{
@@ -1784,75 +2016,7 @@
 				"tables": {
 					"caption": "Tables",
 					"attributes": {
-						"055539e4-167e-4965-82ca-7fd1973c2c2f": {
-							"caption": "player",
-							"objectCaption": true,
-							"attributes": {
-								"cols": {
-									"caption": "Columns",
-									"description": "List of table columns",
-									"diff": {
-										"idArray": true,
-										"order": [
-											"64234d48-e491-4e3d-9a74-8ee070628e8b",
-											"69c76c5f-e077-4790-9a9d-1ee3a33b3e8f"
-										]
-									},
-									"attributes": {
-										"64234d48-e491-4e3d-9a74-8ee070628e8b": {
-											"caption": "uuid",
-											"objectCaption": true,
-											"attributes": {
-												"pk": {
-													"caption": "Primary key",
-													"startState": true,
-													"finishState": false
-												}
-											}
-										}
-									}
-								},
-								"keys": {
-									"caption": "Keys",
-									"description": "List of table keys",
-									"diff": {
-										"idArray": true,
-										"startOrder": [
-											"e31fb6ae-b5e1-4333-a3b5-103243d83a91"
-										],
-										"finishOrder": [
-											"e31fb6ae-b5e1-4333-a3b5-103243d83a91"
-										]
-									},
-									"attributes": {
-										"71f131f0-dac5-48aa-8565-330e6422888c": {
-											"diff": {
-												"finishMissing": true
-											},
-											"caption": "player_pkey1",
-											"objectCaption": true,
-											"attributes": {
-												"isPk": {
-													"caption": "Primary key",
-													"startState": true,
-													"finishMissing": true
-												},
-												"name": {
-													"caption": "Name",
-													"startState": "player_pkey1",
-													"finishMissing": true
-												}
-											}
-										}
-									}
-								}
-							},
-							"generated": {
-								"startCode": "CREATE TABLE public.player\n  (uuid uuid NOT NULL, \"name\" text NOT NULL, CONSTRAINT player_key UNIQUE(uuid))\n  ;\n",
-								"finishCode": "CREATE TABLE public.player\n  (uuid uuid NOT NULL, \"name\" text NOT NULL, CONSTRAINT player_key UNIQUE(uuid))\n  ;\n"
-							}
-						},
-						"551caf61-9c12-430e-a1f5-c70ac324ab2b": {
+						"f33effc9-73f8-4a5d-85c7-dac26bf590ff": {
 							"caption": "server",
 							"objectCaption": true,
 							"attributes": {
@@ -1862,101 +2026,36 @@
 									"diff": {
 										"idArray": true,
 										"order": [
-											"8fc0440e-b120-42b1-836d-3d4a4c07ac61",
-											"7e5c62e7-813f-40fd-b73e-ae11c91aa496",
-											"d949fc4d-e2a8-4fe8-bd0c-afe6476ecd14",
-											"e04eb1a4-5e7b-4848-85c4-889301699a9d"
+											"9d6a4254-7e51-4f95-b8ce-3a37d2df931c",
+											"05b3ef8c-5111-4f1f-9965-139d91f97ad9",
+											"0c3c4bf2-44e3-4b8e-b0c2-31b346cd5a2b",
+											"f26c4c31-49ad-4f73-a550-86019e96f873",
+											"40d1855b-85ef-4358-aea3-7e744037cec8"
 										]
 									},
 									"attributes": {
-										"8fc0440e-b120-42b1-836d-3d4a4c07ac61": {
-											"caption": "server_id",
+										"0c3c4bf2-44e3-4b8e-b0c2-31b346cd5a2b": {
+											"caption": "license_type",
 											"objectCaption": true,
 											"attributes": {
-												"pk": {
-													"caption": "Primary key",
-													"startState": true,
+												"collation": {
+													"caption": "Collation",
+													"startState": null,
+													"finishState": ""
+												},
+												"fk": {
+													"caption": "Foreign key",
+													"startMissing": true,
 													"finishState": false
 												}
 											}
 										}
 									}
-								},
-								"keys": {
-									"caption": "Keys",
-									"description": "List of table keys",
-									"diff": {
-										"idArray": true,
-										"startOrder": [
-											"e3a0322f-3547-4405-b903-3639ae063416"
-										],
-										"finishOrder": [
-											"e3a0322f-3547-4405-b903-3639ae063416"
-										]
-									}
 								}
 							},
 							"generated": {
-								"startCode": "CREATE TABLE public.\"server\"(\n  server_id integer NOT NULL,\n  subdomain text NOT NULL,\n  owner_name text,\n  mc_server_domain text,\n  CONSTRAINT server_key UNIQUE(server_id)\n);\n",
-								"finishCode": "CREATE TABLE public.\"server\"(\n  server_id integer NOT NULL,\n  subdomain text NOT NULL,\n  owner_name text,\n  mc_server_domain text,\n  CONSTRAINT server_key UNIQUE(server_id)\n);\n"
-							}
-						}
-					}
-				},
-				"relations": {
-					"caption": "Relationships",
-					"description": "List of relations",
-					"attributes": {
-						"f26b1c39-d8f1-4f4d-9509-cb974e104aee": {
-							"caption": "player_server_info_player_uuid_fkey",
-							"objectCaption": true,
-							"attributes": {
-								"ri_pd": {
-									"caption": "RI delete",
-									"startMissing": true,
-									"finishState": "No action"
-								},
-								"ri_pu": {
-									"caption": "RI update",
-									"startMissing": true,
-									"finishState": "No action"
-								},
-								"c_ch": {
-									"caption": "Ordinality child",
-									"description": "Child cardinality",
-									"startState": "many",
-									"finishState": "one"
-								}
-							},
-							"generated": {
-								"startCode": "ALTER TABLE public.player_server_info\n  ADD CONSTRAINT player_server_info_player_uuid_fkey\n    FOREIGN KEY (player_uuid) REFERENCES public.player (uuid);\n",
-								"finishCode": "ALTER TABLE public.player_server_info\n  ADD CONSTRAINT player_server_info_player_uuid_fkey\n    FOREIGN KEY (player_uuid) REFERENCES public.player (uuid) ON DELETE No action\n      ON UPDATE No action;\n"
-							}
-						},
-						"de1b22a0-75c2-4399-849f-1c81792a4084": {
-							"caption": "player_server_info_server_id_fkey",
-							"objectCaption": true,
-							"attributes": {
-								"ri_pd": {
-									"caption": "RI delete",
-									"startMissing": true,
-									"finishState": "No action"
-								},
-								"ri_pu": {
-									"caption": "RI update",
-									"startMissing": true,
-									"finishState": "No action"
-								},
-								"c_ch": {
-									"caption": "Ordinality child",
-									"description": "Child cardinality",
-									"startState": "many",
-									"finishState": "one"
-								}
-							},
-							"generated": {
-								"startCode": "ALTER TABLE public.player_server_info\n  ADD CONSTRAINT player_server_info_server_id_fkey\n    FOREIGN KEY (server_id) REFERENCES public.\"server\" (server_id);\n",
-								"finishCode": "ALTER TABLE public.player_server_info\n  ADD CONSTRAINT player_server_info_server_id_fkey\n    FOREIGN KEY (server_id) REFERENCES public.\"server\" (server_id)\n      ON DELETE No action ON UPDATE No action;\n"
+								"startCode": "CREATE TABLE public.\"server\"(\n  server_id integer NOT NULL,\n  subdomain text NOT NULL,\n  license_type integer NOT NULL,\n  owner_name text,\n  mc_server_domain text,\n  CONSTRAINT server_pkey PRIMARY KEY(server_id)\n);\n",
+								"finishCode": "CREATE TABLE public.\"server\"(\n  server_id integer NOT NULL,\n  subdomain text NOT NULL,\n  license_type integer NOT NULL,\n  owner_name text,\n  mc_server_domain text,\n  CONSTRAINT server_pkey PRIMARY KEY(server_id)\n);\n"
 							}
 						}
 					}
@@ -1965,19 +2064,20 @@
 		},
 		"currentModel": {
 			"model": {
-				"name": "MC-DB Layout V1",
-				"id": "1989aa0a-5cf4-445a-81d5-93a4bd9c2b63",
-				"activeDiagram": "d10c04f7-f3bb-427f-a3ac-99531676f05a",
-				"desc": "",
-				"path": "",
-				"type": "PG",
-				"version": 1,
-				"parentTableInFkCols": true,
+				"connectionId": "6e1fd154-5bcd-48de-92b3-eb6ec10a3659",
+				"connectionVersion": "PostgreSQL 13.15 (Debian 13.15-1.pgdg120+1)",
+				"activeDiagram": "35e030a7-9c55-445c-b658-627d13608431",
 				"caseConvention": "under",
-				"replaceSpace": "_",
 				"color": "transparent",
-				"sideSelections": true,
+				"def_coltopk": true,
+				"desc": "",
+				"id": "a5b78d0d-26a7-4e75-b6ef-4d4e7c06921c",
 				"isDirty": true,
+				"name": "test",
+				"parentTableInFkCols": true,
+				"path": "",
+				"replaceSpace": "_",
+				"sideSelections": true,
 				"storedin": {
 					"major": 8,
 					"minor": 5,
@@ -1988,11 +2088,10 @@
 					"minor": 5,
 					"extra": 1
 				},
-				"writeFileParam": false,
-				"authorName": "",
-				"companyDetails": "",
-				"companyUrl": "",
-				"def_coltopk": true,
+				"type": "PG",
+				"version": 1,
+				"filePath": "/home/tobias/Documents/GitHub/MCConnect/docker/db/docker-compose.yml.dmm",
+				"lastSaved": 1720792863388,
 				"pg": {
 					"schema": "public"
 				},
@@ -2017,13 +2116,13 @@
 					"indexes": true,
 					"relations": true
 				},
-				"connectionVersion": "PostgreSQL 13.15 (Debian 13.15-1.pgdg120+1)",
-				"lastSaved": "",
-				"filePath": "",
-				"connectionId": "6e1fd154-5bcd-48de-92b3-eb6ec10a3659"
+				"writeFileParam": false,
+				"authorName": "",
+				"companyDetails": "",
+				"companyUrl": ""
 			},
 			"tables": {
-				"dc96190a-91f9-4164-b2a3-ee46c44dfe00": {
+				"74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -2037,12 +2136,12 @@
 						"schema": "public"
 					},
 					"desc": "Stores all the relevant data regarding the player statistics.\nIn  \"uuid\" is the player stored\nin \"object\" it is stated what the other data refers to (stone_block, diamond_sword, zombie,....)\nin \"category\" is stated in which context the item should be interpretet (mined blocks, collected blocks, item usage, killed mobs, ....)\n\"value\" is the corresponding value ",
-					"id": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
+					"id": "74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48",
 					"name": "actions",
 					"cols": [
 						{
 							"data": "",
-							"id": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b",
+							"id": "0140d31a-3993-481f-a701-887771468d86",
 							"name": "id",
 							"datatype": "integer",
 							"param": "",
@@ -2063,7 +2162,7 @@
 						},
 						{
 							"data": "",
-							"id": "7ecf10f4-1463-445e-954c-3655d08db019",
+							"id": "59f2db71-ffbe-497c-982b-811672ac78c3",
 							"name": "player_id",
 							"datatype": "uuid",
 							"param": "",
@@ -2084,7 +2183,7 @@
 						},
 						{
 							"data": "",
-							"id": "e7d40d7c-d739-4b8c-b631-434b76a940cd",
+							"id": "d6c95b39-9706-48c1-a842-7f960f84e515",
 							"name": "object",
 							"datatype": "text",
 							"param": "",
@@ -2105,7 +2204,7 @@
 						},
 						{
 							"data": "",
-							"id": "e3246323-b914-4dd7-b5ef-98cadd80bcd1",
+							"id": "74987ff4-adbc-4ff9-9601-2d99492562bd",
 							"name": "category",
 							"datatype": "smallint",
 							"param": "",
@@ -2126,7 +2225,7 @@
 						},
 						{
 							"data": "",
-							"id": "451e0a62-9b54-4949-b228-411e027e02f7",
+							"id": "6429419f-c439-4caf-8f59-61b7d6a5f109",
 							"name": "value",
 							"datatype": "integer",
 							"param": "",
@@ -2147,17 +2246,17 @@
 						}
 					],
 					"relations": [
-						"cb84411c-793b-4b5b-af0b-43898ac25a53"
+						"2a42d927-bea1-4fd9-b8a6-c96a1aa20300"
 					],
 					"keys": [
 						{
-							"id": "ff7e2830-9c05-4da7-85de-85a16a961948",
+							"id": "969e9cfb-8efa-4010-af04-b8fdbf6df5c7",
 							"isPk": true,
 							"name": "actions_pkey",
 							"cols": [
 								{
-									"id": "c81b57b6-993b-4d87-b871-189a1138e2a8",
-									"colid": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b"
+									"id": "c9bc2015-610c-4af9-8418-c99080cd9176",
+									"colid": "0140d31a-3993-481f-a701-887771468d86"
 								}
 							]
 						}
@@ -2169,7 +2268,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad": {
+				"de379306-7e09-4205-9767-d8e47028a699": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -2183,16 +2282,16 @@
 						"schema": "public"
 					},
 					"desc": "Contains the uuids and informations about banned players",
-					"id": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
+					"id": "de379306-7e09-4205-9767-d8e47028a699",
 					"name": "banned_players",
 					"cols": [
 						{
 							"data": "",
-							"id": "b288a6c0-7d66-4bc8-a4a6-d2297af79846",
+							"id": "518dabdc-fc45-4a28-83a3-bec85fd85c9f",
 							"name": "id",
 							"datatype": "integer",
 							"param": "",
-							"pk": false,
+							"pk": true,
 							"nn": true,
 							"comment": "",
 							"defaultvalue": "",
@@ -2209,12 +2308,12 @@
 						},
 						{
 							"data": "",
-							"id": "04420b8f-e8d0-4769-bf81-ef4c94bf156f",
+							"id": "ae6e910b-b5c7-44ad-9e19-c8536a1f1387",
 							"name": "player_id",
 							"datatype": "uuid",
 							"param": "",
 							"pk": false,
-							"nn": false,
+							"nn": true,
 							"comment": "",
 							"defaultvalue": "",
 							"collation": "",
@@ -2230,7 +2329,7 @@
 						},
 						{
 							"data": "",
-							"id": "3fa66c19-5acb-467d-b20a-3ccb9e4661dd",
+							"id": "3abb28bc-694e-41d2-b776-aa7b6255af3a",
 							"name": "admin",
 							"datatype": "uuid",
 							"param": "",
@@ -2251,7 +2350,7 @@
 						},
 						{
 							"data": "",
-							"id": "b9ebeb05-9791-44cc-9eb2-b3d87fe56bac",
+							"id": "5096b657-dadd-40e7-9616-76278ab461ba",
 							"name": "ban_reason",
 							"datatype": "text",
 							"param": "",
@@ -2272,7 +2371,7 @@
 						},
 						{
 							"data": "",
-							"id": "9281c314-540f-4e1a-a734-a2d98afce38c",
+							"id": "55faec1d-8eb1-4cde-943e-85b6e21327cf",
 							"name": "ban_start",
 							"datatype": "timestamp without time zone",
 							"param": "",
@@ -2293,7 +2392,7 @@
 						},
 						{
 							"data": "",
-							"id": "a9b49df6-9f53-4f96-8dc4-e832a54bb734",
+							"id": "51d289b7-9f2d-4d09-8181-1877237e60f2",
 							"name": "ban_end",
 							"datatype": "timestamp without time zone",
 							"param": "",
@@ -2314,14 +2413,19 @@
 						}
 					],
 					"relations": [
-						"985898e7-093c-42f8-b294-3e873ee9f41f"
+						"192b90d1-6310-46c0-950d-109b0c7186ce"
 					],
 					"keys": [
 						{
-							"id": "5b2c5490-6428-4acd-b06b-a66d9c81522a",
+							"id": "a9197b83-82fb-469c-a2f1-5357391fc791",
 							"isPk": true,
 							"name": "banned_players_pkey",
-							"cols": []
+							"cols": [
+								{
+									"id": "be6b3db8-0a24-493b-8f2f-2b31b7ea83a1",
+									"colid": "518dabdc-fc45-4a28-83a3-bec85fd85c9f"
+								}
+							]
 						}
 					],
 					"indexes": [],
@@ -2331,7 +2435,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"80ff33a2-3643-4e33-b866-22401e4852ac": {
+				"daa1eb13-6430-4231-9409-642785214b73": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -2345,12 +2449,12 @@
 						"schema": "public"
 					},
 					"desc": "Stores the pin the player is required to provide on login",
-					"id": "80ff33a2-3643-4e33-b866-22401e4852ac",
+					"id": "daa1eb13-6430-4231-9409-642785214b73",
 					"name": "login",
 					"cols": [
 						{
 							"data": "",
-							"id": "a86ebc27-fe88-410b-8753-75a80b3085d9",
+							"id": "6426b350-f957-4e47-90b3-1672024d59a2",
 							"name": "id",
 							"datatype": "integer",
 							"param": "",
@@ -2371,7 +2475,7 @@
 						},
 						{
 							"data": "",
-							"id": "390563c2-2466-450b-aa4d-cebe3a01979c",
+							"id": "3a2b4b2b-e8e9-4b2a-8070-dd0073c52900",
 							"name": "player_id",
 							"datatype": "uuid",
 							"param": "",
@@ -2392,7 +2496,7 @@
 						},
 						{
 							"data": "",
-							"id": "4a9c246f-885c-4493-826b-6c4a24f786b1",
+							"id": "c892d41d-e27d-4c9f-a56f-d5a764809427",
 							"name": "pin",
 							"datatype": "integer",
 							"param": "",
@@ -2413,7 +2517,7 @@
 						},
 						{
 							"data": "",
-							"id": "8771af03-6c85-47f4-88cf-19b2b32fb995",
+							"id": "592426fc-0641-498a-9722-87ea271e65ec",
 							"name": "timestamp",
 							"datatype": "timestamp without time zone",
 							"param": "",
@@ -2434,17 +2538,17 @@
 						}
 					],
 					"relations": [
-						"c328ac67-6ddb-42ab-a796-0d672d22b8c1"
+						"0f49a47b-d87a-494c-826a-11494f981b3d"
 					],
 					"keys": [
 						{
-							"id": "f8d25a8c-884d-4426-ba79-5804c4e28249",
+							"id": "2c6b9b24-90ba-43ab-bfb6-b159884571fb",
 							"isPk": true,
 							"name": "login_pkey",
 							"cols": [
 								{
-									"id": "4a8b3423-180e-447b-b1e7-a19e32243f3f",
-									"colid": "a86ebc27-fe88-410b-8753-75a80b3085d9"
+									"id": "e84ceb64-438f-429a-91e4-0c416aff3507",
+									"colid": "6426b350-f957-4e47-90b3-1672024d59a2"
 								}
 							]
 						}
@@ -2456,7 +2560,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"055539e4-167e-4965-82ca-7fd1973c2c2f": {
+				"a35787bd-227c-417b-b338-a170c6c6d600": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -2470,12 +2574,12 @@
 						"schema": "public"
 					},
 					"desc": "",
-					"id": "055539e4-167e-4965-82ca-7fd1973c2c2f",
+					"id": "a35787bd-227c-417b-b338-a170c6c6d600",
 					"name": "player",
 					"cols": [
 						{
 							"data": "",
-							"id": "64234d48-e491-4e3d-9a74-8ee070628e8b",
+							"id": "3b0a0c6a-ab16-430f-b668-ac83b708221a",
 							"name": "uuid",
 							"datatype": "uuid",
 							"param": "",
@@ -2496,7 +2600,7 @@
 						},
 						{
 							"data": "",
-							"id": "69c76c5f-e077-4790-9a9d-1ee3a33b3e8f",
+							"id": "4b22f1a0-bab2-4f38-8cd3-ac382146c80c",
 							"name": "name",
 							"datatype": "text",
 							"param": "",
@@ -2517,23 +2621,17 @@
 						}
 					],
 					"relations": [
-						"f26b1c39-d8f1-4f4d-9509-cb974e104aee"
+						"50d178fc-86b7-41e7-a093-cf7597b4564a"
 					],
 					"keys": [
 						{
-							"id": "71f131f0-dac5-48aa-8565-330e6422888c",
+							"id": "08157c63-e202-4674-bda8-49db5f6cacea",
 							"isPk": true,
-							"name": "player_pkey1",
-							"cols": []
-						},
-						{
-							"id": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
-							"isPk": false,
-							"name": "player_key",
+							"name": "player_pkey",
 							"cols": [
 								{
-									"id": "8495dff2-2092-490e-84e8-9cfc94e577b9",
-									"colid": "64234d48-e491-4e3d-9a74-8ee070628e8b"
+									"id": "46e54a91-c9f1-4c94-871a-ad18f9477120",
+									"colid": "3b0a0c6a-ab16-430f-b668-ac83b708221a"
 								}
 							]
 						}
@@ -2545,7 +2643,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"db052761-90ba-4dca-88d8-d19f98cb65b5": {
+				"742db6fd-d0f3-40c5-bae1-9dd78c0502c2": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -2559,16 +2657,16 @@
 						"schema": "public"
 					},
 					"desc": "The prefix which a player can configure on the website",
-					"id": "db052761-90ba-4dca-88d8-d19f98cb65b5",
+					"id": "742db6fd-d0f3-40c5-bae1-9dd78c0502c2",
 					"name": "player_prefixes",
 					"cols": [
 						{
 							"data": "",
-							"id": "077457c3-5bf6-42a7-a460-663fe160b88a",
+							"id": "d92aff07-6e62-42ae-810e-ff031be403aa",
 							"name": "id",
 							"datatype": "integer",
 							"param": "",
-							"pk": false,
+							"pk": true,
 							"nn": true,
 							"comment": "",
 							"defaultvalue": "",
@@ -2585,7 +2683,7 @@
 						},
 						{
 							"data": "",
-							"id": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa",
+							"id": "56d52162-58ab-4c67-9889-8696050f393c",
 							"name": "player_id",
 							"datatype": "uuid",
 							"param": "",
@@ -2606,7 +2704,7 @@
 						},
 						{
 							"data": "",
-							"id": "a3afa60c-f970-46d2-89d6-d08eec84c8b5",
+							"id": "151cb38a-5f6f-40f5-8392-1008c05e94db",
 							"name": "prefix",
 							"datatype": "text",
 							"param": "",
@@ -2627,7 +2725,7 @@
 						},
 						{
 							"data": "",
-							"id": "8d60172a-9138-4ac2-8ae6-2c40a4994639",
+							"id": "757e0792-75cb-4692-9f0b-2273b95479db",
 							"name": "password",
 							"datatype": "text",
 							"param": "",
@@ -2648,7 +2746,7 @@
 						},
 						{
 							"data": "",
-							"id": "c4501b08-abc6-4b2c-86da-0f91f54b9b26",
+							"id": "81fdbf50-9272-4fa4-b9b9-3dcb3a5ecdfa",
 							"name": "members",
 							"datatype": "uuid",
 							"param": "",
@@ -2669,14 +2767,19 @@
 						}
 					],
 					"relations": [
-						"2072b35f-68ca-4670-9d24-91eab02b13c2"
+						"72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c"
 					],
 					"keys": [
 						{
-							"id": "88573917-94d0-4b35-a78c-d5ef86edfcd7",
+							"id": "abde4c90-c400-4d97-9892-b4ab7482ad13",
 							"isPk": true,
 							"name": "player_prefixes_pkey",
-							"cols": []
+							"cols": [
+								{
+									"id": "4acae076-5811-49cd-ab8d-775c8bede0c6",
+									"colid": "d92aff07-6e62-42ae-810e-ff031be403aa"
+								}
+							]
 						}
 					],
 					"indexes": [],
@@ -2686,7 +2789,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7": {
+				"6c7062ac-6f6b-4d2c-b30d-81165a78e496": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -2700,12 +2803,12 @@
 						"schema": "public"
 					},
 					"desc": "Saves player data regarding the online status, last seen,...",
-					"id": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"id": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 					"name": "player_server_info",
 					"cols": [
 						{
 							"data": "",
-							"id": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"id": "951f2d7a-586a-4d53-960e-4282fa6074b5",
 							"name": "id",
 							"datatype": "uuid",
 							"param": "",
@@ -2726,7 +2829,7 @@
 						},
 						{
 							"data": "",
-							"id": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399",
+							"id": "763e5828-3f2d-4a92-98ba-7a0d30ae7072",
 							"name": "server_id",
 							"datatype": "integer",
 							"param": "",
@@ -2747,7 +2850,7 @@
 						},
 						{
 							"data": "",
-							"id": "930a6909-2045-49e8-b022-25af34a503e7",
+							"id": "9df67f26-8ed6-4b2f-881c-3aad8d9b8e73",
 							"name": "player_uuid",
 							"datatype": "uuid",
 							"param": "",
@@ -2768,7 +2871,7 @@
 						},
 						{
 							"data": "",
-							"id": "fa4a6be5-f813-4d47-80c8-b58a3ba03480",
+							"id": "3c8a439d-58ee-44fd-89ee-3625adfa427f",
 							"name": "online",
 							"datatype": "boolean",
 							"param": "",
@@ -2789,7 +2892,7 @@
 						},
 						{
 							"data": "",
-							"id": "c40f454b-ab62-4ecf-a2b4-8630c5d33a4b",
+							"id": "ea510a38-e131-404f-8f1d-501c2c339794",
 							"name": "first_seen",
 							"datatype": "timestamp without time zone",
 							"param": "",
@@ -2810,7 +2913,7 @@
 						},
 						{
 							"data": "",
-							"id": "584dae6c-3ab4-4e8a-8f73-bf0a74e4bb40",
+							"id": "95abd278-1bc7-4782-aa53-84c727eff649",
 							"name": "last_seen",
 							"datatype": "timestamp without time zone",
 							"param": "",
@@ -2831,7 +2934,7 @@
 						},
 						{
 							"data": "",
-							"id": "891d05e8-f091-4c24-8011-f550023f52f9",
+							"id": "83fe6a5e-f5ac-4eff-800d-667d418ed62b",
 							"name": "web_access_permissions",
 							"datatype": "smallint",
 							"param": "",
@@ -2852,44 +2955,37 @@
 						}
 					],
 					"relations": [
-						"cb84411c-793b-4b5b-af0b-43898ac25a53",
-						"985898e7-093c-42f8-b294-3e873ee9f41f",
-						"c328ac67-6ddb-42ab-a796-0d672d22b8c1",
-						"2072b35f-68ca-4670-9d24-91eab02b13c2",
-						"f26b1c39-d8f1-4f4d-9509-cb974e104aee",
-						"de1b22a0-75c2-4399-849f-1c81792a4084"
+						"2a42d927-bea1-4fd9-b8a6-c96a1aa20300",
+						"192b90d1-6310-46c0-950d-109b0c7186ce",
+						"0f49a47b-d87a-494c-826a-11494f981b3d",
+						"72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c",
+						"50d178fc-86b7-41e7-a093-cf7597b4564a",
+						"07d644d9-37b7-4a41-8933-04fb78451b16"
 					],
 					"keys": [
 						{
-							"id": "9ba53e7f-6ec2-4541-824f-3b50eca4f4ee",
-							"isPk": false,
-							"name": "player_server_info_key",
-							"cols": [
-								{
-									"id": "24e91e67-b11d-4321-b427-872cc27bff6d",
-									"colid": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
-								}
-							]
-						},
-						{
-							"id": "d68f4c8d-3422-463f-8e1b-57ccc4d6586d",
-							"isPk": false,
-							"name": "player_server_info_key1",
-							"cols": [
-								{
-									"id": "cc61e721-063c-4690-8b71-460213600805",
-									"colid": "930a6909-2045-49e8-b022-25af34a503e7"
-								}
-							]
-						},
-						{
-							"id": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+							"id": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 							"isPk": true,
 							"name": "player_server_info_pkey",
 							"cols": [
 								{
-									"id": "80620921-0523-40fa-a044-034441ebe68d",
-									"colid": "b2d55569-068b-4600-a42f-031acc7c0711"
+									"id": "b9703222-918a-4bff-b92e-988efdbd4f57",
+									"colid": "951f2d7a-586a-4d53-960e-4282fa6074b5"
+								}
+							]
+						},
+						{
+							"id": "e4ee7b13-7a07-4c01-8363-901d2f07e4aa",
+							"isPk": false,
+							"name": "player_server_info_server_player_unique",
+							"cols": [
+								{
+									"id": "4c55a1d5-6b69-440b-83a7-080ff0c1d6bb",
+									"colid": "763e5828-3f2d-4a92-98ba-7a0d30ae7072"
+								},
+								{
+									"id": "94768f73-6b0c-449b-9f1b-3023e0573fc6",
+									"colid": "9df67f26-8ed6-4b2f-881c-3aad8d9b8e73"
 								}
 							]
 						}
@@ -2901,7 +2997,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"551caf61-9c12-430e-a1f5-c70ac324ab2b": {
+				"f33effc9-73f8-4a5d-85c7-dac26bf590ff": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -2915,12 +3011,12 @@
 						"schema": "public"
 					},
 					"desc": "",
-					"id": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+					"id": "f33effc9-73f8-4a5d-85c7-dac26bf590ff",
 					"name": "server",
 					"cols": [
 						{
 							"data": "",
-							"id": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
+							"id": "9d6a4254-7e51-4f95-b8ce-3a37d2df931c",
 							"name": "server_id",
 							"datatype": "integer",
 							"param": "",
@@ -2941,7 +3037,7 @@
 						},
 						{
 							"data": "",
-							"id": "7e5c62e7-813f-40fd-b73e-ae11c91aa496",
+							"id": "05b3ef8c-5111-4f1f-9965-139d91f97ad9",
 							"name": "subdomain",
 							"datatype": "text",
 							"param": "",
@@ -2961,8 +3057,29 @@
 							"estimatedSize": ""
 						},
 						{
+							"id": "0c3c4bf2-44e3-4b8e-b0c2-31b346cd5a2b",
+							"name": "license_type",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"list": false,
+							"comment": "",
+							"defaultvalue": "",
 							"data": "",
-							"id": "d949fc4d-e2a8-4fe8-bd0c-afe6476ecd14",
+							"after": "",
+							"collation": null,
+							"pg": {
+								"generatedIdentity": "no",
+								"generated": "",
+								"storage": "",
+								"compression": ""
+							},
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "f26c4c31-49ad-4f73-a550-86019e96f873",
 							"name": "owner_name",
 							"datatype": "text",
 							"param": "",
@@ -2983,7 +3100,7 @@
 						},
 						{
 							"data": "",
-							"id": "e04eb1a4-5e7b-4848-85c4-889301699a9d",
+							"id": "40d1855b-85ef-4358-aea3-7e744037cec8",
 							"name": "mc_server_domain",
 							"datatype": "text",
 							"param": "",
@@ -3004,23 +3121,17 @@
 						}
 					],
 					"relations": [
-						"de1b22a0-75c2-4399-849f-1c81792a4084"
+						"07d644d9-37b7-4a41-8933-04fb78451b16"
 					],
 					"keys": [
 						{
-							"id": "65197089-9172-4ca0-9b79-f50322e08e4e",
+							"id": "9e8b6733-85ee-47f1-b8b7-746f8126c96d",
 							"isPk": true,
 							"name": "server_pkey",
-							"cols": []
-						},
-						{
-							"id": "e3a0322f-3547-4405-b903-3639ae063416",
-							"isPk": false,
-							"name": "server_key",
 							"cols": [
 								{
-									"id": "8db3864f-5bd6-42df-9ff9-b267831fa742",
-									"colid": "8fc0440e-b120-42b1-836d-3d4a4c07ac61"
+									"id": "2941e184-19e7-4bd2-bf67-45db80520261",
+									"colid": "9d6a4254-7e51-4f95-b8ce-3a37d2df931c"
 								}
 							]
 						}
@@ -3034,18 +3145,18 @@
 				}
 			},
 			"relations": {
-				"cb84411c-793b-4b5b-af0b-43898ac25a53": {
-					"id": "cb84411c-793b-4b5b-af0b-43898ac25a53",
+				"2a42d927-bea1-4fd9-b8a6-c96a1aa20300": {
+					"id": "2a42d927-bea1-4fd9-b8a6-c96a1aa20300",
 					"type": "identifying",
 					"cols": [
 						{
-							"id": "000ff20f-7dac-42db-bdb5-6e1481d3dfd6",
-							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-							"childcol": "7ecf10f4-1463-445e-954c-3655d08db019"
+							"id": "6fcdca2c-9dda-4c8a-b948-319e1337622a",
+							"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+							"childcol": "59f2db71-ffbe-497c-982b-811672ac78c3"
 						}
 					],
-					"child": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
-					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"child": "74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48",
+					"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 					"c_mp": "true",
 					"c_mch": "true",
 					"c_ch": "many",
@@ -3054,7 +3165,7 @@
 					"c_cch": "",
 					"name": "actions_player_id_fkey",
 					"desc": "",
-					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 					"ri_pd": "No action",
 					"ri_pu": "No action",
 					"generate": true,
@@ -3063,27 +3174,27 @@
 					"relationColor": "transparent",
 					"visible": true
 				},
-				"985898e7-093c-42f8-b294-3e873ee9f41f": {
-					"id": "985898e7-093c-42f8-b294-3e873ee9f41f",
+				"192b90d1-6310-46c0-950d-109b0c7186ce": {
+					"id": "192b90d1-6310-46c0-950d-109b0c7186ce",
 					"type": "identifying",
 					"cols": [
 						{
-							"id": "e0eb4466-52f2-447d-8f8a-cfc7ffe45e30",
-							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-							"childcol": "04420b8f-e8d0-4769-bf81-ef4c94bf156f"
+							"id": "6d2f8fb8-97d5-4748-946a-175551ec6020",
+							"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+							"childcol": "ae6e910b-b5c7-44ad-9e19-c8536a1f1387"
 						}
 					],
-					"child": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
-					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"child": "de379306-7e09-4205-9767-d8e47028a699",
+					"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 					"c_mp": "true",
-					"c_mch": "false",
+					"c_mch": "true",
 					"c_ch": "many",
 					"c_p": "one",
 					"c_cp": "",
 					"c_cch": "",
 					"name": "banned_players_player_id_fkey",
 					"desc": "",
-					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 					"ri_pd": "No action",
 					"ri_pu": "No action",
 					"generate": true,
@@ -3092,18 +3203,18 @@
 					"relationColor": "transparent",
 					"visible": true
 				},
-				"c328ac67-6ddb-42ab-a796-0d672d22b8c1": {
-					"id": "c328ac67-6ddb-42ab-a796-0d672d22b8c1",
+				"0f49a47b-d87a-494c-826a-11494f981b3d": {
+					"id": "0f49a47b-d87a-494c-826a-11494f981b3d",
 					"type": "identifying",
 					"cols": [
 						{
-							"id": "33451233-5079-4b05-9211-44d1b27ba293",
-							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-							"childcol": "390563c2-2466-450b-aa4d-cebe3a01979c"
+							"id": "af2bc8bc-49a7-4c57-96b1-40cc53f8b924",
+							"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+							"childcol": "3a2b4b2b-e8e9-4b2a-8070-dd0073c52900"
 						}
 					],
-					"child": "80ff33a2-3643-4e33-b866-22401e4852ac",
-					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"child": "daa1eb13-6430-4231-9409-642785214b73",
+					"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 					"c_mp": "true",
 					"c_mch": "true",
 					"c_ch": "many",
@@ -3112,7 +3223,7 @@
 					"c_cch": "",
 					"name": "login_player_id_fkey",
 					"desc": "",
-					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 					"ri_pd": "No action",
 					"ri_pu": "No action",
 					"generate": true,
@@ -3121,18 +3232,18 @@
 					"relationColor": "transparent",
 					"visible": true
 				},
-				"2072b35f-68ca-4670-9d24-91eab02b13c2": {
-					"id": "2072b35f-68ca-4670-9d24-91eab02b13c2",
+				"72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c": {
+					"id": "72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c",
 					"type": "identifying",
 					"cols": [
 						{
-							"id": "40147bd6-a227-4616-86a5-96b0c504dc0a",
-							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-							"childcol": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa"
+							"id": "2caeeeca-22d5-435d-befd-78d66fd74fed",
+							"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+							"childcol": "56d52162-58ab-4c67-9889-8696050f393c"
 						}
 					],
-					"child": "db052761-90ba-4dca-88d8-d19f98cb65b5",
-					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"child": "742db6fd-d0f3-40c5-bae1-9dd78c0502c2",
+					"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 					"c_mp": "true",
 					"c_mch": "true",
 					"c_ch": "many",
@@ -3141,7 +3252,7 @@
 					"c_cch": "",
 					"name": "player_prefixes_player_id_fkey",
 					"desc": "",
-					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 					"ri_pd": "No action",
 					"ri_pu": "No action",
 					"generate": true,
@@ -3150,78 +3261,274 @@
 					"relationColor": "transparent",
 					"visible": true
 				},
-				"f26b1c39-d8f1-4f4d-9509-cb974e104aee": {
-					"id": "f26b1c39-d8f1-4f4d-9509-cb974e104aee",
-					"visible": true,
+				"50d178fc-86b7-41e7-a093-cf7597b4564a": {
+					"id": "50d178fc-86b7-41e7-a093-cf7597b4564a",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "dab6bf50-e78b-4ef4-ab51-6b15ca915cce",
+							"parentcol": "3b0a0c6a-ab16-430f-b668-ac83b708221a",
+							"childcol": "9df67f26-8ed6-4b2f-881c-3aad8d9b8e73"
+						}
+					],
+					"child": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
+					"parent": "a35787bd-227c-417b-b338-a170c6c6d600",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_ch": "many",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
 					"name": "player_server_info_player_uuid_fkey",
 					"desc": "",
-					"type": "identifying",
-					"parent_key": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
-					"parent": "055539e4-167e-4965-82ca-7fd1973c2c2f",
-					"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
-					"c_mp": "true",
-					"c_mch": "true",
-					"c_p": "one",
-					"c_ch": "many",
-					"c_cp": "",
-					"c_cch": "",
-					"cols": [
-						{
-							"id": "c4ae39e5-cb4b-4866-b138-b207d8bb3e99",
-							"parentcol": "64234d48-e491-4e3d-9a74-8ee070628e8b",
-							"childcol": "930a6909-2045-49e8-b022-25af34a503e7"
-						}
-					],
+					"parent_key": "08157c63-e202-4674-bda8-49db5f6cacea",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
 					"generate": true,
 					"generateCustomCode": true,
 					"customCode": "",
-					"relationColor": "transparent"
+					"relationColor": "transparent",
+					"visible": true
 				},
-				"de1b22a0-75c2-4399-849f-1c81792a4084": {
-					"id": "de1b22a0-75c2-4399-849f-1c81792a4084",
-					"visible": true,
+				"07d644d9-37b7-4a41-8933-04fb78451b16": {
+					"id": "07d644d9-37b7-4a41-8933-04fb78451b16",
+					"type": "identifying",
+					"cols": [
+						{
+							"id": "bb56e089-cd1b-4a37-be7e-4024f066f471",
+							"parentcol": "9d6a4254-7e51-4f95-b8ce-3a37d2df931c",
+							"childcol": "763e5828-3f2d-4a92-98ba-7a0d30ae7072"
+						}
+					],
+					"child": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
+					"parent": "f33effc9-73f8-4a5d-85c7-dac26bf590ff",
+					"c_mp": "true",
+					"c_mch": "true",
+					"c_ch": "many",
+					"c_p": "one",
+					"c_cp": "",
+					"c_cch": "",
 					"name": "player_server_info_server_id_fkey",
 					"desc": "",
-					"type": "identifying",
-					"parent_key": "e3a0322f-3547-4405-b903-3639ae063416",
-					"parent": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
-					"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
-					"c_mp": "true",
-					"c_mch": "true",
-					"c_p": "one",
-					"c_ch": "many",
-					"c_cp": "",
-					"c_cch": "",
-					"cols": [
-						{
-							"id": "427cf291-d812-4a73-bbca-9900de4484ff",
-							"parentcol": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
-							"childcol": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
-						}
-					],
+					"parent_key": "9e8b6733-85ee-47f1-b8b7-746f8126c96d",
+					"ri_pd": "No action",
+					"ri_pu": "No action",
 					"generate": true,
 					"generateCustomCode": true,
 					"customCode": "",
-					"relationColor": "transparent"
+					"relationColor": "transparent",
+					"visible": true
 				}
 			},
-			"otherObjects": {}
+			"otherObjects": {
+				"96d5ca51-1bc2-4efe-b350-da76ed5255db": {
+					"id": "96d5ca51-1bc2-4efe-b350-da76ed5255db",
+					"name": "uuid_nil",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_nil()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_nil$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"56ccb9d0-1b78-4053-a8e7-0c88b04d8c42": {
+					"id": "56ccb9d0-1b78-4053-a8e7-0c88b04d8c42",
+					"name": "uuid_ns_dns",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_dns()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_dns$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"04b5267d-33fd-4c27-8352-e9c2b999f626": {
+					"id": "04b5267d-33fd-4c27-8352-e9c2b999f626",
+					"name": "uuid_ns_url",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_url()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_url$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"0576e8d0-0e0a-43cb-937f-2428e83df54f": {
+					"id": "0576e8d0-0e0a-43cb-937f-2428e83df54f",
+					"name": "uuid_ns_oid",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_oid()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_oid$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"69100b6c-0f63-4292-a7e4-7e0706bc7fad": {
+					"id": "69100b6c-0f63-4292-a7e4-7e0706bc7fad",
+					"name": "uuid_ns_x500",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_x500()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_x500$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"b9fe916e-dc6b-4f36-81e6-d0e8091c34c5": {
+					"id": "b9fe916e-dc6b-4f36-81e6-d0e8091c34c5",
+					"name": "uuid_generate_v1",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v1()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v1$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"140caa0f-1806-4d46-be33-fedea7ead5ba": {
+					"id": "140caa0f-1806-4d46-be33-fedea7ead5ba",
+					"name": "uuid_generate_v1mc",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v1mc()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v1mc$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"81dd9fa3-0eb2-443d-a6ec-904fbd462242": {
+					"id": "81dd9fa3-0eb2-443d-a6ec-904fbd462242",
+					"name": "uuid_generate_v3",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v3(namespace uuid, name text)\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v3$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": "namespace uuid, name text"
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"d6f139fa-7caa-4431-8fdf-c6755888bbca": {
+					"id": "d6f139fa-7caa-4431-8fdf-c6755888bbca",
+					"name": "uuid_generate_v4",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v4()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v4$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"de7b85cb-e86f-4a2e-92e8-3b9cd7842301": {
+					"id": "de7b85cb-e86f-4a2e-92e8-3b9cd7842301",
+					"name": "uuid_generate_v5",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v5(namespace uuid, name text)\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v5$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": "namespace uuid, name text"
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				}
+			}
 		},
 		"updatedModel": {
 			"model": {
-				"name": "MC-DB Layout V1",
-				"id": "1989aa0a-5cf4-445a-81d5-93a4bd9c2b63",
-				"activeDiagram": "d10c04f7-f3bb-427f-a3ac-99531676f05a",
-				"desc": "",
-				"path": "",
-				"type": "PG",
-				"version": 1,
-				"parentTableInFkCols": true,
+				"connectionId": "6e1fd154-5bcd-48de-92b3-eb6ec10a3659",
+				"connectionVersion": "PostgreSQL 13.15 (Debian 13.15-1.pgdg120+1)",
+				"activeDiagram": "35e030a7-9c55-445c-b658-627d13608431",
 				"caseConvention": "under",
-				"replaceSpace": "_",
 				"color": "transparent",
-				"sideSelections": true,
+				"def_coltopk": true,
+				"desc": "",
+				"id": "a5b78d0d-26a7-4e75-b6ef-4d4e7c06921c",
 				"isDirty": true,
+				"name": "test",
+				"parentTableInFkCols": true,
+				"path": "",
+				"replaceSpace": "_",
+				"sideSelections": true,
 				"storedin": {
 					"major": 8,
 					"minor": 5,
@@ -3232,11 +3539,10 @@
 					"minor": 5,
 					"extra": 1
 				},
-				"writeFileParam": false,
-				"authorName": "",
-				"companyDetails": "",
-				"companyUrl": "",
-				"def_coltopk": true,
+				"type": "PG",
+				"version": 1,
+				"filePath": "/home/tobias/Documents/GitHub/MCConnect/docker/db/docker-compose.yml.dmm",
+				"lastSaved": 1720792863388,
 				"pg": {
 					"schema": "public"
 				},
@@ -3261,13 +3567,13 @@
 					"indexes": true,
 					"relations": true
 				},
-				"connectionVersion": "PostgreSQL 13.15 (Debian 13.15-1.pgdg120+1)",
-				"lastSaved": "",
-				"filePath": "",
-				"connectionId": "6e1fd154-5bcd-48de-92b3-eb6ec10a3659"
+				"writeFileParam": false,
+				"authorName": "",
+				"companyDetails": "",
+				"companyUrl": ""
 			},
 			"tables": {
-				"dc96190a-91f9-4164-b2a3-ee46c44dfe00": {
+				"74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -3281,12 +3587,12 @@
 						"schema": "public"
 					},
 					"desc": "Stores all the relevant data regarding the player statistics.\nIn  \"uuid\" is the player stored\nin \"object\" it is stated what the other data refers to (stone_block, diamond_sword, zombie,....)\nin \"category\" is stated in which context the item should be interpretet (mined blocks, collected blocks, item usage, killed mobs, ....)\n\"value\" is the corresponding value ",
-					"id": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
+					"id": "74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48",
 					"name": "actions",
 					"cols": [
 						{
 							"data": "",
-							"id": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b",
+							"id": "0140d31a-3993-481f-a701-887771468d86",
 							"name": "id",
 							"datatype": "integer",
 							"param": "",
@@ -3307,7 +3613,7 @@
 						},
 						{
 							"data": "",
-							"id": "7ecf10f4-1463-445e-954c-3655d08db019",
+							"id": "59f2db71-ffbe-497c-982b-811672ac78c3",
 							"name": "player_id",
 							"datatype": "uuid",
 							"param": "",
@@ -3328,7 +3634,7 @@
 						},
 						{
 							"data": "",
-							"id": "e7d40d7c-d739-4b8c-b631-434b76a940cd",
+							"id": "d6c95b39-9706-48c1-a842-7f960f84e515",
 							"name": "object",
 							"datatype": "text",
 							"param": "",
@@ -3349,7 +3655,7 @@
 						},
 						{
 							"data": "",
-							"id": "e3246323-b914-4dd7-b5ef-98cadd80bcd1",
+							"id": "74987ff4-adbc-4ff9-9601-2d99492562bd",
 							"name": "category",
 							"datatype": "smallint",
 							"param": "",
@@ -3370,7 +3676,7 @@
 						},
 						{
 							"data": "",
-							"id": "451e0a62-9b54-4949-b228-411e027e02f7",
+							"id": "6429419f-c439-4caf-8f59-61b7d6a5f109",
 							"name": "value",
 							"datatype": "integer",
 							"param": "",
@@ -3391,17 +3697,17 @@
 						}
 					],
 					"relations": [
-						"cb84411c-793b-4b5b-af0b-43898ac25a53"
+						"2a42d927-bea1-4fd9-b8a6-c96a1aa20300"
 					],
 					"keys": [
 						{
-							"id": "ff7e2830-9c05-4da7-85de-85a16a961948",
+							"id": "969e9cfb-8efa-4010-af04-b8fdbf6df5c7",
 							"isPk": true,
 							"name": "actions_pkey",
 							"cols": [
 								{
-									"id": "c81b57b6-993b-4d87-b871-189a1138e2a8",
-									"colid": "d2e4dfa3-66b6-4b61-8275-5ff26ba67f1b"
+									"id": "c9bc2015-610c-4af9-8418-c99080cd9176",
+									"colid": "0140d31a-3993-481f-a701-887771468d86"
 								}
 							]
 						}
@@ -3413,7 +3719,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad": {
+				"de379306-7e09-4205-9767-d8e47028a699": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -3427,16 +3733,16 @@
 						"schema": "public"
 					},
 					"desc": "Contains the uuids and informations about banned players",
-					"id": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
+					"id": "de379306-7e09-4205-9767-d8e47028a699",
 					"name": "banned_players",
 					"cols": [
 						{
 							"data": "",
-							"id": "b288a6c0-7d66-4bc8-a4a6-d2297af79846",
+							"id": "518dabdc-fc45-4a28-83a3-bec85fd85c9f",
 							"name": "id",
 							"datatype": "integer",
 							"param": "",
-							"pk": false,
+							"pk": true,
 							"nn": true,
 							"comment": "",
 							"defaultvalue": "",
@@ -3453,12 +3759,12 @@
 						},
 						{
 							"data": "",
-							"id": "04420b8f-e8d0-4769-bf81-ef4c94bf156f",
+							"id": "ae6e910b-b5c7-44ad-9e19-c8536a1f1387",
 							"name": "player_id",
 							"datatype": "uuid",
 							"param": "",
 							"pk": false,
-							"nn": false,
+							"nn": true,
 							"comment": "",
 							"defaultvalue": "",
 							"collation": "",
@@ -3474,7 +3780,7 @@
 						},
 						{
 							"data": "",
-							"id": "3fa66c19-5acb-467d-b20a-3ccb9e4661dd",
+							"id": "3abb28bc-694e-41d2-b776-aa7b6255af3a",
 							"name": "admin",
 							"datatype": "uuid",
 							"param": "",
@@ -3495,7 +3801,7 @@
 						},
 						{
 							"data": "",
-							"id": "b9ebeb05-9791-44cc-9eb2-b3d87fe56bac",
+							"id": "5096b657-dadd-40e7-9616-76278ab461ba",
 							"name": "ban_reason",
 							"datatype": "text",
 							"param": "",
@@ -3516,7 +3822,7 @@
 						},
 						{
 							"data": "",
-							"id": "9281c314-540f-4e1a-a734-a2d98afce38c",
+							"id": "55faec1d-8eb1-4cde-943e-85b6e21327cf",
 							"name": "ban_start",
 							"datatype": "timestamp without time zone",
 							"param": "",
@@ -3537,7 +3843,7 @@
 						},
 						{
 							"data": "",
-							"id": "a9b49df6-9f53-4f96-8dc4-e832a54bb734",
+							"id": "51d289b7-9f2d-4d09-8181-1877237e60f2",
 							"name": "ban_end",
 							"datatype": "timestamp without time zone",
 							"param": "",
@@ -3558,14 +3864,19 @@
 						}
 					],
 					"relations": [
-						"985898e7-093c-42f8-b294-3e873ee9f41f"
+						"192b90d1-6310-46c0-950d-109b0c7186ce"
 					],
 					"keys": [
 						{
-							"id": "5b2c5490-6428-4acd-b06b-a66d9c81522a",
+							"id": "a9197b83-82fb-469c-a2f1-5357391fc791",
 							"isPk": true,
 							"name": "banned_players_pkey",
-							"cols": []
+							"cols": [
+								{
+									"id": "be6b3db8-0a24-493b-8f2f-2b31b7ea83a1",
+									"colid": "518dabdc-fc45-4a28-83a3-bec85fd85c9f"
+								}
+							]
 						}
 					],
 					"indexes": [],
@@ -3575,7 +3886,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"80ff33a2-3643-4e33-b866-22401e4852ac": {
+				"daa1eb13-6430-4231-9409-642785214b73": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -3589,12 +3900,12 @@
 						"schema": "public"
 					},
 					"desc": "Stores the pin the player is required to provide on login",
-					"id": "80ff33a2-3643-4e33-b866-22401e4852ac",
+					"id": "daa1eb13-6430-4231-9409-642785214b73",
 					"name": "login",
 					"cols": [
 						{
 							"data": "",
-							"id": "a86ebc27-fe88-410b-8753-75a80b3085d9",
+							"id": "6426b350-f957-4e47-90b3-1672024d59a2",
 							"name": "id",
 							"datatype": "integer",
 							"param": "",
@@ -3615,7 +3926,7 @@
 						},
 						{
 							"data": "",
-							"id": "390563c2-2466-450b-aa4d-cebe3a01979c",
+							"id": "3a2b4b2b-e8e9-4b2a-8070-dd0073c52900",
 							"name": "player_id",
 							"datatype": "uuid",
 							"param": "",
@@ -3636,7 +3947,7 @@
 						},
 						{
 							"data": "",
-							"id": "4a9c246f-885c-4493-826b-6c4a24f786b1",
+							"id": "c892d41d-e27d-4c9f-a56f-d5a764809427",
 							"name": "pin",
 							"datatype": "integer",
 							"param": "",
@@ -3657,7 +3968,7 @@
 						},
 						{
 							"data": "",
-							"id": "8771af03-6c85-47f4-88cf-19b2b32fb995",
+							"id": "592426fc-0641-498a-9722-87ea271e65ec",
 							"name": "timestamp",
 							"datatype": "timestamp without time zone",
 							"param": "",
@@ -3678,17 +3989,17 @@
 						}
 					],
 					"relations": [
-						"c328ac67-6ddb-42ab-a796-0d672d22b8c1"
+						"0f49a47b-d87a-494c-826a-11494f981b3d"
 					],
 					"keys": [
 						{
-							"id": "f8d25a8c-884d-4426-ba79-5804c4e28249",
+							"id": "2c6b9b24-90ba-43ab-bfb6-b159884571fb",
 							"isPk": true,
 							"name": "login_pkey",
 							"cols": [
 								{
-									"id": "4a8b3423-180e-447b-b1e7-a19e32243f3f",
-									"colid": "a86ebc27-fe88-410b-8753-75a80b3085d9"
+									"id": "e84ceb64-438f-429a-91e4-0c416aff3507",
+									"colid": "6426b350-f957-4e47-90b3-1672024d59a2"
 								}
 							]
 						}
@@ -3700,7 +4011,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"055539e4-167e-4965-82ca-7fd1973c2c2f": {
+				"a35787bd-227c-417b-b338-a170c6c6d600": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -3714,16 +4025,16 @@
 						"schema": "public"
 					},
 					"desc": "",
-					"id": "055539e4-167e-4965-82ca-7fd1973c2c2f",
+					"id": "a35787bd-227c-417b-b338-a170c6c6d600",
 					"name": "player",
 					"cols": [
 						{
 							"data": "",
-							"id": "64234d48-e491-4e3d-9a74-8ee070628e8b",
+							"id": "3b0a0c6a-ab16-430f-b668-ac83b708221a",
 							"name": "uuid",
 							"datatype": "uuid",
 							"param": "",
-							"pk": false,
+							"pk": true,
 							"nn": true,
 							"comment": "",
 							"defaultvalue": "",
@@ -3740,7 +4051,7 @@
 						},
 						{
 							"data": "",
-							"id": "69c76c5f-e077-4790-9a9d-1ee3a33b3e8f",
+							"id": "4b22f1a0-bab2-4f38-8cd3-ac382146c80c",
 							"name": "name",
 							"datatype": "text",
 							"param": "",
@@ -3761,25 +4072,19 @@
 						}
 					],
 					"relations": [
-						"f26b1c39-d8f1-4f4d-9509-cb974e104aee"
+						"50d178fc-86b7-41e7-a093-cf7597b4564a"
 					],
 					"keys": [
 						{
-							"id": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
-							"isPk": false,
-							"name": "player_key",
-							"cols": [
-								{
-									"id": "8495dff2-2092-490e-84e8-9cfc94e577b9",
-									"colid": "64234d48-e491-4e3d-9a74-8ee070628e8b"
-								}
-							]
-						},
-						{
-							"id": "71f131f0-dac5-48aa-8565-330e6422888c",
+							"id": "08157c63-e202-4674-bda8-49db5f6cacea",
 							"isPk": true,
 							"name": "player_pkey",
-							"cols": []
+							"cols": [
+								{
+									"id": "46e54a91-c9f1-4c94-871a-ad18f9477120",
+									"colid": "3b0a0c6a-ab16-430f-b668-ac83b708221a"
+								}
+							]
 						}
 					],
 					"indexes": [],
@@ -3789,7 +4094,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"db052761-90ba-4dca-88d8-d19f98cb65b5": {
+				"742db6fd-d0f3-40c5-bae1-9dd78c0502c2": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -3803,16 +4108,16 @@
 						"schema": "public"
 					},
 					"desc": "The prefix which a player can configure on the website",
-					"id": "db052761-90ba-4dca-88d8-d19f98cb65b5",
+					"id": "742db6fd-d0f3-40c5-bae1-9dd78c0502c2",
 					"name": "player_prefixes",
 					"cols": [
 						{
 							"data": "",
-							"id": "077457c3-5bf6-42a7-a460-663fe160b88a",
+							"id": "d92aff07-6e62-42ae-810e-ff031be403aa",
 							"name": "id",
 							"datatype": "integer",
 							"param": "",
-							"pk": false,
+							"pk": true,
 							"nn": true,
 							"comment": "",
 							"defaultvalue": "",
@@ -3829,7 +4134,7 @@
 						},
 						{
 							"data": "",
-							"id": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa",
+							"id": "56d52162-58ab-4c67-9889-8696050f393c",
 							"name": "player_id",
 							"datatype": "uuid",
 							"param": "",
@@ -3850,7 +4155,7 @@
 						},
 						{
 							"data": "",
-							"id": "a3afa60c-f970-46d2-89d6-d08eec84c8b5",
+							"id": "151cb38a-5f6f-40f5-8392-1008c05e94db",
 							"name": "prefix",
 							"datatype": "text",
 							"param": "",
@@ -3871,7 +4176,7 @@
 						},
 						{
 							"data": "",
-							"id": "8d60172a-9138-4ac2-8ae6-2c40a4994639",
+							"id": "757e0792-75cb-4692-9f0b-2273b95479db",
 							"name": "password",
 							"datatype": "text",
 							"param": "",
@@ -3892,7 +4197,7 @@
 						},
 						{
 							"data": "",
-							"id": "c4501b08-abc6-4b2c-86da-0f91f54b9b26",
+							"id": "81fdbf50-9272-4fa4-b9b9-3dcb3a5ecdfa",
 							"name": "members",
 							"datatype": "uuid",
 							"param": "",
@@ -3913,14 +4218,19 @@
 						}
 					],
 					"relations": [
-						"2072b35f-68ca-4670-9d24-91eab02b13c2"
+						"72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c"
 					],
 					"keys": [
 						{
-							"id": "88573917-94d0-4b35-a78c-d5ef86edfcd7",
+							"id": "abde4c90-c400-4d97-9892-b4ab7482ad13",
 							"isPk": true,
 							"name": "player_prefixes_pkey",
-							"cols": []
+							"cols": [
+								{
+									"id": "4acae076-5811-49cd-ab8d-775c8bede0c6",
+									"colid": "d92aff07-6e62-42ae-810e-ff031be403aa"
+								}
+							]
 						}
 					],
 					"indexes": [],
@@ -3930,7 +4240,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7": {
+				"6c7062ac-6f6b-4d2c-b30d-81165a78e496": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -3944,12 +4254,12 @@
 						"schema": "public"
 					},
 					"desc": "Saves player data regarding the online status, last seen,...",
-					"id": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"id": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 					"name": "player_server_info",
 					"cols": [
 						{
 							"data": "",
-							"id": "b2d55569-068b-4600-a42f-031acc7c0711",
+							"id": "951f2d7a-586a-4d53-960e-4282fa6074b5",
 							"name": "id",
 							"datatype": "uuid",
 							"param": "",
@@ -3970,7 +4280,7 @@
 						},
 						{
 							"data": "",
-							"id": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399",
+							"id": "763e5828-3f2d-4a92-98ba-7a0d30ae7072",
 							"name": "server_id",
 							"datatype": "integer",
 							"param": "",
@@ -3991,7 +4301,7 @@
 						},
 						{
 							"data": "",
-							"id": "930a6909-2045-49e8-b022-25af34a503e7",
+							"id": "9df67f26-8ed6-4b2f-881c-3aad8d9b8e73",
 							"name": "player_uuid",
 							"datatype": "uuid",
 							"param": "",
@@ -4012,7 +4322,7 @@
 						},
 						{
 							"data": "",
-							"id": "fa4a6be5-f813-4d47-80c8-b58a3ba03480",
+							"id": "3c8a439d-58ee-44fd-89ee-3625adfa427f",
 							"name": "online",
 							"datatype": "boolean",
 							"param": "",
@@ -4033,7 +4343,7 @@
 						},
 						{
 							"data": "",
-							"id": "c40f454b-ab62-4ecf-a2b4-8630c5d33a4b",
+							"id": "ea510a38-e131-404f-8f1d-501c2c339794",
 							"name": "first_seen",
 							"datatype": "timestamp without time zone",
 							"param": "",
@@ -4054,7 +4364,7 @@
 						},
 						{
 							"data": "",
-							"id": "584dae6c-3ab4-4e8a-8f73-bf0a74e4bb40",
+							"id": "95abd278-1bc7-4782-aa53-84c727eff649",
 							"name": "last_seen",
 							"datatype": "timestamp without time zone",
 							"param": "",
@@ -4075,7 +4385,7 @@
 						},
 						{
 							"data": "",
-							"id": "891d05e8-f091-4c24-8011-f550023f52f9",
+							"id": "83fe6a5e-f5ac-4eff-800d-667d418ed62b",
 							"name": "web_access_permissions",
 							"datatype": "smallint",
 							"param": "",
@@ -4096,44 +4406,37 @@
 						}
 					],
 					"relations": [
-						"cb84411c-793b-4b5b-af0b-43898ac25a53",
-						"985898e7-093c-42f8-b294-3e873ee9f41f",
-						"c328ac67-6ddb-42ab-a796-0d672d22b8c1",
-						"2072b35f-68ca-4670-9d24-91eab02b13c2",
-						"f26b1c39-d8f1-4f4d-9509-cb974e104aee",
-						"de1b22a0-75c2-4399-849f-1c81792a4084"
+						"2a42d927-bea1-4fd9-b8a6-c96a1aa20300",
+						"192b90d1-6310-46c0-950d-109b0c7186ce",
+						"0f49a47b-d87a-494c-826a-11494f981b3d",
+						"72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c",
+						"50d178fc-86b7-41e7-a093-cf7597b4564a",
+						"07d644d9-37b7-4a41-8933-04fb78451b16"
 					],
 					"keys": [
 						{
-							"id": "9ba53e7f-6ec2-4541-824f-3b50eca4f4ee",
-							"isPk": false,
-							"name": "player_server_info_key",
-							"cols": [
-								{
-									"id": "24e91e67-b11d-4321-b427-872cc27bff6d",
-									"colid": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
-								}
-							]
-						},
-						{
-							"id": "d68f4c8d-3422-463f-8e1b-57ccc4d6586d",
-							"isPk": false,
-							"name": "player_server_info_key1",
-							"cols": [
-								{
-									"id": "cc61e721-063c-4690-8b71-460213600805",
-									"colid": "930a6909-2045-49e8-b022-25af34a503e7"
-								}
-							]
-						},
-						{
-							"id": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+							"id": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 							"isPk": true,
 							"name": "player_server_info_pkey",
 							"cols": [
 								{
-									"id": "80620921-0523-40fa-a044-034441ebe68d",
-									"colid": "b2d55569-068b-4600-a42f-031acc7c0711"
+									"id": "b9703222-918a-4bff-b92e-988efdbd4f57",
+									"colid": "951f2d7a-586a-4d53-960e-4282fa6074b5"
+								}
+							]
+						},
+						{
+							"id": "e4ee7b13-7a07-4c01-8363-901d2f07e4aa",
+							"isPk": false,
+							"name": "player_server_info_server_player_unique",
+							"cols": [
+								{
+									"id": "4c55a1d5-6b69-440b-83a7-080ff0c1d6bb",
+									"colid": "763e5828-3f2d-4a92-98ba-7a0d30ae7072"
+								},
+								{
+									"id": "94768f73-6b0c-449b-9f1b-3023e0573fc6",
+									"colid": "9df67f26-8ed6-4b2f-881c-3aad8d9b8e73"
 								}
 							]
 						}
@@ -4145,7 +4448,7 @@
 					"generateCustomCode": true,
 					"customCode": ""
 				},
-				"551caf61-9c12-430e-a1f5-c70ac324ab2b": {
+				"f33effc9-73f8-4a5d-85c7-dac26bf590ff": {
 					"lines": [],
 					"embeddable": false,
 					"objectType": "table",
@@ -4159,16 +4462,16 @@
 						"schema": "public"
 					},
 					"desc": "",
-					"id": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+					"id": "f33effc9-73f8-4a5d-85c7-dac26bf590ff",
 					"name": "server",
 					"cols": [
 						{
 							"data": "",
-							"id": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
+							"id": "9d6a4254-7e51-4f95-b8ce-3a37d2df931c",
 							"name": "server_id",
 							"datatype": "integer",
 							"param": "",
-							"pk": false,
+							"pk": true,
 							"nn": true,
 							"comment": "",
 							"defaultvalue": "",
@@ -4185,7 +4488,7 @@
 						},
 						{
 							"data": "",
-							"id": "7e5c62e7-813f-40fd-b73e-ae11c91aa496",
+							"id": "05b3ef8c-5111-4f1f-9965-139d91f97ad9",
 							"name": "subdomain",
 							"datatype": "text",
 							"param": "",
@@ -4206,7 +4509,28 @@
 						},
 						{
 							"data": "",
-							"id": "d949fc4d-e2a8-4fe8-bd0c-afe6476ecd14",
+							"id": "0c3c4bf2-44e3-4b8e-b0c2-31b346cd5a2b",
+							"name": "license_type",
+							"datatype": "integer",
+							"param": "",
+							"pk": false,
+							"nn": true,
+							"comment": "",
+							"defaultvalue": "",
+							"collation": "",
+							"fk": false,
+							"after": "",
+							"pg": {
+								"generatedIdentity": "no",
+								"storage": "",
+								"compression": ""
+							},
+							"list": false,
+							"estimatedSize": ""
+						},
+						{
+							"data": "",
+							"id": "f26c4c31-49ad-4f73-a550-86019e96f873",
 							"name": "owner_name",
 							"datatype": "text",
 							"param": "",
@@ -4227,7 +4551,7 @@
 						},
 						{
 							"data": "",
-							"id": "e04eb1a4-5e7b-4848-85c4-889301699a9d",
+							"id": "40d1855b-85ef-4358-aea3-7e744037cec8",
 							"name": "mc_server_domain",
 							"datatype": "text",
 							"param": "",
@@ -4248,25 +4572,19 @@
 						}
 					],
 					"relations": [
-						"de1b22a0-75c2-4399-849f-1c81792a4084"
+						"07d644d9-37b7-4a41-8933-04fb78451b16"
 					],
 					"keys": [
 						{
-							"id": "e3a0322f-3547-4405-b903-3639ae063416",
-							"isPk": false,
-							"name": "server_key",
-							"cols": [
-								{
-									"id": "8db3864f-5bd6-42df-9ff9-b267831fa742",
-									"colid": "8fc0440e-b120-42b1-836d-3d4a4c07ac61"
-								}
-							]
-						},
-						{
-							"id": "65197089-9172-4ca0-9b79-f50322e08e4e",
+							"id": "9e8b6733-85ee-47f1-b8b7-746f8126c96d",
 							"isPk": true,
 							"name": "server_pkey",
-							"cols": []
+							"cols": [
+								{
+									"id": "2941e184-19e7-4bd2-bf67-45db80520261",
+									"colid": "9d6a4254-7e51-4f95-b8ce-3a37d2df931c"
+								}
+							]
 						}
 					],
 					"indexes": [],
@@ -4278,18 +4596,18 @@
 				}
 			},
 			"relations": {
-				"cb84411c-793b-4b5b-af0b-43898ac25a53": {
-					"id": "cb84411c-793b-4b5b-af0b-43898ac25a53",
+				"2a42d927-bea1-4fd9-b8a6-c96a1aa20300": {
+					"id": "2a42d927-bea1-4fd9-b8a6-c96a1aa20300",
 					"type": "identifying",
 					"cols": [
 						{
-							"id": "000ff20f-7dac-42db-bdb5-6e1481d3dfd6",
-							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-							"childcol": "7ecf10f4-1463-445e-954c-3655d08db019"
+							"id": "6fcdca2c-9dda-4c8a-b948-319e1337622a",
+							"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+							"childcol": "59f2db71-ffbe-497c-982b-811672ac78c3"
 						}
 					],
-					"child": "dc96190a-91f9-4164-b2a3-ee46c44dfe00",
-					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"child": "74c5a9fc-dda1-49aa-bc0b-43a3b38a1c48",
+					"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 					"c_mp": "true",
 					"c_mch": "true",
 					"c_ch": "many",
@@ -4298,7 +4616,7 @@
 					"c_cch": "",
 					"name": "actions_player_id_fkey",
 					"desc": "",
-					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 					"ri_pd": "No action",
 					"ri_pu": "No action",
 					"generate": true,
@@ -4307,27 +4625,27 @@
 					"relationColor": "transparent",
 					"visible": true
 				},
-				"985898e7-093c-42f8-b294-3e873ee9f41f": {
-					"id": "985898e7-093c-42f8-b294-3e873ee9f41f",
+				"192b90d1-6310-46c0-950d-109b0c7186ce": {
+					"id": "192b90d1-6310-46c0-950d-109b0c7186ce",
 					"type": "identifying",
 					"cols": [
 						{
-							"id": "e0eb4466-52f2-447d-8f8a-cfc7ffe45e30",
-							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-							"childcol": "04420b8f-e8d0-4769-bf81-ef4c94bf156f"
+							"id": "6d2f8fb8-97d5-4748-946a-175551ec6020",
+							"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+							"childcol": "ae6e910b-b5c7-44ad-9e19-c8536a1f1387"
 						}
 					],
-					"child": "6a2a5987-8ef7-4c9a-a8bf-f2fb975b1aad",
-					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"child": "de379306-7e09-4205-9767-d8e47028a699",
+					"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 					"c_mp": "true",
-					"c_mch": "false",
+					"c_mch": "true",
 					"c_ch": "many",
 					"c_p": "one",
 					"c_cp": "",
 					"c_cch": "",
 					"name": "banned_players_player_id_fkey",
 					"desc": "",
-					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 					"ri_pd": "No action",
 					"ri_pu": "No action",
 					"generate": true,
@@ -4336,18 +4654,18 @@
 					"relationColor": "transparent",
 					"visible": true
 				},
-				"c328ac67-6ddb-42ab-a796-0d672d22b8c1": {
-					"id": "c328ac67-6ddb-42ab-a796-0d672d22b8c1",
+				"0f49a47b-d87a-494c-826a-11494f981b3d": {
+					"id": "0f49a47b-d87a-494c-826a-11494f981b3d",
 					"type": "identifying",
 					"cols": [
 						{
-							"id": "33451233-5079-4b05-9211-44d1b27ba293",
-							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-							"childcol": "390563c2-2466-450b-aa4d-cebe3a01979c"
+							"id": "af2bc8bc-49a7-4c57-96b1-40cc53f8b924",
+							"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+							"childcol": "3a2b4b2b-e8e9-4b2a-8070-dd0073c52900"
 						}
 					],
-					"child": "80ff33a2-3643-4e33-b866-22401e4852ac",
-					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"child": "daa1eb13-6430-4231-9409-642785214b73",
+					"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 					"c_mp": "true",
 					"c_mch": "true",
 					"c_ch": "many",
@@ -4356,7 +4674,7 @@
 					"c_cch": "",
 					"name": "login_player_id_fkey",
 					"desc": "",
-					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 					"ri_pd": "No action",
 					"ri_pu": "No action",
 					"generate": true,
@@ -4365,18 +4683,18 @@
 					"relationColor": "transparent",
 					"visible": true
 				},
-				"2072b35f-68ca-4670-9d24-91eab02b13c2": {
-					"id": "2072b35f-68ca-4670-9d24-91eab02b13c2",
+				"72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c": {
+					"id": "72b9ea20-3f96-48a3-afd2-ffb2d8c94a4c",
 					"type": "identifying",
 					"cols": [
 						{
-							"id": "40147bd6-a227-4616-86a5-96b0c504dc0a",
-							"parentcol": "b2d55569-068b-4600-a42f-031acc7c0711",
-							"childcol": "3058c5a4-3cd3-4cb0-8c76-e55724ca05fa"
+							"id": "2caeeeca-22d5-435d-befd-78d66fd74fed",
+							"parentcol": "951f2d7a-586a-4d53-960e-4282fa6074b5",
+							"childcol": "56d52162-58ab-4c67-9889-8696050f393c"
 						}
 					],
-					"child": "db052761-90ba-4dca-88d8-d19f98cb65b5",
-					"parent": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
+					"child": "742db6fd-d0f3-40c5-bae1-9dd78c0502c2",
+					"parent": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
 					"c_mp": "true",
 					"c_mch": "true",
 					"c_ch": "many",
@@ -4385,7 +4703,7 @@
 					"c_cch": "",
 					"name": "player_prefixes_player_id_fkey",
 					"desc": "",
-					"parent_key": "6bbde383-cd9f-467a-80ac-7889982f98ca",
+					"parent_key": "fcec8d94-8b0a-4972-b324-d13f37bd303b",
 					"ri_pd": "No action",
 					"ri_pu": "No action",
 					"generate": true,
@@ -4394,27 +4712,27 @@
 					"relationColor": "transparent",
 					"visible": true
 				},
-				"f26b1c39-d8f1-4f4d-9509-cb974e104aee": {
-					"id": "f26b1c39-d8f1-4f4d-9509-cb974e104aee",
+				"50d178fc-86b7-41e7-a093-cf7597b4564a": {
+					"id": "50d178fc-86b7-41e7-a093-cf7597b4564a",
 					"type": "identifying",
 					"cols": [
 						{
-							"id": "c4ae39e5-cb4b-4866-b138-b207d8bb3e99",
-							"parentcol": "64234d48-e491-4e3d-9a74-8ee070628e8b",
-							"childcol": "930a6909-2045-49e8-b022-25af34a503e7"
+							"id": "dab6bf50-e78b-4ef4-ab51-6b15ca915cce",
+							"parentcol": "3b0a0c6a-ab16-430f-b668-ac83b708221a",
+							"childcol": "9df67f26-8ed6-4b2f-881c-3aad8d9b8e73"
 						}
 					],
-					"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
-					"parent": "055539e4-167e-4965-82ca-7fd1973c2c2f",
+					"child": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
+					"parent": "a35787bd-227c-417b-b338-a170c6c6d600",
 					"c_mp": "true",
 					"c_mch": "true",
-					"c_ch": "one",
+					"c_ch": "many",
 					"c_p": "one",
 					"c_cp": "",
 					"c_cch": "",
 					"name": "player_server_info_player_uuid_fkey",
 					"desc": "",
-					"parent_key": "e31fb6ae-b5e1-4333-a3b5-103243d83a91",
+					"parent_key": "08157c63-e202-4674-bda8-49db5f6cacea",
 					"ri_pd": "No action",
 					"ri_pu": "No action",
 					"generate": true,
@@ -4423,27 +4741,27 @@
 					"relationColor": "transparent",
 					"visible": true
 				},
-				"de1b22a0-75c2-4399-849f-1c81792a4084": {
-					"id": "de1b22a0-75c2-4399-849f-1c81792a4084",
+				"07d644d9-37b7-4a41-8933-04fb78451b16": {
+					"id": "07d644d9-37b7-4a41-8933-04fb78451b16",
 					"type": "identifying",
 					"cols": [
 						{
-							"id": "427cf291-d812-4a73-bbca-9900de4484ff",
-							"parentcol": "8fc0440e-b120-42b1-836d-3d4a4c07ac61",
-							"childcol": "3ba55231-e42f-4c8e-b06f-5e3c3f6bf399"
+							"id": "bb56e089-cd1b-4a37-be7e-4024f066f471",
+							"parentcol": "9d6a4254-7e51-4f95-b8ce-3a37d2df931c",
+							"childcol": "763e5828-3f2d-4a92-98ba-7a0d30ae7072"
 						}
 					],
-					"child": "6a155024-c2d2-40f2-b4a9-44eb5e0aa2b7",
-					"parent": "551caf61-9c12-430e-a1f5-c70ac324ab2b",
+					"child": "6c7062ac-6f6b-4d2c-b30d-81165a78e496",
+					"parent": "f33effc9-73f8-4a5d-85c7-dac26bf590ff",
 					"c_mp": "true",
 					"c_mch": "true",
-					"c_ch": "one",
+					"c_ch": "many",
 					"c_p": "one",
 					"c_cp": "",
 					"c_cch": "",
 					"name": "player_server_info_server_id_fkey",
 					"desc": "",
-					"parent_key": "e3a0322f-3547-4405-b903-3639ae063416",
+					"parent_key": "9e8b6733-85ee-47f1-b8b7-746f8126c96d",
 					"ri_pd": "No action",
 					"ri_pu": "No action",
 					"generate": true,
@@ -4453,7 +4771,198 @@
 					"visible": true
 				}
 			},
-			"otherObjects": {}
+			"otherObjects": {
+				"96d5ca51-1bc2-4efe-b350-da76ed5255db": {
+					"id": "96d5ca51-1bc2-4efe-b350-da76ed5255db",
+					"name": "uuid_nil",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_nil()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_nil$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"56ccb9d0-1b78-4053-a8e7-0c88b04d8c42": {
+					"id": "56ccb9d0-1b78-4053-a8e7-0c88b04d8c42",
+					"name": "uuid_ns_dns",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_dns()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_dns$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"04b5267d-33fd-4c27-8352-e9c2b999f626": {
+					"id": "04b5267d-33fd-4c27-8352-e9c2b999f626",
+					"name": "uuid_ns_url",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_url()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_url$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"0576e8d0-0e0a-43cb-937f-2428e83df54f": {
+					"id": "0576e8d0-0e0a-43cb-937f-2428e83df54f",
+					"name": "uuid_ns_oid",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_oid()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_oid$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"69100b6c-0f63-4292-a7e4-7e0706bc7fad": {
+					"id": "69100b6c-0f63-4292-a7e4-7e0706bc7fad",
+					"name": "uuid_ns_x500",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_x500()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_x500$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"b9fe916e-dc6b-4f36-81e6-d0e8091c34c5": {
+					"id": "b9fe916e-dc6b-4f36-81e6-d0e8091c34c5",
+					"name": "uuid_generate_v1",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v1()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v1$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"140caa0f-1806-4d46-be33-fedea7ead5ba": {
+					"id": "140caa0f-1806-4d46-be33-fedea7ead5ba",
+					"name": "uuid_generate_v1mc",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v1mc()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v1mc$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"81dd9fa3-0eb2-443d-a6ec-904fbd462242": {
+					"id": "81dd9fa3-0eb2-443d-a6ec-904fbd462242",
+					"name": "uuid_generate_v3",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v3(namespace uuid, name text)\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v3$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": "namespace uuid, name text"
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"d6f139fa-7caa-4431-8fdf-c6755888bbca": {
+					"id": "d6f139fa-7caa-4431-8fdf-c6755888bbca",
+					"name": "uuid_generate_v4",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v4()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v4$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": ""
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				},
+				"de7b85cb-e86f-4a2e-92e8-3b9cd7842301": {
+					"id": "de7b85cb-e86f-4a2e-92e8-3b9cd7842301",
+					"name": "uuid_generate_v5",
+					"desc": "",
+					"type": "Function",
+					"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v5(namespace uuid, name text)\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v5$function$\n;\n",
+					"lines": [],
+					"pg": {
+						"schema": "public",
+						"routine": {
+							"signature": "namespace uuid, name text"
+						}
+					},
+					"visible": true,
+					"generateCustomCode": true,
+					"generate": true,
+					"customCode": "",
+					"typeExpression": ""
+				}
+			}
 		},
 		"updated": true
 	}
