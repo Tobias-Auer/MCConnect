@@ -81,7 +81,7 @@ COMMENT ON TABLE public.banned_players IS
   'Contains the uuids and informations about banned players';
 
 CREATE TABLE public.login(
-  id integer NOT NULL,
+  id SERIAL,
   player_id uuid NOT NULL,
   pin integer NOT NULL,
   "timestamp" timestamp without time zone NOT NULL,

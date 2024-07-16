@@ -1,4 +1,5 @@
 import ast
+from datetime import datetime, timedelta
 import re
 from tarfile import data_filter
 import psycopg2
@@ -199,7 +200,20 @@ class DatabaseManager:
             return False
         return True
     
-
+    def add_login_entry(self, player_id, pin):
+        logger.debug("add_login_entry is called")
+        query = """INSERT INTO login (player_id, pin, timestamp) VALUES (%s, %s, CURRENT_TIMESTAMP)"""
+        data = (player_id, pin)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            logger.info(f'Added login entry for player: "{player_id}" with pin: "{pin}"')
+        except Exception as e:
+            logger.error(f'Failed to add login entry for player: "{player_id}". Error: {e}')
+            return False
+        return True
     ################################ UPDATE FUNCTIONS #################################
     def update_prefix(self, player_id, prefix=None, password=None):
         logger.debug("update_prefix is called")
@@ -289,6 +303,7 @@ class DatabaseManager:
             return False
         return True
 
+
     ################################ DELETE FUNCTIONS #################################
     def drop_db(self):
         """
@@ -334,6 +349,21 @@ class DatabaseManager:
             logger.info(f'Deleted server with id: "{server_id}"')
         except Exception as e:
             logger.critical(f'Failed to delete server with id: "{server_id}". Error: {e}')
+            return False
+        return True
+
+    def delete_login_entry(self, player_id):
+        logger.debug("delete_login_entry is called")
+        query = "DELETE FROM login WHERE player_id = %s"
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            logger.info(f'Deleted login entry for player: "{player_id}"')
+        except Exception as e:
+            logger.critical(f'Failed to delete login entry for player: "{player_id}". Error: {e}')
             return False
         return True
 
@@ -468,6 +498,47 @@ class DatabaseManager:
         logger.info(f"Ban info: {result}")
         return result
 
+    def get_login_attempt_validity(self, player_id, pin):
+        logger.debug(f"get_login_attempt_validity called for player_id: {player_id}")
+        
+        query = "SELECT pin, timestamp FROM login WHERE player_id = %s;"
+        data = (player_id,)
+        logger.debug(f"Executing SQL query: {query} with data: {data}")
+        
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            
+            if not result:
+                logger.debug(f"No entry found for player_id: {player_id}")
+
+                return [False, "no entry found in the database"]
+            
+            stored_pin, saved_timestamp = result
+            
+            # Verify PIN
+            if pin != stored_pin:
+                logger.debug(f"PIN is wrong for player_id: {player_id}")
+                return [False, "wrong pin provided"]
+            
+            # Verify timestamp validity
+            current_timestamp = datetime.now()
+            time_difference = current_timestamp - saved_timestamp
+            
+            # Check if saved timestamp is older than 5 minutes from current timestamp
+            if time_difference > timedelta(minutes=5):
+                logger.debug(f"Saved timestamp is older than 5 minutes for player_id: {player_id}")
+                self.delete_login_entry(player_id)
+                return [False, "timeout reached"]
+            
+            logger.debug(f"Login attempt for player_id: {player_id} is valid")
+            return [True,]
+        
+        except Exception as e:
+            logger.error(f'Failed to verify login attempt for player_id: {player_id}. Error: {e}')
+            return [False, "database error occurred"]
+    
+
 if __name__ == "__main__":
     db_manager = DatabaseManager()
     db_manager.init_tables()
@@ -492,5 +563,10 @@ if __name__ == "__main__":
     db_manager.unban_player(my_id, my_id)
     db_manager.check_for_ban_entry(my_id)
     db_manager.get_ban_info(my_id)
+    db_manager.add_login_entry(my_id, "1234")
+    print(db_manager.get_login_attempt_validity(my_id, 1234))
+    print(db_manager.get_login_attempt_validity(my_id, 1235))
+    db_manager.delete_login_entry(my_id)
+    print(db_manager.get_login_attempt_validity(my_id, 1234))
     logger.info("Database connection closed")
     db_manager.conn.close()
