@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-07-16T18:58:38.638Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:129.0) Gecko/20100101 Firefox/129.0" etag="qfBF8_UrSOKvODTJbZa4" version="24.6.5" type="github">
+<mxfile host="app.diagrams.net" modified="2024-07-16T19:35:17.700Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:129.0) Gecko/20100101 Firefox/129.0" etag="meNFYn1NVI-s957PcR3p" version="24.6.5" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="2261" dy="766" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -152,7 +152,7 @@
         <mxCell id="_sAX4Jh3mrH07cV2HzHf-40" value="&lt;div&gt;generate_login_pin()&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="570" y="405" width="150" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="_sAX4Jh3mrH07cV2HzHf-45" value="update_ban_table()" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="_sAX4Jh3mrH07cV2HzHf-45" value="update_ban_table()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="-50" y="405" width="120" height="30" as="geometry" />
         </mxCell>
       </root>
