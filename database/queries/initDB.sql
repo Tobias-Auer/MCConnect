@@ -68,7 +68,7 @@ in "category" is stated in which context the item should be interpretet (mined b
   ;
 
 CREATE TABLE public.banned_players(
-  id integer NOT NULL,
+  id SERIAL,
   player_id uuid NOT NULL,
   "admin" uuid NOT NULL,
   ban_reason text NOT NULL,
