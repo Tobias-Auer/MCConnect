@@ -259,8 +259,6 @@ class DatabaseManager:
 
     def ban_player(self, banned_player_id, admin_player_id, reason, end):
         logger.debug(f"ban_player is called")
-    def ban_player(self, banned_player_id, admin_player_id, reason, end):
-        logger.debug(f"ban_player is called")
         query = """ INSERT INTO banned_players (player_id, admin, ban_reason, ban_start, ban_end)
                     VALUES (%s, %s, %s, CURRENT_TIMESTAMP, TO_TIMESTAMP(%s, 'YYYY-MM-DD HH24:MI:SS'));"""
         data = (banned_player_id, admin_player_id, reason, end)
