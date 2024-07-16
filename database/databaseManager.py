@@ -1,3 +1,6 @@
+import ast
+import re
+from tarfile import data_filter
 import psycopg2
 
 from logger import get_logger
@@ -144,6 +147,26 @@ class DatabaseManager:
             logger.info("Database integrity check passed.")
         return True
     
+    def check_for_ban_entry(self, player_id):
+        logger.debug("check_for_ban_entry is called")
+        query = "SELECT * FROM banned_players WHERE player_id = %s"
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            ban_entry = self.cursor.fetchone()
+            if ban_entry:
+                logger.info(f'Player: "{player_id}" is currently banned.')
+                return True
+            else:
+                logger.info(f'Player: "{player_id}" is currently not banned.')
+                return False
+        except Exception as e:
+            logger.error(f'Failed to check for ban entry for player: "{player_id}". Error: {e}')
+            return False
+        
+        
     ################################ ADD FUNCTIONS ####################################
     def add_new_player(self, player_uuid):
         """
@@ -233,6 +256,41 @@ class DatabaseManager:
             return False
         return True
         
+
+    def ban_player(self, banned_player_id, admin_player_id, reason, end):
+        logger.debug(f"ban_player is called")
+    def ban_player(self, banned_player_id, admin_player_id, reason, end):
+        logger.debug(f"ban_player is called")
+        query = """ INSERT INTO banned_players (player_id, admin, ban_reason, ban_start, ban_end)
+                    VALUES (%s, %s, %s, CURRENT_TIMESTAMP, TO_TIMESTAMP(%s, 'YYYY-MM-DD HH24:MI:SS'));"""
+        data = (banned_player_id, admin_player_id, reason, end)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            logger.info(f'Banned player: "{banned_player_id}" by admin: "{admin_player_id}" with reason: "{reason}" until: "{end}"')
+
+        except Exception as e:
+            logger.error(f'Failed to ban player: "{banned_player_id}" by admin: "{admin_player_id}" with reason: "{reason}" until: "{end}" Error: {e}')
+            return False
+        return True
+        
+    def unban_player(self, banned_player_id, admin_player_id):
+        logger.debug(f"unban_player is called")
+        query = """ DELETE FROM banned_players WHERE player_id = %s;"""
+        data = (banned_player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            logger.info(f'Unbanned player: "{banned_player_id}" by admin: "{admin_player_id}"')
+        except Exception as e:
+            logger.error(f'Failed to unban player: "{banned_player_id}" by admin: "{admin_player_id}". Error: {e}')
+            return False
+        return True
+
     ################################ DELETE FUNCTIONS #################################
     def drop_db(self):
         """
@@ -353,13 +411,64 @@ class DatabaseManager:
             return None
         return result[0]
 
-    
-    def get_prefix_id_from_server_id_and_prefix_name(self, server_id, prefix_name):
-        ...
-    
+    def get_prefix_id_from_player_id(self, player_id):
+        logger.debug(f"getting prefix_id_from_player_id is called")
+        query = "SELECT id FROM player_prefixes WHERE player_id = %s ;"
+        data = (player_id,)
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.info(f'Found prefix id: "{result[0]}" for player: "{player_id}"')
+        except Exception as e:
+            logger.error(f'Failed to get prefix id for player: "{player_id}". Error: {e}')
+            return None
+        return result[0]
+        
     def get_prefix_name_from_prefix_id(self, prefix_id):
-        ...
+        logger.debug(f"getting prefix_name_from_prefix_id is called")
+        query = "SELECT prefix FROM player_prefixes WHERE id = %s ;"
+        data = (prefix_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.info(f'Found prefix name: "{result[0]}" for prefix id: "{prefix_id}"')
+        except Exception as e:
+            logger.error(f'Failed to get prefix name for prefix id: "{prefix_id}". Error: {e}')
+            return None
+        return result[0]
     
+    def get_members_from_prefix_id(self, prefix_id):
+        logger.debug(f"getting members_from_prefix_id is called")
+        query = "SELECT members FROM player_prefixes WHERE id = %s;"
+        data = (prefix_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchall()
+            logger.info(f'Found players for prefix id: "{prefix_id}"')
+        except Exception as e:
+            logger.error(f'Failed to get players for prefix id: "{prefix_id}". Error: {e}')
+            return None
+        return re.findall(r'[a-zA-Z0-9-]+', result[0][0])
+
+    def get_ban_info(self, player_id):
+        logger.debug(f"getting ban_info is called")
+        query = "SELECT * FROM banned_players WHERE player_id = %s;"
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.info(f'Found ban info for player: "{player_id}"')
+        except Exception as e:
+            logger.error(f'Failed to get ban info for player: "{player_id}". Error: {e}')
+            return None
+        logger.info(f"Ban info: {result}")
+        return result
 
 if __name__ == "__main__":
     db_manager = DatabaseManager()
@@ -375,8 +484,15 @@ if __name__ == "__main__":
     my_prefix_id = db_manager.get_prefix_id_from_player_id(my_id)
     db_manager.join_prefix(my_id, my_prefix_id)
     db_manager.update_prefix(my_id, "NewPrefix", "newpassword")
-    import time
-    time.sleep(6)
-    db_manager.leave_prefix(my_id, my_prefix_id)
+    db_manager.get_prefix_id_from_player_id(my_id)
+    db_manager.get_prefix_name_from_prefix_id(my_prefix_id)
+    print(db_manager.get_members_from_prefix_id(my_prefix_id))
+    #db_manager.leave_prefix(my_id, my_prefix_id)
+    db_manager.ban_player(my_id, my_id, "banned for testing", "2024-08-12 19:10:50")
+    db_manager.check_for_ban_entry(my_id)
+    db_manager.get_ban_info(my_id)
+    db_manager.unban_player(my_id, my_id)
+    db_manager.check_for_ban_entry(my_id)
+    db_manager.get_ban_info(my_id)
     logger.info("Database connection closed")
     db_manager.conn.close()
