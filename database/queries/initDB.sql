@@ -34,13 +34,13 @@ CREATE TABLE public.player_server_info(
 COMMENT ON TABLE public.player_server_info IS
   'Saves player data regarding the online status, last seen,...';
 
-CREATE TABLE public.actions(
-  id integer NOT NULL,
-  player_id uuid NOT NULL,
-  "object" text NOT NULL,
-  category smallint NOT NULL,
-  "value" integer NOT NULL,
-  CONSTRAINT actions_pkey PRIMARY KEY(id)
+CREATE TABLE public.actions (
+  id SERIAL PRIMARY KEY,
+  player_id UUID NOT NULL,
+  "object" TEXT NOT NULL,
+  category SMALLINT NOT NULL,
+  "value" INTEGER NOT NULL,
+  CONSTRAINT unique_action UNIQUE (player_id, "object", category)
 );
 
 COMMENT ON COLUMN public.actions.category IS
