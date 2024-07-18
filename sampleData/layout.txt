@@ -1,0 +1,27 @@
+broken:
+    tools
+    armor
+mined:
+    blocks
+dropped:
+    blocks (+ items)
+    armor
+    tools
+used:
+    blocks (+ items[spawnEgg, potions])
+    armor
+    tools
+killed:
+    mobs
+crafted:
+    blocks (+ items)
+    tools
+    armor
+killed_by:
+    mobs
+custom:
+    custom
+picked_up:
+    blocks (+ items)
+    armor
+    tools
