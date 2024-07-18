@@ -1,5 +1,6 @@
 import ast
 from datetime import datetime, timedelta
+import json
 import re
 from tarfile import data_filter
 import psycopg2
@@ -125,6 +126,10 @@ class DatabaseManager:
             logger.error(f'Failed to initialize prefix for player: "{player_id}". Error: {e}')
             return False
         return True
+
+    def init_item_lookup_table(self, block_list_file_path):
+        ...
+
 
     ################################ CHECK FUNCTIONS ##################################
     def check_database_integrity(self):
@@ -270,7 +275,6 @@ class DatabaseManager:
             return False
         return True
         
-
     def ban_player(self, banned_player_id, admin_player_id, reason, end):
         logger.debug(f"ban_player is called")
         query = """ INSERT INTO banned_players (player_id, admin, ban_reason, ban_start, ban_end)
@@ -303,7 +307,26 @@ class DatabaseManager:
             return False
         return True
 
-
+    def update_player_stats(self, player_id, stats):
+        logger.debug("update_player_stats is called")
+        items = self.split_items_from_json(stats)
+        query = """ INSERT INTO actions (player_id, object, category, value)
+                    VALUES (%s, %s, %s, %s)
+                    ON CONFLICT (player_id, object, category)
+                    DO UPDATE SET
+                    "value" = EXCLUDED.value;"""
+        for item in items:
+            data = (player_id, *data)
+            logger.debug(f"executing SQL query: {query}")
+            logger.debug(f"with following data: {data}")
+            try:
+                self.cursor.execute(query, data)
+                self.conn.commit()
+                logger.info(f'Updated player: "{player_id}" stats with items: {stats}')
+            except Exception as e:
+                logger.error(f'Failed to update player: "{player_id}" stats with items: {stats}. Error: {e}')
+                return False
+            return True
     ################################ DELETE FUNCTIONS #################################
     def drop_db(self):
         """
@@ -538,35 +561,164 @@ class DatabaseManager:
             logger.error(f'Failed to verify login attempt for player_id: {player_id}. Error: {e}')
             return [False, "database error occurred"]
     
+    
+    ################################ helper functions################################
+    
+    def split_items_from_json(self, items):
+        '''
+        Return: [[object/item, category, value],]
+        '''
+        return_list = []
+        stats_categorys = ["minecraft:broken", "minecraft:mined","minecraft:dropped","minecraft:used","minecraft:killed","minecraft:crafted","minecraft:killed_by","minecraft:custom","minecraft:picked_up"]
+        all_data = json.loads(items)["stats"]
+        for category in stats_categorys:
+            data = all_data[category]
+            if category == "minecraft:broken":
+                for item_name, item_data in data.items():
+                    db_category = self.get_db_category_from_item_and_json_category(item_name, category)
+                    return_list.append([item_name, db_category, item_data])
+                    
+                    
+    def get_db_category_from_item_and_json_category(self, item, category):
+        '''
+        categorys = ["minecraft:broken", "minecraft:mined","minecraft:dropped","minecraft:used","minecraft:killed","minecraft:killed_by","minecraft:crafted","minecraft:picked_up","minecraft:custom"]
 
+        0: broken tool
+        1: broken armor
+
+        2: mined block
+
+        3: dropped block
+        4: dropped items
+        5: dropped armor
+        6: dropped tools
+
+        7: used blocks
+        8: used items
+        9: used armor
+        10: used tools
+
+        11: killed mobs
+
+        12: killed by
+
+        13: crafted blocks
+        14: crafted items
+        15: crafted tools
+        16: crafted armor
+
+        17: picked up blocks
+        18: picked up items
+        19: picked up armor
+        20: picked up tools
+
+        21: custom
+        Return: database category name
+        '''
+        tools_substrings = ["axe", "shovel", "hoe", "sword", "pickaxe", "shield", "flint_and_steel"]
+        armor_substrings = ["boots", "leggings", "chestplate", "helmet"]
+        recognized_item_group = ""
+
+        if any(substring in item for substring in tools_substrings):
+            recognized_item_group = "tool"
+        elif any(substring in item for substring in armor_substrings):
+            recognized_item_group = "armor"
+        elif self.check_item_for_block(item):
+            recognized_item_group = "block"
+        elif self.check_item_for_item(item):
+            recognized_item_group = "item"
+        else:
+            recognized_item_group = "unknown"
+
+        if recognized_item_group == "tool":
+            if category == "minecraft:broken":
+                return 0
+            elif category == "minecraft:dropped":
+                return 6
+            elif category == "minecraft:used":
+                return 10
+            elif category == "minecraft:crafted":
+                return 15
+            elif category == "minecraft:picked_up":
+                return 20
+
+        elif recognized_item_group == "armor":
+            if category == "minecraft:broken":
+                return 1
+            elif category == "minecraft:dropped":
+                return 5
+            elif category == "minecraft:used":
+                return 9
+            elif category == "minecraft:crafted":
+                return 16
+            elif category == "minecraft:picked_up":
+                return 19
+
+        elif recognized_item_group == "block":
+            if category == "minecraft:mined":
+                return 2
+            elif category == "minecraft:dropped":
+                return 3
+            elif category == "minecraft:used":
+                return 7
+            elif category == "minecraft:crafted":
+                return 13
+            elif category == "minecraft:picked_up":
+                return 17
+
+        elif recognized_item_group == "item":
+            if category == "minecraft:dropped":
+                return 4
+            elif category == "minecraft:used":
+                return 8
+            elif category == "minecraft:crafted":
+                return 14
+            elif category == "minecraft:picked_up":
+                return 18
+
+        elif category == "minecraft:killed":
+            return 11
+        elif category == "minecraft:killed_by":
+            return 12
+        elif category == "minecraft:custom":
+            return 21
+
+        return -1  # Return an invalid value if no match is found
+
+
+        
+        
 if __name__ == "__main__":
     db_manager = DatabaseManager()
     db_manager.init_tables()
-    db_manager.init_new_server("tobias", 2, "Tobias Auer", "mc.t-auer.com")
-    my_server_id = db_manager.get_server_id_from_subdomain("tobias")
-    db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    # db_manager.init_new_server("tobias", 2, "Tobias Auer", "mc.t-auer.com")
+    # my_server_id = db_manager.get_server_id_from_subdomain("tobias")
+    # db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
 
-    db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    # db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
     
-    my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
-    db_manager.init_prefix_table(my_id)
-    my_prefix_id = db_manager.get_prefix_id_from_player_id(my_id)
-    db_manager.join_prefix(my_id, my_prefix_id)
-    db_manager.update_prefix(my_id, "NewPrefix", "newpassword")
-    db_manager.get_prefix_id_from_player_id(my_id)
-    db_manager.get_prefix_name_from_prefix_id(my_prefix_id)
-    print(db_manager.get_members_from_prefix_id(my_prefix_id))
-    #db_manager.leave_prefix(my_id, my_prefix_id)
-    db_manager.ban_player(my_id, my_id, "banned for testing", "2024-08-12 19:10:50")
-    db_manager.check_for_ban_entry(my_id)
-    db_manager.get_ban_info(my_id)
-    db_manager.unban_player(my_id, my_id)
-    db_manager.check_for_ban_entry(my_id)
-    db_manager.get_ban_info(my_id)
-    db_manager.add_login_entry(my_id, "1234")
-    print(db_manager.get_login_attempt_validity(my_id, 1234))
-    print(db_manager.get_login_attempt_validity(my_id, 1235))
-    db_manager.delete_login_entry(my_id)
-    print(db_manager.get_login_attempt_validity(my_id, 1234))
-    logger.info("Database connection closed")
+    # my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
+    # db_manager.init_prefix_table(my_id)
+    # my_prefix_id = db_manager.get_prefix_id_from_player_id(my_id)
+    # db_manager.join_prefix(my_id, my_prefix_id)
+    # db_manager.update_prefix(my_id, "NewPrefix", "newpassword")
+    # db_manager.get_prefix_id_from_player_id(my_id)
+    # db_manager.get_prefix_name_from_prefix_id(my_prefix_id)
+    # print(db_manager.get_members_from_prefix_id(my_prefix_id))
+    # #db_manager.leave_prefix(my_id, my_prefix_id)
+    # db_manager.ban_player(my_id, my_id, "banned for testing", "2024-08-12 19:10:50")
+    # db_manager.check_for_ban_entry(my_id)
+    # db_manager.get_ban_info(my_id)
+    # db_manager.unban_player(my_id, my_id)
+    # db_manager.check_for_ban_entry(my_id)
+    # db_manager.get_ban_info(my_id)
+    # db_manager.add_login_entry(my_id, "1234")
+    # print(db_manager.get_login_attempt_validity(my_id, 1234))
+    # print(db_manager.get_login_attempt_validity(my_id, 1235))
+    # db_manager.delete_login_entry(my_id)
+    # print(db_manager.get_login_attempt_validity(my_id, 1234))
+    # logger.info("Database connection closed")
+    with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
+        db_manager.split_items_from_json(f.read())
     db_manager.conn.close()
+
