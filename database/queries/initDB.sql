@@ -2,6 +2,16 @@ SET check_function_bodies = false
 ;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+CREATE TABLE public.block_lookup (
+    id SERIAL PRIMARY KEY,
+    "blocks" TEXT NOT NULL
+    );
+CREATE TABLE public.item_lookup (
+    id SERIAL PRIMARY KEY,
+    "items" TEXT NOT NULL
+    );
+
+
 CREATE TABLE public.player(
   uuid uuid NOT NULL,
   "name" text NOT NULL,
