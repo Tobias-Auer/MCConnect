@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 import json
 import re
 from tarfile import data_filter
+from tkinter import E
 import psycopg2
 
 from logger import get_logger
@@ -127,9 +128,43 @@ class DatabaseManager:
             return False
         return True
 
-    def init_item_lookup_table(self, block_list_file_path):
-        ...
+    def init_item_blocks_lookup_table(self, block_list_file_path):
+        with open(block_list_file_path, 'r') as block_list_file:
+            json_data = json.load(block_list_file)
+        
+        names = [block["name"] for block in json_data]
+            
+        query = "INSERT INTO block_lookup (blocks) VALUES (%s)"
+        try:
+            self.cursor.executemany(query, [(element,) for element in names])
+            logger.info(f"Inserted {self.cursor.rowcount} rows successfully.")
+            self.conn.commit()
+        except Exception as e:
+            logger.error(f'Failed to insert rows into blocks_lookup table. Error: {e}')
+            return False
+            
+    def init_item_items_lookup_table(self, item_list_file_path):
+        with open(item_list_file_path, 'r') as item_list_file:
+            json_data = json.load(item_list_file)
+        
+        names = [item["id"] for item in json_data]
+            
+        query = """ INSERT INTO item_lookup (items)
+                    SELECT %s
+                    WHERE NOT EXISTS (
+                    SELECT 1 FROM block_lookup WHERE "blocks" = %s
+                    );
+                """
+        try:
+            tools_substrings = ["axe", "shovel", "hoe", "sword", "pickaxe", "shield", "flint_and_steel"]
+            armor_substrings = ["boots", "leggings", "chestplate", "helmet"]
+            self.cursor.executemany(query, [(element, element) for element in names if not any(substring in element for substring in tools_substrings) and not any(substring in element for substring in armor_substrings)])
+            logger.info(f"Inserted {self.cursor.rowcount} rows successfully.")
+            self.conn.commit()
 
+        except Exception as e:
+            logger.error(f'Failed to insert rows into item_lookup table. Error: {e}')
+            return False
 
     ################################ CHECK FUNCTIONS ##################################
     def check_database_integrity(self):
@@ -573,11 +608,11 @@ class DatabaseManager:
         all_data = json.loads(items)["stats"]
         for category in stats_categorys:
             data = all_data[category]
-            if category == "minecraft:broken":
-                for item_name, item_data in data.items():
-                    db_category = self.get_db_category_from_item_and_json_category(item_name, category)
-                    return_list.append([item_name, db_category, item_data])
-                    
+            # if category == "minecraft:broken":
+            for item_name, item_data in data.items():
+                db_category = self.get_db_category_from_item_and_json_category(item_name, category)
+                return_list.append([item_name, db_category, item_data])
+        return return_list
                     
     def get_db_category_from_item_and_json_category(self, item, category):
         '''
@@ -682,10 +717,23 @@ class DatabaseManager:
             return 12
         elif category == "minecraft:custom":
             return 21
+        else:
+            return -1  # Return an invalid value if no match is found
 
-        return -1  # Return an invalid value if no match is found
+    def check_item_for_block(self, item):
+        item = item.replace("minecraft:", "")
+        query = f"SELECT EXISTS (SELECT 1 FROM block_lookup WHERE blocks = %s)"
+        self.cursor.execute(query, (item,))
+        result = self.cursor.fetchone()[0]
+        return result
+        
+    def check_item_for_item(self, item):
+        item = item.replace("minecraft:", "")
 
-
+        query = f"SELECT EXISTS (SELECT 1 FROM item_lookup WHERE items = %s)"
+        self.cursor.execute(query, (item,))
+        result = self.cursor.fetchone()[0]
+        return result
         
         
 if __name__ == "__main__":
@@ -718,7 +766,11 @@ if __name__ == "__main__":
     # db_manager.delete_login_entry(my_id)
     # print(db_manager.get_login_attempt_validity(my_id, 1234))
     # logger.info("Database connection closed")
+
+    db_manager.init_item_blocks_lookup_table("database/blocks.json")
+    db_manager.init_item_items_lookup_table("database/itemlist.json")
     with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
-        db_manager.split_items_from_json(f.read())
+        print(db_manager.split_items_from_json(f.read()))
+    #TODO: insert it into the action table
     db_manager.conn.close()
 
