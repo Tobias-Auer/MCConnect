@@ -29,9 +29,8 @@ app.config.from_pyfile("instance/config.py")
 
 @app.context_processor
 def inject_loginVar():
-    print("HEYY")
     uuid = session.get('uuid')
-    uuid = "4ebe5f6f-c231-4315-9d60-097c48cc6d30"
+    #uuid = "4ebe5f6f-c231-4315-9d60-097c48cc6d30"
     loginVar = "<a href=\"/login\" id=loginLink>Login</a>"
     permission_level = 99
     name = ""
@@ -56,7 +55,7 @@ def main_index_route():
 
     :return: Rendered template for the index page (index.html)
     """
-    return render_template_string(f"Welcome to my project. lorem ipsum dolor sit amet.... <br> Register your server now!<br><br> {{{{ perm | safe }}}}")
+    return render_template("index-main.html")
 
 @app.route('/', subdomain='<subdomain>')
 def subdomain_index_route(subdomain):
@@ -65,9 +64,7 @@ def subdomain_index_route(subdomain):
 
     :return: Rendered template for the index page (index.html)
     """
-    return render_template_string(
-        f"Welcome to the subdomain: {subdomain}<br><br>{{{{ perm | safe }}}}")
-    return render_template("index.html")
+    return render_template("index-subpage.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
