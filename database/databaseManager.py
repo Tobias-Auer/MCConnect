@@ -405,7 +405,7 @@ class DatabaseManager:
         Exception: If an error occurs while executing the SQL query or committing the changes.
         """
         logger.debug("delete_server is called")
-        query = "DELETE FROM server WHERE server_id = %s"
+        query = "DELETE FROM server WHERE id = %s"
         logger.debug(f"executing SQL query: {query}")
         data = (server_id,)
         logger.debug(f"with following data: {data}")
@@ -474,7 +474,7 @@ class DatabaseManager:
         
     def get_server_id_from_subdomain(self, subdomain):
         logger.debug("get_server_id_from_subdomain is called")
-        query = "SELECT server_id FROM server WHERE subdomain = %s"
+        query = "SELECT id FROM server WHERE subdomain = %s"
         logger.debug(f"executing SQL query: {query}")
         data = (subdomain,)
         logger.debug(f"with following data: {data}")
@@ -605,6 +605,25 @@ class DatabaseManager:
             logger.error(f'Failed to verify login attempt for player_id: {player_id}. Error: {e}')
             return [False, "database error occurred"]
     
+    def get_web_access_permission_from_uuid_and_subdomain(self, player_uuid, subdomain):
+        logger.debug(f"getting web_access_permission_from_uuid_and_subdomain is called")
+        query = """
+                SELECT psi.web_access_permissions
+                FROM player_server_info psi
+                JOIN server s ON psi.server_id = s.id
+                WHERE psi.player_uuid = %s AND s.subdomain = %s;
+                """
+        data = (player_uuid, subdomain)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.info(f'Found web access permission for player_uuid: "{player_uuid}" and subdomain: "{subdomain}": {result[0]}')
+        except Exception as e:
+            logger.error(f'Failed to get web access permission for player_uuid: "{player_uuid}" and subdomain: "{subdomain}". Error: {e}')
+            return None
+        return result[0] if result else False
     
     ################################ helper functions################################
     
@@ -747,12 +766,12 @@ class DatabaseManager:
         
 if __name__ == "__main__":
     db_manager = DatabaseManager()
-    #db_manager.init_tables()
-    #db_manager.init_new_server("tobias", 2, "Tobias Auer", "mc.t-auer.com")
+    db_manager.init_tables()
+    db_manager.init_new_server("tobias", 2, "Tobias Auer", "mc.t-auer.com")
     my_server_id = db_manager.get_server_id_from_subdomain("tobias")
-    #db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
 
-    #db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
     
     my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
     # db_manager.init_prefix_table(my_id)
@@ -780,5 +799,7 @@ if __name__ == "__main__":
     db_manager.init_item_items_lookup_table("database/itemlist.json")
     with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
         db_manager.update_player_stats(my_id,f.read())
+        
+    db_manager.get_web_access_permission_from_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias")
     db_manager.conn.close()
 
