@@ -350,18 +350,20 @@ class DatabaseManager:
                     ON CONFLICT (player_id, object, category)
                     DO UPDATE SET
                     "value" = EXCLUDED.value;"""
-        for item in items:
-            data = (player_id, *data)
-            logger.debug(f"executing SQL query: {query}")
-            logger.debug(f"with following data: {data}")
-            try:
-                self.cursor.execute(query, data)
-                self.conn.commit()
-                logger.info(f'Updated player: "{player_id}" stats with items: {stats}')
-            except Exception as e:
-                logger.error(f'Failed to update player: "{player_id}" stats with items: {stats}. Error: {e}')
-                return False
+        data = [(player_id, item[0], item[1], item[2]) for item in items if item[2] != 0]
+
+        logger.debug(f"Executing SQL query: {query}")
+        logger.debug(f"With following data: {data}")
+        
+        try:
+            self.cursor.executemany(query, data)
+            logger.info(f'Updated player: "{player_id}" stats with {self.cursor.rowcount} items.')
+            self.conn.commit()
             return True
+        except Exception as e:
+            logger.error(f'Failed to update player: "{player_id}" stats with items: {stats}. Error: {e}')
+            self.conn.rollback()
+            return False
     ################################ DELETE FUNCTIONS #################################
     def drop_db(self):
         """
@@ -612,6 +614,7 @@ class DatabaseManager:
             for item_name, item_data in data.items():
                 db_category = self.get_db_category_from_item_and_json_category(item_name, category)
                 return_list.append([item_name, db_category, item_data])
+
         return return_list
                     
     def get_db_category_from_item_and_json_category(self, item, category):
@@ -653,7 +656,6 @@ class DatabaseManager:
         tools_substrings = ["axe", "shovel", "hoe", "sword", "pickaxe", "shield", "flint_and_steel"]
         armor_substrings = ["boots", "leggings", "chestplate", "helmet"]
         recognized_item_group = ""
-
         if any(substring in item for substring in tools_substrings):
             recognized_item_group = "tool"
         elif any(substring in item for substring in armor_substrings):
@@ -711,7 +713,7 @@ class DatabaseManager:
             elif category == "minecraft:picked_up":
                 return 18
 
-        elif category == "minecraft:killed":
+        if category == "minecraft:killed":
             return 11
         elif category == "minecraft:killed_by":
             return 12
@@ -739,13 +741,13 @@ class DatabaseManager:
 if __name__ == "__main__":
     db_manager = DatabaseManager()
     db_manager.init_tables()
-    # db_manager.init_new_server("tobias", 2, "Tobias Auer", "mc.t-auer.com")
-    # my_server_id = db_manager.get_server_id_from_subdomain("tobias")
-    # db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    db_manager.init_new_server("tobias", 2, "Tobias Auer", "mc.t-auer.com")
+    my_server_id = db_manager.get_server_id_from_subdomain("tobias")
+    db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
 
-    # db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
     
-    # my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
+    my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
     # db_manager.init_prefix_table(my_id)
     # my_prefix_id = db_manager.get_prefix_id_from_player_id(my_id)
     # db_manager.join_prefix(my_id, my_prefix_id)
@@ -770,7 +772,7 @@ if __name__ == "__main__":
     db_manager.init_item_blocks_lookup_table("database/blocks.json")
     db_manager.init_item_items_lookup_table("database/itemlist.json")
     with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
-        print(db_manager.split_items_from_json(f.read()))
+        db_manager.update_player_stats(my_id,f.read())
     #TODO: insert it into the action table
     db_manager.conn.close()
 
