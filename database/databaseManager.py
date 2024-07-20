@@ -2,8 +2,8 @@ import ast
 from datetime import datetime, timedelta
 import json
 import re
-from tarfile import data_filter
-from tkinter import E
+import time
+
 import psycopg2
 
 from logger import get_logger
@@ -19,7 +19,7 @@ def read_sql_file(filepath):
 
 
 class DatabaseManager:
-    TABLE_COUNT = 7
+    TABLE_COUNT = 9
     LOWEST_WEB_ACCESS_LEVEL = 2
 
     def __init__(self):
@@ -180,7 +180,7 @@ class DatabaseManager:
         logger.debug("check_database_integrity is called")
         logger.debug(f"Expected table count: {self.TABLE_COUNT}")
         actual_table_count = len(self.get_all_tables())
-        if actual_table_count != self.TABLE_COUNT:
+        if actual_table_count < self.TABLE_COUNT:
             logger.critical("Database integrity check failed.")
             logger.debug(f"Actual table count: {actual_table_count}")
             return False
@@ -357,12 +357,19 @@ class DatabaseManager:
         logger.debug(f"With following data: {data}")
         
         try:
+            #start_time = time.time()
             self.cursor.executemany(query, data)
+            self.conn.commit()
+            #end_time = time.time()
+        
+            #elapsed_time = end_time - start_time
             logger.info(f'Updated player: "{player_id}" stats with {self.cursor.rowcount} items.')
             self.conn.commit()
+            #logger.info(f'Updated player: "{player_id}" stats with {self.cursor.rowcount} items in {elapsed_time} seconds.')
+
             return True
         except Exception as e:
-            logger.error(f'Failed to update player: "{player_id}" stats with items: {stats}. Error: {e}')
+            logger.error(f'Failed to update player: "{player_id}" stats with items: {items}. Error: {e}')
             self.conn.rollback()
             return False
     ################################ DELETE FUNCTIONS #################################
@@ -741,12 +748,12 @@ class DatabaseManager:
         
 if __name__ == "__main__":
     db_manager = DatabaseManager()
-    db_manager.init_tables()
-    db_manager.init_new_server("tobias", 2, "Tobias Auer", "mc.t-auer.com")
+    #db_manager.init_tables()
+    #db_manager.init_new_server("tobias", 2, "Tobias Auer", "mc.t-auer.com")
     my_server_id = db_manager.get_server_id_from_subdomain("tobias")
-    db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    #db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
 
-    db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    #db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
     
     my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
     # db_manager.init_prefix_table(my_id)
@@ -774,6 +781,5 @@ if __name__ == "__main__":
     db_manager.init_item_items_lookup_table("database/itemlist.json")
     with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
         db_manager.update_player_stats(my_id,f.read())
-    #TODO: insert it into the action table
     db_manager.conn.close()
 
