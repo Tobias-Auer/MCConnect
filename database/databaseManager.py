@@ -661,7 +661,7 @@ class DatabaseManager:
         21: custom
         Return: database category name
         '''
-        tools_substrings = ["axe", "shovel", "hoe", "sword", "pickaxe", "shield", "flint_and_steel"]
+        tools_substrings = ["axe", "shovel", "hoe", "sword", "pickaxe", "shield", "flint_and_steel", "bow", "crossbow", "brush", "trident", "shears", "fishing_rod"]
         armor_substrings = ["boots", "leggings", "chestplate", "helmet"]
         recognized_item_group = ""
         if any(substring in item for substring in tools_substrings):
