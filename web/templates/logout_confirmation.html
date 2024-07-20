@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loge out or something</title>
+</head>
+<body>
+<button id="sendButton" style="color:red;">LOGOUT!</button>
+
+<script>
+    document.getElementById('sendButton').addEventListener('click', function() {
+
+        const formData = new FormData();
+        formData.append('text_input', 'logout');
+
+        fetch('/login', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Handle the response from the server
+            console.log(data);
+            window.location = "/";
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+</body>
+</html>

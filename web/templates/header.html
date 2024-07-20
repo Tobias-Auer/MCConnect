@@ -1,0 +1,159 @@
+<script
+  src="https://cdn.jsdelivr.net/gh/Tobias-Auer/messageBoxLib/messageBoxes.js"
+  defer
+></script>
+<link rel="stylesheet" href="./static/css/responsiveHeader.css" />
+<header class="sticky">
+  <div class="container-util-wide">
+    <nav>
+      <div class="mobile-view-only">
+        <span style="width: 8%">
+          <img
+            class="header-icon-mobile"
+            alt="logo"
+            height="100px"
+            id="logo"
+            src="./static/images/logo2.png"
+          />
+        </span>
+
+        <span
+          id="loginVar2"
+          style="display: flex; width: 84%; justify-content: center"
+          >survival0.duckdns.org</span
+        >
+
+        <span style="display: flex; width: 8%; justify-content: end">
+          <button
+            class="menue-icon"
+            onclick='document.getElementById("nav-bar").classList.toggle("menueToggle")'
+          >
+            <div></div>
+            <div></div>
+            <div></div>
+          </button>
+        </span>
+      </div>
+      <div class="mainHeader">
+        <img
+          class="normal-icon"
+          alt="logo"
+          height="60px"
+          id="logo"
+          src="./static/images/logo2.png"
+        />
+        <ul id="nav-bar"><li class="mobile-view-only logout2">
+            {% if name != "" %}
+            <a
+              style="color: red; padding-top: 6px; padding-bottom: 6px"
+              onclick="logout()"
+              >Logout</a
+            >
+          {% else %} {{ loginVar | safe }} {% endif %}
+          </li>
+          <li>
+            <div class="dropdown">
+              <button
+                class="dropbtn {% if request.path=='/' %} current{% endif %}"
+                onclick="window.location.href=`/`"
+              >
+                Startseite
+              </button>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown">
+              <button
+                class="dropbtn {% if request.path=='/spieler' %} current{% endif %}"
+                onclick="window.location.href=`/spieler`"
+              >
+                Spieler
+              </button>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown">
+              <button
+                class="dropbtn {% if request.path=='/add_pref' or request.path=='/join_pref' %} current{% endif %}"
+              >
+                ▼ Prefixes
+              </button>
+              <div class="dropdown-content">
+                <a href="/add_pref">Erstellen/Ändern</a>
+                <a href="/join_pref">Beitreten</a>
+              </div>
+            </div>
+          </li>
+          {% if perm <= 1 %}
+          <li>
+            <div class="dropdown">
+              <button
+                class="dropbtn {% if request.path=='/users' %} current{% endif %}"
+                onclick="window.location.href='/users'"
+              >
+                Verwaltung
+              </button>
+            </div>
+          </li>
+          {% endif %}
+
+        </ul>
+        
+
+        <div class="login-group dropdown">
+          {% if name != "" %}
+          <button class="dropbtn">
+            <img
+              alt=""
+              class="profile-image"
+              src="https://crafatar.com/avatars/{{uuid_profile}}?default=MHF_Steve&overlay"
+            />
+          </button>
+          <div class="dropdown-content">
+            <a
+              style="font-size: 25px; padding-top: 8px; padding-bottom: 8px; line-height: 1.6;"
+              href="/spieler?player={{name}}"
+              >Statistiken</a
+            >
+            <a
+              style="color: red; padding-top: 6px; padding-bottom: 6px"
+              onclick="logout()"
+              >Logout</a
+            >
+          </div>
+          {% else %} {{ loginVar | safe }} {% endif %}
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function logout(confirmed) {
+    if (confirmed == null) {
+      messagebox_info(
+        "Logout",
+        "Möchtest du dich wirklich ausloggen?",
+        { confirmationButton: "Ja", cancelButton: "Nein" },
+        { confirmationCallback: logout, confirmationParams: ["1"] }
+      );
+      return;
+    }
+    const formData = new FormData();
+    formData.append("text_input", "logout");
+
+    fetch("/login", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        // Handle the response from the server
+        console.log(data);
+        window.location = "/";
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+</script>
