@@ -20,12 +20,12 @@ CREATE TABLE public.player(
 );
 
 CREATE TABLE public."server"(
-  server_id SERIAL,
+  id SERIAL,
   subdomain text NOT NULL,
   license_type integer NOT NULL,
   owner_name text,
   mc_server_domain text,
-  CONSTRAINT server_key UNIQUE(server_id),
+  CONSTRAINT server_key UNIQUE(subdomain),
   CONSTRAINT server_pkey PRIMARY KEY(server_id)
 );
 
