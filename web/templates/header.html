@@ -2,7 +2,7 @@
   src="https://cdn.jsdelivr.net/gh/Tobias-Auer/messageBoxLib/messageBoxes.js"
   defer
 ></script>
-<link rel="stylesheet" href="./static/css/responsiveHeader.css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsiveHeader.css') }}" />
 <header class="sticky">
   <div class="container-util-wide">
     <nav>
@@ -13,7 +13,7 @@
             alt="logo"
             height="100px"
             id="logo"
-            src="./static/images/logo2.png"
+            src="{{ url_for('static', filename='images/logo2.png') }}"
           />
         </span>
 
@@ -40,7 +40,7 @@
           alt="logo"
           height="60px"
           id="logo"
-          src="./static/images/logo2.png"
+          src="{{ url_for('static', filename='images/logo2.png') }}"
         />
         <ul id="nav-bar"><li class="mobile-view-only logout2">
             {% if name != "" %}

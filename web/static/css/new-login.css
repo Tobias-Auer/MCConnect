@@ -1,0 +1,209 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  justify-items: center;
+  background: #2148c0;
+}
+
+.outer {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  z-index: 9;
+  display: grid;
+  grid-template-rows: 120px 200px 170px 80px 155px;
+  grid-template-columns: 700px;
+  align-items: center;
+  justify-items: center;
+  grid-template-areas:
+    "item1"
+    "item2"
+    "item3"
+    "item4"
+    "item6";
+}
+
+.extended-container {
+  grid-template-rows: 120px 200px 170px 55px 80px 125px !important;
+  grid-template-areas:
+    "item1"
+    "item2"
+    "item3"
+    "item4"
+    "item5"
+    "item6" !important;
+  .password-input {
+    display: block;
+  }
+}
+
+.item1 {
+  grid-area: item1;
+  align-self: start;
+}
+
+.item2 {
+  grid-area: item2;
+}
+
+.item3 {
+  grid-area: item3;
+}
+
+.item4 {
+  grid-area: item4;
+  align-self: end;
+}
+.item5 {
+  grid-area: item5;
+  align-self: end;
+}
+
+.item6 {
+  grid-area: item6;
+  align-self: end;
+}
+
+.bg {
+  pointer-events: none;
+  object-fit: cover;
+  position: absolute;
+  left: -500px; /* Adjust as needed for the desired left shift */
+  top: -40px; /* Adjust as needed for the desired top shift */
+}
+
+.login {
+  z-index: 10;
+  position: relative;
+  color: transparent; /* Make text transparent */
+  text-align: center;
+  font-family: "Concert One", sans-serif;
+  font-size: 96px;
+  line-height: 1; /* Adjust line height as needed */
+  font-weight: 400;
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  overflow: hidden; /* Ensure the entire text is visible */
+}
+
+.login::before {
+  content: "LOGIN"; /* Add the text content here */
+  background: -webkit-linear-gradient(rgb(0, 255, 13) 0%, rgb(19, 177, 240));
+  -webkit-background-clip: text; /* For webkit-based browsers */
+  background-clip: text;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.statement {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Concert One", sans-serif;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+.login-btn {
+  background: linear-gradient(
+    180deg,
+    rgba(111, 243, 124, 1) 0%,
+    rgba(111, 211, 243, 1) 99.50000047683716%
+  );
+  border-radius: 4px;
+
+  width: 300px;
+  height: 45px;
+  position: relative;
+  box-shadow: 0px 4px 4px 0px rgba(16, 134, 230, 0.3);
+  font-family: "Concert One", sans-serif;
+  font-size: 20px;
+}
+
+.username-input {
+  background: url("/static/images/mc-logo-login.png") no-repeat left,
+    linear-gradient(50deg, rgb(4, 122, 67) 0%, rgb(3, 174, 253) 99.5%);
+  background-size: 30px, auto;
+  border-radius: 4px;
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 1px;
+  width: 300px;
+  height: 45px;
+  position: relative;
+  font-size: xx-large;
+  font-weight: bold;
+  padding-left: 30px;
+  color: rgb(0, 0, 0);
+}
+
+.username-input:disabled {
+  color: rgb(35, 38, 54);
+}
+
+.password-input {
+  background: url("/static/images/passwort.png") no-repeat left,
+    linear-gradient(
+      50deg,
+      rgb(4, 122, 67) 0%,
+      rgb(3, 174, 253) 99.50000047683716%
+    );
+  background-size: 30px, auto;
+  border-radius: 4px;
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 1px;
+  width: 300px;
+  height: 45px;
+  position: relative;
+  font-size: xx-large;
+  font-weight: bold;
+  padding-left: 30px;
+  color: rgb(0, 0, 0);
+  display: none;
+}
+
+@media (max-width: 696px) {
+  .container {
+    grid-template-columns: 500px;
+  }
+}
+
+@media (max-width: 499px) {
+  .container {
+    grid-template-columns: 350px;
+  }
+  #statement {
+    font-size: 18px;
+  }
+  .group {
+    height: 150px;
+  }  .login-btn {
+    
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 359px) {
+  .container {
+    grid-template-columns: 300px;
+  }
+  #statement {
+    font-size: 16px;
+  }
+  .login {
+    font-size: 72px;
+  }
+
+}
+
