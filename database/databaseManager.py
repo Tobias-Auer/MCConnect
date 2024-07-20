@@ -349,7 +349,8 @@ class DatabaseManager:
                     VALUES (%s, %s, %s, %s)
                     ON CONFLICT (player_id, object, category)
                     DO UPDATE SET
-                    "value" = EXCLUDED.value;"""
+                    "value" = EXCLUDED.value
+                    WHERE actions.value IS DISTINCT FROM EXCLUDED.value;"""
         data = [(player_id, item[0], item[1], item[2]) for item in items if item[2] != 0]
 
         logger.debug(f"Executing SQL query: {query}")
