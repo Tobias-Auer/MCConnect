@@ -1,0 +1,9 @@
+setup.py
+MCConnectUtils/__init__.py
+MCConnectUtils/databaseManager.py
+MCConnectUtils/logger.py
+MCConnectUtils/minecraft.py
+MCConnectUtils.egg-info/PKG-INFO
+MCConnectUtils.egg-info/SOURCES.txt
+MCConnectUtils.egg-info/dependency_links.txt
+MCConnectUtils.egg-info/top_level.txt
