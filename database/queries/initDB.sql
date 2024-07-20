@@ -26,7 +26,7 @@ CREATE TABLE public."server"(
   owner_name text,
   mc_server_domain text,
   CONSTRAINT server_key UNIQUE(subdomain),
-  CONSTRAINT server_pkey PRIMARY KEY(server_id)
+  CONSTRAINT server_pkey PRIMARY KEY(id)
 );
 
 CREATE TABLE public.player_server_info(
@@ -140,5 +140,5 @@ ALTER TABLE public.player_server_info
 
 ALTER TABLE public.player_server_info
   ADD CONSTRAINT player_server_info_server_id_fkey
-    FOREIGN KEY (server_id) REFERENCES public."server" (server_id)
+    FOREIGN KEY (server_id) REFERENCES public."server" (id)
       ON DELETE No action ON UPDATE No action;
