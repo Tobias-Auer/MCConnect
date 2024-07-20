@@ -69,8 +69,7 @@ class DatabaseManager:
             Registers a new server in the database.
 
             Parameters:
-            server_id (str): The unique identifier for the server.
-            server_name (str): The name of the server.
+            subdomain (str): The name of the subdomain.
             owner_name (str, optional): The name of the server owner. Defaults to None.
             mc_server_domain (str, optional): The domain of the Minecraft server. Defaults to None.
 
