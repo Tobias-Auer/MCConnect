@@ -17513,6 +17513,10 @@
     "boundingBox": "empty"
   },
   {
+    "id":-1,
+    "name": "grass"
+  },
+  {
     "id": 501,
     "name": "tall_grass",
     "displayName": "Tall Grass",
