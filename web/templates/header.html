@@ -2,7 +2,10 @@
   src="https://cdn.jsdelivr.net/gh/Tobias-Auer/messageBoxLib/messageBoxes.js"
   defer
 ></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/responsiveHeader.css') }}" />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/responsiveHeader.css') }}"
+/>
 <header class="sticky">
   <div class="container-util-wide">
     <nav>
@@ -42,14 +45,15 @@
           id="logo"
           src="{{ url_for('static', filename='images/logo2.png') }}"
         />
-        <ul id="nav-bar"><li class="mobile-view-only logout2">
-            {% if name != "" %}
+        <ul id="nav-bar">
+          <li class="mobile-view-only logout2">
+            {% if name == "" %} {{ loginVar | safe }} {% else %}
             <a
               style="color: red; padding-top: 6px; padding-bottom: 6px"
               onclick="logout()"
               >Logout</a
             >
-          {% else %} {{ loginVar | safe }} {% endif %}
+            {% endif %}
           </li>
           <li>
             <div class="dropdown">
@@ -96,12 +100,10 @@
             </div>
           </li>
           {% endif %}
-
         </ul>
-        
 
         <div class="login-group dropdown">
-          {% if name != "" %}
+          {% if name == "" %}{{ loginVar | safe }} {% else %}
           <button class="dropbtn">
             <img
               alt=""
@@ -111,7 +113,12 @@
           </button>
           <div class="dropdown-content">
             <a
-              style="font-size: 25px; padding-top: 8px; padding-bottom: 8px; line-height: 1.6;"
+              style="
+                font-size: 25px;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                line-height: 1.6;
+              "
               href="/spieler?player={{name}}"
               >Statistiken</a
             >
@@ -121,7 +128,7 @@
               >Logout</a
             >
           </div>
-          {% else %} {{ loginVar | safe }} {% endif %}
+          {% endif %}
         </div>
       </div>
     </nav>
