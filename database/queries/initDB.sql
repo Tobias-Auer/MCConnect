@@ -25,6 +25,10 @@ CREATE TABLE public."server"(
   license_type integer NOT NULL,
   owner_name text,
   mc_server_domain text,
+  discord_url text,
+  server_description_short text NOT NULL,
+  server_description_long text NOT NULL,
+  server_name text NOT NULL,
   CONSTRAINT server_key UNIQUE(subdomain),
   CONSTRAINT server_pkey PRIMARY KEY(id)
 );
@@ -95,7 +99,8 @@ CREATE TABLE public.login(
   player_id uuid NOT NULL,
   pin integer NOT NULL,
   "timestamp" timestamp without time zone NOT NULL,
-  CONSTRAINT login_pkey PRIMARY KEY(id)
+  CONSTRAINT login_pkey PRIMARY KEY(id),
+  CONSTRAINT player_id_ukey UNIQUE(player_id)
 );
 
 COMMENT ON TABLE public.login IS
