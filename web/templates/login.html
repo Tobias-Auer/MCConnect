@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Login</title>
-    <link rel="stylesheet" href="./static/css/new-login.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
     <link
       href="https://fonts.googleapis.com/css?family=Concert One"
       rel="stylesheet"
@@ -13,6 +13,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link href="{{ url_for('static', filename='images/favicon.ico') }}" rel="icon" type="image/vnd.microsoft.icon"/>
+
     <script
       src="https://cdn.jsdelivr.net/gh/Tobias-Auer/messageBoxLib/messageBoxes.js"
       defer
@@ -108,7 +110,7 @@
 
         <div class="item item3 statement" id="statement">
           Bitte logge dich auf dem Minecraftserver ein und trage danach deinen
-          PLayername in das Feld ein um mit dem Login fortzufahren. <br />Du
+          Spielername in das Feld ein, um mit dem Login fortzufahren. <br />Du
           brauchst während des Loginvorgangs keinerlei weitern Daten, wie z.B.
           eine E-Mail Adresse oder ähnliches einzugegeben.
         </div>
@@ -167,6 +169,9 @@
       function clicked() {
         var button = document.getElementById("login-btn");
         if (button.innerText == "Weiter") {
+          if (document.getElementById("username-input").value == "") {
+            return;
+          }
           send_fetch(document.getElementById("username-input").value, null)
             .then((result) => {
               document
