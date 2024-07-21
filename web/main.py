@@ -114,6 +114,60 @@ def login(subdomain):
         return redirect(f'/login?next={path}')
     return render_template("login.html", uuid="")
 
+
+@app.route('/spieler', subdomain="<subdomain>")
+def player_overview_route(subdomain):
+    """
+    Display the player overview or specific player information.
+
+    If a player is specified using the "?player=<username>" query parameter,
+    the information for that specific player is displayed. Otherwise, the
+    general player overview is shown.
+
+    :return: Rendered template for player list or specific player info
+             (spieler.html|spieler-info.html)
+    """
+    # user_name = request.args.get('player')
+
+    # if user_name:
+    #     uuid = minecraftApi.get_cached_uuid_from_username(user_name)
+    #     db_handler = dataBaseOperations.DatabaseHandler("playerData")
+    #     status = db_handler.get_player_status(uuid)
+    #     stats_tools, stats_armor, stats_killed, stats_custom, stats_blocks = minecraftApi.get_all_stats(uuid,
+    #                                                                                                     db_handler)
+    #     enddate, startdate = "", ""
+    #     banned = db_handler.get_banned_status(uuid)
+    #     if banned == "True":
+    #         startdate, enddate = db_handler.get_banned_dates(uuid)
+
+    #     db_handler.disconnect()
+    #     return render_template("spieler-info.html", uuid=uuid, user_name=user_name, status=status,
+    #                            stats_tools=stats_tools, stats_armor=stats_armor, stats_killed=stats_killed,
+    #                            stats_custom=stats_custom, stats_blocks=stats_blocks, banned=banned, enddate=enddate,
+    #                            startdate=startdate)
+
+    all_users = []
+    all_status = []
+    combined_users_data = []
+    all_uuids = db_manager.get_all_uuids_from_subdomain(subdomain)
+
+    for uuid in all_uuids:
+        user_name = db_manager.get_player_name_from_uuid__offline(uuid)
+        if user_name is None:
+            print(f"No username found for UUID: {uuid}")
+            continue  # Skip processing if no username found
+
+        all_users.append(user_name)
+        status = "online" if db_manager.get_online_status_by_player_uuid_and_subdomain(uuid, subdomain) else "offline"
+        print(f"Status from user: {user_name} with UUID: {uuid} is: {status}")
+        all_status.append(status)
+        combined_users_data.append([user_name, uuid])
+
+    return render_template("spieler.html", results=combined_users_data, status=all_status)
+
+
+
+################################ API #################################
 @app.route('/api/login', methods=['POST'], subdomain='<subdomain>')
 def login_api(subdomain):
     if not request.headers.get('Content-Type', '') == 'application/json':
@@ -171,6 +225,19 @@ def login_api(subdomain):
                 "info": "Your pin has timed out. You have 5 only minutes to enter your pin until it gets devalidated! Please try again!"}
     return {"response": "Pin is incorrect", "status": "error",
                 "info": "Your pin is incorrect! Please try again!"}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
