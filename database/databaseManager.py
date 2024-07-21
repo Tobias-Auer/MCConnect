@@ -1,8 +1,10 @@
 import ast
 from datetime import datetime, timedelta
+import html
 import json
 import re
 import time
+import uuid
 
 import psycopg2
 
@@ -64,7 +66,7 @@ class DatabaseManager:
             return False
         return True
 
-    def init_new_server(self, subdomain, license_type, owner_name=None, mc_server_domain=None):
+    def init_new_server(self, subdomain, license_type, server_description_short, server_description_long, server_name, discord_url=None, owner_name=None, mc_server_domain=None):
             """
             Registers a new server in the database.
 
@@ -81,11 +83,11 @@ class DatabaseManager:
             """
             logger.debug("register_new_server is called")
             query = """
-                INSERT INTO server (subdomain, license_type, owner_name, mc_server_domain)
-                VALUES (%s, %s, %s, %s)
+                INSERT INTO server (subdomain, license_type, server_description_short, server_description_long, discord_url, owner_name, mc_server_domain, server_name)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                     """
             logger.debug(f"executing SQL query: {query}")
-            data = (subdomain, license_type, owner_name, mc_server_domain)
+            data = (subdomain, license_type, html.escape(server_description_short), html.escape(server_description_long).replace("\n", "<br>"), discord_url, owner_name, mc_server_domain, server_name)
             logger.debug(f"with follwing data: {data}")
             try:
                 self.cursor.execute(query, data)
@@ -765,6 +767,16 @@ class DatabaseManager:
         
         
 if __name__ == "__main__":
+    server_description_long = """
+    Dieser Server ist ein Hobby Projekt von mir, welches am 29.01.2023 gestartet wurde.
+
+    Zusätzlich befinden sich auf dem Server verschiedene Plugins. Unter anderem sind custom crafting Recipes, eigene Prefixe und auch eine Spawn Elytra dabei.
+
+    100% der installierten Plugins sind zu 100% von mir gecodet und ich verzichten dabei vollständig auf third party plugins.
+
+    Der Server ist an sich Vanilla Gameplay, aber für Plugin Vorschläge bin ich jederzeit offen. :)
+    """
+    server_description_short = "Komm auf den Server und spiele mit."
     db_manager = DatabaseManager()
     db_manager.init_tables()
     db_manager.init_new_server("tobias", 2, "Tobias Auer", "mc.t-auer.com")
