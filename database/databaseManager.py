@@ -61,6 +61,9 @@ class DatabaseManager:
             self.cursor.execute(query)
             self.conn.commit()
             logger.info("Tables initiated successfully")
+            db_manager.init_item_blocks_lookup_table("database/blocks.json")
+            db_manager.init_item_items_lookup_table("database/itemlist.json")
+            logger.info("block and item data initiated successfully")
         except Exception as e:
             logger.error(f"Error creating tables: {e}")
             return False
@@ -104,7 +107,7 @@ class DatabaseManager:
         logger.debug("init_player_server_info_table is called")
         web_access_permissions = self.LOWEST_WEB_ACCESS_LEVEL
         query = "INSERT INTO player_server_info (id, server_id, player_uuid, online, first_seen, last_seen, web_access_permissions) VALUES (uuid_generate_v4(), %s, %s, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, %s)"
-        logger.debug(f"executing SQL query: {query}")#
+        logger.debug(f"executing SQL query: {query}")
         data = (server_id, player_uuid, web_access_permissions)
         logger.debug(f"with following data: {data}")
         try:
@@ -241,8 +244,9 @@ class DatabaseManager:
             return False
         return True
     
-    def add_login_entry(self, player_id, pin):
+    def add_login_entry_from_player_id(self, player_id, pin):
         logger.debug("add_login_entry is called")
+        self.delete_login_entry(player_id)
         query = """INSERT INTO login (player_id, pin, timestamp) VALUES (%s, %s, CURRENT_TIMESTAMP)"""
         data = (player_id, pin)
         logger.debug(f"executing SQL query: {query}")
@@ -474,6 +478,29 @@ class DatabaseManager:
             logger.error(f'Failed to get player id for uuid: "{player_uuid}" and server: "{server_id}". Error: {e}')
             return None
         
+    def get_player_id_from_player_uuid_and_subdomain(self, player_uuid, subdomain):
+        logger.debug("get_player_id_from_player_uuid_and_subdomain is called")
+        query = """SELECT psi.id
+                FROM player_server_info psi
+                JOIN server s ON psi.server_id = s.id
+                WHERE psi.player_uuid = %s AND s.subdomain = %s;"""
+        logger.debug(f"executing SQL query: {query}")
+        data = (player_uuid, subdomain,)
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            if result is None:
+                logger.warning(f'No player found for uuid: "{player_uuid}" and subdomain: "{subdomain}"')
+                return None
+            player_id = result[0]
+            logger.info(f'Found player id: "{player_id}" for uuid: "{player_uuid}" and subdomain: "{subdomain}"')
+            return player_id
+        except Exception as e:
+            logger.error('Failed to find player for uuid: "{player_uuid}" and subdomain: "{subdomain}"')
+            return None
+        
+        
     def get_server_id_from_subdomain(self, subdomain):
         logger.debug("get_server_id_from_subdomain is called")
         query = "SELECT id FROM server WHERE subdomain = %s"
@@ -567,8 +594,8 @@ class DatabaseManager:
         logger.info(f"Ban info: {result}")
         return result
 
-    def get_login_attempt_validity(self, player_id, pin):
-        logger.debug(f"get_login_attempt_validity called for player_id: {player_id}")
+    def get_login_attempt_validity_from_player_id_and_pin(self, player_id, pin):
+        logger.debug(f"get_login_attempt_validity_from_player_id_and_pin is called for player_id: {player_id}")
         
         query = "SELECT pin, timestamp FROM login WHERE player_id = %s;"
         data = (player_id,)
@@ -579,7 +606,7 @@ class DatabaseManager:
             result = self.cursor.fetchone()
             
             if not result:
-                logger.debug(f"No entry found for player_id: {player_id}")
+                logger.debug(f"No entry found for player_id: {player_uuid} and subdomain: {subdomain}")
 
                 return [False, "no entry found in the database"]
             
@@ -601,6 +628,8 @@ class DatabaseManager:
                 return [False, "timeout reached"]
             
             logger.debug(f"Login attempt for player_id: {player_id} is valid")
+            self.delete_login_entry(player_id)
+
             return [True,]
         
         except Exception as e:
@@ -625,9 +654,140 @@ class DatabaseManager:
         except Exception as e:
             logger.error(f'Failed to get web access permission for player_uuid: "{player_uuid}" and subdomain: "{subdomain}". Error: {e}')
             return None
+        return result[0] if result else 99
+    
+    
+    def get_web_access_permission_from_player_id(self, player_id):
+        logger.debug(f"getting web_access_permission_from_player_id is called")
+        query = "SELECT web_access_permissions FROM player_server_info WHERE id = %s;"
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.info(f'Found web access permission for player_id: "{player_id}": {result[0]}')
+        except Exception as e:
+            logger.error(f'Failed to get web access permission for player_id: "{player_id}". Error: {e}')
+            return 99
+        return result[0] if result else 99
+    
+    def get_server_information(self, subdomain):
+        logger.debug(f"getting server_information is called")
+        query = "SELECT * FROM server WHERE subdomain = %s;"
+        data = (subdomain,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.info(f'Found server information for subdomain: "{subdomain}"')
+        except Exception as e:
+            logger.error(f'Failed to get server information for subdomain: "{subdomain}". Error: {e}')
+            return None
+        return result
+    
+    def get_online_status_by_player_id(self, player_id):
+        logger.debug(f"getting online_status_by_player_id is called")
+        query = """ SELECT online FROM player_server_info WHERE id=%s"""
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f'Found online status for player_id: "{player_id}": {result[0]}')
+        except Exception as e:
+            logger.error(f'Failed to get online status for player_id: "{player_id}". Error: {e}')
+            return None
         return result[0] if result else False
     
-    ################################ helper functions################################
+    def get_online_status_by_player_uuid_and_subdomain(self, player_uuid, subdomain):
+        logger.debug(f"getting online_status_by_player_uuid_and_subdomain is called")
+        query = """
+                SELECT psi.online
+                FROM player_server_info psi
+                JOIN server s ON psi.server_id = s.id
+                WHERE psi.player_uuid = %s AND s.subdomain = %s;
+                """
+        data = (player_uuid, subdomain)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f'Found online status for player_uuid: "{player_uuid}" and subdomain: "{subdomain}": {result[0]}')
+            return result[0]
+        except Exception as e:
+            logger.error(f'Failed to get online status for player_uuid: "{player_uuid}" and subdomain "{subdomain}" Error: {e}')
+        return None
+    
+    def get_player_name_from_uuid__offline(self, uuid):
+        logger.debug(f'getting_player_name_from_uuid__offline is called with uuid: "{uuid}"')
+        """
+        Gets the username from the database using the given UUID.
+
+        :param UUID: UUID of the player.
+        :return: str: The username of the requested player.
+        """
+        query = """SELECT name FROM player WHERE uuid = %s"""
+        data = (uuid,)
+        logger.debug(f"executing query: {query}")
+        logger.debug(f"with data: {data}")
+        try:
+            result = self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            if result:
+                logger.debug(f"Found username: {result[0]} for uuid: {uuid}")
+                return result[0]
+            else:
+                logger.warning(f"No player found for uuid: {uuid}")
+                return -1
+        except Exception as e:
+            logger.error("Error in get_player_name_from_uuid__offline: " + str(e))
+            return -1
+    
+    def get_player_uuid_from_name__offline(self, name):
+        """
+        Gets the uuid from the database using the given username.
+
+        :param name: str: The username of the player.
+        :return: str: The uuid of the requested player.
+        """
+        logger.debug(f"get_player_uuid_from_name__offline is called with name: {name}")
+        query = """SELECT uuid FROM player WHERE LOWER(name) = LOWER(%s)"""
+        data = (name,)
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            if result:
+                uuid = result[0]
+                logger.debug(f"Found uuid: {uuid} for username: {name}")
+                return uuid
+            else:
+                logger.warning(f"No player found for name: {name}")
+                return -1
+        except Exception as e:
+            logger.error("Error in get_player_uuid_from_name__offline: " + str(e))
+            return -1
+
+    def get_all_uuids_from_subdomain(self, subdomain):
+        logger.debug(f"getting_all_uuids_from_subdomain is called with subdomain: {subdomain}")
+        query = """SELECT player_uuid FROM player_server_info WHERE server_id IN (SELECT id FROM server WHERE subdomain = %s)"""
+        data = (subdomain,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchall()
+            uuids = [uuid[0] for uuid in result]
+            logger.debug(f"Found uuids: {uuids} for subdomain: {subdomain}")
+            return uuids
+        except Exception as e:
+            logger.error(f"Error in getting_all_uuids_from_subdomain: {e}")
+            return []
+        
+    ################################ helper functions ################################
     
     def split_items_from_json(self, items):
         '''
@@ -764,7 +924,9 @@ class DatabaseManager:
         self.cursor.execute(query, (item,))
         result = self.cursor.fetchone()[0]
         return result
-        
+    
+    
+
         
 if __name__ == "__main__":
     server_description_long = """
@@ -779,11 +941,37 @@ if __name__ == "__main__":
     server_description_short = "Komm auf den Server und spiele mit."
     db_manager = DatabaseManager()
     db_manager.init_tables()
-    db_manager.init_new_server("tobias", 2, "Tobias Auer", "mc.t-auer.com")
+    db_manager.init_new_server(subdomain="tobias", 
+                               license_type=2,
+                               owner_name="Tobias Auer", 
+                               mc_server_domain="mc.t-auer.com", 
+                               discord_url="https://www.discord.gg/vJYNnsQwf8", 
+                               server_description_short=server_description_short, 
+                               server_description_long=server_description_long,
+                               server_name="Tobi's Mc-Server")
+    db_manager.init_new_server(subdomain="tobias2", 
+                               license_type=2,
+                               owner_name="Tobias Auer2", 
+                               mc_server_domain="mc2.t-auer.com", 
+                               discord_url="https://www.discord.gg/vJYNnsQwf8", 
+                               server_description_short=server_description_short, 
+                               server_description_long=server_description_long,
+                               server_name="Tobi's Mc-Server")
+    
     my_server_id = db_manager.get_server_id_from_subdomain("tobias")
+    my_other_server_id = db_manager.get_server_id_from_subdomain("tobias2")
+    
+    
     db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    db_manager.add_new_player("c96792ac-7aea-4f16-975e-535a20a2791a") #test player
+    db_manager.add_new_player("83f4a8ea-51f1-465d-9274-9a6b2e4ec64c")#test player
+    db_manager.add_new_player("25c6a3b7-94fa-45b4-8d9f-7041a35d97b3")#test player
 
     db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    db_manager.init_player_server_info_table(my_server_id, "c96792ac-7aea-4f16-975e-535a20a2791a")#test player
+    db_manager.init_player_server_info_table(my_server_id, "83f4a8ea-51f1-465d-9274-9a6b2e4ec64c")#test player
+    db_manager.init_player_server_info_table(my_other_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")#test player
+    db_manager.init_player_server_info_table(my_other_server_id, "25c6a3b7-94fa-45b4-8d9f-7041a35d97b3")#test player
     
     my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
     # db_manager.init_prefix_table(my_id)
@@ -807,11 +995,17 @@ if __name__ == "__main__":
     # print(db_manager.get_login_attempt_validity(my_id, 1234))
     # logger.info("Database connection closed")
 
-    db_manager.init_item_blocks_lookup_table("database/blocks.json")
-    db_manager.init_item_items_lookup_table("database/itemlist.json")
+    #db_manager.add_login_entry_from_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias", 1234)
+    #print(db_manager.get_login_attempt_validity_from_uuid_subdomain_and_pin("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias", 1234))
+    #print(db_manager.get_login_attempt_validity_from_uuid_subdomain_and_pin("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias", 12345))
+
+    #exit(db_manager.get_player_id_from_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias"))
+    logger.info(db_manager.get_all_uuids_from_subdomain("tobias"))
+
+    db_manager.get_online_status_by_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias")
     with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
         db_manager.update_player_stats(my_id,f.read())
         
-    db_manager.get_web_access_permission_from_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias")
+    db_manager.get_web_access_permission_from_player_id(my_id)
     db_manager.conn.close()
 
