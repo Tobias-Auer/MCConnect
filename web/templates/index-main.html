@@ -1,95 +1,107 @@
 <!DOCTYPE html>
 <html id="top" lang="en">
-
-<head>
-    <meta charset="UTF-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Startseite</title>
 
-    <link href="{{ url_for('static', filename='css/header.css') }}" rel="stylesheet"/>
-    <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsiveIndex.css') }}">
-    <link href="{{ url_for('static', filename='images/favicon.ico') }}" rel="icon" type="image/vnd.microsoft.icon"/>
+    <link
+      href="{{ url_for('static', filename='css/header.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='css/index.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/responsiveIndex.css') }}"
+    />
+    <link
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+      rel="icon"
+      type="image/vnd.microsoft.icon"
+    />
 
     <style>
-        body {
-          font-family: 'Arial', sans-serif;
-          background-color: #d0d0d0 !important;
-          color: #333;
-          text-align: center;
-        }
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #d0d0d0 !important;
+        color: #333;
+        text-align: center;
+      }
 
-        header {
-          text-align: left;
-        }
+      header {
+        text-align: left;
+      }
 
-        h1 {
-          color: #004080;
-        }
+      h1 {
+        color: #004080;
+      }
 
-        #server-info {
-          background-color: #fff;
-          border: 1px solid #ddd;
-          padding: 20px;
-          margin-top: 20px;
-          border-radius: 12px;
-        }
+      #server-info {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 12px;
+      }
 
-        a {
-          color: #0066cc;
-          text-decoration: none;
-        }
+      a {
+        color: #0066cc;
+        text-decoration: none;
+      }
 
-        a:hover {
-          text-decoration: underline;
-        }
+      a:hover {
+        text-decoration: underline;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    {% include 'header.html' %}
+  <body>
+    <header>this is another header</header>
 
-<div class="content">
-  <div class="container-util">
-    <div class="text">
-        <h1>Willkommen auf meinem Minecraft-Server!!!!!!!!!!!!!!!!!!!</h1>
+    <div class="content">
+      <div class="container-util">
+        <div class="text">
+          <h1>Willkommen auf meinem Minecraft-Server!!!!!!!!!!!!!!!!!!!</h1>
 
-        <div id="server-info">
-            <p>Dieser Server ist ein Hobby Projekt von mir, welches am 29.01.2023 gestartet wurde.</p>
-            <p>Aktuell sind <span id="player-count">X</span> Spieler auf dem Server unterwegs.</p>
-            <p>Zusätzlich befinden sich auf dem Server verschiedene Plugins. Unter anderem sind custom crafting
-                Recipes, eigene Prefixe und auch eine Spawn Elytra dabei.</p>
-            <p>100% der installierten Plugins sind zu 100% von mir gecodet und ich verzichten dabei vollständig auf third party plugins.</p>
-            <p>Der Server ist an sich Vanilla Gameplay, aber für Plugin Vorschläge bin ich jederzeit offen. :)</p>
-            <p>Schau auch mal auf meinem <a href="https://www.discord.gg/vJYNnsQwf8" target="_blank">Discord</a>
-                vorbei!<br>Oder schaue dir die <a href="/about">technischen Details</a> vom Server an!</p>
+          <div id="server-info">
+            <p>
+              Willkommen!<br />Schaue die hier mein Projekt an. Lorem ipsum
+              dolor sit amet consectetur adipisicing elit. Unde beatae,
+              voluptatem, repellat suscipit iure itaque maiores neque ex minus
+              quia voluptate quidem quas. Deserunt, aliquid esse? Ex blanditiis
+              porro ab dicta in excepturi odio, sequi vitae ullam recusandae
+              illo dolorem eligendi aliquid necessitatibus nulla animi molestiae
+              hic maxime, quam voluptates deleniti saepe harum. Et cum, ut
+              beatae unde iusto natus!
+            </p>
+          </div>
         </div>
+      </div>
     </div>
-  </div>
-    
     <footer>
-        <nav>
-            <ul>
-                <li><a href="/verschiedenes/impressum.html">Impressum</a></li>
-                <li><a href="/verschiedenes/datenschutz.html">Datenschutz</a></li>
-                <li><a href="/verschiedenes/kontakt.html">Kontakt</a></li>
-                <li><a href="#">🡅</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><a href="/verschiedenes/impressum.html">Impressum</a></li>
+          <li><a href="/verschiedenes/datenschutz.html">Datenschutz</a></li>
+          <li><a href="/verschiedenes/kontakt.html">Kontakt</a></li>
+          <li><a href="#">🡅</a></li>
+        </ul>
+      </nav>
     </footer>
 
     <script>
-        const eventSource = new EventSource("/api/player_count");
+      const eventSource = new EventSource("/api/player_count");
 
-        eventSource.onmessage = (event) => {
-          console.log(event.data.replaceAll("'", '"'));
-          const parsedArray = JSON.parse(event.data.replaceAll("'", '"'));
-          console.log(parsedArray)
-          document.getElementById("player-count").innerText = parsedArray;
-        }
-
+      eventSource.onmessage = (event) => {
+        console.log(event.data.replaceAll("'", '"'));
+        const parsedArray = JSON.parse(event.data.replaceAll("'", '"'));
+        console.log(parsedArray);
+        document.getElementById("player-count").innerText = parsedArray;
+      };
     </script>
-</body>
-
+  </body>
 </html>
