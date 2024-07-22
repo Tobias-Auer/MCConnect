@@ -787,6 +787,20 @@ class DatabaseManager:
             logger.error(f"Error in getting_all_uuids_from_subdomain: {e}")
             return []
         
+    def get_online_player_count_from_subdomain(self, subdomain):
+        logger.debug(f"getting_online_player_count_from_subdomain is called with subdomain: {subdomain}")
+        query = """SELECT COUNT(*) FROM player_server_info WHERE server_id IN (SELECT id FROM server WHERE subdomain = %s) AND online = true"""
+        data = (subdomain,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found online player count: {result[0]} for subdomain: {subdomain}")
+            return result[0]
+        except Exception as e:
+            logger.error(f"Error in getting_online_player_count_from_subdomain: {e}")
+            return 0
     ################################ helper functions ################################
     
     def split_items_from_json(self, items):
@@ -940,40 +954,40 @@ if __name__ == "__main__":
     """
     server_description_short = "Komm auf den Server und spiele mit."
     db_manager = DatabaseManager()
-    db_manager.init_tables()
-    db_manager.init_new_server(subdomain="tobias", 
-                               license_type=2,
-                               owner_name="Tobias Auer", 
-                               mc_server_domain="mc.t-auer.com", 
-                               discord_url="https://www.discord.gg/vJYNnsQwf8", 
-                               server_description_short=server_description_short, 
-                               server_description_long=server_description_long,
-                               server_name="Tobi's Mc-Server")
-    db_manager.init_new_server(subdomain="tobias2", 
-                               license_type=2,
-                               owner_name="Tobias Auer2", 
-                               mc_server_domain="mc2.t-auer.com", 
-                               discord_url="https://www.discord.gg/vJYNnsQwf8", 
-                               server_description_short=server_description_short, 
-                               server_description_long=server_description_long,
-                               server_name="Tobi's Mc-Server")
+    # db_manager.init_tables()
+    # db_manager.init_new_server(subdomain="tobias", 
+    #                            license_type=2,
+    #                            owner_name="Tobias Auer", 
+    #                            mc_server_domain="mc.t-auer.com", 
+    #                            discord_url="https://www.discord.gg/vJYNnsQwf8", 
+    #                            server_description_short=server_description_short, 
+    #                            server_description_long=server_description_long,
+    #                            server_name="Tobi's Mc-Server")
+    # db_manager.init_new_server(subdomain="tobias2", 
+    #                            license_type=2,
+    #                            owner_name="Tobias Auer2", 
+    #                            mc_server_domain="mc2.t-auer.com", 
+    #                            discord_url="https://www.discord.gg/vJYNnsQwf8", 
+    #                            server_description_short=server_description_short, 
+    #                            server_description_long=server_description_long,
+    #                            server_name="Tobi's Mc-Server")
     
-    my_server_id = db_manager.get_server_id_from_subdomain("tobias")
-    my_other_server_id = db_manager.get_server_id_from_subdomain("tobias2")
+    # my_server_id = db_manager.get_server_id_from_subdomain("tobias")
+    # my_other_server_id = db_manager.get_server_id_from_subdomain("tobias2")
     
     
-    db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
-    db_manager.add_new_player("c96792ac-7aea-4f16-975e-535a20a2791a") #test player
-    db_manager.add_new_player("83f4a8ea-51f1-465d-9274-9a6b2e4ec64c")#test player
-    db_manager.add_new_player("25c6a3b7-94fa-45b4-8d9f-7041a35d97b3")#test player
+    # db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    # db_manager.add_new_player("c96792ac-7aea-4f16-975e-535a20a2791a") #test player
+    # db_manager.add_new_player("83f4a8ea-51f1-465d-9274-9a6b2e4ec64c")#test player
+    # db_manager.add_new_player("25c6a3b7-94fa-45b4-8d9f-7041a35d97b3")#test player
 
-    db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
-    db_manager.init_player_server_info_table(my_server_id, "c96792ac-7aea-4f16-975e-535a20a2791a")#test player
-    db_manager.init_player_server_info_table(my_server_id, "83f4a8ea-51f1-465d-9274-9a6b2e4ec64c")#test player
-    db_manager.init_player_server_info_table(my_other_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")#test player
-    db_manager.init_player_server_info_table(my_other_server_id, "25c6a3b7-94fa-45b4-8d9f-7041a35d97b3")#test player
+    # db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    # db_manager.init_player_server_info_table(my_server_id, "c96792ac-7aea-4f16-975e-535a20a2791a")#test player
+    # db_manager.init_player_server_info_table(my_server_id, "83f4a8ea-51f1-465d-9274-9a6b2e4ec64c")#test player
+    # db_manager.init_player_server_info_table(my_other_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")#test player
+    # db_manager.init_player_server_info_table(my_other_server_id, "25c6a3b7-94fa-45b4-8d9f-7041a35d97b3")#test player
     
-    my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
+    # my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
     # db_manager.init_prefix_table(my_id)
     # my_prefix_id = db_manager.get_prefix_id_from_player_id(my_id)
     # db_manager.join_prefix(my_id, my_prefix_id)
@@ -1001,7 +1015,9 @@ if __name__ == "__main__":
 
     #exit(db_manager.get_player_id_from_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias"))
     logger.info(db_manager.get_all_uuids_from_subdomain("tobias"))
-
+    print(db_manager.get_online_player_count_from_subdomain("tobias"))
+    db_manager.conn.close()
+    exit()
     db_manager.get_online_status_by_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias")
     with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
         db_manager.update_player_stats(my_id,f.read())

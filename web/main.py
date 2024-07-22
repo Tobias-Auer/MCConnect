@@ -2,6 +2,7 @@ from re import sub
 import secrets
 import sys
 import os
+import time
 from urllib.parse import urlparse
 
 # Get the path to the root directory of your project
@@ -202,10 +203,6 @@ def login_api(subdomain):
         session.clear()
         return {"response": "Cookie is wrong", "status": "reset",
                 "info": "Something with your cookies went wrong! Did you eat any of them?? Please try again!"}
-    # if not db_handler.check_for_login_entry(uuid):  # happens after the 5-minute timeout
-    #     session.clear()
-    #     return {"response": "Timed out", "status": "reset",
-    #             "info": "Your pin has timed out. You have 5 only minutes to enter your pin until it gets devalidated! Please try again!"}
     try:
         secret_pin_from_form = int(pin)
     except ValueError:
@@ -226,7 +223,29 @@ def login_api(subdomain):
     return {"response": "Pin is incorrect", "status": "error",
                 "info": "Your pin is incorrect! Please try again!"}
 
+@app.route('/api/player_count', subdomain='<subdomain>')
+def stream_player_count(subdomain):
+    def generate():
+        while True:
+            online_count = db_manager.get_online_player_count_from_subdomain(subdomain)
+            yield f"data: {online_count}\n\n"
+            time.sleep(1)
 
+    return Response(generate(), mimetype='text/event-stream')
+
+@app.route('/api/status', subdomain='<subdomain>')
+def stream_status(subdomain):
+    # could be more efficient witth only one db call and return the whole list instead of just uuids
+    def generate():
+        while True:
+            all_uuids = db_manager.get_all_uuids_from_subdomain(subdomain)
+            data = []
+            for uuid in all_uuids:
+                data.append("online" if db_manager.get_online_status_by_player_uuid_and_subdomain(uuid, subdomain) else "offline")
+            yield f"data: {data}\n\n"
+            time.sleep(1)
+
+    return Response(generate(), mimetype='text/event-stream')
 
 
 
