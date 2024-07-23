@@ -25,3 +25,39 @@ picked_up:
     blocks (+ items)
     armor
     tools
+
+---------------------
+
+Armor:
+    picked_up: 19
+    crafted: 16
+    used: 9
+    dropped: 5
+    broken: 1
+
+Tools:
+    picked_up: 20
+    crafted: 15
+    used: 10
+    dropped: 6
+    broken: 0
+
+Items:
+    picked_up: 18
+    crafted: 14
+    used: 8
+    dropped: 4
+
+Blocks:
+    picked_up: 17
+    crafted: 13
+    used: 7
+    dropped: 3
+    mined: 2
+
+Mobs:
+    killed_by: 12
+    killed: 11
+
+Custom:
+    custom: 21
