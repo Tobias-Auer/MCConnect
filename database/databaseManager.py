@@ -460,7 +460,7 @@ class DatabaseManager:
         return tables
 
     def get_player_id_from_player_uuid_and_server_id(self, player_uuid, server_id):
-        logger.debug("get_player_id_from_uuid_and_server is called")
+        logger.debug("get_player_id_from_uuid_and_server_id is called")
         query = "SELECT id FROM player_server_info WHERE player_uuid = %s AND server_id = %s"
         logger.debug(f"executing SQL query: {query}")
         data = (player_uuid, server_id)
@@ -685,7 +685,6 @@ class DatabaseManager:
         try:
             self.cursor.execute(query, data)
             result = self.cursor.fetchone()
-            logger.critical(result)
             logger.info(f'Found web access permission for player_id: "{player_id}": {result[0]}')
         except Exception as e:
             logger.error(f'Failed to get web access permission for player_id: "{player_id}". Error: {e}')
@@ -888,6 +887,183 @@ class DatabaseManager:
             return result[0] if result else None
         except Exception as e:
             logger.error(f"Error in getting_value_from_unique_object_from_action_table: {e}")
+            return None
+    
+    def get_all_armor_stats(self, player_id):
+        '''
+        Armor:
+            picked_up: 19
+            crafted: 16
+            used: 9
+            dropped: 5
+            broken: 1
+        '''
+        logger.debug("getting_all_armor_stats is called")
+        query = """ SELECT jsonb_agg(category_objects) AS grouped_objects
+                    FROM (
+                        SELECT category, jsonb_agg(jsonb_build_object('object', object, 'value', value)) AS category_objects
+                        FROM actions
+                        WHERE category IN (19, 16, 9, 5, 1) AND player_id = %s
+                        GROUP BY category
+                    ) subquery;
+                """     
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
+            return result[0]
+        except Exception as e:
+            logger.error(f"Error in getting_all_armor_stats: {e}")
+            return None
+        
+    def get_all_tools_stats(self, player_id):
+        '''
+        Tools:
+            picked_up: 20
+            crafted: 15
+            used: 10
+            dropped: 6
+            broken: 0
+        '''
+        logger.debug("getting_all_tools_stats is called")
+        query = """ SELECT jsonb_agg(category_objects) AS grouped_objects
+                    FROM (
+                        SELECT category, jsonb_agg(jsonb_build_object('object', object, 'value', value)) AS category_objects
+                        FROM actions
+                        WHERE category IN (20, 15, 10, 6, 0) AND player_id = %s
+                        GROUP BY category
+                    ) subquery;
+                """     
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
+            return result[0]
+        except Exception as e:
+            logger.error(f"Error in getting_all_tools_stats: {e}")
+            return None
+        
+    def get_all_items_stats(self, player_id):
+        '''
+        picked_up: 18
+            crafted: 14
+            used: 8
+            dropped: 4
+        '''
+        logger.debug("getting_all_items_stats is called")
+        query = """ SELECT jsonb_agg(category_objects) AS grouped_objects
+                    FROM (
+                        SELECT category, jsonb_agg(jsonb_build_object('object', object, 'value', value)) AS category_objects
+                        FROM actions
+                        WHERE category IN (18, 14, 8, 4) AND player_id = %s
+                        GROUP BY category
+                    ) subquery;
+                """     
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
+            return result[0]
+        except Exception as e:
+            logger.error(f"Error in getting_all_items_stats: {e}")
+            return None
+    
+    def get_all_blocks_stats(self, player_id):
+        '''
+        Blocks:
+            picked_up: 17
+            crafted: 13
+            used: 7
+            dropped: 3
+            mined: 2
+        '''
+        logger.debug("getting_all_blocks_stats is called")
+        query = """ SELECT jsonb_agg(category_objects) AS grouped_objects
+                    FROM (
+                        SELECT category, jsonb_agg(jsonb_build_object('object', object, 'value', value)) AS category_objects
+                        FROM actions
+                        WHERE category IN (17, 13, 7, 3, 2) AND player_id = %s
+                        GROUP BY category
+                    ) subquery;
+                """     
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
+            return result[0]
+        except Exception as e:
+            logger.error(f"Error in getting_all_blocks_stats: {e}")
+            return None
+        
+    def get_all_mobs_stats(self, player_id):
+        '''
+        Mobs:
+            killed_by: 12
+            killed: 11
+        '''
+        logger.debug("getting_all_mobs_stats is called")
+        query = """ SELECT jsonb_agg(category_objects) AS grouped_objects
+                    FROM (
+                        SELECT category, jsonb_agg(jsonb_build_object('object', object, 'value', value)) AS category_objects
+                        FROM actions
+                        WHERE category IN (12, 11) AND player_id = %s
+                        GROUP BY category
+                    ) subquery;
+                """     
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
+            return result[0]
+        except Exception as e:
+            logger.error(f"Error in getting_all_mobs_stats: {e}")
+            return None
+        
+    def get_all_custom_stats(self, player_id):
+        '''
+        Custom:
+            custom: 21
+        '''
+        logger.debug("getting_all_custom_stats is called")
+        query = """ SELECT jsonb_agg(category_objects) AS grouped_objects
+                    FROM (
+                        SELECT category, jsonb_agg(jsonb_build_object('object', object, 'value', value)) AS category_objects
+                        FROM actions
+                        WHERE category = 21 AND player_id = %s
+                        GROUP BY category
+                    ) subquery;
+                """     
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
+            return result[0]
+        except Exception as e:
+            logger.error(f"Error in getting_all_custom_stats: {e}")
             return None
     
     ################################ helper functions ################################
@@ -1142,7 +1318,9 @@ if __name__ == "__main__":
     db_manager.get_online_status_by_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias")
     #with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
         #db_manager.update_player_stats(my_id,f.read())
-        
+    
+    print(db_manager.get_all_armor_stats(my_id))
+            
     db_manager.get_web_access_permission_from_player_id(my_id)
     db_manager.conn.close()
 
