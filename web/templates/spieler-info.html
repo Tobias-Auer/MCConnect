@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html id="top" lang="en" onload="reset();">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Spieler Übersicht</title>
+
+    <link href="{{ url_for('static', filename='css/header.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet"/>
+    
+    <link href="{{ url_for('static', filename='css/player-info.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/minecraft.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-player-info.css') }}" />
+
+    <link href="{{ url_for('static', filename='images/favicon.ico') }}" rel="icon" type="image/vnd.microsoft.icon"/>
+
+    <script
+      crossorigin="anonymous"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha256-NGC9JEuTWN4GhTj091wctgjzftr+8WNDmw0H8J5YPYE="
+      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/gh/InventivetalentDev/MineRender@1.4.6/dist/skin.min.js"></script>
+
+    <link href="{{ url_for ('static', filename='css/banned-banner.css') }}" rel="stylesheet" />
+
+    <style>
+      :root {
+        --primary: #53ffb1;
+        --secondary: #2435fd;
+        --accent: #FF7A38;
+      }
+
+      #staticsContentDiv {
+        border-right: 4px solid var(--accent);
+        border-left: 4px solid var(--accent);
+      }
+
+      .stats_div_outer {
+        width: 100% !important;
+        border-bottom: 4px solid var(--accent);
+      }
+
+
+      tbody tr:hover {
+        filter: brightness(80%);
+        transition: filter 0.3s ease;
+        z-index: 1;
+      }
+
+      .stats_div_outer table tr:hover td {
+        transform: scale(1.05);
+      }
+
+      .stats_div tr {
+        background-color: rgb(36, 45, 46);
+      }
+
+      .group::after,
+      .tabBlock-tabs::after {
+        clear: both;
+        content: "";
+        display: table;
+      }
+
+      *,
+      ::before,
+      ::after {
+        box-sizing: border-box;
+      }
+
+      @media screen and (min-width: 700px) {
+        body {
+          font-size: 137.5%;
+        }
+      }
+
+      .unstyledList,
+      .tabBlock-tabs {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .tabBlock {
+        margin: 0;
+      }
+
+      .firstColumn {
+        text-align: left !important;
+        padding-left: 6%;
+        width: 33%;
+      }
+
+      .tabBlock {
+        color: var(--accent);
+        border-left: solid;
+        border-right: solid;
+        border-left-width: 4px;
+        border-right-width: 0px;
+      }
+
+      .tabBlock-tab {
+        text-align: center;
+        line-height: 2.5rem;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        background-color: #e1e8e8;
+        border-left: solid;
+        border-top: solid;
+        border-bottom: solid;
+        border-right: solid;
+        border-left-width: 0px;
+        border-right-width: 0px;
+        border-bottom-width: 4px;
+        color: black;
+        border-color: var(--accent);
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 600;
+        float: left;
+        padding: 10px 0px;
+        position: relative;
+        width: 20%;
+      }
+
+      .tabBlock-tab:last-of-type {
+        border-right-style: solid;
+      }
+
+      .tabBlock-tab::before,
+      .tabBlock-tab::after {
+        content: "";
+        display: block;
+        height: 4px;
+        position: absolute;
+      }
+
+      .tabBlock-tab.is-active::before {
+        text-align: center;
+        background-color: var(--accent);
+        left: -4px;
+        right: -4px;
+        top: -1px;
+      }
+
+      .tabBlock-tab.is-active {
+        text-align: center;
+        position: relative;
+        color: var(--secondary);
+        font-size: 1.5em;
+        border-bottom-width: 4px;
+        border-bottom-color: #d1dfdf;
+        z-index: 100;
+        background-color: #d1dfdf;
+      }
+
+      .tabBlock-tab.is-active + .tabBlock-tab {
+        border-left-width: 4px;
+      }
+
+      .tabBlock-tab.previous-tab {
+        border-right-width: 4px;
+      }
+
+      .tabBlock-tab:not(is-active) {
+        border-top-width: 0px;
+      }
+
+      .tabBlock-tab.is-active::before {
+        background-color: var(--accent);
+      }
+
+      .tabBlock-tab.is-active::after {
+        background-color: #fff;
+      }
+
+      .current-sort {
+        color: var(--accent);
+      }
+
+      .center2 {
+        display: grid;
+        place-items: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% include 'header.html' %}
+    <div
+      class="banner-container sticky"
+      id="banned-banner"
+      style="--bgcolor: rgb(255, 0, 0); --color: rgb(255, 255, 255)"
+    >
+      <span class="banner-content"
+        >Dieser Spieler wurde vom Servernetzwerk gebannt.<br />Gebannt von
+        {{startdate}} bis {{enddate}}</span
+      >
+    </div>
+    <div class="content">
+      <h1>
+        <strong
+          class="center player-name"
+          style="width: fit-content; margin-bottom: 50px"
+          >{{user_name}}</strong
+        >
+      </h1>
+      <br />
+      <div class="container-util">
+        <div class="container">
+          <div title="Das erste mal gesehen" class="item item-2">
+            <div class="box bottomLeft">
+              <img width="50%" src="{{ url_for('static', filename='images/b003-calendar-1.png') }}" alt="" />
+              <p id="3"></p>
+            </div>
+          </div>
+          <div title="Gesamtspielzeit" class="item item-1">
+            <div class="box topLeft">
+              <img width="50%" src="{{ url_for('static', filename='images/b005-wall-clock.png') }}" alt="" />
+              <p id="6">Loading</p>
+            </div>
+          </div>
+          <div class="item item-3">
+            <div id="mySkinContainer"></div>
+            <div class="topDiv">
+              <p id="4" style="display: none;"><span>Loading</span></p>
+            </div>
+            <div class="bottomDiv" id="bottomDiv">
+              <p id="1"><span>Loading</span></p>
+            </div>
+            <div class="downloadButton">
+              <button
+                onclick='forceDownload("https://crafatar.com/skins/{{uuid}}", "Skin-{{user_name}}.png");'
+                style="width: 40px;height:40px"
+              >
+              <svg fill="#000000" height="100%" width="100%" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 29.978 29.978" xml:space="preserve">
+                <g>
+                  <path d="M25.462,19.105v6.848H4.515v-6.848H0.489v8.861c0,1.111,0.9,2.012,2.016,2.012h24.967c1.115,0,2.016-0.9,2.016-2.012   v-8.861H25.462z"/>
+                  <path d="M14.62,18.426l-5.764-6.965c0,0-0.877-0.828,0.074-0.828s3.248,0,3.248,0s0-0.557,0-1.416c0-2.449,0-6.906,0-8.723   c0,0-0.129-0.494,0.615-0.494c0.75,0,4.035,0,4.572,0c0.536,0,0.524,0.416,0.524,0.416c0,1.762,0,6.373,0,8.742   c0,0.768,0,1.266,0,1.266s1.842,0,2.998,0c1.154,0,0.285,0.867,0.285,0.867s-4.904,6.51-5.588,7.193   C15.092,18.979,14.62,18.426,14.62,18.426z"/>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                </g>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div title="Gesamtanzahl Tode" class="item item-4">
+            <div class="box topRight">
+              <img width="50%" src="{{ url_for('static', filename='images/b007-grave-1.png') }}" alt="" />
+              <p id="2">Loading</p>
+            </div>
+          </div>
+          <div title="Zeit seit letzem Tod" class="item item-5">
+            <div class="box bottomRight">
+              <img width="50%" src="{{ url_for('static', filename='images/b006-grave.png') }}" alt="" />
+              <p id="5">Loading</p>
+            </div>
+          </div>
+        </div>
+      
+      <!-- <p id="4" style="display: none">Loading</p> -->
+
+      <br />
+      <br />
+      <hr />
+      <br />
+      <div class="center2">
+        <div class="stats_div_outer_outer">
+          <figure class="tabBlock">
+            <ul class="tabBlock-tabs">
+              <li
+                onclick='doTabAction("blocks", "blocks_name", "sort-state-0")'
+                class="tabBlock-tab is-active"
+              >
+                Blöcke
+              </li>
+              <li
+                onclick="doTabAction('tools', 'tools_name', 'sort-state-0')"
+                class="tabBlock-tab"
+              >
+                Tools
+              </li>
+              <li
+                onclick="doTabAction('armor', 'armor_name', 'sort-state-0')"
+                class="tabBlock-tab"
+              >
+                Armor
+              </li>
+              <li
+                onclick="doTabAction('mobs', 'mobs_name', 'sort-state-0')"
+                class="tabBlock-tab"
+              >
+                Mobs
+              </li>
+              <li
+                onclick="doTabAction('other', 'other_name', 'sort-state-0')"
+                class="tabBlock-tab"
+              >
+                Mehr
+              </li>
+            </ul>
+          </figure>
+          <div
+            class="stats_div_outer"
+            style="
+              background-color: rgb(36, 45, 46);
+              color: white;
+              width: 1600px;
+              height: 600px;
+              overflow-wrap: break-word;
+              overflow-x: hidden;
+            "
+          >
+            <div class="stats_div" id="staticsContentDiv">Loading...</div>
+          </div>
+        </div>
+      </div></div>
+      <br />
+    </div>
+    <footer>
+      <nav>
+        <ul>
+          <li><a href="/verschiedenes/impressum.html">Impressum</a></li>
+          <li><a href="/verschiedenes/datenschutz.html">Datenschutz</a></li>
+          <li><a href="/verschiedenes/kontakt.html">Kontakt</a></li>
+          <li><a href="#">🡅</a></li>
+        </ul>
+      </nav>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <script>
+      var skinRender = new SkinRender(
+        {
+          autoResize: true,
+          canvas: {
+            width: 350,
+            height: 350,
+          },
+        },
+        document.getElementById("mySkinContainer")
+      );
+      skinRender.render("{{user_name}}");
+
+      const eventSource = new EventSource("/api/player_info/{{user_name}}");
+
+      eventSource.onmessage = (event) => {
+        console.warn(event.data);
+        // const parsedArray = JSON.parse(event.data);
+        const parsedArray =  JSON.parse(event.data.replaceAll("'", '"'));
+        console.debug(typeof parsedArray)
+        console.log(parsedArray);
+        i = 0;
+        for (var element of parsedArray) {
+          if (i == 0) {
+            i += 1; 
+            continue;
+          }
+          if (i==1) {
+            if (element == "offline") {
+              document.getElementById("bottomDiv").classList.add("higher");
+              element = `<span style='margin-top: -20px;' class="status status-${element}">` + element + "<br><abc style='color:black;font-size:20px'>" + parsedArray[4] + "</abc></span>"
+            } else {
+            element = `<span class="status status-${element}">` + element + "</span>"
+            document.getElementById("bottomDiv").classList.remove("higher");
+            }
+              
+          }
+          document.getElementById("" + i).innerHTML = element;
+          
+          
+
+          i += 1;
+        }
+      };
+      function forceDownload(url, fileName) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.responseType = "blob";
+        xhr.onload = function () {
+          var urlCreator = window.URL || window.webkitURL;
+          var imageUrl = urlCreator.createObjectURL(this.response);
+          var tag = document.createElement("a");
+          tag.href = imageUrl;
+          tag.download = fileName;
+          document.body.appendChild(tag);
+          tag.click();
+          document.body.removeChild(tag);
+        };
+        xhr.send();
+      }
+      function decodeHtmlEntities(text) {
+        const textarea = document.createElement("textarea");
+        textarea.innerHTML = text;
+        return textarea.value;
+      }
+
+      var stats_tools = decodeHtmlEntities("{{stats_tools}}")
+        .replaceAll("'", '"')
+        .replaceAll("(", "")
+        .replaceAll(",)", "");
+      var stats_armor = decodeHtmlEntities("{{stats_armor}}")
+        .replaceAll("'", '"')
+        .replaceAll("(", "")
+        .replaceAll(",)", "");
+      var stats_mobs = decodeHtmlEntities("{{stats_killed}}")
+        .replaceAll("'", '"')
+        .replaceAll("(", "")
+        .replaceAll(",)", "");
+      var stats_custom = decodeHtmlEntities("{{stats_custom}}")
+        .replaceAll("'", '"')
+        .replaceAll("(", "")
+        .replaceAll(",)", "");
+      var stats_blocks = decodeHtmlEntities("{{stats_blocks}}")
+        .replaceAll("'", '"')
+        .replaceAll("(", "")
+        .replaceAll(",)", "");
+
+      console.log(stats_tools);
+      var stats = {
+        other: JSON.parse(stats_custom),
+        blocks: JSON.parse(stats_blocks),
+        armor: JSON.parse(stats_armor),
+        tools: JSON.parse(stats_tools),
+        mobs: JSON.parse(stats_mobs),
+      };
+
+      var stats = {
+        other: JSON.parse(stats_custom),
+        blocks: JSON.parse(stats_blocks),
+        armor: JSON.parse(stats_armor),
+        tools: JSON.parse(stats_tools),
+        mobs: JSON.parse(stats_mobs),
+      };
+
+      // remove "minecraft:" from keys and sort alphabetically
+      function processObject(obj) {
+        const newObj = {};
+        Object.keys(obj).forEach((key) => {
+          const newKey = key.replace("minecraft:", "");
+          newObj[newKey] = obj[key];
+        });
+        return Object.keys(newObj)
+          .sort()
+          .reduce((acc, key) => {
+            acc[key] = newObj[key];
+            return acc;
+          }, {});
+      }
+
+      // Process each category in stats
+      stats.other = processObject(stats.other);
+      stats.blocks = processObject(stats.blocks);
+      stats.armor = processObject(stats.armor);
+      stats.tools = processObject(stats.tools);
+      stats.mobs = processObject(stats.mobs);
+
+      function sortByListIndex(
+        data,
+        index,
+        sortKeyName = false,
+        reverse = false
+      ) {
+        let sortedKeys;
+        if (sortKeyName) {
+          sortedKeys = Object.keys(data).sort((a, b) => a.localeCompare(b));
+          if (reverse) {
+            sortedKeys.reverse();
+          }
+        } else {
+          sortedKeys = Object.keys(data).sort((a, b) => {
+            const numA = data[a][index];
+            const numB = data[b][index];
+            return reverse ? numB - numA : numA - numB;
+          });
+        }
+
+        const sortedData = {};
+        sortedKeys.forEach((key) => {
+          sortedData[key] = data[key];
+        });
+        return sortedData;
+      }
+      var current_sort = "";
+      var sort_state = "";
+      var sort_state_name = "";
+
+      function changeSort(button) {
+        current_sort = button.id;
+        sort_state = button.classList.contains("sort-state-0");
+        if (sort_state) {
+          sort_state_name = "sort-state-1";
+        } else {
+          sort_state_name = "sort-state-0";
+        }
+
+        console.log("Button ID:", button.id);
+        currentTable = button.id.split("_")[0];
+        sortBy = button.id.split("_")[1];
+        if (currentTable == "blocks") {
+          switch (sortBy) {
+            case "name":
+              stats.blocks = sortByListIndex(stats.blocks, 0, true, sort_state);
+              break;
+            case "mined":
+              stats.blocks = sortByListIndex(
+                stats.blocks,
+                0,
+                false,
+                sort_state
+              );
+              break;
+            case "placed":
+              stats.blocks = sortByListIndex(
+                stats.blocks,
+                1,
+                false,
+                sort_state
+              );
+              break;
+            case "pickedUp":
+              stats.blocks = sortByListIndex(
+                stats.blocks,
+                2,
+                false,
+                sort_state
+              );
+              break;
+            case "dropped":
+              stats.blocks = sortByListIndex(
+                stats.blocks,
+                3,
+                false,
+                sort_state
+              );
+              break;
+            case "crafted":
+              stats.blocks = sortByListIndex(
+                stats.blocks,
+                4,
+                false,
+                sort_state
+              );
+              break;
+          }
+          doTabAction("blocks", current_sort, sort_state_name);
+        } else if (currentTable == "armor") {
+          switch (sortBy) {
+            case "name":
+              stats.armor = sortByListIndex(stats.armor, 0, true, sort_state);
+              break;
+            case "broken":
+              stats.armor = sortByListIndex(stats.armor, 0, false, sort_state);
+              break;
+            case "crafted":
+              stats.armor = sortByListIndex(stats.armor, 1, false, sort_state);
+              break;
+            case "dropped":
+              stats.armor = sortByListIndex(stats.armor, 2, false, sort_state);
+              break;
+            case "pickedUp":
+              stats.armor = sortByListIndex(stats.armor, 3, false, sort_state);
+              break;
+            case "used":
+              stats.armor = sortByListIndex(stats.armor, 4, false, sort_state);
+              break;
+          }
+          doTabAction("armor", current_sort, sort_state_name);
+        } else if (currentTable == "tools") {
+          switch (sortBy) {
+            case "name":
+              stats.tools = sortByListIndex(stats.tools, 0, true, sort_state);
+              break;
+            case "broken":
+              stats.tools = sortByListIndex(stats.tools, 0, false, sort_state);
+              break;
+            case "crafted":
+              stats.tools = sortByListIndex(stats.tools, 1, false, sort_state);
+              break;
+            case "dropped":
+              stats.tools = sortByListIndex(stats.tools, 2, false, sort_state);
+              break;
+            case "pickedUp":
+              stats.tools = sortByListIndex(stats.tools, 3, false, sort_state);
+              break;
+            case "used":
+              stats.tools = sortByListIndex(stats.tools, 4, false, sort_state);
+              break;
+          }
+          doTabAction("tools", current_sort, sort_state_name);
+        } else if (currentTable == "mobs") {
+          switch (sortBy) {
+            case "name":
+              stats.mobs = sortByListIndex(stats.mobs, 0, true, sort_state);
+              break;
+            case "killed":
+              stats.mobs = sortByListIndex(stats.mobs, 0, false, sort_state);
+              break;
+            case "killedBy":
+              stats.mobs = sortByListIndex(stats.mobs, 1, false, sort_state);
+              break;
+          }
+          doTabAction("mobs", current_sort, sort_state_name);
+        }
+      }
+
+      function doTabAction(action, current_sort, sort_state) {
+        htmlString = `
+        <table class="stats_table">
+          <thead>
+          <tr style="background-color: hsl(220, 10%, 15%)">
+          
+        
+        `;
+        if (action == "other") {
+          htmlString += `
+          <th style='width: 50%'>Name</th>
+          <th>Wert</th>
+      `;
+        } else if (action == "blocks") {
+          htmlString += `
+          <th>Name <button onclick="changeSort(this)" id="blocks_name" class="sortButton">&#9660;</button></th>
+          <th>Mined <button onclick="changeSort(this)" id="blocks_mined" class="sortButton">&#9660;</button></th>
+          <th>Placed <button onclick="changeSort(this)" id="blocks_placed" class="sortButton">&#9660;</button></th>
+          <th>Picked up <button onclick="changeSort(this)" id="blocks_pickedUp" class="sortButton">&#9660;</button></th>
+          <th>Dropped <button onclick="changeSort(this)" id="blocks_dropped" class="sortButton">&#9660;</button></th>
+          <th>Crafted <button onclick="changeSort(this)" id="blocks_crafted" class="sortButton">&#9660;</button></th>
+      `;
+        } else if (action == "armor") {
+          htmlString += `
+          <th>Name <button onclick="changeSort(this)" id="armor_name" class="sortButton">&#9660;</button></th>
+          <th>Broken <button onclick="changeSort(this)" id="armor_broken" class="sortButton">&#9660;</button></th>
+          <th>Crafted <button onclick="changeSort(this)" id="armor_crafted" class="sortButton">&#9660;</button></th>
+          <th>Dropped <button onclick="changeSort(this)" id="armor_dropped" class="sortButton">&#9660;</button></th>
+          <th>Picked up <button onclick="changeSort(this)" id="armor_pickedUp" class="sortButton">&#9660;</button></th>
+          <th>Used <button onclick="changeSort(this)" id="armor_used" class="sortButton">&#9660;</button></th>
+      `;
+        } else if (action == "tools") {
+          htmlString += `
+          <th>Name <button onclick="changeSort(this)" id="tools_name" class="sortButton">&#9660;</button></th>
+          <th>Broken <button onclick="changeSort(this)" id="tools_broken" class="sortButton">&#9660;</button></th>
+          <th>Crafted <button onclick="changeSort(this)" id="tools_crafted" class="sortButton">&#9660;</button></th>
+          <th>Dropped <button onclick="changeSort(this)" id="tools_dropped" class="sortButton">&#9660;</button></th>
+          <th>Picked up <button onclick="changeSort(this)" id="tools_pickedUp" class="sortButton">&#9660;</button></th>
+          <th>Used <button onclick="changeSort(this)" id="tools_used" class="sortButton">&#9660;</button></th>
+      `;
+        } else if (action == "mobs") {
+          htmlString += `
+          <th>Name <button onclick="changeSort(this)" id="mobs_name" class="sortButton">&#9660;</button></th>
+          <th>Killed <button onclick="changeSort(this)" id="mobs_killed" class="sortButton">&#9660;</button></th>
+          <th>Killed By <button onclick="changeSort(this)" id="mobs_killedBy" class="sortButton">&#9660;</button></th>`;
+        }
+        htmlString += `</tr>
+      </thead>
+      <tbody>`;
+
+        for (const itemName in stats[action]) {
+          const itemAttributes = stats[action][itemName];
+          htmlString += `
+      <tr>  
+          <td class="firstColumn"><i class="icon-minecraft icon-minecraft-${itemName
+            .replaceAll("_", "-")
+            .replace("minecraft:", "")}"></i>  ${transformToTitleCase(
+            itemName
+          )}</td>
+          `;
+
+          for (const itemAttrName in itemAttributes) {
+            htmlString += `
+          <td>${itemAttributes[itemAttrName]}</td>
+        `;
+          }
+        }
+        htmlString += `</tr>
+      </tbody>
+      </table>`;
+
+        document.getElementById("staticsContentDiv").innerHTML = htmlString;
+
+        document.getElementById(current_sort).classList.add("current-sort");
+        document.getElementById(current_sort).classList.add(sort_state);
+        if (sort_state == "sort-state-0") {
+          document.getElementById(current_sort).innerHTML = "&#9660;";
+        } else {
+          document.getElementById(current_sort).innerHTML = "&#9650";
+        }
+      }
+
+      function transformToTitleCase(inputString) {
+        const words = inputString.replaceAll("minecraft:", "").split("_");
+        const capitalizedWords = words.map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1)
+        );
+        const titleCaseString = capitalizedWords.join(" ");
+
+        return titleCaseString;
+      }
+    </script>
+    <script>
+
+      window.onload = function () {
+        console.debug("BANNED: {{banned}}")
+        if ("{{banned}}" == "True") {
+          console.log("banned");
+          document.getElementById("banned-banner").classList.add("active");
+        }
+        doTabAction("blocks", "blocks_name", "sort-state-0");
+      };
+    </script>
+
+    <script>
+      const div = document.querySelector(".tabBlock");
+      var TabBlock = {
+        init: function () {
+          TabBlock.bindUIActions();
+          TabBlock.updatePreviousTab(); // Initially set the previous tab class
+        },
+
+        bindUIActions: function () {
+          $(".tabBlock-tabs").on("click", ".tabBlock-tab", function () {
+            TabBlock.switchTab($(this));
+          });
+        },
+
+        switchTab: function ($tab) {
+          var $context = $tab.closest(".tabBlock");
+
+          if (!$tab.hasClass("is-active")) {
+            $tab.siblings().removeClass("is-active");
+            $tab.addClass("is-active");
+
+            TabBlock.updatePreviousTab($context); // Update previous tab after switching
+            TabBlock.triggerTabFunctions($context); // Check for first/last tab triggers
+          }
+        },
+
+        updatePreviousTab: function ($context) {
+          // Get the current active tab
+          var $activeTab = $context.find(".tabBlock-tab.is-active");
+
+          // Remove 'previous-tab' class from all tabs
+          $context.find(".tabBlock-tab").removeClass("previous-tab");
+
+          // Add 'previous-tab' class to the tab before the active one, if it exists
+          if ($activeTab.prev()) {
+            $activeTab.prev().addClass("previous-tab");
+          }
+        },
+
+        triggerTabFunctions: function ($context) {
+          var $activeTab = $context.find(".tabBlock-tab.is-active");
+
+          // Triggers for the first tab
+          if ($activeTab.is(":first-child")) {
+            TabBlock.firstTabFunction(); // Call your specific function for the first tab
+          } else if (
+            ~$context
+              .find(".tabBlock-tab.is-active")
+              .prev()
+              .hasClass("first-tab")
+          ) {
+            // If active tab was previously the first tab
+            TabBlock.firstTabRemovedFunction(); // Call a function when is-active is removed from first tab
+          }
+
+          // Triggers for the last tab
+          if ($activeTab.is(":last-child")) {
+            TabBlock.lastTabFunction(); // Call your specific function for the last tab
+          } else if (
+            ~$context
+              .find(".tabBlock-tab.is-active")
+              .next()
+              .hasClass("last-tab")
+          ) {
+            // If active tab was previously the last tab
+            TabBlock.lastTabRemovedFunction(); // Call a function when is-active is removed from last tab
+          }
+        },
+
+        // Replace these with your actual functions for first and last tabs
+
+        firstTabFunction: function () {
+          div.style.borderLeftWidth = "4px";
+        },
+        firstTabRemovedFunction: function () {
+          div.style.borderLeftWidth = "0px";
+        },
+        lastTabFunction: function () {
+          div.style.borderRightWidth = "4px";
+        },
+        lastTabRemovedFunction: function () {
+          div.style.borderRightWidth = "0px";
+        },
+      };
+
+      TabBlock.init();
+    </script>
+  </body>
+</html>
