@@ -5,13 +5,10 @@ import os
 import time
 from urllib.parse import urlparse
 
-# Get the path to the root directory of your project
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database'))
 
-# Add the root directory to sys.path
 sys.path.insert(0, root_dir)
 
-# Now you can import databaseManager
 from databaseManager import DatabaseManager # type: ignore
 from logger import get_logger # type: ignore
 from minecraft import Minecraft # type: ignore
@@ -22,7 +19,6 @@ db_manager = DatabaseManager()
 minecraft = Minecraft()
 
 
-# Flask Setup
 app = Flask(__name__)
 logger.info('Application started')
 app.config.from_pyfile("config.py")
@@ -132,15 +128,23 @@ def player_overview_route(subdomain):
 
     if user_name:
         uuid = db_manager.get_player_uuid_from_name__offline(user_name)
+        player_id = db_manager.get_player_id_from_player_uuid_and_subdomain(uuid, subdomain)
         status = db_manager.get_online_status_by_player_uuid_and_subdomain(uuid, subdomain)
-        # stats_tools, stats_armor, stats_killed, stats_custom, stats_blocks = minecraftApi.get_all_stats(uuid, db_handler)
+        
+        armor_stats = db_manager.get_all_armor_stats(player_id)
+        tool_stats = db_manager.get_all_tools_stats(player_id)
+        item_stats = db_manager.get_all_items_stats(player_id)
+        block_stats = db_manager.get_all_blocks_stats(player_id)
+        mob_stats = db_manager.get_all_mobs_stats(player_id)
+        custom_stats = db_manager.get_all_custom_stats(player_id)
+        
         enddate, startdate = "", ""
         banned = db_manager.get_ban_info_from_player_uuid_and_subdomain(uuid, subdomain)
         if banned:
             startdate, enddate = banned[4].strftime("%d.%m.%Y %H:%M"), banned[5].strftime(("%d.%m.%Y %H:%M"))
             print(startdate, enddate)
         return render_template("spieler-info.html", uuid=uuid, user_name=user_name, status=status, banned=bool(banned), enddate=enddate,
-                               startdate=startdate)
+                               startdate=startdate, armor_stats=armor_stats, tool_stats=tool_stats, item_stats=item_stats, block_stats=block_stats, mob_stats=mob_stats, custom_stats=custom_stats)
 
     all_users = []
     all_status = []
