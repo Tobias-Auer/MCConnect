@@ -500,7 +500,6 @@ class DatabaseManager:
             logger.error('Failed to find player for uuid: "{player_uuid}" and subdomain: "{subdomain}"')
             return None
         
-        
     def get_server_id_from_subdomain(self, subdomain):
         logger.debug("get_server_id_from_subdomain is called")
         query = "SELECT id FROM server WHERE subdomain = %s"
@@ -578,7 +577,7 @@ class DatabaseManager:
             return None
         return re.findall(r'[a-zA-Z0-9-]+', result[0][0])
 
-    def get_ban_info(self, player_id):
+    def get_ban_info_from_player_id(self, player_id):
         logger.debug(f"getting ban_info is called")
         query = "SELECT * FROM banned_players WHERE player_id = %s;"
         data = (player_id,)
@@ -590,6 +589,27 @@ class DatabaseManager:
             logger.info(f'Found ban info for player: "{player_id}"')
         except Exception as e:
             logger.error(f'Failed to get ban info for player: "{player_id}". Error: {e}')
+            return None
+        logger.info(f"Ban info: {result}")
+        return result
+    def get_ban_info_from_player_uuid_and_subdomain(self, player_uuid, subdomain):
+        logger.debug(f"getting ban_info is called")
+        query = """
+            SELECT bp.*
+            FROM banned_players bp
+            JOIN player_server_info psi ON bp.player_id = psi.id
+            JOIN server s ON psi.server_id = s.id
+            WHERE psi.player_uuid = %s AND s.subdomain = %s;
+            """        
+        data = (player_uuid, subdomain)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.info(f'Found ban info for player: "{player_uuid}" and subdomain: "{subdomain}"')
+        except Exception as e:
+            logger.error(f'Failed to get ban info for player: "{player_uuid}" and subdomain: "{subdomain}". Error: {e}')
             return None
         logger.info(f"Ban info: {result}")
         return result
@@ -606,7 +626,7 @@ class DatabaseManager:
             result = self.cursor.fetchone()
             
             if not result:
-                logger.debug(f"No entry found for player_id: {player_uuid} and subdomain: {subdomain}")
+                logger.debug(f"No entry found for player_id: {player_id}")
 
                 return [False, "no entry found in the database"]
             
@@ -656,7 +676,6 @@ class DatabaseManager:
             return None
         return result[0] if result else 99
     
-    
     def get_web_access_permission_from_player_id(self, player_id):
         logger.debug(f"getting web_access_permission_from_player_id is called")
         query = "SELECT web_access_permissions FROM player_server_info WHERE id = %s;"
@@ -666,6 +685,7 @@ class DatabaseManager:
         try:
             self.cursor.execute(query, data)
             result = self.cursor.fetchone()
+            logger.critical(result)
             logger.info(f'Found web access permission for player_id: "{player_id}": {result[0]}')
         except Exception as e:
             logger.error(f'Failed to get web access permission for player_id: "{player_id}". Error: {e}')
@@ -801,6 +821,75 @@ class DatabaseManager:
         except Exception as e:
             logger.error(f"Error in getting_online_player_count_from_subdomain: {e}")
             return 0
+    
+    def get_banned_status_from_uuid_and_subdomain(self, uuid, subdomain):
+        logger.debug(f"getting_banned_status_from_uuid_and_subdomain is called with uuid: {uuid} and subdomain: {subdomain}")
+        query = """SELECT * FROM banned_players WHERE player_id = server_id(SELECT id FROM server WHERE subdomain = %s)"""
+        data = (uuid, subdomain)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found banned status: {result[0]} for uuid: {uuid} and subdomain: {subdomain}")
+            return result[0] if result else False
+        except Exception as e:
+            logger.error(f"Error in getting_banned_status_from_uuid_and_subdomain")
+    
+    def get_first_seen_by_player_id(self, player_id):
+        logger.debug(f"getting_first_seen_by_player_id is called with player_id: {player_id}")
+        query = """SELECT first_seen FROM player_server_info WHERE id = %s"""
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found first seen timestamp: {result[0]} for player_id: {player_id}")
+            return result[0]
+        except Exception as e:
+            logger.error(f"Error in getting_first_seen_by_player_id: {e}")
+            return None
+        
+    def get_last_seen_by_player_id(self, player_id):
+        logger.debug(f"getting_last_seen_by_player_id is called with player_id: {player_id}")
+        query = """SELECT last_seen FROM player_server_info WHERE id = %s"""
+        data = (player_id,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found first seen timestamp: {result[0]} for player_id: {player_id}")
+            return result[0]
+        except Exception as e:
+            logger.error(f"Error in getting_last_seen_by_player_id: {e}")
+            return None
+    
+    def get_value_from_unique_object_from_action_table(self, object):
+        """
+        This function retrieves the value associated with a unique object from the 'actions' table.
+
+        Parameters:
+        object (str): The unique object for which the value needs to be retrieved.
+
+        Returns:
+        value (str): The value associated with the unique object. If the object is not found, it returns None.
+        """
+        logger.debug(f"getting_value_from_unique_object_from_action_table is called with object: {object}")
+        query = """SELECT value FROM actions WHERE object = %s"""
+        data = (object,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found value: {result[0]} for object: {object}")
+            return result[0] if result else None
+        except Exception as e:
+            logger.error(f"Error in getting_value_from_unique_object_from_action_table: {e}")
+            return None
+    
     ################################ helper functions ################################
     
     def split_items_from_json(self, items):
@@ -939,7 +1028,40 @@ class DatabaseManager:
         result = self.cursor.fetchone()[0]
         return result
     
-    
+    def format_time(self, seconds):
+        """
+        Formats a given number of seconds into a human-readable time string.
+
+        Args:
+            seconds (int): The number of seconds to be formatted.
+
+        Returns:
+            str: A formatted time string in the format "X Tage, Y Stunden, Z Minuten, W Sekunden",
+                    where the parts are included only if they are non-zero.
+        """
+        days = int(seconds // 86400)
+        seconds %= 86400
+
+        hours = int(seconds // 3600)
+        seconds %= 3600
+
+        minutes = int(seconds // 60)
+        seconds = int(seconds % 60)
+
+        time_parts = []
+        setMinutes, setSeconds = True, True
+        if days > 0:
+            time_parts.append(f"{days} Tag{'e' if days > 1 else ''}")
+            setSeconds, setMinutes = False, False
+        if hours > 0:
+            time_parts.append(f"{hours} Std.")
+            setMinutes = False
+        if minutes > 0 and setMinutes:
+            time_parts.append(f"{minutes} Min.")
+        if seconds > 0 and setSeconds:
+            time_parts.append(f"{seconds} Sec.")
+
+        return ' '.join(time_parts)  
 
         
 if __name__ == "__main__":
@@ -972,7 +1094,7 @@ if __name__ == "__main__":
     #                            server_description_long=server_description_long,
     #                            server_name="Tobi's Mc-Server")
     
-    # my_server_id = db_manager.get_server_id_from_subdomain("tobias")
+    my_server_id = db_manager.get_server_id_from_subdomain("tobias")
     # my_other_server_id = db_manager.get_server_id_from_subdomain("tobias2")
     
     
@@ -987,7 +1109,7 @@ if __name__ == "__main__":
     # db_manager.init_player_server_info_table(my_other_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")#test player
     # db_manager.init_player_server_info_table(my_other_server_id, "25c6a3b7-94fa-45b4-8d9f-7041a35d97b3")#test player
     
-    # my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
+    my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
     # db_manager.init_prefix_table(my_id)
     # my_prefix_id = db_manager.get_prefix_id_from_player_id(my_id)
     # db_manager.join_prefix(my_id, my_prefix_id)
@@ -996,7 +1118,7 @@ if __name__ == "__main__":
     # db_manager.get_prefix_name_from_prefix_id(my_prefix_id)
     # print(db_manager.get_members_from_prefix_id(my_prefix_id))
     # #db_manager.leave_prefix(my_id, my_prefix_id)
-    # db_manager.ban_player(my_id, my_id, "banned for testing", "2024-08-12 19:10:50")
+    #db_manager.ban_player(my_id, my_id, "banned for testing", "2024-08-12 19:10:50")
     # db_manager.check_for_ban_entry(my_id)
     # db_manager.get_ban_info(my_id)
     # db_manager.unban_player(my_id, my_id)
@@ -1016,11 +1138,10 @@ if __name__ == "__main__":
     #exit(db_manager.get_player_id_from_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias"))
     logger.info(db_manager.get_all_uuids_from_subdomain("tobias"))
     print(db_manager.get_online_player_count_from_subdomain("tobias"))
-    db_manager.conn.close()
-    exit()
+
     db_manager.get_online_status_by_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias")
-    with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
-        db_manager.update_player_stats(my_id,f.read())
+    #with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
+        #db_manager.update_player_stats(my_id,f.read())
         
     db_manager.get_web_access_permission_from_player_id(my_id)
     db_manager.conn.close()
