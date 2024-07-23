@@ -128,24 +128,19 @@ def player_overview_route(subdomain):
     :return: Rendered template for player list or specific player info
              (spieler.html|spieler-info.html)
     """
-    # user_name = request.args.get('player')
+    user_name = request.args.get('player')
 
-    # if user_name:
-    #     uuid = minecraftApi.get_cached_uuid_from_username(user_name)
-    #     db_handler = dataBaseOperations.DatabaseHandler("playerData")
-    #     status = db_handler.get_player_status(uuid)
-    #     stats_tools, stats_armor, stats_killed, stats_custom, stats_blocks = minecraftApi.get_all_stats(uuid,
-    #                                                                                                     db_handler)
-    #     enddate, startdate = "", ""
-    #     banned = db_handler.get_banned_status(uuid)
-    #     if banned == "True":
-    #         startdate, enddate = db_handler.get_banned_dates(uuid)
-
-    #     db_handler.disconnect()
-    #     return render_template("spieler-info.html", uuid=uuid, user_name=user_name, status=status,
-    #                            stats_tools=stats_tools, stats_armor=stats_armor, stats_killed=stats_killed,
-    #                            stats_custom=stats_custom, stats_blocks=stats_blocks, banned=banned, enddate=enddate,
-    #                            startdate=startdate)
+    if user_name:
+        uuid = db_manager.get_player_uuid_from_name__offline(user_name)
+        status = db_manager.get_online_status_by_player_uuid_and_subdomain(uuid, subdomain)
+        # stats_tools, stats_armor, stats_killed, stats_custom, stats_blocks = minecraftApi.get_all_stats(uuid, db_handler)
+        enddate, startdate = "", ""
+        banned = db_manager.get_ban_info_from_player_uuid_and_subdomain(uuid, subdomain)
+        if banned:
+            startdate, enddate = banned[4].strftime("%d.%m.%Y %H:%M"), banned[5].strftime(("%d.%m.%Y %H:%M"))
+            print(startdate, enddate)
+        return render_template("spieler-info.html", uuid=uuid, user_name=user_name, status=status, banned=bool(banned), enddate=enddate,
+                               startdate=startdate)
 
     all_users = []
     all_status = []
@@ -247,6 +242,35 @@ def stream_status(subdomain):
 
     return Response(generate(), mimetype='text/event-stream')
 
+@app.route('/api/player_info/<path:path>', subdomain='<subdomain>')
+def stream_player_info(path,subdomain):
+    player_name = path
+    uuid = db_manager.get_player_uuid_from_name__offline(player_name)
+    player_id = db_manager.get_player_id_from_player_uuid_and_subdomain(uuid, subdomain)
+    first_seen = db_manager.get_first_seen_by_player_id(player_id).strftime("%d.%m.%Y")
+
+    def generate():
+        last_update = 99
+        
+        while True:
+            status = "online" if db_manager.get_online_status_by_player_id(player_id) else "offline"
+            
+            if 10 - last_update <= 0:
+                last_update = 0
+                death_count = db_manager.get_value_from_unique_object_from_action_table("minecraft:deaths")
+                last_seen = db_manager.get_last_seen_by_player_id(player_id).strftime("%d.%m.%Y")
+                death_time = db_manager.get_value_from_unique_object_from_action_table("minecraft:time_since_death")
+                play_time = db_manager.get_value_from_unique_object_from_action_table("minecraft:play_time")
+                death_time = db_manager.format_time(death_time / 20)
+                play_time = db_manager.format_time(play_time / 20)
+                
+            last_update += 1
+            
+            data = [uuid, status, death_count, first_seen, last_seen, death_time, play_time]
+            yield f"data: {data}\n\n"
+            time.sleep(1)  
+
+    return Response(generate(), mimetype='text/event-stream')
 
 
 
