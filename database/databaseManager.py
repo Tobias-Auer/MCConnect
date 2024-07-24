@@ -66,6 +66,7 @@ class DatabaseManager:
             logger.info("block and item data initiated successfully")
         except Exception as e:
             logger.error(f"Error creating tables: {e}")
+            self.conn.rollback()
             return False
         return True
 
@@ -100,6 +101,8 @@ class DatabaseManager:
                 logger.critical(
                     f'Failed to register new server: "{subdomain}". Error: {e}'
                 )
+                self.conn.rollback()
+
                 return False
             return True
 
@@ -116,6 +119,7 @@ class DatabaseManager:
             logger.info(f'Initialized player server info for server: "{server_id}" and player: "{player_uuid}"')
         except Exception as e:
             logger.error(f'Failed to initialize player server info for server: "{server_id}" and player: "{player_uuid}". Error: {e}')
+            self.conn.rollback()
             return False
         return True
     
@@ -129,6 +133,7 @@ class DatabaseManager:
             logger.info(f'Initialized prefix for player: "{player_id}"')
         except Exception as e:
             logger.error(f'Failed to initialize prefix for player: "{player_id}". Error: {e}')
+            self.conn.rollback()
             return False
         return True
 
@@ -145,6 +150,7 @@ class DatabaseManager:
             self.conn.commit()
         except Exception as e:
             logger.error(f'Failed to insert rows into blocks_lookup table. Error: {e}')
+            self.conn.rollback()
             return False
             
     def init_item_items_lookup_table(self, item_list_file_path):
@@ -168,6 +174,7 @@ class DatabaseManager:
 
         except Exception as e:
             logger.error(f'Failed to insert rows into item_lookup table. Error: {e}')
+            self.conn.rollback()
             return False
 
     ################################ CHECK FUNCTIONS ##################################
@@ -209,6 +216,7 @@ class DatabaseManager:
                 return False
         except Exception as e:
             logger.error(f'Failed to check for ban entry for player: "{player_id}". Error: {e}')
+            self.conn.rollback()
             return False
         
         
@@ -241,6 +249,7 @@ class DatabaseManager:
             logger.info(f'Registered new player: "{player_uuid}" with name: "{player_name}")')
         except Exception as e:
             logger.error(f'Failed to register new player: "{player_uuid}". Error: {e}')
+            self.conn.rollback()
             return False
         return True
     
@@ -257,6 +266,7 @@ class DatabaseManager:
             logger.info(f'Added login entry for player: "{player_id}" with pin: "{pin}"')
         except Exception as e:
             logger.error(f'Failed to add login entry for player: "{player_id}". Error: {e}')
+            self.conn.rollback()
             return False
         return True
     ################################ UPDATE FUNCTIONS #################################
@@ -274,6 +284,7 @@ class DatabaseManager:
             logger.info(f'Updated prefix for player: "{player_id}" to: "{prefix}" with password: "{password}"')
         except Exception as e:
             logger.error(f'Failed to update prefix for player: "{player_id}". Error: {e}')
+            self.conn.rollback()
             return False
         return True
 
@@ -294,6 +305,7 @@ class DatabaseManager:
             logger.info(f'Joined prefix for player: "{player_id}" with prefix: "{prefix_id}"')
         except Exception as e:
             logger.error(f'Failed to join prefix for player: "{player_id}" with prefix: "{prefix_id}". Error: {e}')
+            self.conn.rollback()
             return False
         return True
         
@@ -312,6 +324,7 @@ class DatabaseManager:
             logger.info(f'{player_id} left prefix: "{prefix_id}"')
         except Exception as e:
             logger.error(f'{player_id} failed to leave prefix: "{prefix_id}". Error: {e}')
+            self.conn.rollback()
             return False
         return True
         
@@ -329,6 +342,7 @@ class DatabaseManager:
 
         except Exception as e:
             logger.error(f'Failed to ban player: "{banned_player_id}" by admin: "{admin_player_id}" with reason: "{reason}" until: "{end}" Error: {e}')
+            self.conn.rollback()
             return False
         return True
         
@@ -344,6 +358,7 @@ class DatabaseManager:
             logger.info(f'Unbanned player: "{banned_player_id}" by admin: "{admin_player_id}"')
         except Exception as e:
             logger.error(f'Failed to unban player: "{banned_player_id}" by admin: "{admin_player_id}". Error: {e}')
+            self.conn.rollback()
             return False
         return True
 
@@ -375,6 +390,7 @@ class DatabaseManager:
             return True
         except Exception as e:
             logger.error(f'Failed to update player: "{player_id}" stats with items: {items}. Error: {e}')
+            self.conn.rollback()
             self.conn.rollback()
             return False
     ################################ DELETE FUNCTIONS #################################
@@ -422,6 +438,7 @@ class DatabaseManager:
             logger.info(f'Deleted server with id: "{server_id}"')
         except Exception as e:
             logger.critical(f'Failed to delete server with id: "{server_id}". Error: {e}')
+            self.conn.rollback()
             return False
         return True
 
@@ -437,6 +454,7 @@ class DatabaseManager:
             logger.info(f'Deleted login entry for player: "{player_id}"')
         except Exception as e:
             logger.critical(f'Failed to delete login entry for player: "{player_id}". Error: {e}')
+            self.conn.rollback()
             return False
         return True
 
@@ -476,6 +494,7 @@ class DatabaseManager:
             return player_id
         except Exception as e:
             logger.error(f'Failed to get player id for uuid: "{player_uuid}" and server: "{server_id}". Error: {e}')
+            self.conn.rollback()
             return None
         
     def get_player_id_from_player_uuid_and_subdomain(self, player_uuid, subdomain):
@@ -498,6 +517,7 @@ class DatabaseManager:
             return player_id
         except Exception as e:
             logger.error('Failed to find player for uuid: "{player_uuid}" and subdomain: "{subdomain}"')
+            self.conn.rollback()
             return None
         
     def get_server_id_from_subdomain(self, subdomain):
@@ -517,6 +537,7 @@ class DatabaseManager:
             return server_id
         except Exception as e:
             logger.error(f'Failed to get server id for subdomain: "{subdomain}". Error: {e}')
+            self.conn.rollback()
             return None
 
     def get_prefix_id_from_player_id(self, player_id):
@@ -531,6 +552,7 @@ class DatabaseManager:
             logger.info(f'Found prefix id: "{result[0]}" for player: "{player_id}"')
         except Exception as e:
             logger.error(f'Failed to get prefix id for player: "{player_id}". Error: {e}')
+            self.conn.rollback()
             return None
         return result[0]
 
@@ -544,6 +566,7 @@ class DatabaseManager:
             logger.info(f'Found prefix id: "{result[0]}" for player: "{player_id}"')
         except Exception as e:
             logger.error(f'Failed to get prefix id for player: "{player_id}". Error: {e}')
+            self.conn.rollback()
             return None
         return result[0]
         
@@ -559,6 +582,7 @@ class DatabaseManager:
             logger.info(f'Found prefix name: "{result[0]}" for prefix id: "{prefix_id}"')
         except Exception as e:
             logger.error(f'Failed to get prefix name for prefix id: "{prefix_id}". Error: {e}')
+            self.conn.rollback()
             return None
         return result[0]
     
@@ -574,6 +598,7 @@ class DatabaseManager:
             logger.info(f'Found players for prefix id: "{prefix_id}"')
         except Exception as e:
             logger.error(f'Failed to get players for prefix id: "{prefix_id}". Error: {e}')
+            self.conn.rollback()
             return None
         return re.findall(r'[a-zA-Z0-9-]+', result[0][0])
 
@@ -589,6 +614,7 @@ class DatabaseManager:
             logger.info(f'Found ban info for player: "{player_id}"')
         except Exception as e:
             logger.error(f'Failed to get ban info for player: "{player_id}". Error: {e}')
+            self.conn.rollback()
             return None
         logger.info(f"Ban info: {result}")
         return result
@@ -610,6 +636,7 @@ class DatabaseManager:
             logger.info(f'Found ban info for player: "{player_uuid}" and subdomain: "{subdomain}"')
         except Exception as e:
             logger.error(f'Failed to get ban info for player: "{player_uuid}" and subdomain: "{subdomain}". Error: {e}')
+            self.conn.rollback()
             return None
         logger.info(f"Ban info: {result}")
         return result
@@ -654,6 +681,7 @@ class DatabaseManager:
         
         except Exception as e:
             logger.error(f'Failed to verify login attempt for player_id: {player_id}. Error: {e}')
+            self.conn.rollback()
             return [False, "database error occurred"]
     
     def get_web_access_permission_from_uuid_and_subdomain(self, player_uuid, subdomain):
@@ -673,6 +701,7 @@ class DatabaseManager:
             logger.info(f'Found web access permission for player_uuid: "{player_uuid}" and subdomain: "{subdomain}": {result[0]}')
         except Exception as e:
             logger.error(f'Failed to get web access permission for player_uuid: "{player_uuid}" and subdomain: "{subdomain}". Error: {e}')
+            self.conn.rollback()
             return None
         return result[0] if result else 99
     
@@ -687,7 +716,9 @@ class DatabaseManager:
             result = self.cursor.fetchone()
             logger.info(f'Found web access permission for player_id: "{player_id}": {result[0]}')
         except Exception as e:
+            self.conn.rollback()
             logger.error(f'Failed to get web access permission for player_id: "{player_id}". Error: {e}')
+            
             return 99
         return result[0] if result else 99
     
@@ -702,6 +733,7 @@ class DatabaseManager:
             result = self.cursor.fetchone()
             logger.info(f'Found server information for subdomain: "{subdomain}"')
         except Exception as e:
+            self.conn.rollback()
             logger.error(f'Failed to get server information for subdomain: "{subdomain}". Error: {e}')
             return None
         return result
@@ -717,6 +749,7 @@ class DatabaseManager:
             result = self.cursor.fetchone()
             logger.debug(f'Found online status for player_id: "{player_id}": {result[0]}')
         except Exception as e:
+            self.conn.rollback()
             logger.error(f'Failed to get online status for player_id: "{player_id}". Error: {e}')
             return None
         return result[0] if result else False
@@ -738,6 +771,7 @@ class DatabaseManager:
             logger.debug(f'Found online status for player_uuid: "{player_uuid}" and subdomain: "{subdomain}": {result[0]}')
             return result[0]
         except Exception as e:
+            self.conn.rollback()
             logger.error(f'Failed to get online status for player_uuid: "{player_uuid}" and subdomain "{subdomain}" Error: {e}')
         return None
     
@@ -763,6 +797,7 @@ class DatabaseManager:
                 logger.warning(f"No player found for uuid: {uuid}")
                 return -1
         except Exception as e:
+            self.conn.rollback()
             logger.error("Error in get_player_name_from_uuid__offline: " + str(e))
             return -1
     
@@ -787,6 +822,7 @@ class DatabaseManager:
                 logger.warning(f"No player found for name: {name}")
                 return -1
         except Exception as e:
+            self.conn.rollback()
             logger.error("Error in get_player_uuid_from_name__offline: " + str(e))
             return -1
 
@@ -803,6 +839,7 @@ class DatabaseManager:
             logger.debug(f"Found uuids: {uuids} for subdomain: {subdomain}")
             return uuids
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_all_uuids_from_subdomain: {e}")
             return []
         
@@ -818,6 +855,7 @@ class DatabaseManager:
             logger.debug(f"Found online player count: {result[0]} for subdomain: {subdomain}")
             return result[0]
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_online_player_count_from_subdomain: {e}")
             return 0
     
@@ -833,6 +871,7 @@ class DatabaseManager:
             logger.debug(f"Found banned status: {result[0]} for uuid: {uuid} and subdomain: {subdomain}")
             return result[0] if result else False
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_banned_status_from_uuid_and_subdomain")
     
     def get_first_seen_by_player_id(self, player_id):
@@ -847,6 +886,7 @@ class DatabaseManager:
             logger.debug(f"Found first seen timestamp: {result[0]} for player_id: {player_id}")
             return result[0]
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_first_seen_by_player_id: {e}")
             return None
         
@@ -862,6 +902,7 @@ class DatabaseManager:
             logger.debug(f"Found first seen timestamp: {result[0]} for player_id: {player_id}")
             return result[0]
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_last_seen_by_player_id: {e}")
             return None
     
@@ -886,6 +927,7 @@ class DatabaseManager:
             logger.debug(f"Found value: {result[0]} for object: {object}")
             return result[0] if result else None
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_value_from_unique_object_from_action_table: {e}")
             return None
     
@@ -917,6 +959,7 @@ class DatabaseManager:
             logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
             return result[0]
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_all_armor_stats: {e}")
             return None
         
@@ -948,6 +991,7 @@ class DatabaseManager:
             logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
             return result[0]
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_all_tools_stats: {e}")
             return None
         
@@ -977,6 +1021,7 @@ class DatabaseManager:
             logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
             return result[0]
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_all_items_stats: {e}")
             return None
     
@@ -1008,6 +1053,7 @@ class DatabaseManager:
             logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
             return result[0]
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_all_blocks_stats: {e}")
             return None
         
@@ -1036,6 +1082,7 @@ class DatabaseManager:
             logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
             return result[0]
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_all_mobs_stats: {e}")
             return None
         
@@ -1063,6 +1110,7 @@ class DatabaseManager:
             logger.debug(f"Found grouped_objects: {result[0]} for player_id: {player_id}")
             return result[0]
         except Exception as e:
+            self.conn.rollback()
             logger.error(f"Error in getting_all_custom_stats: {e}")
             return None
     
