@@ -261,10 +261,10 @@ def stream_player_info(path,subdomain):
             
             if 10 - last_update <= 0:
                 last_update = 0
-                death_count = db_manager.get_value_from_unique_object_from_action_table("minecraft:deaths")
+                death_count = db_manager.get_value_from_unique_object_from_action_table_with_player_id("minecraft:deaths", player_id)
                 last_seen = db_manager.get_last_seen_by_player_id(player_id).strftime("%d.%m.%Y")
-                death_time = db_manager.get_value_from_unique_object_from_action_table("minecraft:time_since_death")
-                play_time = db_manager.get_value_from_unique_object_from_action_table("minecraft:play_time")
+                death_time = db_manager.get_value_from_unique_object_from_action_table_with_player_id("minecraft:time_since_death", player_id)
+                play_time = db_manager.get_value_from_unique_object_from_action_table_with_player_id("minecraft:play_time", player_id)
                 death_time = db_manager.format_time(death_time / 20)
                 play_time = db_manager.format_time(play_time / 20)
                 

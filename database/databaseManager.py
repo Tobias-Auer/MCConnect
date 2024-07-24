@@ -906,7 +906,7 @@ class DatabaseManager:
             logger.error(f"Error in getting_last_seen_by_player_id: {e}")
             return None
     
-    def get_value_from_unique_object_from_action_table(self, object):
+    def get_value_from_unique_object_from_action_table_with_player_id(self, object, player_id):
         """
         This function retrieves the value associated with a unique object from the 'actions' table.
 
@@ -917,8 +917,8 @@ class DatabaseManager:
         value (str): The value associated with the unique object. If the object is not found, it returns None.
         """
         logger.debug(f"getting_value_from_unique_object_from_action_table is called with object: {object}")
-        query = """SELECT value FROM actions WHERE object = %s"""
-        data = (object,)
+        query = """SELECT value FROM actions WHERE object = %s and player_id = %s"""
+        data = (object,player_id)
         logger.debug(f"executing SQL query: {query}")
         logger.debug(f"with following data: {data}")
         try:
