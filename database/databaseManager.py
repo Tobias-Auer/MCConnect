@@ -933,12 +933,7 @@ class DatabaseManager:
     
     def get_all_armor_stats(self, player_id):
         '''
-        Armor:
-            picked_up: 19
-            crafted: 16
-            used: 9
-            dropped: 5
-            broken: 1
+        ----> Layout.txt
         '''
         logger.debug("getting_all_armor_stats is called")
         query = """ SELECT jsonb_agg(category_objects) AS grouped_objects
@@ -947,6 +942,7 @@ class DatabaseManager:
                         FROM actions
                         WHERE category IN (19, 16, 9, 5, 1) AND player_id = %s
                         GROUP BY category
+                        ORDER BY category DESC
                     ) subquery;
                 """     
         data = (player_id,)
@@ -965,12 +961,7 @@ class DatabaseManager:
         
     def get_all_tools_stats(self, player_id):
         '''
-        Tools:
-            picked_up: 20
-            crafted: 15
-            used: 10
-            dropped: 6
-            broken: 0
+        ----> Layout.txt
         '''
         logger.debug("getting_all_tools_stats is called")
         query = """ SELECT jsonb_agg(category_objects) AS grouped_objects
@@ -979,6 +970,7 @@ class DatabaseManager:
                         FROM actions
                         WHERE category IN (20, 15, 10, 6, 0) AND player_id = %s
                         GROUP BY category
+                        ORDER BY category DESC
                     ) subquery;
                 """     
         data = (player_id,)
@@ -996,11 +988,8 @@ class DatabaseManager:
             return None
         
     def get_all_items_stats(self, player_id):
-        '''
-        picked_up: 18
-            crafted: 14
-            used: 8
-            dropped: 4
+        '''        
+        ----> Layout.txt
         '''
         logger.debug("getting_all_items_stats is called")
         query = """ SELECT jsonb_agg(category_objects) AS grouped_objects
@@ -1009,6 +998,7 @@ class DatabaseManager:
                         FROM actions
                         WHERE category IN (18, 14, 8, 4) AND player_id = %s
                         GROUP BY category
+                        ORDER BY category DESC
                     ) subquery;
                 """     
         data = (player_id,)
@@ -1027,12 +1017,7 @@ class DatabaseManager:
     
     def get_all_blocks_stats(self, player_id):
         '''
-        Blocks:
-            picked_up: 17
-            crafted: 13
-            used: 7
-            dropped: 3
-            mined: 2
+                ----> Layout.txt
         '''
         logger.debug("getting_all_blocks_stats is called")
         query = """ SELECT jsonb_agg(category_objects) AS grouped_objects
@@ -1041,6 +1026,7 @@ class DatabaseManager:
                         FROM actions
                         WHERE category IN (17, 13, 7, 3, 2) AND player_id = %s
                         GROUP BY category
+                        ORDER BY category DESC
                     ) subquery;
                 """     
         data = (player_id,)
@@ -1059,9 +1045,8 @@ class DatabaseManager:
         
     def get_all_mobs_stats(self, player_id):
         '''
-        Mobs:
-            killed_by: 12
-            killed: 11
+        ----> Layout.txt
+
         '''
         logger.debug("getting_all_mobs_stats is called")
         query = """ SELECT jsonb_agg(category_objects) AS grouped_objects
@@ -1070,6 +1055,7 @@ class DatabaseManager:
                         FROM actions
                         WHERE category IN (12, 11) AND player_id = %s
                         GROUP BY category
+                        ORDER BY category DESC
                     ) subquery;
                 """     
         data = (player_id,)
@@ -1098,6 +1084,7 @@ class DatabaseManager:
                         FROM actions
                         WHERE category = 21 AND player_id = %s
                         GROUP BY category
+                        ORDER BY category DESC
                     ) subquery;
                 """     
         data = (player_id,)
@@ -1136,36 +1123,7 @@ class DatabaseManager:
         '''
         categorys = ["minecraft:broken", "minecraft:mined","minecraft:dropped","minecraft:used","minecraft:killed","minecraft:killed_by","minecraft:crafted","minecraft:picked_up","minecraft:custom"]
 
-        0: broken tool
-        1: broken armor
-
-        2: mined block
-
-        3: dropped block
-        4: dropped items
-        5: dropped armor
-        6: dropped tools
-
-        7: used blocks
-        8: used items
-        9: used armor
-        10: used tools
-
-        11: killed mobs
-
-        12: killed by
-
-        13: crafted blocks
-        14: crafted items
-        15: crafted tools
-        16: crafted armor
-
-        17: picked up blocks
-        18: picked up items
-        19: picked up armor
-        20: picked up tools
-
-        21: custom
+        ----> Layout.txt
         Return: database category name
         '''
         tools_substrings = ["axe", "shovel", "hoe", "sword", "pickaxe", "shield", "flint_and_steel", "bow", "crossbow", "brush", "trident", "shears", "fishing_rod"]
@@ -1184,54 +1142,54 @@ class DatabaseManager:
 
         if recognized_item_group == "tool":
             if category == "minecraft:broken":
-                return 0
-            elif category == "minecraft:dropped":
-                return 6
-            elif category == "minecraft:used":
-                return 10
-            elif category == "minecraft:crafted":
                 return 15
-            elif category == "minecraft:picked_up":
+            elif category == "minecraft:dropped":
+                return 10
+            elif category == "minecraft:used":
                 return 20
+            elif category == "minecraft:crafted":
+                return 0
+            elif category == "minecraft:picked_up":
+                return 6
 
         elif recognized_item_group == "armor":
             if category == "minecraft:broken":
-                return 1
-            elif category == "minecraft:dropped":
-                return 5
-            elif category == "minecraft:used":
-                return 9
-            elif category == "minecraft:crafted":
                 return 16
-            elif category == "minecraft:picked_up":
+            elif category == "minecraft:dropped":
+                return 9
+            elif category == "minecraft:used":
                 return 19
+            elif category == "minecraft:crafted":
+                return 1
+            elif category == "minecraft:picked_up":
+                return 5
 
         elif recognized_item_group == "block":
             if category == "minecraft:mined":
-                return 2
-            elif category == "minecraft:dropped":
-                return 3
-            elif category == "minecraft:used":
-                return 7
-            elif category == "minecraft:crafted":
-                return 13
-            elif category == "minecraft:picked_up":
                 return 17
+            elif category == "minecraft:dropped":
+                return 7
+            elif category == "minecraft:used":
+                return 13
+            elif category == "minecraft:crafted":
+                return 2
+            elif category == "minecraft:picked_up":
+                return 3
 
         elif recognized_item_group == "item":
             if category == "minecraft:dropped":
-                return 4
-            elif category == "minecraft:used":
-                return 8
-            elif category == "minecraft:crafted":
                 return 14
-            elif category == "minecraft:picked_up":
+            elif category == "minecraft:used":
                 return 18
+            elif category == "minecraft:crafted":
+                return 4
+            elif category == "minecraft:picked_up":
+                return 8
 
         if category == "minecraft:killed":
-            return 11
-        elif category == "minecraft:killed_by":
             return 12
+        elif category == "minecraft:killed_by":
+            return 11
         elif category == "minecraft:custom":
             return 21
         else:
@@ -1300,15 +1258,15 @@ if __name__ == "__main__":
     """
     server_description_short = "Komm auf den Server und spiele mit."
     db_manager = DatabaseManager()
-    # db_manager.init_tables()
-    # db_manager.init_new_server(subdomain="tobias", 
-    #                            license_type=2,
-    #                            owner_name="Tobias Auer", 
-    #                            mc_server_domain="mc.t-auer.com", 
-    #                            discord_url="https://www.discord.gg/vJYNnsQwf8", 
-    #                            server_description_short=server_description_short, 
-    #                            server_description_long=server_description_long,
-    #                            server_name="Tobi's Mc-Server")
+    db_manager.init_tables()
+    db_manager.init_new_server(subdomain="tobias", 
+                                license_type=2,
+                                owner_name="Tobias Auer", 
+                               mc_server_domain="mc.t-auer.com", 
+                               discord_url="https://www.discord.gg/vJYNnsQwf8", 
+                               server_description_short=server_description_short, 
+                               server_description_long=server_description_long,
+                               server_name="Tobi's Mc-Server")
     # db_manager.init_new_server(subdomain="tobias2", 
     #                            license_type=2,
     #                            owner_name="Tobias Auer2", 
@@ -1322,12 +1280,12 @@ if __name__ == "__main__":
     # my_other_server_id = db_manager.get_server_id_from_subdomain("tobias2")
     
     
-    # db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
     # db_manager.add_new_player("c96792ac-7aea-4f16-975e-535a20a2791a") #test player
     # db_manager.add_new_player("83f4a8ea-51f1-465d-9274-9a6b2e4ec64c")#test player
     # db_manager.add_new_player("25c6a3b7-94fa-45b4-8d9f-7041a35d97b3")#test player
 
-    # db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
     # db_manager.init_player_server_info_table(my_server_id, "c96792ac-7aea-4f16-975e-535a20a2791a")#test player
     # db_manager.init_player_server_info_table(my_server_id, "83f4a8ea-51f1-465d-9274-9a6b2e4ec64c")#test player
     # db_manager.init_player_server_info_table(my_other_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")#test player
@@ -1364,11 +1322,13 @@ if __name__ == "__main__":
     print(db_manager.get_online_player_count_from_subdomain("tobias"))
 
     db_manager.get_online_status_by_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias")
-    #with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
-        #db_manager.update_player_stats(my_id,f.read())
+    with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
+        db_manager.update_player_stats(my_id,f.read())
     
     print(db_manager.get_all_armor_stats(my_id))
             
     db_manager.get_web_access_permission_from_player_id(my_id)
     db_manager.conn.close()
 
+
+# TODO: Insert player kills from 'other' to 'mobs' -> player

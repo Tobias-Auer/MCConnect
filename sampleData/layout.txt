@@ -29,35 +29,38 @@ picked_up:
 ---------------------
 
 Armor:
-    picked_up: 19
-    crafted: 16
-    used: 9
-    dropped: 5
-    broken: 1
+    used: 19
+    broken: 16
+    dropped: 9
+    picked_up: 5
+    crafted: 1
 
 Tools:
-    picked_up: 20
-    crafted: 15
-    used: 10
-    dropped: 6
-    broken: 0
+    used: 20
+    broken: 15
+    dropped: 10
+    picked_up: 6
+    crafted: 0
 
 Items:
-    picked_up: 18
-    crafted: 14
-    used: 8
-    dropped: 4
+    used: 18
+    dropped: 14
+    picked_up: 8
+    crafted: 4
 
 Blocks:
-    picked_up: 17
-    crafted: 13
-    used: 7
-    dropped: 3
-    mined: 2
+    mined: 17
+    used: 13
+    dropped: 7
+    picked_up: 3
+    crafted: 2
 
 Mobs:
-    killed_by: 12
-    killed: 11
+    killed: 12
+    killed_by: 11
 
 Custom:
     custom: 21
+
+
+Name, mined, placed, used, broken, dropped, picked_up, crafted, killed, killed_by, other 
