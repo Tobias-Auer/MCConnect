@@ -339,37 +339,37 @@
             <figure class="tabBlock">
               <ul class="tabBlock-tabs">
                 <li
-                  onclick='doTabAction("blocks", "blocks_name", "sort-state-0")'
+                  onclick='doTabAction("blocks", "blocks_name", "sort-state-0", 1, true)'
                   class="tabBlock-tab is-active"
                 >
                   Blöcke
                 </li>
                 <li
-                  onclick="doTabAction('items', 'items_name', 'sort-state-0')"
+                  onclick="doTabAction('items', 'items_name', 'sort-state-0', 1, true)"
                   class="tabBlock-tab"
                 >
                   Items
                 </li>
                 <li
-                  onclick="doTabAction('tools', 'tools_name', 'sort-state-0')"
+                  onclick="doTabAction('tools', 'tools_name', 'sort-state-0', 1, true)"
                   class="tabBlock-tab"
                 >
                   Tools
                 </li>
                 <li
-                  onclick="doTabAction('armor', 'armor_name', 'sort-state-0')"
+                  onclick="doTabAction('armor', 'armor_name', 'sort-state-0', 1, true)"
                   class="tabBlock-tab"
                 >
                   Armor
                 </li>
                 <li
-                  onclick="doTabAction('mobs', 'mobs_name', 'sort-state-0')"
+                  onclick="doTabAction('mobs', 'mobs_name', 'sort-state-0', 1, true)"
                   class="tabBlock-tab"
                 >
                   Mobs
                 </li>
                 <li
-                  onclick="doTabAction('other', 'other_name', 'sort-state-0')"
+                  onclick="doTabAction('other', 'other_name', 'sort-state-0', 1, true)"
                   class="tabBlock-tab"
                 >
                   Mehr
@@ -524,7 +524,29 @@
       stats_array.mobs = initArrayField(stats_array.mobs);
       stats_array.items = initArrayField(stats_array.items);
 
-      function doTabAction(action, current_sort, sort_state) {
+      function sortMasterData(
+        masterData,
+        columnIndex,
+        sortOrder = "asc",
+        sortByName = false
+      ) {
+        // Sort based on the specified column and order
+        masterData.sort((a, b) => {
+          if (sortByName) {
+            return sortOrder === "asc"
+              ? a[0].localeCompare(b[0])
+              : b[0].localeCompare(a[0]);
+          } else {
+            return sortOrder === "asc"
+              ? a[columnIndex] - b[columnIndex]
+              : b[columnIndex] - a[columnIndex];
+          }
+        });
+      }
+
+      function doTabAction(action, current_sort, sort_state, columnIndexToSortBy, sortByName) {
+        // sort_state = ((sort_state == "sort-state-0") ? "sort-state-1" : "sort-state-0")
+        html_insert_sort_state = ((sort_state == "sort-state-0") ? "sort-state-1" : "sort-state-0")
         htmlString = `
         <table class="stats_table">
           <thead>
@@ -532,49 +554,49 @@
         `;
         if (action == "other") {
           htmlString += `
-          <th style='width: 50%'>Name<button onclick="changeSort(this)" id="other_name" class="sortButton">&#9660;</button></th>
-          <th >Wert<button onclick="changeSort(this)" id="other_value" class="sortButton">&#9660;</button></th>
+          <th style='width: 50%'>Name<button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, true)" id="other_name" class="sortButton">&#9650;</button></th>
+          <th >Wert<button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, false)" id="other_value" class="sortButton">&#9650;</button></th>
       `;
         } else if (action == "blocks") {
           htmlString += `
-          <th>Name <button onclick="changeSort(this)" id="blocks_name" class="sortButton">&#9660;</button></th>
-          <th>Mined <button onclick="changeSort(this)" id="blocks_mined" class="sortButton">&#9660;</button></th>
-          <th>Placed <button onclick="changeSort(this)" id="blocks_placed" class="sortButton">&#9660;</button></th>
-          <th>Dropped <button onclick="changeSort(this)" id="blocks_dropped" class="sortButton">&#9660;</button></th>
-          <th>Picked up <button onclick="changeSort(this)" id="blocks_pickedUp" class="sortButton">&#9660;</button></th>
-          <th>Crafted <button onclick="changeSort(this)" id="blocks_crafted" class="sortButton">&#9660;</button></th>
+          <th>Name <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, true)" id="blocks_name" class="sortButton">&#9650;</button></th>
+          <th>Mined <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, false)" id="blocks_mined" class="sortButton">&#9650;</button></th>
+          <th>Placed <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 2, false)" id="blocks_placed" class="sortButton">&#9650;</button></th>
+          <th>Dropped <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 3, false)" id="blocks_dropped" class="sortButton">&#9650;</button></th>
+          <th>Picked up <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 4, false)" id="blocks_pickedUp" class="sortButton">&#9650;</button></th>
+          <th>Crafted <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 5, false)" id="blocks_crafted" class="sortButton">&#9650;</button></th>
       `;
         } else if (action == "items") {
           htmlString += `
-          <th>Name <button onclick="changeSort(this)" id="items_name" class="sortButton">&#9660;</button></th>
-          <th>Used<button onclick="changeSort(this)" id="items_mined" class="sortButton">&#9660;</button></th>
-          <th>Dropped<button onclick="changeSort(this)" id="items_dropped" class="sortButton">&#9660;</button></th>
-          <th>Picked up <button onclick="changeSort(this)" id="items_pickedUp" class="sortButton">&#9660;</button></th>
-          <th>Crafted <button onclick="changeSort(this)" id="items_crafted" class="sortButton">&#9660;</button></th>
+          <th>Name <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, true)" id="items_name" class="sortButton">&#9650;</button></th>
+          <th>Used<button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, false)" id="items_mined" class="sortButton">&#9650;</button></th>
+          <th>Dropped<button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 2, false)" id="items_dropped" class="sortButton">&#9650;</button></th>
+          <th>Picked up <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 3, false)" id="items_pickedUp" class="sortButton">&#9650;</button></th>
+          <th>Crafted <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 4, false)" id="items_crafted" class="sortButton">&#9650;</button></th>
       `;
         } else if (action == "armor") {
           htmlString += `
-          <th>Name <button onclick="changeSort(this)" id="armor_name" class="sortButton">&#9660;</button></th>
-          <th>Used <button onclick="changeSort(this)" id="armor_used" class="sortButton">&#9660;</button></th>
-          <th>Broken <button onclick="changeSort(this)" id="armor_broken" class="sortButton">&#9660;</button></th>
-          <th>Dropped <button onclick="changeSort(this)" id="armor_dropped" class="sortButton">&#9660;</button></th>
-          <th>Picked up <button onclick="changeSort(this)" id="armor_pickedUp" class="sortButton">&#9660;</button></th>                    
-          <th>Crafted <button onclick="changeSort(this)" id="armor_crafted" class="sortButton">&#9660;</button></th>
+          <th>Name <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, true)" id="armor_name" class="sortButton">&#9650;</button></th>
+          <th>Used <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, false)" id="armor_used" class="sortButton">&#9650;</button></th>
+          <th>Broken <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 2, false)" id="armor_broken" class="sortButton">&#9650;</button></th>
+          <th>Dropped <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 3, false)" id="armor_dropped" class="sortButton">&#9650;</button></th>
+          <th>Picked up <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 4, false)" id="armor_pickedUp" class="sortButton">&#9650;</button></th>                    
+          <th>Crafted <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 5, false)" id="armor_crafted" class="sortButton">&#9650;</button></th>
       `;
         } else if (action == "tools") {
           htmlString += `
-          <th>Name <button onclick="changeSort(this)" id="tools_name" class="sortButton">&#9660;</button></th>
-          <th>Used <button onclick="changeSort(this)" id="tools_used" class="sortButton">&#9660;</button></th>
-          <th>Broken <button onclick="changeSort(this)" id="tools_broken" class="sortButton">&#9660;</button></th>
-          <th>Dropped <button onclick="changeSort(this)" id="tools_dropped" class="sortButton">&#9660;</button></th>
-          <th>Picked up <button onclick="changeSort(this)" id="tools_pickedUp" class="sortButton">&#9660;</button></th>
-          <th>Crafted <button onclick="changeSort(this)" id="tools_crafted" class="sortButton">&#9660;</button></th>
+          <th>Name <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, true)" id="tools_name" class="sortButton">&#9650;</button></th>
+          <th>Used <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, false)" id="tools_used" class="sortButton">&#9650;</button></th>
+          <th>Broken <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 2, false)" id="tools_broken" class="sortButton">&#9650;</button></th>
+          <th>Dropped <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 3, false)" id="tools_dropped" class="sortButton">&#9650;</button></th>
+          <th>Picked up <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 4, false)" id="tools_pickedUp" class="sortButton">&#9650;</button></th>
+          <th>Crafted <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 5, false)" id="tools_crafted" class="sortButton">&#9650;</button></th>
       `;
         } else if (action == "mobs") {
           htmlString += `
-          <th>Name <button onclick="changeSort(this)" id="mobs_name" class="sortButton">&#9660;</button></th>
-          <th>Killed <button onclick="changeSort(this)" id="mobs_killed" class="sortButton">&#9660;</button></th>
-          <th>Killed By <button onclick="changeSort(this)" id="mobs_killedBy" class="sortButton">&#9660;</button></th>`;
+          <th>Name <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, true)" id="mobs_name" class="sortButton">&#9650;</button></th>
+          <th>Killed <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 1, false)" id="mobs_killed" class="sortButton">&#9650;</button></th>
+          <th>Killed By <button onclick="doTabAction(this.id.split('_')[0], this.id, '${html_insert_sort_state}', 2, false)" id="mobs_killedBy" class="sortButton">&#9650;</button></th>`;
         }
         htmlString += `</tr>
       </thead>
@@ -590,7 +612,7 @@
         }
         uniqueItemNames = Array.from(uniqueItemNames);
 
-        let master_data = [];
+        master_data = [];
         let sub_array_count = Object.keys(stats_array[action]).length;
 
         // Iterate over each unique item name
@@ -609,31 +631,50 @@
 
           master_data.push(row);
         });
+
+        // Example: Sort by the second column in descending order
+        // const columnIndexToSortBy = 1; // Column index to sort by (e.g., 1 for the first subcategory)
+        // const sortOrder = "asc"; // Sort order ('asc' or 'desc')
+        // const sortByName = false; // Whether to sort by the name column
+
+        // Sort master_data
+        sortOrder = ((sort_state == "sort-state-0") ? "asc" : "desc")
+        
+        sortMasterData(master_data, columnIndexToSortBy, sortOrder, sortByName);
+
         console.info(master_data);
 
-        // Make html from master_data
-        console.debug("--");
-        for (var i = 0; i < master_data.length; i++) {
+        // Generate HTML from master_data
+        for (let i = 0; i < master_data.length; i++) {
           htmlString += "<tr>";
-            htmlString += `<td class="firstColumn"><i class="icon-minecraft icon-minecraft-${master_data[i][0]
+          htmlString += `<td class="firstColumn"><i class="icon-minecraft icon-minecraft-${master_data[
+            i
+          ][0]
             .replaceAll("_", "-")
             .replace("minecraft:", "")}"></i>  ${transformToTitleCase(
-              master_data[i][0]
-          )}</td>
-          `;
-          for (var j = 1; j < master_data[i].length; j++) {
+            master_data[i][0]
+          )}</td>`;
+          for (let j = 1; j < master_data[i].length; j++) {
             htmlString += "<td>" + master_data[i][j] + "</td>";
           }
           htmlString += "</tr>";
         }
         htmlString += `</tr>
-      </tbody>
-      </table>`;
-      document.getElementById("staticsContentDiv").innerHTML = htmlString;
+</tbody>
+</table>`;
+
+        document.getElementById("staticsContentDiv").innerHTML = htmlString;
+        document.getElementById(current_sort).classList.add("current-sort");
+        document.getElementById(current_sort).classList.add(sort_state);
+        if (sort_state == "sort-state-0") {
+          document.getElementById(current_sort).innerHTML = "&#9650;";
+        } else {
+          document.getElementById(current_sort).innerHTML = "&#9660";
+        }
       }
       function transformToTitleCase(inputString) {
-        if (typeof inputString != typeof("")) {
-          return inputString
+        if (typeof inputString != typeof "") {
+          return inputString;
         }
         const words = inputString.replaceAll("minecraft:", "").split("_");
         const capitalizedWords = words.map(
@@ -651,7 +692,7 @@
           console.log("banned");
           document.getElementById("banned-banner").classList.add("active");
         }
-        doTabAction("blocks", "blocks_name", "sort-state-0");
+        doTabAction("blocks", "blocks_name", "sort-state-0",1, true);
       };
     </script>
 
