@@ -12,7 +12,7 @@ def get_logger(name=None, log_level=logging.INFO, log_file='logs.log'):
     """
     log_file = "logs/" + log_file
     logger_var = logging.getLogger(name)
-    logger_var.setLevel(logging.DEBUG)  # Set to DEBUG to ensure the file handler always captures all levels
+    logger_var.setLevel(logging.INFO)  
 
     if not logger_var.handlers:
         formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s', '%m-%d-%Y %H:%M:%S')
