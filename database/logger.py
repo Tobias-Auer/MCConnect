@@ -1,13 +1,16 @@
 import logging
 import sys
+from logging.handlers import RotatingFileHandler
 
-def get_logger(name=None, log_level=logging.INFO, log_file='logs.log'):
+def get_logger(name=None, log_level=logging.INFO, log_file='logs.log', max_bytes=1000*1024, backup_count=5):
     """
     Configure and return a logger instance.
     
     :param name: Name of the logger. Use None for the root logger.
     :param log_level: Logging level for the console output. Default is logging.INFO.
     :param log_file: File path for the log file. Default is 'logs.log'.
+    :param max_bytes: Maximum file size in bytes before rotating. Default is 500 KB for approximately 5000 lines.
+    :param backup_count: Number of backup files to keep. Default is 5.
     :return: Configured logger instance.
     """
     log_file = "logs/" + log_file
@@ -22,8 +25,7 @@ def get_logger(name=None, log_level=logging.INFO, log_file='logs.log'):
         stdout_handler.setLevel(log_level)
         stdout_handler.setFormatter(formatter)
 
-        # File handler with always DEBUG level
-        file_handler = logging.FileHandler(log_file)
+        file_handler = RotatingFileHandler(log_file, maxBytes=max_bytes, backupCount=backup_count)
         file_handler.setLevel(logging.DEBUG)
         file_handler.setFormatter(formatter)
 
