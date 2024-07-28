@@ -3,8 +3,6 @@ from datetime import datetime, timedelta
 import html
 import json
 import re
-import time
-import uuid
 import secrets
 import string
 
@@ -400,6 +398,25 @@ class DatabaseManager:
             self.conn.rollback()
             self.conn.rollback()
             return False
+    
+    def update_player_status_from_player_uuid_and_server_id(self, player_uuid, server_id, status):
+        logger.debug("update_player_status_from_player_uuid_and_server_id is called")
+        query = """ UPDATE player_server_info
+                    SET online = %s
+                    WHERE player_uuid = %s AND server_id = %s;"""
+        data = (True if status=="online" else False, player_uuid, server_id)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            logger.info(f'Updated player status for player: "{player_uuid}" on server: "{server_id}" to: "{status}"')
+        except Exception as e:
+            logger.error(f'Failed to update player status for player: "{player_uuid}" on server: "{server_id}". Error: {e}')
+            self.conn.rollback()
+            return False
+        return True
+    
     ################################ DELETE FUNCTIONS #################################
     def drop_db(self):
         """
@@ -1108,6 +1125,23 @@ class DatabaseManager:
             logger.error(f"Error in getting_all_custom_stats: {e}")
             return None
     
+    
+    def get_server_id_by_auth_key(self, auth_key):
+        logger.debug(f"get_server_id_by_auth_key is called with auth_key: {auth_key}")
+        query = """ SELECT id FROM server WHERE server_key = %s; """
+        data = (auth_key,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            logger.debug(f"Found server_id: {result[0]} for auth_key: {auth_key}")
+            return result[0] if result else None
+        except Exception as e:
+            self.conn.rollback()
+            logger.error(f"Error in get_server_id_by_auth_key: {e}")
+            return None
     ################################ helper functions ################################
     
     def split_items_from_json(self, items):
@@ -1252,6 +1286,8 @@ class DatabaseManager:
 
         return ' '.join(time_parts)  
 
+    
+    
         
 if __name__ == "__main__":
     server_description_long = """
