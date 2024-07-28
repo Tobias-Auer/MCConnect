@@ -1,0 +1,7 @@
+name: MCDataLink
+version: '1.0-SNAPSHOT'
+main: org.tobias.mcdatalink.MCDataLink
+api-version: '1.17'
+authors: [Tobias Auer]
+description: Connects to the server to provide the in-game stats
+website: www.t-auer.com
