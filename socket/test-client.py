@@ -4,7 +4,7 @@ import time
 
 HEADER = 64
 PORT = 9991
-SERVER = socket.gethostbyname(socket.gethostname())
+SERVER = "t-auer.com"
 ADDR = (SERVER, PORT)
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -14,6 +14,7 @@ def send_msg(msg):
     msg_len = len(message)
     send_len = str(msg_len).encode('utf-8')
     send_len += b' ' * (HEADER - len(send_len))
+    #print(send_len)
     client.send(send_len)
     client.send(message)
 
@@ -28,7 +29,7 @@ def receive_msg():
 
                 if data == "!heartbeat":
                     send_msg("!beat")
-                    print("sent heartbeat")
+                    #print("sent heartbeat")
         except Exception as e:
             print(f"[ERROR] {e}")
             break

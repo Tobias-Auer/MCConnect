@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Client extends Thread {
     private static final int HEADER = 64;
     private static final int PORT = 9991;
-    private static final String server = "127.0.1.1";
+    private static final String server = "t-auer.com";
     private static Socket socket;
     private static PrintWriter pr;
 

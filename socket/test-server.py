@@ -5,7 +5,7 @@ import time
 
 HEADER = 64
 PORT = 9991
-SERVER = socket.gethostbyname(socket.gethostname())
+SERVER = "0.0.0.0"
 ADDR = (SERVER, PORT)
 DISCONNECT_MESSAGE = "!DISCONNECT"
 
