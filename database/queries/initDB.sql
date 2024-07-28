@@ -29,6 +29,7 @@ CREATE TABLE public."server"(
   server_description_short text NOT NULL,
   server_description_long text NOT NULL,
   server_name text NOT NULL,
+  server_key CHAR(64) NOT NULL,
   CONSTRAINT server_key UNIQUE(subdomain),
   CONSTRAINT server_pkey PRIMARY KEY(id)
 );

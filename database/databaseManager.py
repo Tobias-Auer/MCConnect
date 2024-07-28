@@ -5,6 +5,8 @@ import json
 import re
 import time
 import uuid
+import secrets
+import string
 
 import psycopg2
 
@@ -18,6 +20,11 @@ minecraft = Minecraft()
 def read_sql_file(filepath):
     with open(filepath, "r") as file:
         return file.read()
+
+def generate_secure_token(length=64):
+    characters = string.ascii_letters + string.digits
+    return ''.join(secrets.choice(characters) for _ in range(length))
+
 
 
 class DatabaseManager:
@@ -70,7 +77,7 @@ class DatabaseManager:
             return False
         return True
 
-    def init_new_server(self, subdomain, license_type, server_description_short, server_description_long, server_name, discord_url=None, owner_name=None, mc_server_domain=None):
+    def init_new_server(self, subdomain, license_type, server_description_short, server_description_long, server_name, server_key, discord_url=None, owner_name=None, mc_server_domain=None):
             """
             Registers a new server in the database.
 
@@ -87,11 +94,11 @@ class DatabaseManager:
             """
             logger.debug("register_new_server is called")
             query = """
-                INSERT INTO server (subdomain, license_type, server_description_short, server_description_long, discord_url, owner_name, mc_server_domain, server_name)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO server (subdomain, license_type, server_key, server_description_short, server_description_long, discord_url, owner_name, mc_server_domain, server_name)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """
             logger.debug(f"executing SQL query: {query}")
-            data = (subdomain, license_type, html.escape(server_description_short), html.escape(server_description_long).replace("\n", "<br>"), discord_url, owner_name, mc_server_domain, server_name)
+            data = (subdomain, license_type, server_key, html.escape(server_description_short), html.escape(server_description_long).replace("\n", "<br>"), discord_url, owner_name, mc_server_domain, server_name)
             logger.debug(f"with follwing data: {data}")
             try:
                 self.cursor.execute(query, data)
@@ -1266,15 +1273,8 @@ if __name__ == "__main__":
                                discord_url="https://www.discord.gg/vJYNnsQwf8", 
                                server_description_short=server_description_short, 
                                server_description_long=server_description_long,
-                               server_name="Tobi's Mc-Server")
-    # db_manager.init_new_server(subdomain="tobias2", 
-    #                            license_type=2,
-    #                            owner_name="Tobias Auer2", 
-    #                            mc_server_domain="mc2.t-auer.com", 
-    #                            discord_url="https://www.discord.gg/vJYNnsQwf8", 
-    #                            server_description_short=server_description_short, 
-    #                            server_description_long=server_description_long,
-    #                            server_name="Tobi's Mc-Server")
+                               server_name="Tobi's Mc-Server",
+                               server_key=generate_secure_token())
     
     my_server_id = db_manager.get_server_id_from_subdomain("tobias")
     # my_other_server_id = db_manager.get_server_id_from_subdomain("tobias2")
@@ -1325,7 +1325,7 @@ if __name__ == "__main__":
     with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
         db_manager.update_player_stats(my_id,f.read())
     
-    print(db_manager.get_all_armor_stats(my_id))
+    db_manager.get_all_armor_stats(my_id)
             
     db_manager.get_web_access_permission_from_player_id(my_id)
     db_manager.conn.close()
