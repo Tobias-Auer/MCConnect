@@ -10,7 +10,7 @@ In addition, the website will support multiple Minecraft servers.
 
 Anyone will be able to add their own Minecraft server to this server with a simple, lightweight minecraft plugin.
 
-Legal stuff: 
+Legal information: 
 
 1. The source code of this software is available for viewing, but no part of this software may be copied, modified, distributed, or used for any commercial purposes without explicit permission from the author.
 
