@@ -64,7 +64,7 @@ public final class MCDataLink extends JavaPlugin {
                         String message = new String(messageBuffer, 0, bytesRead, StandardCharsets.UTF_8);
                         System.out.println("Received message: " + message);
                         if (message.equals("!heartbeat")) {
-                            sendMsg("!beat", pr);
+                            sendMsg("!BEAT", pr);
                         }
                     }
                 } catch (IOException e) {
