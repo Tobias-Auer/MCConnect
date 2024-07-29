@@ -37,6 +37,7 @@ Error codes:
 005: Invalid request
 
 Success codes:
+100: Auth successful
 101: updated player status successfully
 """
 
@@ -85,15 +86,16 @@ def handle_client_connection(conn, addr):
                     
                     if data == "!BEAT":
                         heartbeat_received_time = time.time()
-                        unauthorized_beat_count +=1 if not server else ...
+                        unauthorized_beat_count +=1 if not server_id else 0
                         continue
-                    elif not server:
+                    elif not server_id:
                         if "!AUTH:" in data:
                             _, value = data.split(":")
                             server = db_manager.get_server_id_by_auth_key(value)
                             if server:
                                 server_id = server
                                 logger.info(f"{addr} connected to server {server_id}")
+                                send_msg("success|100", conn)
                                 continue
                             send_msg("error|001", conn)
                             continue
@@ -117,10 +119,10 @@ def handle_client_connection(conn, addr):
             if current_time - heartbeat_received_time > 7:
                 logger.info(f"{addr} has not sent heartbeat within 7 seconds. Disconnecting...")
                 connected = False
+                send_msg("critical|000",conn)
         except Exception as e:
             logger.error(f"Error occured with client {addr}. Error: {e}")
-            
-    send_msg("critical|000",conn)
+   
     conn.close()
     logger.info(f"{addr} disconnected.")
 

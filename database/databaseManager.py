@@ -1136,8 +1136,9 @@ class DatabaseManager:
         try:
             self.cursor.execute(query, data)
             result = self.cursor.fetchone()
-            logger.debug(f"Found server_id: {result[0]} for auth_key: {auth_key}")
-            return result[0] if result else None
+            result = result[0] if result else None
+            logger.debug(f"Found server_id: {result} for auth_key: {auth_key}")
+            return result
         except Exception as e:
             self.conn.rollback()
             logger.error(f"Error in get_server_id_by_auth_key: {e}")
