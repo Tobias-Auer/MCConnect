@@ -51,7 +51,11 @@ def send_msg(msg, client):
     client.send(message)
 
 def execute_command(data, conn, addr, server_id):
-    command, value = data.split(":")
+    try:
+        command, value = data.split(":")
+    except ValueError:
+        send_msg("error|005", conn)
+        return
     if command == "!JOIN":
         if db_manager.update_player_status_from_player_uuid_and_server_id(value, server_id, "online"):
             send_msg("success|101", conn)
@@ -83,10 +87,9 @@ def handle_client_connection(conn, addr):
                     data_len = int(data_len)
                     data = conn.recv(data_len).decode('utf-8')
                     
-                    
                     if data == "!BEAT":
                         heartbeat_received_time = time.time()
-                        unauthorized_beat_count +=1 if not server_id else 0
+                        unauthorized_beat_count += 1 if not server_id else 0
                         continue
                     elif not server_id:
                         if "!AUTH:" in data:
@@ -96,6 +99,7 @@ def handle_client_connection(conn, addr):
                                 server_id = server
                                 logger.info(f"{addr} connected to server {server_id}")
                                 send_msg("success|100", conn)
+                                retrieve_all_stats(server_id, conn)
                                 continue
                             send_msg("error|001", conn)
                             continue
@@ -111,7 +115,6 @@ def handle_client_connection(conn, addr):
                         send_msg("error|005", conn)
                     logger.debug(f"[{addr}] {data}")
                     
-            
             current_time = time.time()
             if current_time - heartbeat_send_time > 5:
                 send_msg("!heartbeat", conn)
@@ -119,10 +122,12 @@ def handle_client_connection(conn, addr):
             if current_time - heartbeat_received_time > 7:
                 logger.info(f"{addr} has not sent heartbeat within 7 seconds. Disconnecting...")
                 connected = False
-                send_msg("critical|000",conn)
+        except BrokenPipeError:
+            logger.error(f"{addr} got a broken pipe error! Disconnecting...")
+            connected = False
         except Exception as e:
             logger.error(f"Error occured with client {addr}. Error: {e}")
-   
+
     conn.close()
     logger.info(f"{addr} disconnected.")
 

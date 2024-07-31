@@ -2,6 +2,9 @@ package org.tobias.mcdatalink;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -13,6 +16,9 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
@@ -27,60 +33,65 @@ public final class MCDataLink extends JavaPlugin {
     public static PrintWriter pr;
     private static Socket socket;
     private static boolean keepConnected = true;
-    private boolean authComplete = false;
     private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+    private boolean authComplete = false;
+    private Gson gson;
 
     @Override
     public void onEnable() {
         getLogger().info("MCConnect has been enabled");
         saveDefaultConfig();
-        try {
-            socket = new Socket(server, PORT);
-            pr = new PrintWriter(socket.getOutputStream());
-        } catch (IOException e) {
-            getLogger().severe("ERROR: " + e);
-            disablePlugin();
-        }
+        connectToServer();
 
         CompletableFuture<Void> authFuture = startAuth();
-        checkConnection();
+        String key = getConfig().getString("key", "<enter key here>");
+        if (key.contains("<")) {
+            getLogger().severe("No license key provided to connect to the server. Please update the config.yml file. Or visit https://mc.t-auer.com. Restart the server when you have entered the license key.");
+            disablePlugin();
+        }
 
         authFuture.thenRun(() -> {
             getLogger().info("Authentication complete.");
             startSocketListener();
             getServer().getPluginManager().registerEvents(new JoinListener(this), this);
 
-            // ...
-
         }).exceptionally(throwable -> {
             getLogger().severe("Authentication failed: " + throwable.getMessage());
             disablePlugin();
             return null;
         });
-
-
-
-
-
-
-
     }
+
+    private void connectToServer() {
+        while (keepConnected) {
+            try {
+                socket = new Socket(server, PORT);
+                socket.setReuseAddress(true);
+                pr = new PrintWriter(socket.getOutputStream());
+                getLogger().info("Connected to the server.");
+                break;
+            } catch (IOException e) {
+                getLogger().severe("Connection failed, retrying in 5 seconds: " + e.getMessage());
+                try {
+                    Thread.sleep(5000); // Retry interval
+                } catch (InterruptedException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }
+    }
+
 
     private void disablePlugin() {
         keepConnected = false;
-        getLogger().severe("MCConnect shuts down! \n\nThis is because of an issue with the server connection.\nPlease ensure that you have a valid license key and that your server can connect to the following server: " + server);
-        this.getServer().getPluginManager().disablePlugin(this);
-        while (true) {} // waits for the plugin to be completely disabled
-    }
+        Bukkit.getScheduler().runTask(this, () -> {
+            // Actual code to disable the plugin
+            Bukkit.getPluginManager().disablePlugin(this);
+            getLogger().severe("MCConnect shuts down! \n\nThis is because of an issue with the server connection.\nRead the logs above to find out what went wrong. Ensure that your server can connect to: " + server);
+            while (true) {}
+        });
 
-    private void checkConnection() {
-        String key = getConfig().getString("key", "<enter key here>");
-        if (key.equals("<enter key here>")) {
-            getLogger().severe("No license key provided to connect to the server. Please update the config.yml file. Or visit https://mc.t-auer.com. Restart the server when you have entered the license key.");
-            disablePlugin();
-        }
-        getLogger().info("Authenticating on the MCConnect server...");
-        sendMsg("!AUTH:" + key, pr);
+         // waits for the plugin to be completely disabled
     }
 
     private void startSocketListener() {
@@ -91,59 +102,90 @@ public final class MCDataLink extends JavaPlugin {
                 try {
                     InputStream input = socket.getInputStream();
                     byte[] headerBuffer = new byte[HEADER];
-
+                    long lastHeartbeat = System.currentTimeMillis();
                     while (keepConnected) {
-                        getLogger().info("..");
-                        // Read the message length header
-                        int bytesRead = input.read(headerBuffer);
-                        if (bytesRead == -1) {
-                            break; // End of stream
+                        if ((System.currentTimeMillis() - lastHeartbeat) >= 7000) {
+                            getLogger().info("HOST IS DOWN!! Attempting to reconnect...");
+                            reconnect();
+                            return;
                         }
 
-                        String headerStr = new String(headerBuffer, 0, bytesRead, StandardCharsets.UTF_8).trim();
-                        int messageLength = Integer.parseInt(headerStr);
-                        byte[] messageBuffer = new byte[messageLength];
-                        bytesRead = input.read(messageBuffer);
-                        if (bytesRead == -1) {
-                            break;
-                        }
-
-                        String message = new String(messageBuffer, 0, bytesRead, StandardCharsets.UTF_8);
-                        System.out.println("Received message: " + message);
-                        if (message.equals("!heartbeat")) {
-                            sendMsg("!BEAT", pr);
-                        } else if (message.contains("|")) {
-                            String[] parts = message.split("\\|");
-                            String status_code = parts[1];
-                            if (status_code.equals("100")) {
-                                authComplete = true;
+                        if (input.available() > 0) {
+                            int bytesRead = input.read(headerBuffer);
+                            if (bytesRead == -1) {
+                                throw new IOException("Connection closed by server");
                             }
 
-                            else if (status_code.equals("000")) {
-                                getLogger().severe("Critical error... Disconnecting...\nTo reconnect restart the server or the plugin\nStatus Code: 000");
-                                keepConnected = false;
-                                disablePlugin();
-                            } else if (status_code.equals("001") || status_code.equals("002")) {
-                                getLogger().severe("License key error: Please check your license key and restart the server or the plugin!\nStatus code:" + status_code);
-                                keepConnected = false;
-                                disablePlugin();
+                            String headerStr = new String(headerBuffer, 0, bytesRead, StandardCharsets.UTF_8).trim();
+                            int messageLength = Integer.parseInt(headerStr);
+                            byte[] messageBuffer = new byte[messageLength];
+                            bytesRead = input.read(messageBuffer);
+                            if (bytesRead == -1) {
+                                throw new IOException("Connection closed by server");
+                            }
+
+                            String message = new String(messageBuffer, 0, bytesRead, StandardCharsets.UTF_8);
+                            if (message.equals("!heartbeat")) {
+                                sendMsg("!BEAT", pr);
+                                lastHeartbeat = System.currentTimeMillis();
+                            } else if (message.contains("|")) {
+                                String[] parts = message.split("\\|");
+                                String status_code = parts[1];
+                                switch (status_code) {
+                                    case "100":
+                                        authComplete = true;
+                                        break;
+                                    case "000":
+                                        getLogger().severe("Critical error... Disconnecting...");
+                                        keepConnected = false;
+                                        disablePlugin();
+                                        return;
+                                    case "001":
+                                    case "002":
+                                        getLogger().severe("License key error: Please check your license key and restart the server or the plugin!");
+                                        keepConnected = false;
+                                        disablePlugin();
+                                        return;
+                                }
+                            } else if (message.contains("!")) {
+                                String[] parts = message.split(":");
+                                String command = parts[0];
+                                switch (command) {
+                                    case "!sendAllPlayerStats":
+                                        sendAllPlayerStats();
+                                        break;
+                                    case "!sendPlayerStats":
+                                        String value = parts[1];
+                                        sendPlayerStats(UUID.fromString(value));
+                                    break;
+                                }
                             }
                         }
+                        Thread.sleep(500);
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        socket.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } catch (IOException | InterruptedException e) {
+                    getLogger().severe("Connection lost: " + e.getMessage());
+                    reconnect();
                 }
             }
         }.runTaskAsynchronously(this);
     }
 
+
+    private void reconnect() {
+        keepConnected = true; // Attempt to keep reconnecting
+        connectToServer();
+        CompletableFuture<Void> authFuture = startAuth();
+        authFuture.thenRun(this::startSocketListener).exceptionally(throwable -> {
+            getLogger().severe("Re-authentication failed: " + throwable.getMessage());
+            disablePlugin();
+            return null;
+        });
+    }
     private CompletableFuture<Void> startAuth() {
+        getLogger().info("Authenticating on the MCConnect server...");
+        String key = getConfig().getString("key");
+        sendMsg("!AUTH:" + key, pr);
         CompletableFuture<Void> future = new CompletableFuture<>();
 
         // Schedule timeout task to complete the future with an exception if not completed in time
@@ -190,6 +232,7 @@ public final class MCDataLink extends JavaPlugin {
                         }
                     }
                 } catch (IOException e) {
+                    Arrays.asList(Thread.currentThread().getStackTrace()).forEach(System.out::println);
                     future.completeExceptionally(new RuntimeException("IOException in socket listener", e));
                 }
             }
@@ -232,7 +275,8 @@ public final class MCDataLink extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getLogger().info("MCConnect has been successfully disabled");
+        keepConnected = false; // Stop any reconnection attempts
+        executorService.shutdownNow(); // Stop the executor service
         if (socket != null && !socket.isClosed()) {
             try {
                 socket.close();
@@ -240,6 +284,7 @@ public final class MCDataLink extends JavaPlugin {
                 getLogger().severe("Error closing socket: " + e.getMessage());
             }
         }
+        getLogger().info("MCConnect has been successfully disabled");
     }
 }
 
