@@ -171,6 +171,36 @@ public final class MCDataLink extends JavaPlugin {
         }.runTaskAsynchronously(this);
     }
 
+    private void sendAllPlayerStats() {
+        Set<UUID> allUUIDs = new HashSet<>();
+
+        // Get UUIDs of online players
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            allUUIDs.add(player.getUniqueId());
+        }
+
+        // Get UUIDs of offline players
+        for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+            allUUIDs.add(offlinePlayer.getUniqueId());
+        }
+
+        // Process each UUID
+        for (UUID uuid : allUUIDs) sendPlayerStats(uuid);
+    }
+
+    private void sendPlayerStats(UUID uuid) {
+        gson = new Gson();
+        // Read player stats
+        JsonObject playerStats = readPlayerStats(uuid);
+        if (playerStats != null) {
+            getLogger().info(playerStats.toString());
+            String jsonData = gson.toJson(playerStats);
+            String msg = "!STATS:" + uuid + "|" + jsonData;
+            getLogger().info("Sending stats from " + uuid + " to the server");
+            sendMsg(msg,pr);
+        }
+
+    }
 
     private void reconnect() {
         keepConnected = true; // Attempt to keep reconnecting

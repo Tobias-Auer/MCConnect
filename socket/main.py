@@ -66,8 +66,20 @@ def execute_command(data, conn, addr, server_id):
             send_msg("success|101", conn)
         else:
             send_msg("error|003", conn)
+    elif command == "!STATS":
+        try:
+            uuid, stats = value.split("|")
+        except ValueError:
+            send_msg("error|005", conn)
+            return
+        print(f"Following stats are provided for uuid: {uuid}:\n\n{stats}\n\n")
     else:
         send_msg("error|004", conn)
+
+
+def retrieve_all_stats(server_id, conn):
+    send_msg("!sendAllPlayerStats", conn)
+    
 
 def handle_client_connection(conn, addr):
     logger.info(f"{addr} connected to the socket.")
