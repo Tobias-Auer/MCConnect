@@ -5,6 +5,7 @@ import json
 import re
 import secrets
 import string
+import traceback
 
 import psycopg2
 
@@ -951,7 +952,7 @@ class DatabaseManager:
         Returns:
         value (str): The value associated with the unique object. If the object is not found, it returns None.
         """
-        logger.debug(f"getting_value_from_unique_object_from_action_table is called with object: {object}")
+        logger.debug(f"get_value_from_unique_object_from_action_table_with_player_id is called with object: {object}")
         query = """SELECT value FROM actions WHERE object = %s and player_id = %s"""
         data = (object,player_id)
         logger.debug(f"executing SQL query: {query}")
@@ -959,11 +960,12 @@ class DatabaseManager:
         try:
             self.cursor.execute(query, data)
             result = self.cursor.fetchone()
-            logger.debug(f"Found value: {result[0]} for object: {object}")
-            return result[0] if result else None
+            result = result[0] if result else None
+            logger.debug(f"Found value: {result} for object: {object}")
+            return result
         except Exception as e:
             self.conn.rollback()
-            logger.error(f"Error in getting_value_from_unique_object_from_action_table: {e}")
+            logger.error(f"Error in get_value_from_unique_object_from_action_table_with_player_id: {e}\n{traceback.format_exc()}")
             return None
     
     def get_all_armor_stats(self, player_id):
