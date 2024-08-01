@@ -17,12 +17,12 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         getLogger().info("onPlayerJoin");
-        plugin.sendMsg("!JOIN:" + event.getPlayer().getUniqueId(), MCDataLink.pr);
+        plugin.sendMsg("!JOIN~" + event.getPlayer().getUniqueId(), MCDataLink.pr);
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         getLogger().info("onPlayerQuit");
-        plugin.sendMsg("!QUIT:" + event.getPlayer().getUniqueId(), MCDataLink.pr);
+        plugin.sendMsg("!QUIT~" + event.getPlayer().getUniqueId(), MCDataLink.pr);
     }
 }

@@ -2,7 +2,7 @@ import logging
 import sys
 from logging.handlers import RotatingFileHandler
 
-def get_logger(name=None, log_level=logging.INFO, log_file='logs.log', max_bytes=1000*1024, backup_count=5):
+def get_logger(name=None, log_level=logging.DEBUG, log_file='logs.log', max_bytes=1000*1024, backup_count=5):
     """
     Configure and return a logger instance.
     
@@ -15,7 +15,7 @@ def get_logger(name=None, log_level=logging.INFO, log_file='logs.log', max_bytes
     """
     log_file = "logs/" + log_file
     logger_var = logging.getLogger(name)
-    logger_var.setLevel(logging.INFO)  
+    logger_var.setLevel(logging.DEBUG)  
 
     if not logger_var.handlers:
         formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s', '%m-%d-%Y %H:%M:%S')

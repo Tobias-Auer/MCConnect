@@ -38,7 +38,6 @@ def inject_loginVar():
     
     uuid = session.get('uuid')
     player_id = session.get('id')
-    # uuid = "4ebe5f6f-c231-4315-9d60-097c48cc6d30"
     loginVar = "<a href=\"/login\" id=loginLink>Login</a>"
     permission_level = 99
     name = ""

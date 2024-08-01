@@ -114,7 +114,7 @@ class DatabaseManager:
     def init_player_server_info_table(self, server_id, player_uuid):
         logger.debug("init_player_server_info_table is called")
         web_access_permissions = self.LOWEST_WEB_ACCESS_LEVEL
-        query = "INSERT INTO player_server_info (id, server_id, player_uuid, online, first_seen, last_seen, web_access_permissions) VALUES (uuid_generate_v4(), %s, %s, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, %s)"
+        query = "INSERT INTO player_server_info (id, server_id, player_uuid, online, first_seen, last_seen, web_access_permissions) VALUES (uuid_generate_v4(), %s, %s, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, %s)"
         logger.debug(f"executing SQL query: {query}")
         data = (server_id, player_uuid, web_access_permissions)
         logger.debug(f"with following data: {data}")
@@ -274,6 +274,12 @@ class DatabaseManager:
             self.conn.rollback()
             return False
         return True
+    
+    def init_new_player(self, player_uuid, server_id):
+        self.add_new_player(player_uuid)
+        self.init_player_server_info_table(server_id, player_uuid)
+        return self.get_player_id_from_player_uuid_and_server_id(player_uuid, server_id)
+        
     ################################ UPDATE FUNCTIONS #################################
     def update_prefix(self, player_id, prefix=None, password=None):
         logger.debug("update_prefix is called")
@@ -368,7 +374,7 @@ class DatabaseManager:
         return True
 
     def update_player_stats(self, player_id, stats):
-        logger.debug("update_player_stats is called")
+        logger.info("update_player_stats is called")
         items = self.split_items_from_json(stats)
         query = """ INSERT INTO actions (player_id, object, category, value)
                     VALUES (%s, %s, %s, %s)
@@ -399,8 +405,8 @@ class DatabaseManager:
             self.conn.rollback()
             return False
     
-    def update_player_status_from_player_uuid_and_server_id(self, player_uuid, server_id, status):
-        logger.debug("update_player_status_from_player_uuid_and_server_id is called")
+    def update_player_status_from_player_uuid_and_server_id(self, player_uuid, server_id, status, exceptionCounter=0):
+        logger.info("update_player_status_from_player_uuid_and_server_id is called")
         query = """ UPDATE player_server_info
                     SET online = %s
                     WHERE player_uuid = %s AND server_id = %s;"""
@@ -411,10 +417,15 @@ class DatabaseManager:
             self.cursor.execute(query, data)
             self.conn.commit()
             logger.info(f'Updated player status for player: "{player_uuid}" on server: "{server_id}" to: "{status}"')
+            if self.cursor.rowcount == 0:
+                self.init_new_player(player_uuid, server_id)
+                self.update_player_status_from_player_uuid_and_server_id(player_uuid,server_id,status, exceptionCounter=1)
         except Exception as e:
-            logger.error(f'Failed to update player status for player: "{player_uuid}" on server: "{server_id}". Error: {e}')
             self.conn.rollback()
+            logger.error(f'Failed to update player status for player: "{player_uuid}" on server: "{server_id}". Error: {e}')
             return False
+         
+            
         return True
     
     ################################ DELETE FUNCTIONS #################################
@@ -502,7 +513,7 @@ class DatabaseManager:
         return tables
 
     def get_player_id_from_player_uuid_and_server_id(self, player_uuid, server_id):
-        logger.debug("get_player_id_from_uuid_and_server_id is called")
+        logger.debug("get_player_id_from_player_uuid_and_server_id is called")
         query = "SELECT id FROM player_server_info WHERE player_uuid = %s AND server_id = %s"
         logger.debug(f"executing SQL query: {query}")
         data = (player_uuid, server_id)
@@ -1153,11 +1164,14 @@ class DatabaseManager:
         stats_categorys = ["minecraft:broken", "minecraft:mined","minecraft:dropped","minecraft:used","minecraft:killed","minecraft:crafted","minecraft:killed_by","minecraft:custom","minecraft:picked_up"]
         all_data = json.loads(items)["stats"]
         for category in stats_categorys:
-            data = all_data[category]
-            # if category == "minecraft:broken":
-            for item_name, item_data in data.items():
-                db_category = self.get_db_category_from_item_and_json_category(item_name, category)
-                return_list.append([item_name, db_category, item_data])
+            try:
+                data = all_data[category]
+                # if category == "minecraft:broken":
+                for item_name, item_data in data.items():
+                    db_category = self.get_db_category_from_item_and_json_category(item_name, category)
+                    return_list.append([item_name, db_category, item_data])
+            except KeyError:
+                continue
 
         return return_list
                     
@@ -1313,22 +1327,22 @@ if __name__ == "__main__":
                                server_name="Tobi's Mc-Server",
                                server_key=generate_secure_token())
     
-    my_server_id = db_manager.get_server_id_from_subdomain("tobias")
+    #my_server_id = db_manager.get_server_id_from_subdomain("tobias")
     # my_other_server_id = db_manager.get_server_id_from_subdomain("tobias2")
     
     
-    db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    #db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
     # db_manager.add_new_player("c96792ac-7aea-4f16-975e-535a20a2791a") #test player
     # db_manager.add_new_player("83f4a8ea-51f1-465d-9274-9a6b2e4ec64c")#test player
     # db_manager.add_new_player("25c6a3b7-94fa-45b4-8d9f-7041a35d97b3")#test player
 
-    db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    #db_manager.init_player_server_info_table(my_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")
     # db_manager.init_player_server_info_table(my_server_id, "c96792ac-7aea-4f16-975e-535a20a2791a")#test player
     # db_manager.init_player_server_info_table(my_server_id, "83f4a8ea-51f1-465d-9274-9a6b2e4ec64c")#test player
     # db_manager.init_player_server_info_table(my_other_server_id, "4ebe5f6f-c231-4315-9d60-097c48cc6d30")#test player
     # db_manager.init_player_server_info_table(my_other_server_id, "25c6a3b7-94fa-45b4-8d9f-7041a35d97b3")#test player
     
-    my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
+    #my_id = db_manager.get_player_id_from_player_uuid_and_server_id("4ebe5f6f-c231-4315-9d60-097c48cc6d30", my_server_id)
     # db_manager.init_prefix_table(my_id)
     # my_prefix_id = db_manager.get_prefix_id_from_player_id(my_id)
     # db_manager.join_prefix(my_id, my_prefix_id)
@@ -1355,16 +1369,16 @@ if __name__ == "__main__":
     #print(db_manager.get_login_attempt_validity_from_uuid_subdomain_and_pin("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias", 12345))
 
     #exit(db_manager.get_player_id_from_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias"))
-    logger.info(db_manager.get_all_uuids_from_subdomain("tobias"))
-    print(db_manager.get_online_player_count_from_subdomain("tobias"))
+    #logger.info(db_manager.get_all_uuids_from_subdomain("tobias"))
+    #print(db_manager.get_online_player_count_from_subdomain("tobias"))
 
-    db_manager.get_online_status_by_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias")
-    with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
-        db_manager.update_player_stats(my_id,f.read())
+    #db_manager.get_online_status_by_player_uuid_and_subdomain("4ebe5f6f-c231-4315-9d60-097c48cc6d30", "tobias")
+    #with open("sampleData/4ebe5f6f-c231-4315-9d60-097c48cc6d30.json", "r") as f:
+        #db_manager.update_player_stats(my_id,f.read())
     
-    db_manager.get_all_armor_stats(my_id)
+    #db_manager.get_all_armor_stats(my_id)
             
-    db_manager.get_web_access_permission_from_player_id(my_id)
+    #db_manager.get_web_access_permission_from_player_id(my_id)
     db_manager.conn.close()
 
 

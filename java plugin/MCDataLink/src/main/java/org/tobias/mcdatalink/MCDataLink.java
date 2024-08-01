@@ -148,7 +148,7 @@ public final class MCDataLink extends JavaPlugin {
                                         return;
                                 }
                             } else if (message.contains("!")) {
-                                String[] parts = message.split(":");
+                                String[] parts = message.split("~");
                                 String command = parts[0];
                                 switch (command) {
                                     case "!sendAllPlayerStats":
@@ -195,7 +195,7 @@ public final class MCDataLink extends JavaPlugin {
         if (playerStats != null) {
             getLogger().info(playerStats.toString());
             String jsonData = gson.toJson(playerStats);
-            String msg = "!STATS:" + uuid + "|" + jsonData;
+            String msg = "!STATS~" + uuid + "|" + jsonData;
             getLogger().info("Sending stats from " + uuid + " to the server");
             sendMsg(msg,pr);
         }
@@ -215,7 +215,7 @@ public final class MCDataLink extends JavaPlugin {
     private CompletableFuture<Void> startAuth() {
         getLogger().info("Authenticating on the MCConnect server...");
         String key = getConfig().getString("key");
-        sendMsg("!AUTH:" + key, pr);
+        sendMsg("!AUTH~" + key, pr);
         CompletableFuture<Void> future = new CompletableFuture<>();
 
         // Schedule timeout task to complete the future with an exception if not completed in time

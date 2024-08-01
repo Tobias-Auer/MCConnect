@@ -4,6 +4,7 @@ import socket
 import sys
 import threading
 import time
+import traceback
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database'))
 
 sys.path.insert(0, root_dir)
@@ -24,7 +25,7 @@ ADDR = (SERVER, PORT)
 """
 Reserved characters:
 !
-:
+~
 |
 
 
@@ -52,11 +53,13 @@ def send_msg(msg, client):
 
 def execute_command(data, conn, addr, server_id):
     try:
-        command, value = data.split(":")
+        command, value = data.split("~")
     except ValueError:
+        logger.error(f"005 for {data}")
         send_msg("error|005", conn)
         return
     if command == "!JOIN":
+        logger.info("RUNNING UPDATE METHOD")
         if db_manager.update_player_status_from_player_uuid_and_server_id(value, server_id, "online"):
             send_msg("success|101", conn)
         else:
@@ -73,11 +76,15 @@ def execute_command(data, conn, addr, server_id):
             send_msg("error|005", conn)
             return
         print(f"Following stats are provided for uuid: {uuid}:\n\n{stats}\n\n")
+        player_id = db_manager.get_player_id_from_player_uuid_and_server_id(uuid, server_id)
+        if not player_id:
+            player_id = db_manager.init_new_player(uuid, server_id)
+        db_manager.update_player_stats(player_id,stats)
     else:
         send_msg("error|004", conn)
 
 
-def retrieve_all_stats(server_id, conn):
+def request_all_stats(conn):
     send_msg("!sendAllPlayerStats", conn)
     
 
@@ -104,14 +111,14 @@ def handle_client_connection(conn, addr):
                         unauthorized_beat_count += 1 if not server_id else 0
                         continue
                     elif not server_id:
-                        if "!AUTH:" in data:
-                            _, value = data.split(":")
+                        if "!AUTH~" in data:
+                            _, value = data.split("~")
                             server = db_manager.get_server_id_by_auth_key(value)
                             if server:
                                 server_id = server
                                 logger.info(f"{addr} connected to server {server_id}")
                                 send_msg("success|100", conn)
-                                retrieve_all_stats(server_id, conn)
+                                request_all_stats(conn)
                                 continue
                             send_msg("error|001", conn)
                             continue
@@ -121,7 +128,7 @@ def handle_client_connection(conn, addr):
                     elif data == "!DISCONNECT":
                         connected = False
                         continue
-                    elif ":" in data:
+                    elif "~" in data:
                         execute_command(data, conn, addr, server_id)
                     else:
                         send_msg("error|005", conn)
@@ -138,7 +145,7 @@ def handle_client_connection(conn, addr):
             logger.error(f"{addr} got a broken pipe error! Disconnecting...")
             connected = False
         except Exception as e:
-            logger.error(f"Error occured with client {addr}. Error: {e}")
+            logger.error(f"Error occured with client {addr}. Error: {e}\n{traceback.print_exc()}")
 
     conn.close()
     logger.info(f"{addr} disconnected.")
