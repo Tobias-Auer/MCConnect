@@ -480,10 +480,10 @@
       function processStats(stats) {
         return decodeHtmlEntities(stats)
           .replaceAll("'", '"')
-          .replaceAll("(", "")
-          .replaceAll(",)", "");
+          .replaceAll("None", null);
       }
 
+      // Process stats
       var stats_tools = processStats("{{tool_stats}}");
       var stats_armor = processStats("{{armor_stats}}");
       var stats_mobs = processStats("{{mob_stats}}");
@@ -492,12 +492,12 @@
       var stats_items = processStats("{{item_stats}}");
 
       var stats_array = {
-        other: JSON.parse(stats_custom),
-        blocks: JSON.parse(stats_blocks),
-        armor: JSON.parse(stats_armor),
-        tools: JSON.parse(stats_tools),
-        mobs: JSON.parse(stats_mobs),
-        items: JSON.parse(stats_items),
+        other: stats_custom ? JSON.parse(stats_custom) : {},
+        blocks: stats_blocks ? JSON.parse(stats_blocks) : {},
+        armor: stats_armor ? JSON.parse(stats_armor) : {},
+        tools: stats_tools ? JSON.parse(stats_tools) : {},
+        mobs: stats_mobs ? JSON.parse(stats_mobs) : {},
+        items: stats_items ? JSON.parse(stats_items) : {},
       };
       console.dir(stats_array);
 
@@ -517,12 +517,12 @@
       }
 
       // Process each category in stats
-      stats_array.other = initArrayField(stats_array.other);
-      stats_array.blocks = initArrayField(stats_array.blocks);
-      stats_array.armor = initArrayField(stats_array.armor);
-      stats_array.tools = initArrayField(stats_array.tools);
-      stats_array.mobs = initArrayField(stats_array.mobs);
-      stats_array.items = initArrayField(stats_array.items);
+      stats_array.other = initArrayField(stats_array.other || {});
+      stats_array.blocks = initArrayField(stats_array.blocks || {});
+      stats_array.armor = initArrayField(stats_array.armor || {});
+      stats_array.tools = initArrayField(stats_array.tools || {});
+      stats_array.mobs = initArrayField(stats_array.mobs || {});
+      stats_array.items = initArrayField(stats_array.items || {});
 
       function sortMasterData(
         masterData,
@@ -544,9 +544,16 @@
         });
       }
 
-      function doTabAction(action, current_sort, sort_state, columnIndexToSortBy, sortByName) {
+      function doTabAction(
+        action,
+        current_sort,
+        sort_state,
+        columnIndexToSortBy,
+        sortByName
+      ) {
         // sort_state = ((sort_state == "sort-state-0") ? "sort-state-1" : "sort-state-0")
-        html_insert_sort_state = ((sort_state == "sort-state-0") ? "sort-state-1" : "sort-state-0")
+        html_insert_sort_state =
+          sort_state == "sort-state-0" ? "sort-state-1" : "sort-state-0";
         htmlString = `
         <table class="stats_table">
           <thead>
@@ -601,27 +608,39 @@
         htmlString += `</tr>
       </thead>
       <tbody>`;
+
+        // Initialize the set to collect unique item names
         let uniqueItemNames = new Set();
 
         // Collect unique item names
         for (let subcategory in stats_array[action]) {
           let subcategoryData = stats_array[action][subcategory];
-          subcategoryData.forEach(function (item) {
-            uniqueItemNames.add(item.object);
-          });
+          console.info("SUB: " + subcategoryData)
+          // Ensure subcategoryData is an array; if not, skip the iteration
+          if (Array.isArray(subcategoryData)) {
+            subcategoryData.forEach(function (item) {
+              uniqueItemNames.add(item.object);
+            });
+          }
         }
+        console.dir(uniqueItemNames);
+        // Convert the Set to an Array
         uniqueItemNames = Array.from(uniqueItemNames);
 
         master_data = [];
         let sub_array_count = Object.keys(stats_array[action]).length;
-
         // Iterate over each unique item name
         uniqueItemNames.forEach((itemName) => {
           let row = [itemName];
-
           // Collect values from each subcategory
           for (let i = 0; i < sub_array_count; i++) {
-            let subcategoryData = stats_array[action][i] || [];
+            console.info("MASTERDATA: " + master_data);
+            // Safely get the subcategoryData or default to an empty array
+            let subcategoryData = Array.isArray(stats_array[action][i])
+              ? stats_array[action][i]
+              : [];
+
+            // Find the item in the subcategoryData
             let foundItem = subcategoryData.find(
               (item) => item.object === itemName
             );
@@ -632,17 +651,12 @@
           master_data.push(row);
         });
 
-        // Example: Sort by the second column in descending order
-        // const columnIndexToSortBy = 1; // Column index to sort by (e.g., 1 for the first subcategory)
-        // const sortOrder = "asc"; // Sort order ('asc' or 'desc')
-        // const sortByName = false; // Whether to sort by the name column
-
         // Sort master_data
-        sortOrder = ((sort_state == "sort-state-0") ? "asc" : "desc")
-        
+        sortOrder = sort_state == "sort-state-0" ? "asc" : "desc";
+        console.info("MASTERDATA: " + master_data);
         sortMasterData(master_data, columnIndexToSortBy, sortOrder, sortByName);
 
-        console.info(master_data);
+        console.info("MASTERDATA: " + master_data);
 
         // Generate HTML from master_data
         for (let i = 0; i < master_data.length; i++) {
@@ -692,7 +706,7 @@
           console.log("banned");
           document.getElementById("banned-banner").classList.add("active");
         }
-        doTabAction("blocks", "blocks_name", "sort-state-0",1, true);
+        doTabAction("blocks", "blocks_name", "sort-state-0", 1, true);
       };
     </script>
 
