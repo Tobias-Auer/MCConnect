@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 public final class MCDataLink extends JavaPlugin {
 
-    private static final int HEADER = 64;
+    private static final int HEADER = 10;
     private static final int PORT = 9991;
     private static final String server = "t-auer.com";
     public static PrintWriter pr;
@@ -39,6 +39,7 @@ public final class MCDataLink extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
         getLogger().info("MCConnect has been enabled");
         saveDefaultConfig();
         connectToServer();
@@ -188,7 +189,7 @@ public final class MCDataLink extends JavaPlugin {
         for (UUID uuid : allUUIDs) sendPlayerStats(uuid);
     }
 
-    private void sendPlayerStats(UUID uuid) {
+    public void sendPlayerStats(UUID uuid) {
         gson = new Gson();
         // Read player stats
         JsonObject playerStats = readPlayerStats(uuid);
@@ -294,6 +295,7 @@ public final class MCDataLink extends JavaPlugin {
         byte[] message = msg.getBytes(StandardCharsets.UTF_8);
         int msgLen = message.length;
         String sendLen = String.format("%-" + HEADER + "s", msgLen);
+        getLogger().info("SENDLEN: '" + sendLen + "'");
         pr.print(sendLen);
         pr.flush();
 
@@ -317,4 +319,5 @@ public final class MCDataLink extends JavaPlugin {
         getLogger().info("MCConnect has been successfully disabled");
     }
 }
+
 
