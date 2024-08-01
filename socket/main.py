@@ -17,7 +17,7 @@ logger = get_logger("socket")
 db_manager = DatabaseManager()
 
 
-HEADER = 64
+HEADER = 10
 PORT = 9991
 SERVER = "0.0.0.0"
 ADDR = (SERVER, PORT)
@@ -104,7 +104,19 @@ def handle_client_connection(conn, addr):
                 data_len = conn.recv(HEADER).decode('utf-8').strip()                
                 if data_len:
                     data_len = int(data_len)
-                    data = conn.recv(data_len).decode('utf-8')
+                    logger.debug("data_len: %d", data_len)
+                    
+                    data = bytearray()  # Use bytearray to accumulate received data
+                    while len(data) < data_len:
+                        packet = conn.recv(data_len - len(data))
+                        if not packet:
+                            break  # Connection closed
+                        data.extend(packet)
+                    
+                    data = data.decode('utf-8')
+                    logger.debug("Received message: %s", data)
+                    logger.debug(f"[{addr}] {data}")
+
                     
                     if data == "!BEAT":
                         heartbeat_received_time = time.time()
@@ -132,7 +144,6 @@ def handle_client_connection(conn, addr):
                         execute_command(data, conn, addr, server_id)
                     else:
                         send_msg("error|005", conn)
-                    logger.debug(f"[{addr}] {data}")
                     
             current_time = time.time()
             if current_time - heartbeat_send_time > 5:
