@@ -33,7 +33,7 @@ def inject_loginVar():
     server_information = db_manager.get_server_information(subdomain)
     logger.debug("Server information: %s" % str(server_information))
     if server_information is None:
-        logger.warning("Server not found, aborting with 404...")
+        logger.debug("Server not found, aborting with 404...")
         abort(404)
     
     uuid = session.get('uuid')
@@ -258,7 +258,6 @@ def stream_player_info(path,subdomain):
         
         while True:
             status = "online" if db_manager.get_online_status_by_player_id(player_id) else "offline"
-            
             if 10 - last_update <= 0:
                 last_update = 0
                 death_count = db_manager.get_value_from_unique_object_from_action_table_with_player_id("minecraft:deaths", player_id)
