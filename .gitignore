@@ -4,3 +4,4 @@ logs/logs.log
 web/instance/config.py
 web/config.py
 *.1
+/logs

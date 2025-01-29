@@ -5,13 +5,11 @@ import os
 import time
 from urllib.parse import urlparse
 
-root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database'))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database')))
 
-sys.path.insert(0, root_dir)
-
-from databaseManager import DatabaseManager # type: ignore
-from logger import get_logger # type: ignore
-from minecraft import Minecraft # type: ignore
+from database.databaseManager import DatabaseManager
+from database.logger import get_logger
+from database.minecraft import Minecraft
 
 from flask import Flask, render_template, render_template_string, request, Response, redirect, session, flash, jsonify, abort
 logger = get_logger("webServer")
@@ -19,7 +17,7 @@ db_manager = DatabaseManager()
 minecraft = Minecraft()
 
 
-app = Flask(__name__)
+
 logger.info('Application started')
 app.config.from_pyfile("config.py")
 app.config.from_pyfile("instance/config.py")
@@ -34,6 +32,7 @@ def inject_loginVar():
     server_information = db_manager.get_server_information(subdomain)
     logger.debug("Server information: %s" % str(server_information))
     if server_information is None:
+        logger.warning("Server not found, aborting with 404...")
         abort(404)
     
     uuid = session.get('uuid')
@@ -63,18 +62,6 @@ def inject_loginVar():
 
 
 
-
-@app.route('/')
-def main_index_route():
-    """
-    Display the index page.
-
-    :return: Rendered template for the index page (index.html)
-    """
-    print(session.get("uuid"), session.get("id"))
-
-    return render_template("index-main.html")
-
 @app.route('/', subdomain='<subdomain>')
 def subdomain_index_route(subdomain):
     """
@@ -82,10 +69,23 @@ def subdomain_index_route(subdomain):
 
     :return: Rendered template for the index page (index.html)
     """
-    print(subdomain)
+    print("RETURN INDEX FOR: " + subdomain)
     print(session.get("uuid"), session.get("id"))
-
     return render_template("index-subpage.html")
+@app.route('/')
+def main_index_route():
+    """
+    Display the index page.
+
+    :return: Rendered template for the index page (index.html)
+    """
+    print("NO SUBDOMAIN RECOGNIZED")
+    print(session.get("uuid"), session.get("id"))
+    logger.debug(f"Full host: {request.host}")
+
+    return render_template("index-main.html")
+
+
 
 
 
