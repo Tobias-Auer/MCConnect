@@ -18,6 +18,7 @@ minecraft = Minecraft()
 
 
 
+app = Flask(__name__, subdomain_matching=True)
 logger.info('Application started')
 app.config.from_pyfile("config.py")
 app.config.from_pyfile("instance/config.py")
