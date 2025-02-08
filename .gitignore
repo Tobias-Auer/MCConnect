@@ -10,3 +10,4 @@ web/config.py
 /plugin2/MCDataLink/.idea
 /java plugin/MCDataLink/target
 /java plugin/MCDataLink/target
+*.class
