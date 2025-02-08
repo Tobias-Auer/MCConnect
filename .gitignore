@@ -5,3 +5,6 @@ web/instance/config.py
 web/config.py
 *.1
 /logs
+/java plugin/MCDataLink/target
+/plugin2/MCDataLink/.idea
+/plugin2/MCDataLink/.idea
