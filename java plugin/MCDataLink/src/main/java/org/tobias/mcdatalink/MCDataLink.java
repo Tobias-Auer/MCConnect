@@ -29,7 +29,7 @@ public final class MCDataLink extends JavaPlugin {
 
     private static final int HEADER = 10;
     private static final int PORT = 9991;
-    private static final String server = "t-auer.com";
+    private static final String server = "localhost";
     public static PrintWriter pr;
     private static Socket socket;
     private static boolean keepConnected = true;
@@ -39,48 +39,58 @@ public final class MCDataLink extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
         getLogger().info("MCConnect has been enabled");
         saveDefaultConfig();
-        connectToServer();
 
-        CompletableFuture<Void> authFuture = startAuth();
-        String key = getConfig().getString("key", "<enter key here>");
-        if (key.contains("<")) {
-            getLogger().severe("No license key provided to connect to the server. Please update the config.yml file. Or visit https://mc.t-auer.com. Restart the server when you have entered the license key.");
-            disablePlugin();
-        }
+        // Versucht asynchron, sich mit dem Server zu verbinden
+        CompletableFuture<Void> connectFuture = CompletableFuture.runAsync(this::connectToServer);
 
-        authFuture.thenRun(() -> {
-            getLogger().info("Authentication complete.");
-            startSocketListener();
-            getServer().getPluginManager().registerEvents(new JoinListener(this), this);
+        connectFuture.thenRun(() -> {
+            // Nach erfolgreicher Verbindung
+            CompletableFuture<Void> authFuture = startAuth();
+            String key = getConfig().getString("key", "<enter key here>");
+            if (key.contains("<")) {
+                getLogger().severe("No license key provided to connect to the server. Please update the config.yml file.");
+                disablePlugin();
+            }
 
+            authFuture.thenRun(() -> {
+                getLogger().info("Authentication complete.");
+                startSocketListener();
+                getServer().getPluginManager().registerEvents(new JoinListener(this), this);
+
+            }).exceptionally(throwable -> {
+                getLogger().severe("Authentication failed: " + throwable.getMessage());
+                disablePlugin();
+                return null;
+            });
         }).exceptionally(throwable -> {
-            getLogger().severe("Authentication failed: " + throwable.getMessage());
+            getLogger().severe("Failed to connect to the server: " + throwable.getMessage());
             disablePlugin();
             return null;
         });
     }
 
+
     private void connectToServer() {
-        while (keepConnected) {
+        try {
+            socket = new Socket(server, PORT);
+            socket.setReuseAddress(true);
+            pr = new PrintWriter(socket.getOutputStream());
+            getLogger().info("Connected to the server.");
+        } catch (IOException e) {
+            getLogger().severe("Connection failed: " + e.getMessage());
+            // Wenn die Verbindung nicht funktioniert, versuch in 5 Sekunden erneut
             try {
-                socket = new Socket(server, PORT);
-                socket.setReuseAddress(true);
-                pr = new PrintWriter(socket.getOutputStream());
-                getLogger().info("Connected to the server.");
-                break;
-            } catch (IOException e) {
-                getLogger().severe("Connection failed, retrying in 5 seconds: " + e.getMessage());
-                try {
-                    Thread.sleep(5000); // Retry interval
-                } catch (InterruptedException ie) {
-                    ie.printStackTrace();
-                }
+                Thread.sleep(5000);
+            } catch (InterruptedException ignored) {
             }
+            connectToServer(); // Rekursiver Versuch, sich erneut zu verbinden
         }
     }
+
+
+
 
 
     private void disablePlugin() {
@@ -89,7 +99,7 @@ public final class MCDataLink extends JavaPlugin {
             // Actual code to disable the plugin
             Bukkit.getPluginManager().disablePlugin(this);
             getLogger().severe("MCConnect shuts down! \n\nThis is because of an issue with the server connection.\nRead the logs above to find out what went wrong. Ensure that your server can connect to: " + server);
-            while (true) {}
+
         });
 
          // waits for the plugin to be completely disabled
@@ -110,6 +120,7 @@ public final class MCDataLink extends JavaPlugin {
                             reconnect();
                             return;
                         }
+
 
                         if (input.available() > 0) {
                             int bytesRead = input.read(headerBuffer);
@@ -162,9 +173,9 @@ public final class MCDataLink extends JavaPlugin {
                                 }
                             }
                         }
-                        Thread.sleep(500);
+
                     }
-                } catch (IOException | InterruptedException e) {
+                } catch (IOException e) {
                     getLogger().severe("Connection lost: " + e.getMessage());
                     reconnect();
                 }
