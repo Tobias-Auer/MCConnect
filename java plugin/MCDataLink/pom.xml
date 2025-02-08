@@ -11,7 +11,7 @@
 
     <name>MCDataLink</name>
     <description>Connects to the server to provide the in-game stats</description>
-    <url>http://www.t-auer.com</url>
+    <url>https://www.t-auer.com</url>
 
     <properties>
         <java.version>1.8</java.version>

@@ -6,7 +6,7 @@
   <name>MCDataLink</name>
   <version>1.0-SNAPSHOT</version>
   <description>Connects to the server to provide the in-game stats</description>
-  <url>http://www.t-auer.com</url>
+  <url>https://www.t-auer.com</url>
   <build>
     <resources>
       <resource>
