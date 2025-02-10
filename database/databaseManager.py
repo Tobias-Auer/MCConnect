@@ -225,6 +225,10 @@ class DatabaseManager:
             self.conn.rollback()
             return False
 
+    def check_for_new_login_challenge(self):
+        ...
+        return True
+        
     ################################ ADD FUNCTIONS ####################################
     def add_new_player(self, player_uuid):
         """
@@ -420,7 +424,6 @@ class DatabaseManager:
             if self.cursor.rowcount == 0:
                 self.init_new_player(player_uuid, server_id)
                 self.update_player_status_from_player_uuid_and_server_id(player_uuid,server_id, status, exceptionCounter=1)
-            print("SET LAST SEEN!!")
             query = """UPDATE player_server_info
                 SET last_seen = CURRENT_TIMESTAMP
                 WHERE player_uuid = %s AND server_id = %s;"""

@@ -58,7 +58,7 @@ def execute_command(data, conn, addr, server_id):
         send_msg("error|005", conn)
         return
     if command == "!JOIN":
-        logger.info("RUNNING UPDATE METHOD")
+        logger.debug("Join registered")
         if db_manager.update_player_status_from_player_uuid_and_server_id(value, server_id, "online"):
             send_msg("success|101", conn)
         else:
@@ -151,6 +151,7 @@ def handle_client_connection(conn, addr):
             if current_time - heartbeat_received_time > 7:
                 logger.info(f"{addr} has not sent heartbeat within 7 seconds. Disconnecting...")
                 connected = False
+                
         except BrokenPipeError:
             logger.error(f"{addr} got a broken pipe error! Disconnecting...")
             connected = False
@@ -181,3 +182,9 @@ if __name__ == "__main__":
     logger.info("Socket established successfully")
 
     start_server()
+    
+# TODO: Idea: Own thread for login process, periodically checking db for new logins, get playerID from pin and get serverID from that and send pin to conn saved in server table 
+# Step1: Save conn in db
+# Step2: New thread checking for new logins
+# Step3: If new login, get playerID from pin and get serverID from that and send pin to conn saved in server table
+# Step4: Delete login entry from DB
