@@ -224,8 +224,7 @@ class DatabaseManager:
             logger.error(f'Failed to check for ban entry for player: "{player_id}". Error: {e}')
             self.conn.rollback()
             return False
-        
-        
+
     ################################ ADD FUNCTIONS ####################################
     def add_new_player(self, player_uuid):
         """
@@ -420,7 +419,14 @@ class DatabaseManager:
             logger.info(f'Updated player status for player: "{player_uuid}" on server: "{server_id}" to: "{status}"')
             if self.cursor.rowcount == 0:
                 self.init_new_player(player_uuid, server_id)
-                self.update_player_status_from_player_uuid_and_server_id(player_uuid,server_id,status, exceptionCounter=1)
+                self.update_player_status_from_player_uuid_and_server_id(player_uuid,server_id, status, exceptionCounter=1)
+            print("SET LAST SEEN!!")
+            query = """UPDATE player_server_info
+                SET last_seen = CURRENT_TIMESTAMP
+                WHERE player_uuid = %s AND server_id = %s;"""
+            data = (player_uuid, server_id)
+            self.cursor.execute(query, data)
+            self.conn.commit()
         except Exception as e:
             self.conn.rollback()
             logger.error(f'Failed to update player status for player: "{player_uuid}" on server: "{server_id}". Error: {e}')
@@ -654,6 +660,7 @@ class DatabaseManager:
             return None
         logger.info(f"Ban info: {result}")
         return result
+    
     def get_ban_info_from_player_uuid_and_subdomain(self, player_uuid, subdomain):
         logger.debug(f"getting ban_info is called")
         query = """
@@ -925,7 +932,7 @@ class DatabaseManager:
             self.conn.rollback()
             logger.error(f"Error in getting_first_seen_by_player_id: {e}")
             return None
-        
+    
     def get_last_seen_by_player_id(self, player_id):
         logger.debug(f"getting_last_seen_by_player_id is called with player_id: {player_id}")
         query = """SELECT last_seen FROM player_server_info WHERE id = %s"""
@@ -1138,7 +1145,6 @@ class DatabaseManager:
             logger.error(f"Error in getting_all_custom_stats: {e}")
             return None
     
-    
     def get_server_id_by_auth_key(self, auth_key):
         logger.debug(f"get_server_id_by_auth_key is called with auth_key: {auth_key}")
         query = """ SELECT id FROM server WHERE server_key = %s; """
@@ -1156,8 +1162,8 @@ class DatabaseManager:
             self.conn.rollback()
             logger.error(f"Error in get_server_id_by_auth_key: {e}")
             return None
-    ################################ helper functions ################################
     
+    ################################ helper functions ################################
     def split_items_from_json(self, items):
         '''
         Return: [[object/item, category, value],]
@@ -1301,9 +1307,7 @@ class DatabaseManager:
         if seconds > 0 and setSeconds:
             time_parts.append(f"{seconds} Sec.")
 
-        return ' '.join(time_parts)  
-
-    
+        return ' '.join(time_parts)      
     
         
 if __name__ == "__main__":
