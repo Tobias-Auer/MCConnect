@@ -5,13 +5,12 @@ import sys
 import threading
 import time
 import traceback
-root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database'))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database')))
 
-sys.path.insert(0, root_dir)
+from database.databaseManager import DatabaseManager
+from database.logger import get_logger
+from database.minecraft import Minecraft
 
-from databaseManager import DatabaseManager # type: ignore
-from logger import get_logger # type: ignore
-from minecraft import Minecraft # type: ignore
 logger = get_logger("socket")
 
 db_manager = DatabaseManager()
@@ -182,6 +181,3 @@ if __name__ == "__main__":
     logger.info("Socket established successfully")
 
     start_server()
-
-
-#TODO: https://chatgpt.com/c/679a7e3e-4474-8010-898f-35892f9eee25
