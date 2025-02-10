@@ -96,7 +96,7 @@ def login(subdomain):
         if request.form['text_input'] != "logout":
             abort(400)
         session.clear()
-        return render_template("index.html")
+        return render_template("index-main.html")
 
     uuid = session.get('uuid')
     logger.debug(f"uuid: {uuid}")
