@@ -170,7 +170,6 @@ def login_watcher():
     while True:
         time.sleep(5)
         logins = db_manager.get_all_logins()
-        logger.info("ALL logins: {}".format(logins))
         for login in logins:
             pin = login[0]
             player_id = login[1]
