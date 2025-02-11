@@ -21,6 +21,8 @@ PORT = 9991
 SERVER = "0.0.0.0"
 ADDR = (SERVER, PORT)
 
+active_connections = {}
+
 """
 Reserved characters:
 !
@@ -128,6 +130,7 @@ def handle_client_connection(conn, addr):
                             if server:
                                 server_id = server
                                 logger.info(f"{addr} connected to server {server_id}")
+                                active_connections[server_id] = conn
                                 send_msg("success|100", conn)
                                 request_all_stats(conn)
                                 continue
@@ -157,9 +160,32 @@ def handle_client_connection(conn, addr):
             connected = False
         except Exception as e:
             logger.error(f"Error occured with client {addr}. Error: {e}\n{traceback.print_exc()}")
-
+    if server_id != None:
+        active_connections.pop(server_id, None)
     conn.close()
     logger.info(f"{addr} disconnected.")
+
+def login_watcher():
+    logger.info("Login watcher started")
+    while True:
+        time.sleep(5)
+        logins = db_manager.get_all_logins()
+        logger.info("ALL logins: {}".format(logins))
+        for login in logins:
+            pin = login[0]
+            player_id = login[1]
+            server_id = db_manager.get_server_id_from_player_id(player_id)
+            player_uuid = db_manager.get_player_uuid_from_player_id(player_id)
+            if server_id:
+                conn = active_connections.get(server_id)
+                if conn:
+                    send_msg(f"!loginPin~{player_uuid}~{pin}", conn)  # TODO: send msg only once except player leaves and rejoins
+                else:
+                    logger.error(f"No connection for server id: {server_id}")
+                    db_manager.delete_login_entry(player_id)
+            else:
+                logger.error(f"No server id: {server_id}")
+                db_manager.delete_login_entry(player_id)
 
 def start_server():
     server.listen()
@@ -168,7 +194,7 @@ def start_server():
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client_connection, args=(conn, addr))
         thread.start()
-        logger.debug(f"Active connections: {threading.active_count() - 1}")
+        logger.debug(f"Active connections: {threading.active_count() - 2}")
 
 if __name__ == "__main__":
     logger.info(f"Socket is starting...\nADDR:{ADDR}")
@@ -180,11 +206,6 @@ if __name__ == "__main__":
         logger.error(f"Error starting server: {e}")
         sys.exit(1)
     logger.info("Socket established successfully")
-
+    logger.info("Starting login watcher...")
+    threading.Thread(target=login_watcher).start()
     start_server()
-    
-# TODO: Idea: Own thread for login process, periodically checking db for new logins, get playerID from pin and get serverID from that and send pin to conn saved in server table 
-# Step1: Save conn in db
-# Step2: New thread checking for new logins
-# Step3: If new login, get playerID from pin and get serverID from that and send pin to conn saved in server table
-# Step4: Delete login entry from DB

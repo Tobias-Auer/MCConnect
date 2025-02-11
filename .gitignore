@@ -13,3 +13,4 @@ web/config.py
 *.class
 *.class
 /java plugin/MCDataLink/target
+*.class

@@ -172,10 +172,10 @@ public final class MCDataLink extends JavaPlugin {
                                     break;
                                     case "!loginPin":
                                         UUID uuid = UUID.fromString(parts[1]);
-                                        String pin = parts[2];
                                         Player player = Bukkit.getPlayer(uuid);
+                                        String pin = parts[2];
                                         if (player != null) {
-                                            player.sendMessage("Dein Pin ist: " + pin);
+                                            player.sendMessage("Deine Pin ist: " + pin + "\nGebe sie niemals weiter!");
                                         }
                                         break;
                                 }

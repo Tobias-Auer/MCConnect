@@ -12,6 +12,7 @@ import psycopg2
 from logger import get_logger
 import logging
 from minecraft import Minecraft
+import pickle
 
 logger = get_logger("databaseManager",logging.INFO)
 minecraft = Minecraft()
@@ -504,6 +505,56 @@ class DatabaseManager:
         return True
 
     ################################ GET FUNCTIONS ####################################
+    def get_all_logins(self):
+        logger.debug("get_all_logins is called")
+        query = "SELECT pin, player_id FROM login"
+        logger.debug(f"executing SQL query: {query}")
+        self.cursor.execute(query)
+        logins = self.cursor.fetchall()
+        logger.debug(f"Logins retrieved: {logins}")
+        return logins
+    
+    def get_server_id_from_player_id(self, player_id):
+        logger.debug("get_server_id_from_player_id is called")
+        query = "SELECT server_id FROM player_server_info WHERE id = %s"
+        logger.debug(f"executing SQL query: {query}")
+        data = (player_id,)
+        logger.debug(f"with following data: {data}")  
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            if result is None:
+                logger.warning(f'No server found for player id: "{player_id}"')
+                return None
+            server_id = result[0]
+            logger.debug(f'Server id for player: "{player_id}" is: "{server_id}"')
+            return server_id
+        except Exception as e:
+            logger.error(f'Failed to get server id for player: "{player_id}". Error: {e}')
+            self.conn.rollback()
+            return None
+        
+    def get_player_uuid_from_player_id(self, player_id):
+        logger.debug("get_player_uuid_from_player_id is called")
+        query = "SELECT player_uuid FROM player_server_info WHERE id = %s"
+        logger.debug(f"executing SQL query: {query}")
+        data = (player_id,)
+        logger.debug(f"with following data: {data}")  
+        try:
+            self.cursor.execute(query, data)
+            result = self.cursor.fetchone()
+            if result is None:
+                logger.warning(f'No player uuid found for player id: "{player_id}"')
+                return None
+            server_id = result[0]
+            logger.debug(f'Player uuid for player id: "{player_id}" is: "{server_id}"')
+            return server_id
+        except Exception as e:
+            logger.error(f'Failed to get player uuid for player id: "{player_id}". Error: {e}')
+            self.conn.rollback()
+            return None
+
+    
     def get_all_tables(self):
         """
         Retrieves all table names from the connected database.
