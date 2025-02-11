@@ -63,6 +63,7 @@
         border-left: 4px solid var(--accent);
         width: 100% !important;
         border-bottom: 4px solid var(--accent);
+        overscroll-behavior: contain;
       }
 
       tbody tr:hover {
@@ -103,10 +104,7 @@
         list-style: none;
         margin: 0;
         padding: 0;
-      }
-
-      .tabBlock {
-        margin: 0;
+        display: flex;
       }
 
       .firstColumn {
@@ -116,9 +114,9 @@
       }
 
       .tabBlock {
+        margin: 0;
         color: var(--accent);
-        border-left: solid;
-        border-right: solid;
+
         border-left-width: 4px;
         border-right-width: 0px;
       }
@@ -126,8 +124,6 @@
       .tabBlock-tab {
         text-align: center;
         line-height: 2.5rem;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
         background-color: #e1e8e8;
         border-left: solid;
         border-top: solid;
@@ -172,22 +168,27 @@
         position: relative;
         color: var(--secondary);
         font-size: 1.5em;
-        border-bottom-width: 4px;
         border-bottom-color: #d1dfdf;
         z-index: 100;
         background-color: #d1dfdf;
       }
 
-      .tabBlock-tab.is-active + .tabBlock-tab {
+      /* .tabBlock-tab.is-active + .tabBlock-tab {
         border-left-width: 4px;
-      }
-
-      .tabBlock-tab.previous-tab {
+      } */
+      .tabBlock-tab.is-active{
+        border-left-width: 4px;
         border-right-width: 4px;
       }
 
+      /* .tabBlock-tab.previous-tab {
+        border-right-width: 4px;
+      } */
+
       .tabBlock-tab:not(is-active) {
         border-top-width: 0px;
+        border-right-width: 0px;
+        border-left-width: 0px;
       }
 
       .tabBlock-tab.is-active::before {
@@ -796,5 +797,6 @@
 
       TabBlock.init();
     </script>
+
   </body>
 </html>
