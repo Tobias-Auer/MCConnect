@@ -12,6 +12,7 @@ from database.logger import get_logger
 from database.minecraft import Minecraft
 
 from flask import Flask, render_template, render_template_string, request, Response, redirect, session, flash, jsonify, abort
+
 logger = get_logger("webServer")
 db_manager = DatabaseManager()
 minecraft = Minecraft()
@@ -87,9 +88,6 @@ def main_index_route():
     return render_template("index-main.html")
 
 
-
-
-
 @app.route('/login', methods=['GET', 'POST'], subdomain='<subdomain>')
 def login(subdomain):
     if request.method == 'POST':
@@ -110,6 +108,18 @@ def login(subdomain):
         path = "/" if not refer else urlparse(refer).path
         return redirect(f'/login?next={path}')
     return render_template("login.html", uuid="")
+
+@app.route('/login', methods=['GET', 'POST'])
+def serverAdminLogin():
+    return render_template("serverAdminLogin.html")
+
+@app.route('/create', methods=['GET', 'POST'])
+def createNewServer():
+    return render_template("serverAdminCreate.html")
+
+@app.route('/manage', methods=['GET', 'POST'])
+def manageServer():
+    return render_template("serverAdminManage.html")
 
 
 @app.route('/spieler', subdomain="<subdomain>")
