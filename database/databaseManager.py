@@ -7,13 +7,14 @@ import secrets
 import string
 import traceback
 
+import argon2
 import psycopg2
 
 from logger import get_logger
 import logging
 from minecraft import Minecraft
-import pickle
 
+ph = argon2.PasswordHasher()
 logger = get_logger("databaseManager",logging.INFO)
 minecraft = Minecraft()
 
@@ -68,8 +69,8 @@ class DatabaseManager:
             self.cursor.execute(query)
             self.conn.commit()
             logger.info("Tables initiated successfully")
-            db_manager.init_item_blocks_lookup_table("database/blocks.json")
-            db_manager.init_item_items_lookup_table("database/itemlist.json")
+            self.init_item_blocks_lookup_table("database/blocks.json")
+            self.init_item_items_lookup_table("database/itemlist.json")
             logger.info("block and item data initiated successfully")
         except Exception as e:
             logger.error(f"Error creating tables: {e}")
@@ -77,7 +78,7 @@ class DatabaseManager:
             return False
         return True
 
-    def init_new_server(self, subdomain, license_type, server_description_short, server_description_long, server_name, server_key, discord_url=None, owner_name=None, mc_server_domain=None):
+    def init_new_server(self, subdomain, license_type, server_description_short, server_description_long, server_name, server_key, owner_username, owner_email, owner_password, discord_url=None, owner_name=None, mc_server_domain=None):
             """
             Registers a new server in the database.
 
@@ -93,12 +94,13 @@ class DatabaseManager:
             Exception: If an error occurs while executing the SQL query or committing the changes.
             """
             logger.debug("register_new_server is called")
+            hashed_password = ph.hash(owner_password)
             query = """
-                INSERT INTO server (subdomain, license_type, server_key, server_description_short, server_description_long, discord_url, owner_name, mc_server_domain, server_name)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO server (owner_username, owner_email, owner_password, subdomain, license_type, server_key, server_description_short, server_description_long, discord_url, owner_name, mc_server_domain, server_name)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """
             logger.debug(f"executing SQL query: {query}")
-            data = (subdomain, license_type, server_key, html.escape(server_description_short), html.escape(server_description_long).replace("\n", "<br>"), discord_url, owner_name, mc_server_domain, server_name)
+            data = (owner_username, owner_email, hashed_password, subdomain, license_type, server_key, html.escape(server_description_short), html.escape(server_description_long).replace("\n", "<br>"), discord_url, owner_name, mc_server_domain, server_name)
             logger.debug(f"with follwing data: {data}")
             try:
                 self.cursor.execute(query, data)
@@ -1381,6 +1383,9 @@ if __name__ == "__main__":
                                 license_type=2,
                                 owner_name="Tobias Auer", 
                                mc_server_domain="mc.t-auer.com", 
+                               owner_username="Tobias",
+                               owner_email="mc.t-auer.com",
+                               owner_password="1234",
                                discord_url="https://www.discord.gg/vJYNnsQwf8", 
                                server_description_short=server_description_short, 
                                server_description_long=server_description_long,

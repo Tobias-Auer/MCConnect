@@ -25,12 +25,14 @@ CREATE TABLE public."server"(
   license_type integer NOT NULL,
   owner_name text,
   mc_server_domain text,
+  owner_username text NOT NULL,
+  owner_email text NOT NULL,
+  owner_password text NOT NULL,
   discord_url text,
   server_description_short text NOT NULL,
   server_description_long text NOT NULL,
   server_name text NOT NULL,
   server_key CHAR(64) NOT NULL,
-  connObj bytea,
   CONSTRAINT server_key UNIQUE(subdomain),
   CONSTRAINT server_pkey PRIMARY KEY(id)
 );
