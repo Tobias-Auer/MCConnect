@@ -12,6 +12,7 @@ from database.logger import get_logger
 from database.minecraft import Minecraft
 
 from flask import Flask, render_template, render_template_string, request, Response, redirect, session, flash, jsonify, abort
+from flask_cors import CORS
 
 logger = get_logger("webServer")
 db_manager = DatabaseManager()
@@ -20,6 +21,13 @@ minecraft = Minecraft()
 
 
 app = Flask(__name__, subdomain_matching=True)
+CORS(app, resources={r"/api/*": {"origins": "http://mc.t-auer.local"}})
+@app.before_request
+def restrict_api_access():
+    if request.path.startswith("/api/"):
+        if request.host != "mc.t-auer.local:5000":
+            return jsonify({"error": "Blocked"}), 403
+        
 logger.info('Application started')
 app.config.from_pyfile("config.py")
 app.config.from_pyfile("instance/config.py")

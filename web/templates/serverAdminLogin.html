@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login to your Account</title>
     <link
       href="{{ url_for('static', filename='css/header.css') }}"
@@ -21,18 +21,65 @@
       rel="icon"
       type="image/vnd.microsoft.icon"
     />
-</head>
-<body>
+  </head>
+  <body>
     <p>Sign up</p>
-    <input type="text" placeholder="Username" id="username" />
-    <input type="password" placeholder="Password" id="password" />
+    <input type="text" placeholder="Username" id="usernameS" />
+    <input type="password" placeholder="Password" id="passwordS" />
     <input type="password" placeholder="Password wiederholen" id="password2" />
     <input type="text" placeholder="E-Mail" id="email" />
-    <button id="login">Sign up</button>
+    <button id="signup">Sign up</button>
     <p>Sign in</p>
-    <input type="text" placeholder="Username" id="username" />
-    <input type="password" placeholder="Password" id="password" />
-    <button id="login">Sign in</button>    <button id="reset">Passwort vergessen</button>
+    <input type="text" placeholder="Username" id="usernameL" />
+    <input type="password" placeholder="Password" id="passwordL" />
+    <button id="login">Sign in</button>
+    <button id="reset">Passwort vergessen</button>
 
-</body>
+    <script>
+            function validateForm(password, password2, email) {
+            emailReg = /[a-zA-Z0-9_\.\+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+/
+            if (password != password2) {
+              alert("Passwörter stimmen nicht überein")
+              return false
+            }
+            if (!email.match(emailReg)) {
+              alert("E-Mail ist nicht gültig")
+              return false
+            }
+            if (password.length < 8) {
+              alert("Passwort muss mindestens 8 Zeichen lang sein")
+              return false
+            }
+            return true
+          }
+          document.getElementById("signup").addEventListener("click", function() {
+            let password = document.getElementById("passwordS").value
+            let password2 = document.getElementById("password2").value
+            let email = document.getElementById("email").value
+            let usernameS = document.getElementById("usernameS").value
+          if (validateForm(password, password2, email)) {
+            fetch('/api/signup', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                username: usernameS,
+                password: password,
+                email: email
+              })
+            }).then(response => {
+              if (response.status == 200) {
+                alert("Account wurde erstellt")
+              } else {
+                alert("Account konnte nicht erstellt werden")
+              }
+            })
+          }
+      })
+          document.getElementById("login").addEventListener("click", function() {
+
+      })
+    </script>
+  </body>
 </html>
