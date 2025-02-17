@@ -55,12 +55,12 @@ def inject_loginVar():
                 perm=permission_level,
                 uuid_profile=uuid, 
                 name=name,
-                server_description_short=server_information[6], 
-                server_description_long=server_information[7], 
-                discord_url=server_information[5], 
+                server_description_short=server_information[9], 
+                server_description_long=server_information[10], 
+                discord_url=server_information[8], 
                 license_type=server_information[2],
                 mc_server_domain=server_information[4],
-                server_name=server_information[8])
+                server_name=server_information[11])
 
 
 
