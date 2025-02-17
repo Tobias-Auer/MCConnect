@@ -36,7 +36,15 @@ CREATE TABLE public."server"(
   CONSTRAINT server_key UNIQUE(subdomain),
   CONSTRAINT server_pkey PRIMARY KEY(id)
 );
-
+CREATE TABLE public.unsetUser(
+  id SERIAL,
+  username TEXT,
+  "password" TEXT,
+  email TEXT,
+  email_verified bool,
+  verification_code TEXT,
+  CONSTRAINT username_pkey PRIMARY KEY(username)
+);
 CREATE TABLE public.player_server_info(
   id uuid NOT NULL,
   server_id integer NOT NULL,

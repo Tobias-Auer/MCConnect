@@ -1,5 +1,6 @@
 from re import sub
 import secrets
+from sre_constants import SUCCESS
 import sys
 import os
 import time
@@ -295,7 +296,16 @@ def stream_player_info(path,subdomain):
     return Response(generate(), mimetype='text/event-stream')
 
 
-
+@app.route("/api/signup", methods=['POST'])
+def signup():
+    # get post data
+    data = request.get_json()
+    username = data.get("username")
+    email = data.get("email")
+    password = data.get("password")
+    
+    success = db_manager.add_new_empty_manager_account(username, email, password)
+    return ("", 200) if success else ("", 400 )   
 
 
 

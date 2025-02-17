@@ -6,6 +6,7 @@ import re
 import secrets
 import string
 import traceback
+import uuid
 
 import argon2
 import psycopg2
@@ -186,6 +187,26 @@ class DatabaseManager:
             self.conn.rollback()
             return False
 
+    def add_new_empty_manager_account(self, username, password, email, email_verificated=False):
+        if not email_verificated:
+            verification_code = str(uuid.uuid4())
+            link = f"http://mc.t-auer.local/verify_email/{username}/{verification_code}"
+            email_text = f"Your account has been created. Please verify your email address by clicking the following link: "
+            hashed_password = ph.hash(password)
+            query = "INSERT INTO unsetUser (username, password, email, email_verified, verification_code) VALUES (%s, %s, %s, %s, %s)"
+            data = (username, hashed_password, email, False, verification_code)
+            logger.debug(f"executing SQL query: {query} with data: {data}")
+            try:
+                self.cursor.execute(query, data)
+                self.conn.commit()
+                logger.info(f'Added new empty manager account: "{username}" with email verification link: {link}')
+                #self.send_email(email, email_text, link)
+                return True
+            except Exception as e:
+                logger.error(f'Failed to add new empty manager account: "{username}". Error: {e}')
+                self.conn.rollback()
+                return False
+            
     ################################ CHECK FUNCTIONS ##################################
     def check_database_integrity(self):
         """
