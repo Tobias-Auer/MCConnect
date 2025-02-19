@@ -1,3 +1,5 @@
+CURRENT_DOMAIN = open("DOMAIN.txt", "r").readline().strip()
+
 from re import sub
 import secrets
 from sre_constants import SUCCESS
@@ -20,9 +22,8 @@ db_manager = DatabaseManager()
 minecraft = Minecraft()
 
 
-
 app = Flask(__name__, subdomain_matching=True)
-CORS(app, resources={r"/api/*": {"origins": "http://mc.t-auer.local"}})
+CORS(app, resources={r"/api/*": {"origins": CURRENT_DOMAIN.split(":")[0]}})
 @app.before_request
 def restrict_api_access():
     if request.path.startswith("/api/"):
@@ -304,7 +305,7 @@ def signup():
     email = data.get("email")
     password = data.get("password")
     
-    success = db_manager.add_new_empty_manager_account(username, email, password)
+    success = db_manager.add_new_empty_manager_account(username, password, email)
     return ("", 200) if success else ("", 400 )   
 
 
