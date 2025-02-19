@@ -23,12 +23,12 @@ minecraft = Minecraft()
 
 
 app = Flask(__name__, subdomain_matching=True)
-CORS(app, resources={r"/api/*": {"origins": CURRENT_DOMAIN.split(":")[0]}})
-@app.before_request
-def restrict_api_access():
-    if request.path.startswith("/api/"):
-        if request.host != "mc.t-auer.local:5000":
-            return jsonify({"error": "Blocked"}), 403
+CORS(app, resources={r"/api/*": {"origins": "*." + CURRENT_DOMAIN}})
+# @app.before_request
+# def restrict_api_access():
+#     if request.path.startswith("/api/"):
+#         if request.host != CURRENT_DOMAIN.split(":")[0]:
+#             return jsonify({"error": "Blocked"}), 403
         
 logger.info('Application started')
 app.config.from_pyfile("config.py")
