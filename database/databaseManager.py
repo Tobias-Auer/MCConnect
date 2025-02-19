@@ -321,7 +321,46 @@ class DatabaseManager:
             logger.error(f'Failed to verify signup code for username: "{username}". Error: {e}')
             self.conn.rollback()
             return False
-        
+    
+    def check_server_password_and_username(self, username, password):
+        logger.debug("check_server_password_and_username is called")
+        query = "SELECT owner_password FROM server WHERE owner_username = %s"
+        data = (username,)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            server_entry = self.cursor.fetchone()
+            if server_entry:
+                logger.info(f'Activated server credentials found for username: "{username}"')
+                
+                if ph.verify(password, server_entry[0]):
+                    logger.debug("Server credentials verified.")
+                    return True
+                return False
+            else:
+                query = "SELECT password FROM unsetuser WHERE username = %s and email_verified = TRUE"
+                data = (username,)
+                logger.debug(f"executing SQL query: {query}")
+                logger.debug(f"with following data: {data}")
+                self.cursor.execute(query, data)
+                server_entry = self.cursor.fetchone()
+                if server_entry:
+                    logger.info(f"searching playername for uuid: {server_entry[0]}, {password}")
+                    logger.info(f'unactivated server credentials found for username: "{username}"')
+                    
+                    if ph.verify(server_entry[0], password):
+                        logger.debug("Server credentials verified.")
+                        return True
+                    return False
+                else:
+                    logger.info(f'Server credentials not found for username: "{username}"')
+                logger.debug("Server credentials not found.")
+                return False
+        except Exception as e:
+            logger.error(f'Failed to check server credentials for username: "{username}". Error: {e}')
+            self.conn.rollback()
+            return False
     ################################ ADD FUNCTIONS ####################################
     def add_new_player(self, player_uuid):
         """

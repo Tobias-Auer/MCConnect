@@ -36,50 +36,68 @@
     <button id="reset">Passwort vergessen</button>
 
     <script>
-            function validateForm(password, password2, email) {
-            emailReg = /[a-zA-Z0-9_\.\+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+/
-            if (password != password2) {
-              alert("Passwörter stimmen nicht überein")
-              return false
+      function validateForm(password, password2, email) {
+        emailReg = /[a-zA-Z0-9_\.\+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+/;
+        if (password != password2) {
+          alert("Passwörter stimmen nicht überein");
+          return false;
+        }
+        if (!email.match(emailReg)) {
+          alert("E-Mail ist nicht gültig");
+          return false;
+        }
+        if (password.length < 8) {
+          alert("Passwort muss mindestens 8 Zeichen lang sein");
+          return false;
+        }
+        return true;
+      }
+      document.getElementById("signup").addEventListener("click", function () {
+        let password = document.getElementById("passwordS").value;
+        let password2 = document.getElementById("password2").value;
+        let email = document.getElementById("email").value;
+        let username = document.getElementById("usernameS").value;
+        if (validateForm(password, password2, email)) {
+          fetch("/api/signup", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: username,
+              password: password,
+              email: email,
+            }),
+          }).then((response) => {
+            if (response.status == 200) {
+              alert("Account wurde erstellt, bitte email überprüfen");
+            } else {
+              alert("Account konnte nicht erstellt werden");
             }
-            if (!email.match(emailReg)) {
-              alert("E-Mail ist nicht gültig")
-              return false
-            }
-            if (password.length < 8) {
-              alert("Passwort muss mindestens 8 Zeichen lang sein")
-              return false
-            }
-            return true
+          });
+        }
+      });
+      document.getElementById("login").addEventListener("click", function () {
+        let password = document.getElementById("passwordL").value;
+        let username = document.getElementById("usernameL").value;
+        fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        }).then((response) => {
+          if (response.status == 200) {
+            alert("Login erfolgreich! Redirect...");
+            window.location.href = "/";
+          } else {
+            alert("Anmeldung fehlgeschlagen!\n Überprüfen Sie Ihren Benutzernamen und Passwort und aktivieren Sie Ihr Konto bevor Sie sich einloggen.");
           }
-          document.getElementById("signup").addEventListener("click", function() {
-            let password = document.getElementById("passwordS").value
-            let password2 = document.getElementById("password2").value
-            let email = document.getElementById("email").value
-            let usernameS = document.getElementById("usernameS").value
-          if (validateForm(password, password2, email)) {
-            fetch('/api/signup', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                username: usernameS,
-                password: password,
-                email: email
-              })
-            }).then(response => {
-              if (response.status == 200) {
-                alert("Account wurde erstellt, bitte email überprüfen")
-              } else {
-                alert("Account konnte nicht erstellt werden")
-              }
-            })
-          }
-      })
-          document.getElementById("login").addEventListener("click", function() {
-
-      })
+        });
+      });
     </script>
   </body>
 </html>

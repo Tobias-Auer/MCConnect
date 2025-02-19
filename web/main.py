@@ -32,7 +32,7 @@ def restrict_api_access():
         
 logger.info('Application started')
 app.config.from_pyfile("config.py")
-app.config.from_pyfile("instance/config.py")
+app.config.from_pyfile("instance/config.py") # TODO: use session type = filesystem
 
 
 @app.context_processor
@@ -189,7 +189,7 @@ def player_overview_route(subdomain):
 
 ################################ API #################################
 @app.route('/api/login', methods=['POST'], subdomain='<subdomain>')
-def login_api(subdomain):
+def minecraft_login_api(subdomain):
     if not request.headers.get('Content-Type', '') == 'application/json':
         return {'response': "Invalid content"}
     username = request.get_json()["username"]
@@ -230,7 +230,7 @@ def login_api(subdomain):
     player_id = session.get("id")
     validate_login = db_manager.get_login_attempt_validity_from_player_id_and_pin(player_id, secret_pin_from_form)
     if validate_login[0]:
-        session.clear()
+        # session.clear()
         session["uuid"] = uuid
         session["id"] = player_id
         session.permanent = True
@@ -308,6 +308,17 @@ def signup():
     success = db_manager.add_new_empty_manager_account(username, password, email)
     return ("", 200) if success else ("", 400 )   
 
+@app.route("/api/login", methods=['POST'])
+def server_login_api():
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+    
+    if db_manager.check_server_password_and_username(username, password):
+        session["adminUsername"] = username
+        return ("", 200)
+    else:
+        return ("", 400)
 
 @app.route("/api/logout", methods=['POST'])
 def logout():
