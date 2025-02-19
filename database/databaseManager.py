@@ -295,6 +295,32 @@ class DatabaseManager:
     def check_for_new_login_challenge(self):
         ...
         return True
+    
+    def verify_signupcode(self, username, code):
+        logger.debug("verify_signupcode is called")
+        query = "SELECT * FROM unsetUser WHERE username = %s AND verification_code = %s and email_verified = FALSE"
+        data = (username, code)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            unset_user = self.cursor.fetchone()
+            if unset_user:
+                logger.info(f'Verified signup code for username: "{username}"')
+                query = "UPDATE unsetUser SET email_verified = TRUE WHERE username = %s AND verification_code = %s"
+                data = (username, code)
+                self.cursor.execute(query, data)
+                logger.debug("executing SQL query: {query}")
+                logger.debug("with following data: {data}")
+                self.conn.commit()
+                return True
+            else:
+                logger.info(f'No signup code found for username: "{username}"')
+                return False
+        except Exception as e:
+            logger.error(f'Failed to verify signup code for username: "{username}". Error: {e}')
+            self.conn.rollback()
+            return False
         
     ################################ ADD FUNCTIONS ####################################
     def add_new_player(self, player_uuid):

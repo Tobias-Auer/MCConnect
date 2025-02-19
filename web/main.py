@@ -309,7 +309,15 @@ def signup():
     return ("", 200) if success else ("", 400 )   
 
 
+@app.route("/api/logout", methods=['POST'])
+def logout():
+    session.clear()
+    return ("", 200)
 
+
+@app.route("/verify_email/<username>/<token>", methods=['GET'])
+def verify_email(username, token):
+    return ("email verified you can log in now", 200) if db_manager.verify_signupcode(username, token) else ("error", 400)
 
 
 
