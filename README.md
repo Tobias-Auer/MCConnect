@@ -10,11 +10,19 @@ In addition, the website will support multiple Minecraft servers.
 Anyone will be able to add their own Minecraft server to this server with a simple, lightweight minecraft plugin.
 
 Preview:
+- Custom Server page for everyone
+![Screenshot](%23readmeImages/Startseite.png)
 
-![Screenshot](#readmeImages/Startseite.png)
+- Player list and status information for every player ever joined the server
+![Screenshot](%23readmeImages/SpielerUebersicht.png)
 
+- Detailed player statistics for every player
+![Screenshot](%23readmeImages/SpielerDetails.png)
 
+- Privacy friendly and easy login for every player to view and change personal data:
+![Screenshot](%23readmeImages/Login.png)
 
+- And a lot more...
 
 Legal information: 
 
