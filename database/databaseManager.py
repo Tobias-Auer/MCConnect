@@ -5,15 +5,18 @@ import json
 import re
 import secrets
 import string
+import threading
 import traceback
 import uuid
-
 import argon2
 import psycopg2
 
 from logger import get_logger
 import logging
 from minecraft import Minecraft
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 ph = argon2.PasswordHasher()
 logger = get_logger("databaseManager",logging.INFO)
@@ -34,6 +37,7 @@ class DatabaseManager:
     LOWEST_WEB_ACCESS_LEVEL = 2
 
     def __init__(self):
+        self.CURRENT_DOMAIN = open("DOMAIN.txt", "r").readline().strip()
         logger.debug("Initializing database manager")
         self.conn = psycopg2.connect(
             database="mcConnect-TestDB-1",
@@ -190,8 +194,8 @@ class DatabaseManager:
     def add_new_empty_manager_account(self, username, password, email, email_verificated=False):
         if not email_verificated:
             verification_code = str(uuid.uuid4())
-            link = f"http://mc.t-auer.local/verify_email/{username}/{verification_code}"
-            email_text = f"Your account has been created. Please verify your email address by clicking the following link: "
+            link = f"{self.CURRENT_DOMAIN}/verify_email/{username}/{verification_code}"
+            email_text = f"Your account has been created. Please verify your email address by clicking <a href='{link}'> here </a> <br>If you didn't create an account, please ignore this email."
             hashed_password = ph.hash(password)
             query = "INSERT INTO unsetUser (username, password, email, email_verified, verification_code) VALUES (%s, %s, %s, %s, %s)"
             data = (username, hashed_password, email, False, verification_code)
@@ -200,13 +204,52 @@ class DatabaseManager:
                 self.cursor.execute(query, data)
                 self.conn.commit()
                 logger.info(f'Added new empty manager account: "{username}" with email verification link: {link}')
-                #self.send_email(email, email_text, link)
+                threading.Thread(target=self.send_email, args=(email, email_text)).start()
                 return True
             except Exception as e:
                 logger.error(f'Failed to add new empty manager account: "{username}". Error: {e}')
                 self.conn.rollback()
                 return False
-            
+    
+    ################################ EMAIL ################################
+    def send_email(self, recipient, text):
+        SMTP_SERVER = "smtp.strato.com"  # Ersetze mit deinem SMTP-Server
+        SMTP_PORT = 587  
+        with open("./database/credentials.txt", "r") as file:
+            SMTP_USER = file.readline().strip()
+            SMTP_PASS = file.readline().strip()
+
+        # E-Mail Details
+        sender_email = SMTP_USER
+        receiver_email = recipient
+        subject = "Test HTML E-Mail"
+
+        # HTML-Inhalt der E-Mail
+        html_content = f"""\
+        <html>
+        <body>
+            {text}
+        </body>
+        </html>
+        """
+
+        # E-Mail Nachricht erstellen
+        msg = MIMEMultipart()
+        msg["From"] = sender_email
+        msg["To"] = receiver_email
+        msg["Subject"] = subject
+        msg.attach(MIMEText(html_content, "html"))
+
+        # E-Mail senden
+        try:
+            with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+                server.starttls()  # TLS-Verschlüsselung aktivieren
+                server.login(SMTP_USER, SMTP_PASS)
+                server.sendmail(sender_email, receiver_email, msg.as_string())
+            print("E-Mail erfolgreich gesendet!")
+        except Exception as e:
+            print(f"Fehler beim Senden: {e}")
+        
     ################################ CHECK FUNCTIONS ##################################
     def check_database_integrity(self):
         """
