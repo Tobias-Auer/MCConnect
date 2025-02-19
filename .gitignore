@@ -14,3 +14,4 @@ web/config.py
 *.class
 /java plugin/MCDataLink/target
 *.class
+database/credentials.txt
