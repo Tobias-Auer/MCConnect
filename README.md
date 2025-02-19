@@ -11,7 +11,7 @@ Anyone will be able to add their own Minecraft server to this server with a simp
 
 Preview:
 
-![Screenshot](/#readmeImages/Startseite.png)
+![Screenshot](%23readmeImages/Startseite.png)
 
 
 
