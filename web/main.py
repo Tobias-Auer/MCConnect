@@ -23,7 +23,7 @@ minecraft = Minecraft()
 
 
 app = Flask(__name__, subdomain_matching=True)
-CORS(app, resources={r"/api/*": {"origins": "*." + CURRENT_DOMAIN}})
+CORS(app, resources={r"/api/*": {"origins": CURRENT_DOMAIN}})
 # @app.before_request
 # def restrict_api_access():
 #     if request.path.startswith("/api/"):

@@ -38,11 +38,12 @@ CREATE TABLE public."server"(
 );
 CREATE TABLE public.unsetUser(
   id SERIAL,
-  username TEXT,
-  "password" TEXT,
-  email TEXT,
-  email_verified bool,
+  username TEXT NOT NULL,
+  "password" TEXT NOT NULL,
+  email TEXT NOT NULL,
+  email_verified bool NOT NULL,
   verification_code TEXT,
+  timestamp TIMESTAMP without time zone NOT NULL,
   CONSTRAINT username_pkey PRIMARY KEY(username)
 );
 CREATE TABLE public.player_server_info(

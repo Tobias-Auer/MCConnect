@@ -6,6 +6,7 @@ import re
 import secrets
 import string
 import threading
+import time
 import traceback
 import uuid
 import argon2
@@ -19,7 +20,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 ph = argon2.PasswordHasher()
-logger = get_logger("databaseManager",logging.INFO)
+logger = get_logger("databaseManager",logging.DEBUG)
 minecraft = Minecraft()
 
 def read_sql_file(filepath):
@@ -33,7 +34,7 @@ def generate_secure_token(length=64):
 
 
 class DatabaseManager:
-    TABLE_COUNT = 9
+    TABLE_COUNT = 9  # minimum table count
     LOWEST_WEB_ACCESS_LEVEL = 2
 
     def __init__(self):
@@ -197,7 +198,7 @@ class DatabaseManager:
             link = f"{self.CURRENT_DOMAIN}/verify_email/{username}/{verification_code}"
             email_text = f"Your account has been created. Please verify your email address by clicking <a href='{link}'> here </a> <br>If you didn't create an account, please ignore this email."
             hashed_password = ph.hash(password)
-            query = "INSERT INTO unsetUser (username, password, email, email_verified, verification_code) VALUES (%s, %s, %s, %s, %s)"
+            query = "INSERT INTO unsetUser (username, password, email, email_verified, verification_code, timestamp) VALUES (%s, %s, %s, %s, %s, current_timestamp)"
             data = (username, hashed_password, email, False, verification_code)
             logger.debug(f"executing SQL query: {query} with data: {data}")
             try:
@@ -298,20 +299,43 @@ class DatabaseManager:
     
     def verify_signupcode(self, username, code):
         logger.debug("verify_signupcode is called")
-        query = "SELECT * FROM unsetUser WHERE username = %s AND verification_code = %s and email_verified = FALSE"
+        query = "SELECT timestamp FROM unsetuser WHERE username = %s AND verification_code = %s"
         data = (username, code)
         logger.debug(f"executing SQL query: {query}")
         logger.debug(f"with following data: {data}")
         try:
             self.cursor.execute(query, data)
-            unset_user = self.cursor.fetchone()
+            saved_timestamp = self.cursor.fetchone()
+            if saved_timestamp is None:
+                logger.info(f'No signup code found for username: "{username}"')
+                return False
+            current_timestamp = datetime.now()
+            time_difference = current_timestamp - saved_timestamp[0]
+            
+            if time_difference > timedelta(minutes=5):
+                logger.info(f'Timedelta exceeded for username: "{username}"')
+                query = "DELETE FROM unsetUser WHERE username = %s AND verification_code = %s"
+                data = (username, code)
+                logger.debug(f"executing SQL query: {query}")
+                logger.debug(f"with following data: {data}")
+                self.cursor.execute(query, data)
+                self.conn.commit()
+                return False
+        
+            query = "SELECT * FROM unsetUser WHERE username = %s AND verification_code = %s and email_verified = FALSE"
+            data = (username, code)
+            logger.debug(f"executing SQL query: {query}")
+            logger.debug(f"with following data: {data}")
+
+            self.cursor.execute(query, data)
+            unset_user = self.cursor.fetchone()[0]
             if unset_user:
                 logger.info(f'Verified signup code for username: "{username}"')
                 query = "UPDATE unsetUser SET email_verified = TRUE WHERE username = %s AND verification_code = %s"
                 data = (username, code)
                 self.cursor.execute(query, data)
-                logger.debug("executing SQL query: {query}")
-                logger.debug("with following data: {data}")
+                logger.debug(f"executing SQL query: {query}")
+                logger.debug(f"with following data: {data}")
                 self.conn.commit()
                 return True
             else:
@@ -584,6 +608,10 @@ class DatabaseManager:
         None
         """
         logger.debug("drop_db is called")
+        logger.warning("\nDropping database in 5 Seconds!!!\n\n!!!! To cancel press CTRL+C !!!!\n")
+        for i in range(5, 0, -1):
+            print(f"Reset in {i}...")
+            time.sleep(1)
         query = "DROP SCHEMA public CASCADE;CREATE SCHEMA public;"
         logger.debug(f"executing SQL query: {query}")
         self.cursor.execute(query)

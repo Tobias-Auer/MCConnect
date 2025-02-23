@@ -2,7 +2,7 @@ import logging
 import sys
 from logging.handlers import RotatingFileHandler
 
-def get_logger(name=None, log_level=logging.DEBUG, log_file='logs.log', max_bytes=1000*1024, backup_count=5):
+def get_logger(name=None, log_level=logging.DEBUG, log_file='logs.log', max_bytes=1000*1024, backup_count=20):
     """
     Configure and return a logger instance.
     
