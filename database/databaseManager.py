@@ -19,6 +19,8 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+RESET_DATABASE = True
+
 ph = argon2.PasswordHasher()
 logger = get_logger("databaseManager",logging.DEBUG)
 minecraft = Minecraft()
@@ -35,7 +37,7 @@ def generate_secure_token(length=64):
 
 class DatabaseManager:
     TABLE_COUNT = 9  # minimum table count
-    LOWEST_WEB_ACCESS_LEVEL = 2
+    LOWEST_WEB_ACCESS_LEVEL = 0
 
     def __init__(self):
         self.CURRENT_DOMAIN = open("DOMAIN.txt", "r").readline().strip()
@@ -50,8 +52,9 @@ class DatabaseManager:
         logger.info("Established connection to the database")
         self.cursor = self.conn.cursor()
 
-        if not self.check_database_integrity():
+        if not self.check_database_integrity() or RESET_DATABASE:
             self.init_tables()
+        exit("done lol")
     ################################ INIT FUNCTIONS ###################################
     def init_tables(self):
         """
@@ -67,9 +70,11 @@ class DatabaseManager:
         Exception: If an error occurs while executing the SQL query or committing the changes.
         """
         logger.debug("create_tables is called")
-        logger.debug("dropping existing tables")
+        logger.debug("dropping existing tables in 5 seconds...\nPress strg+c to cancel")
+        
+            
         self.drop_db()
-        query = read_sql_file("database/queries/initDB.sql")
+        query = read_sql_file("database/queries/initDBv2.sql")
         logger.debug(f"executing SQL query: {query}")
         try:
             self.cursor.execute(query)
@@ -124,7 +129,8 @@ class DatabaseManager:
     def init_player_server_info_table(self, server_id, player_uuid):
         logger.debug("init_player_server_info_table is called")
         web_access_permissions = self.LOWEST_WEB_ACCESS_LEVEL
-        query = "INSERT INTO player_server_info (id, server_id, player_uuid, online, first_seen, last_seen, web_access_permissions) VALUES (uuid_generate_v4(), %s, %s, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, %s)"
+        query = """INSERT INTO player_server_info (server_id, player_uuid, online, first_seen, last_seen, web_access_permissions) 
+                   VALUES (%s, %s, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, %s)"""
         logger.debug(f"executing SQL query: {query}")
         data = (server_id, player_uuid, web_access_permissions)
         logger.debug(f"with following data: {data}")
@@ -611,7 +617,7 @@ class DatabaseManager:
         logger.warning("\nDropping database in 5 Seconds!!!\n\n!!!! To cancel press CTRL+C !!!!\n")
         for i in range(5, 0, -1):
             print(f"Reset in {i}...")
-            time.sleep(1)
+            time.sleep(0)
         query = "DROP SCHEMA public CASCADE;CREATE SCHEMA public;"
         logger.debug(f"executing SQL query: {query}")
         self.cursor.execute(query)
@@ -1536,18 +1542,18 @@ if __name__ == "__main__":
     server_description_short = "Komm auf den Server und spiele mit."
     db_manager = DatabaseManager()
     db_manager.init_tables()
-    db_manager.init_new_server(subdomain="tobias", 
-                                license_type=2,
-                                owner_name="Tobias Auer", 
-                               mc_server_domain="mc.t-auer.com", 
-                               owner_username="Tobias",
-                               owner_email="mc.t-auer.com",
-                               owner_password="1234",
-                               discord_url="https://www.discord.gg/vJYNnsQwf8", 
-                               server_description_short=server_description_short, 
-                               server_description_long=server_description_long,
-                               server_name="Tobi's Mc-Server",
-                               server_key=generate_secure_token())
+    # db_manager.init_new_server(subdomain="tobias", 
+    #                             license_type=2,
+    #                             owner_name="Tobias Auer", 
+    #                            mc_server_domain="mc.t-auer.com", 
+    #                            owner_username="Tobias",
+    #                            owner_email="mc.t-auer.com",
+    #                            owner_password="1234",
+    #                            discord_url="https://www.discord.gg/vJYNnsQwf8", 
+    #                            server_description_short=server_description_short, 
+    #                            server_description_long=server_description_long,
+    #                            server_name="Tobi's Mc-Server",
+    #                            server_key=generate_secure_token())
     
     #my_server_id = db_manager.get_server_id_from_subdomain("tobias")
     # my_other_server_id = db_manager.get_server_id_from_subdomain("tobias2")
