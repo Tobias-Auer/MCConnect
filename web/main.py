@@ -1,26 +1,44 @@
-CURRENT_DOMAIN = open("DOMAIN.txt", "r").readline().strip()
-
-from re import sub
-import secrets
-from sre_constants import SUCCESS
-import sys
 import os
+import sys
 import time
 from urllib.parse import urlparse
+import secrets
+from re import sub
+from sre_constants import SUCCESS
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database')))
+# Projekt-Root bestimmen (eine Ebene über /web)
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
+# DOMAIN.txt einlesen, Fallback auf "localhost"
+DOMAIN_FILE = os.path.join(PROJECT_ROOT, "DOMAIN.txt")
+try:
+    with open(DOMAIN_FILE, "r") as f:
+        CURRENT_DOMAIN = f.readline().strip()
+except FileNotFoundError:
+    print("DOMAIN.txt nicht gefunden! Fallback auf 'localhost'.")
+    CURRENT_DOMAIN = "localhost"
+
+# Datenbankpfade zum sys.path hinzufügen
+DATABASE_DIR = os.path.join(PROJECT_ROOT, "database")
+if DATABASE_DIR not in sys.path:
+    sys.path.insert(0, DATABASE_DIR)
+
+# Imports aus dem database-Paket
 from database.databaseManager import DatabaseManager
 from database.logger import get_logger
 from database.minecraft import Minecraft
 
+# Flask setup
 from flask import Flask, render_template, render_template_string, request, Response, redirect, session, flash, jsonify, abort
 from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
+
 
 logger = get_logger("webServer")
 db_manager = DatabaseManager()
 minecraft = Minecraft()
-
 
 app = Flask(__name__, subdomain_matching=True)
 CORS(app, resources={r"/api/*": {"origins": CURRENT_DOMAIN}})
@@ -32,7 +50,7 @@ CORS(app, resources={r"/api/*": {"origins": CURRENT_DOMAIN}})
         
 logger.info('Application started')
 app.config.from_pyfile("config.py")
-app.config.from_pyfile("instance/config.py") # TODO: use session type = filesystem
+app.config.from_pyfile("instance/config.py")
 
 
 @app.context_processor
@@ -333,6 +351,6 @@ def verify_email(username, token):
 
 
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
+    print("?")

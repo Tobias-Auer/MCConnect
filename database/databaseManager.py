@@ -12,9 +12,9 @@ import uuid
 import argon2
 import psycopg2
 
-from logger import get_logger
+from colorlogx import get_logger
 import logging
-from minecraft import Minecraft
+from .minecraft import Minecraft
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -54,7 +54,6 @@ class DatabaseManager:
 
         if not self.check_database_integrity() or RESET_DATABASE:
             self.init_tables()
-        exit("done lol")
     ################################ INIT FUNCTIONS ###################################
     def init_tables(self):
         """
@@ -79,6 +78,7 @@ class DatabaseManager:
         try:
             self.cursor.execute(query)
             self.conn.commit()
+            
             logger.info("Tables initiated successfully")
             self.init_item_blocks_lookup_table("database/blocks.json")
             self.init_item_items_lookup_table("database/itemlist.json")
@@ -107,7 +107,7 @@ class DatabaseManager:
             logger.debug("register_new_server is called")
             hashed_password = ph.hash(owner_password)
             query = """
-                INSERT INTO server (owner_username, owner_email, owner_password, subdomain, license_type, server_key, server_description_short, server_description_long, discord_url, owner_name, mc_server_domain, server_name)
+                INSERT INTO servers (owner, owner_email, owner_password, subdomain, license_type, server_key, server_description_short, server_description_long, discord_url, owner_name, mc_server_domain, server_name)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """
             logger.debug(f"executing SQL query: {query}")
@@ -354,7 +354,7 @@ class DatabaseManager:
     
     def check_server_password_and_username(self, username, password):
         logger.debug("check_server_password_and_username is called")
-        query = "SELECT owner_password FROM server WHERE owner_username = %s"
+        query = "SELECT owner_password FROM servers WHERE owner_username = %s"
         data = (username,)
         logger.debug(f"executing SQL query: {query}")
         logger.debug(f"with following data: {data}")
@@ -638,7 +638,7 @@ class DatabaseManager:
         Exception: If an error occurs while executing the SQL query or committing the changes.
         """
         logger.debug("delete_server is called")
-        query = "DELETE FROM server WHERE id = %s"
+        query = "DELETE FROM servers WHERE id = %s"
         logger.debug(f"executing SQL query: {query}")
         data = (server_id,)
         logger.debug(f"with following data: {data}")
@@ -762,7 +762,7 @@ class DatabaseManager:
         logger.debug("get_player_id_from_player_uuid_and_subdomain is called")
         query = """SELECT psi.id
                 FROM player_server_info psi
-                JOIN server s ON psi.server_id = s.id
+                JOIN servers s ON psi.server_id = s.id
                 WHERE psi.player_uuid = %s AND s.subdomain = %s;"""
         logger.debug(f"executing SQL query: {query}")
         data = (player_uuid, subdomain,)
@@ -783,7 +783,7 @@ class DatabaseManager:
         
     def get_server_id_from_subdomain(self, subdomain):
         logger.debug("get_server_id_from_subdomain is called")
-        query = "SELECT id FROM server WHERE subdomain = %s"
+        query = "SELECT id FROM servers WHERE subdomain = %s"
         logger.debug(f"executing SQL query: {query}")
         data = (subdomain,)
         logger.debug(f"with following data: {data}")
@@ -886,7 +886,7 @@ class DatabaseManager:
             SELECT bp.*
             FROM banned_players bp
             JOIN player_server_info psi ON bp.player_id = psi.id
-            JOIN server s ON psi.server_id = s.id
+            JOIN servers s ON psi.server_id = s.id
             WHERE psi.player_uuid = %s AND s.subdomain = %s;
             """        
         data = (player_uuid, subdomain)
@@ -951,7 +951,7 @@ class DatabaseManager:
         query = """
                 SELECT psi.web_access_permissions
                 FROM player_server_info psi
-                JOIN server s ON psi.server_id = s.id
+                JOIN servers s ON psi.server_id = s.id
                 WHERE psi.player_uuid = %s AND s.subdomain = %s;
                 """
         data = (player_uuid, subdomain)
@@ -986,7 +986,7 @@ class DatabaseManager:
     
     def get_server_information(self, subdomain):
         logger.debug(f"getting server_information is called")
-        query = "SELECT * FROM server WHERE subdomain = %s;"
+        query = "SELECT * FROM servers WHERE subdomain = %s;"
         data = (subdomain,)
         logger.debug(f"executing SQL query: {query}")
         logger.debug(f"with following data: {data}")
@@ -1021,7 +1021,7 @@ class DatabaseManager:
         query = """
                 SELECT psi.online
                 FROM player_server_info psi
-                JOIN server s ON psi.server_id = s.id
+                JOIN servers s ON psi.server_id = s.id
                 WHERE psi.player_uuid = %s AND s.subdomain = %s;
                 """
         data = (player_uuid, subdomain)
@@ -1090,7 +1090,7 @@ class DatabaseManager:
 
     def get_all_uuids_from_subdomain(self, subdomain):
         logger.debug(f"getting_all_uuids_from_subdomain is called with subdomain: {subdomain}")
-        query = """SELECT player_uuid FROM player_server_info WHERE server_id IN (SELECT id FROM server WHERE subdomain = %s)"""
+        query = """SELECT player_uuid FROM player_server_info WHERE server_id IN (SELECT id FROM servers WHERE subdomain = %s)"""
         data = (subdomain,)
         logger.debug(f"executing SQL query: {query}")
         logger.debug(f"with following data: {data}")
@@ -1107,7 +1107,7 @@ class DatabaseManager:
         
     def get_online_player_count_from_subdomain(self, subdomain):
         logger.debug(f"getting_online_player_count_from_subdomain is called with subdomain: {subdomain}")
-        query = """SELECT COUNT(*) FROM player_server_info WHERE server_id IN (SELECT id FROM server WHERE subdomain = %s) AND online = true"""
+        query = """SELECT COUNT(*) FROM player_server_info WHERE server_id IN (SELECT id FROM servers WHERE subdomain = %s) AND online = true"""
         data = (subdomain,)
         logger.debug(f"executing SQL query: {query}")
         logger.debug(f"with following data: {data}")
@@ -1123,7 +1123,7 @@ class DatabaseManager:
     
     def get_banned_status_from_uuid_and_subdomain(self, uuid, subdomain):
         logger.debug(f"getting_banned_status_from_uuid_and_subdomain is called with uuid: {uuid} and subdomain: {subdomain}")
-        query = """SELECT * FROM banned_players WHERE player_id = server_id(SELECT id FROM server WHERE subdomain = %s)"""
+        query = """SELECT * FROM banned_players WHERE player_id = server_id(SELECT id FROM servers WHERE subdomain = %s)"""
         data = (uuid, subdomain)
         logger.debug(f"executing SQL query: {query}")
         logger.debug(f"with following data: {data}")
@@ -1366,7 +1366,7 @@ class DatabaseManager:
     
     def get_server_id_by_auth_key(self, auth_key):
         logger.debug(f"get_server_id_by_auth_key is called with auth_key: {auth_key}")
-        query = """ SELECT id FROM server WHERE server_key = %s; """
+        query = """ SELECT id FROM servers WHERE server_key = %s; """
         data = (auth_key,)
         logger.debug(f"executing SQL query: {query}")
         logger.debug(f"with following data: {data}")
@@ -1542,24 +1542,26 @@ if __name__ == "__main__":
     server_description_short = "Komm auf den Server und spiele mit."
     db_manager = DatabaseManager()
     db_manager.init_tables()
-    # db_manager.init_new_server(subdomain="tobias", 
-    #                             license_type=2,
-    #                             owner_name="Tobias Auer", 
-    #                            mc_server_domain="mc.t-auer.com", 
-    #                            owner_username="Tobias",
-    #                            owner_email="mc.t-auer.com",
-    #                            owner_password="1234",
-    #                            discord_url="https://www.discord.gg/vJYNnsQwf8", 
-    #                            server_description_short=server_description_short, 
-    #                            server_description_long=server_description_long,
-    #                            server_name="Tobi's Mc-Server",
-    #                            server_key=generate_secure_token())
+    token = generate_secure_token()
+    print(token)
+    db_manager.init_new_server(subdomain="tobias", 
+                                license_type=2,
+                                owner_name="Tobias Auer", 
+                               mc_server_domain="mc.t-auer.com", 
+                               owner_username="Tobias",
+                               owner_email="mc.t-auer.com",
+                               owner_password="1234",
+                               discord_url="https://www.discord.gg/vJYNnsQwf8", 
+                               server_description_short=server_description_short, 
+                               server_description_long=server_description_long,
+                               server_name="Tobi's Mc-Server",
+                               server_key=token)
     
-    #my_server_id = db_manager.get_server_id_from_subdomain("tobias")
-    # my_other_server_id = db_manager.get_server_id_from_subdomain("tobias2")
+    my_server_id = db_manager.get_server_id_from_subdomain("tobias")
+    my_other_server_id = db_manager.get_server_id_from_subdomain("tobias2")
     
     
-    #db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
+    db_manager.add_new_player("4ebe5f6f-c231-4315-9d60-097c48cc6d30")
     # db_manager.add_new_player("c96792ac-7aea-4f16-975e-535a20a2791a") #test player
     # db_manager.add_new_player("83f4a8ea-51f1-465d-9274-9a6b2e4ec64c")#test player
     # db_manager.add_new_player("25c6a3b7-94fa-45b4-8d9f-7041a35d97b3")#test player

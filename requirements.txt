@@ -1,0 +1,6 @@
+psycopg2-binary
+argon2-cffi
+requests
+flask
+flask_cors
+logger

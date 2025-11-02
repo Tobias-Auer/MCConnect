@@ -8,6 +8,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.WorldSaveEvent;
 
+import java.io.IOException;
+
 import static org.bukkit.Bukkit.getLogger;
 
 public class JoinListener implements Listener {
@@ -20,13 +22,21 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         getLogger().info("onPlayerJoin");
-        plugin.sendMsg("!JOIN~" + event.getPlayer().getUniqueId(), MCDataLink.pr);
+        try {
+            plugin.sendMsg("!JOIN~" + event.getPlayer().getUniqueId());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         getLogger().info("onPlayerQuit");
-        plugin.sendMsg("!QUIT~" + event.getPlayer().getUniqueId(), MCDataLink.pr);
+        try {
+            plugin.sendMsg("!QUIT~" + event.getPlayer().getUniqueId());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     @EventHandler
     public void onWorldSave(WorldSaveEvent event) {
