@@ -1,0 +1,3047 @@
+{
+	"tables": {
+		"bb2a6e46-daa8-4e5c-b77c-757c8f63742f": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "Stores all the relevant data regarding the player statistics.\nIn  \"uuid\" is the player stored\nin \"object\" it is stated what the other data refers to (stone_block, diamond_sword, zombie,....)\nin \"category\" is stated in which context the item should be interpretet (mined blocks, collected blocks, item usage, killed mobs, ....)\n\"value\" is the corresponding value ",
+			"id": "bb2a6e46-daa8-4e5c-b77c-757c8f63742f",
+			"name": "actions",
+			"cols": [
+				{
+					"data": "",
+					"id": "548bf6b6-61a4-43b8-a634-b592eaaf7925",
+					"name": "id",
+					"datatype": "serial",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "7349b4a0-e19a-40d8-b60c-15c710d46e5d",
+					"name": "player_id",
+					"datatype": "uuid",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "87cb8c35-b1a1-4f51-a520-c78381002038",
+					"name": "category",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "d24412bf-776a-4a45-9d30-96d25ed92995",
+					"name": "object",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "2b422ce1-91b9-4a3c-8e57-9e7fe0260d91",
+					"name": "value",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"cb226419-a28b-4a32-9a9c-3f884eb45f7b"
+			],
+			"keys": [
+				{
+					"id": "bed15a03-cfa0-4b9a-ba43-f0f0c0e196cc",
+					"isPk": true,
+					"name": "actions_pkey",
+					"cols": [
+						{
+							"id": "934ff806-af6b-4f1f-84e8-a63655be8101",
+							"colid": "548bf6b6-61a4-43b8-a634-b592eaaf7925"
+						}
+					]
+				},
+				{
+					"id": "a327b9b9-1e6e-4c4d-b029-86330c2a0da9",
+					"isPk": false,
+					"name": "unique_action",
+					"cols": [
+						{
+							"id": "7fc8b0e4-f2b4-4d2d-aa0a-c98d5a5ab3c3",
+							"colid": "7349b4a0-e19a-40d8-b60c-15c710d46e5d"
+						},
+						{
+							"id": "0ee447d5-dd0e-489c-92cb-ee8da8408221",
+							"colid": "d24412bf-776a-4a45-9d30-96d25ed92995"
+						},
+						{
+							"id": "6e9fb8e2-078d-4799-8b95-99721a41bfd8",
+							"colid": "87cb8c35-b1a1-4f51-a520-c78381002038"
+						}
+					]
+				}
+			],
+			"indexes": [
+				{
+					"id": "b1b1696c-42cb-409d-8c54-732033ede65c",
+					"unique": false,
+					"name": "actions_player_id_idx",
+					"cols": [
+						{
+							"id": "39d19ce7-e2cd-4f22-b4bd-d91cbc283381",
+							"colid": "7349b4a0-e19a-40d8-b60c-15c710d46e5d",
+							"pg": {
+								"collate": "",
+								"desc": false,
+								"nullsLast": true,
+								"expression": ""
+							}
+						}
+					],
+					"pg": {
+						"desc": "",
+						"storageParameters": "",
+						"expression": "",
+						"tablespace": ""
+					},
+					"algorithm": "btree"
+				}
+			],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"c63793b5-05c8-4ee9-9a00-98b5c1dc28c7": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "",
+			"id": "c63793b5-05c8-4ee9-9a00-98b5c1dc28c7",
+			"name": "ban_reasons",
+			"cols": [
+				{
+					"data": "",
+					"id": "5b56a1c5-4d98-4c6f-97f4-2ead3df4ffb7",
+					"name": "reason",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "0be99ad7-bf5a-4353-855c-967b9b2ad64b",
+					"name": "ban_duration_in_days",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "ed2a67e6-a5ec-4e28-bbb6-f5a891e41967",
+					"name": "id",
+					"datatype": "serial",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"afc5ef2b-e6ce-45b8-894e-1ee2accf8580"
+			],
+			"keys": [
+				{
+					"id": "f87d79fa-1e3a-44eb-b8d1-02797e411e5e",
+					"isPk": false,
+					"name": "ban_reasons_key",
+					"cols": [
+						{
+							"id": "dcc339ae-3f06-46af-afc6-7eb89c7b728a",
+							"colid": "5b56a1c5-4d98-4c6f-97f4-2ead3df4ffb7"
+						}
+					]
+				},
+				{
+					"id": "9549bb61-43d6-49ef-8baa-3beed37b5784",
+					"isPk": true,
+					"name": "ban_reasons_pkey",
+					"cols": [
+						{
+							"id": "8b011a60-8e96-41d7-ba39-224892f4fc78",
+							"colid": "ed2a67e6-a5ec-4e28-bbb6-f5a891e41967"
+						}
+					]
+				}
+			],
+			"indexes": [],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"1132b51b-f693-4e20-8027-3ef4aea12d0d": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "Contains the uuids and informations about banned players",
+			"id": "1132b51b-f693-4e20-8027-3ef4aea12d0d",
+			"name": "banned_players",
+			"cols": [
+				{
+					"data": "",
+					"id": "e37dfe53-a3dc-4516-b99e-c75f3a7ee1b4",
+					"name": "id",
+					"datatype": "serial",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "d0614d01-ed73-4045-961a-76cc592a4c2f",
+					"name": "banned_player_id",
+					"datatype": "uuid",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "98cc7891-8d21-44b8-aaaa-b4b683b50499",
+					"name": "moderator_id",
+					"datatype": "uuid",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "2dda61a2-75ec-49bf-b656-9c292d6b64da",
+					"name": "ban_reason_id",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "d5b28e6c-46d0-410b-b904-d5a444488023",
+					"name": "comment",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "9a49d4e3-2260-4e2a-bedb-9b4c63b11f73",
+					"name": "ban_start",
+					"datatype": "timestamp without time zone",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "0355657a-49cf-4708-b577-336146e75764",
+					"name": "ban_end",
+					"datatype": "timestamp without time zone",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"afc5ef2b-e6ce-45b8-894e-1ee2accf8580",
+				"532ff17c-8fde-4ce2-8780-6a5c7494d9bd",
+				"501aee9d-a67a-4352-a437-515b2e40a917"
+			],
+			"keys": [
+				{
+					"id": "9c30b1cf-357e-4506-a1f7-e05e028b6fd6",
+					"isPk": true,
+					"name": "banned_players_pkey",
+					"cols": [
+						{
+							"id": "83773982-3411-45e0-8324-6fe9a38138a1",
+							"colid": "e37dfe53-a3dc-4516-b99e-c75f3a7ee1b4"
+						}
+					]
+				}
+			],
+			"indexes": [
+				{
+					"id": "e319f4d6-44e7-42de-bfc9-43416b85a9a4",
+					"unique": false,
+					"name": "banned_players_banned_player_id_idx",
+					"cols": [
+						{
+							"id": "38cb2515-75f4-499e-a6bf-3a9b8d15aad8",
+							"colid": "d0614d01-ed73-4045-961a-76cc592a4c2f",
+							"pg": {
+								"collate": "",
+								"desc": false,
+								"nullsLast": true,
+								"expression": ""
+							}
+						}
+					],
+					"pg": {
+						"desc": "",
+						"storageParameters": "",
+						"expression": "",
+						"tablespace": ""
+					},
+					"algorithm": "btree"
+				},
+				{
+					"id": "0a6bad13-68ce-4b6f-beb1-6228f2c7d640",
+					"unique": false,
+					"name": "banned_players_moderator_id_idx",
+					"cols": [
+						{
+							"id": "245c55b2-c7e7-41ef-8cae-67a06b1ce8cf",
+							"colid": "98cc7891-8d21-44b8-aaaa-b4b683b50499",
+							"pg": {
+								"collate": "",
+								"desc": false,
+								"nullsLast": true,
+								"expression": ""
+							}
+						}
+					],
+					"pg": {
+						"desc": "",
+						"storageParameters": "",
+						"expression": "",
+						"tablespace": ""
+					},
+					"algorithm": "btree"
+				}
+			],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"fe8a30ef-3ff5-408b-b02f-02debeb66996": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "",
+			"id": "fe8a30ef-3ff5-408b-b02f-02debeb66996",
+			"name": "block_lookup",
+			"cols": [
+				{
+					"data": "",
+					"id": "e8b27041-b307-4067-be81-f3601293440a",
+					"name": "id",
+					"datatype": "serial",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "5795d280-2a1f-45e8-9eb2-b9e3ccb308b7",
+					"name": "blocks",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [],
+			"keys": [
+				{
+					"id": "c4a003c1-3cb8-4f49-b3fb-c73a6d28bed4",
+					"isPk": true,
+					"name": "block_lookup_pkey",
+					"cols": [
+						{
+							"id": "866b4f5d-f009-43f8-925c-4c1b193a8bd4",
+							"colid": "e8b27041-b307-4067-be81-f3601293440a"
+						}
+					]
+				}
+			],
+			"indexes": [
+				{
+					"id": "3c55b344-7f4f-4206-9ce6-0f5a513713d0",
+					"unique": true,
+					"name": "block_lookup_index",
+					"cols": [
+						{
+							"id": "68a4eda2-91f2-4ca2-8565-47ca6df6097b",
+							"colid": "5795d280-2a1f-45e8-9eb2-b9e3ccb308b7",
+							"pg": {
+								"collate": "",
+								"desc": false,
+								"nullsLast": true,
+								"expression": ""
+							}
+						}
+					],
+					"pg": {
+						"desc": "",
+						"storageParameters": "",
+						"expression": "",
+						"tablespace": ""
+					},
+					"algorithm": "btree"
+				}
+			],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"4617a244-3319-4c73-bae6-031c673a3c56": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "",
+			"id": "4617a244-3319-4c73-bae6-031c673a3c56",
+			"name": "email_verification",
+			"cols": [
+				{
+					"data": "",
+					"id": "2c5780ae-1c42-4b01-9a75-1de228bd1a35",
+					"name": "id",
+					"datatype": "integer",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "e8200844-6b7c-401e-8542-52e581c107cf",
+					"name": "verification_code",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "1b8c17af-edec-439a-8c3e-96daa0ba8751",
+					"name": "verification_timestamp",
+					"datatype": "timestamp without time zone",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"1b55ed17-50f0-45a0-bc93-14ae26fe47f2"
+			],
+			"keys": [
+				{
+					"id": "0b7c58ac-4b43-443c-acbf-3ab435626daa",
+					"isPk": true,
+					"name": "email_verification_pkey",
+					"cols": [
+						{
+							"id": "bba37426-caa0-41ed-abc6-4ec8db056797",
+							"colid": "2c5780ae-1c42-4b01-9a75-1de228bd1a35"
+						}
+					]
+				}
+			],
+			"indexes": [],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"bc3e72d6-5002-453d-ab32-da05c7501f61": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "",
+			"id": "bc3e72d6-5002-453d-ab32-da05c7501f61",
+			"name": "item_lookup",
+			"cols": [
+				{
+					"data": "",
+					"id": "68d2d2c1-979f-49f4-b0b2-8d27acd3ae2d",
+					"name": "id",
+					"datatype": "serial",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "4abbf0c3-5e63-476b-a1d8-14cca8af5610",
+					"name": "items",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [],
+			"keys": [
+				{
+					"id": "361e8bb2-8bdb-4b9d-95b9-9c6e36993d21",
+					"isPk": true,
+					"name": "item_lookup_pkey",
+					"cols": [
+						{
+							"id": "df042a99-cf2b-45dd-8877-4c5bcbe90a0d",
+							"colid": "68d2d2c1-979f-49f4-b0b2-8d27acd3ae2d"
+						}
+					]
+				}
+			],
+			"indexes": [
+				{
+					"id": "7e6a801c-be1e-4c08-84f4-baeeb57b5ca6",
+					"unique": true,
+					"name": "item_lookup_index",
+					"cols": [
+						{
+							"id": "fdb9f14b-afdc-4050-b0d1-d392059c8a2c",
+							"colid": "4abbf0c3-5e63-476b-a1d8-14cca8af5610",
+							"pg": {
+								"collate": "",
+								"desc": false,
+								"nullsLast": true,
+								"expression": ""
+							}
+						}
+					],
+					"pg": {
+						"desc": "",
+						"storageParameters": "",
+						"expression": "",
+						"tablespace": ""
+					},
+					"algorithm": "btree"
+				}
+			],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"82a807c8-b47e-49aa-90f6-874fdc7dd30f": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "Stores the pin the player is required to provide on login",
+			"id": "82a807c8-b47e-49aa-90f6-874fdc7dd30f",
+			"name": "login",
+			"cols": [
+				{
+					"data": "",
+					"id": "3e714a1f-31f9-4b4c-9574-2389940508c1",
+					"name": "id",
+					"datatype": "serial",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "2a2497c9-8132-4008-adaa-3f3644e28d14",
+					"name": "player_id",
+					"datatype": "uuid",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "eaed2f42-a5de-4ce8-9d63-c2733b98eb31",
+					"name": "pin",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "40b46d66-9399-4c6a-8c95-ce7790a53948",
+					"name": "timestamp",
+					"datatype": "timestamp without time zone",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"880a24e8-3013-4ae5-856a-c111a6e4332b"
+			],
+			"keys": [
+				{
+					"id": "a0d72c18-fd83-4bcd-9465-d2f4029fbdf8",
+					"isPk": true,
+					"name": "login_pkey",
+					"cols": [
+						{
+							"id": "1861f574-d2a4-4ff0-9e94-99e953608a1e",
+							"colid": "3e714a1f-31f9-4b4c-9574-2389940508c1"
+						}
+					]
+				},
+				{
+					"id": "52157822-4866-4961-9dbe-6e3efa739d93",
+					"isPk": false,
+					"name": "player_id_ukey",
+					"cols": [
+						{
+							"id": "a3fd2a8f-f163-4c30-a670-d482bca9b910",
+							"colid": "2a2497c9-8132-4008-adaa-3f3644e28d14"
+						}
+					]
+				}
+			],
+			"indexes": [],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"d67b69b9-3715-48c3-8d73-7810b3a191c3": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "",
+			"id": "d67b69b9-3715-48c3-8d73-7810b3a191c3",
+			"name": "player",
+			"cols": [
+				{
+					"data": "",
+					"id": "0b9a3327-2d44-4a65-9c83-51657b990f04",
+					"name": "uuid",
+					"datatype": "uuid",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "5d5755e1-0c7f-4f5b-b5a8-8cff3a0dd650",
+					"name": "name",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"bd655582-29ea-468a-a119-156f9c389f15"
+			],
+			"keys": [
+				{
+					"id": "3d97a991-c6e8-470f-9c51-d17f17d45e17",
+					"isPk": true,
+					"name": "player_pkey",
+					"cols": [
+						{
+							"id": "10e1c59b-6d9f-4b37-80bb-703fde6dd08d",
+							"colid": "0b9a3327-2d44-4a65-9c83-51657b990f04"
+						}
+					]
+				}
+			],
+			"indexes": [
+				{
+					"id": "c22b1aef-6d21-423c-b045-61a984e3c118",
+					"unique": false,
+					"name": "player_uuid_idx",
+					"cols": [
+						{
+							"id": "e9802931-9c1f-48e5-8e1e-2ab33aa8dbee",
+							"colid": "0b9a3327-2d44-4a65-9c83-51657b990f04",
+							"pg": {
+								"collate": "",
+								"desc": false,
+								"nullsLast": true,
+								"expression": ""
+							}
+						}
+					],
+					"pg": {
+						"desc": "",
+						"storageParameters": "",
+						"expression": "",
+						"tablespace": ""
+					},
+					"algorithm": "btree"
+				}
+			],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"91be2ae3-17d1-48f3-a812-4b187dd7baf7": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "Saves player data regarding the online status, last seen,...",
+			"id": "91be2ae3-17d1-48f3-a812-4b187dd7baf7",
+			"name": "player_server_info",
+			"cols": [
+				{
+					"data": "",
+					"id": "913b9268-1c09-40e6-9830-37e815df0529",
+					"name": "player_id",
+					"datatype": "uuid",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "uuid_generate_v4()",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "70e41690-5333-475c-ae25-60b5cc0475b4",
+					"name": "mojang_uuid",
+					"datatype": "uuid",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "3c561509-b65f-410c-933d-ea7e829262f3",
+					"name": "server_id",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "0013da18-3566-4c09-8982-dd9033004eec",
+					"name": "online",
+					"datatype": "boolean",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "false",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "b8653137-429a-4d85-82a2-0e2433a3805f",
+					"name": "first_seen",
+					"datatype": "timestamp without time zone",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "3cc049b7-9199-4461-b3db-ef7f1cb69c1a",
+					"name": "last_seen",
+					"datatype": "timestamp without time zone",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "6a3b2ac2-ef6f-4e6b-8e39-73360cea495a",
+					"name": "prefix_id",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "e2cf5e2b-8efc-46ef-82a7-77aa84149dce",
+					"name": "web_access_permissions",
+					"datatype": "smallint",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "d9d0cc33-ef49-4cfa-bb02-aa3c629df312",
+					"name": "created_at",
+					"datatype": "timestamp without time zone",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "now()",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"cb226419-a28b-4a32-9a9c-3f884eb45f7b",
+				"532ff17c-8fde-4ce2-8780-6a5c7494d9bd",
+				"501aee9d-a67a-4352-a437-515b2e40a917",
+				"880a24e8-3013-4ae5-856a-c111a6e4332b",
+				"bd655582-29ea-468a-a119-156f9c389f15",
+				"6677d82e-181a-4e98-b30d-2b7665960045",
+				"bee4247e-5312-453a-8d39-90846e85800b",
+				"e61a79b3-18f4-4253-b5eb-606271b88902"
+			],
+			"keys": [
+				{
+					"id": "e6073e74-0f9e-44f9-bc82-b17bfea0e67b",
+					"isPk": false,
+					"name": "player_server_info_mojang_uuid_key",
+					"cols": [
+						{
+							"id": "6e0480fa-2051-4b4c-b9da-00961583c7a7",
+							"colid": "70e41690-5333-475c-ae25-60b5cc0475b4"
+						}
+					]
+				},
+				{
+					"id": "7c77cdfb-8899-4a60-995e-ebfa02ece0ca",
+					"isPk": true,
+					"name": "player_server_info_pkey",
+					"cols": [
+						{
+							"id": "57c662ac-d8eb-4ad1-83fa-4dae4c597f00",
+							"colid": "913b9268-1c09-40e6-9830-37e815df0529"
+						}
+					]
+				},
+				{
+					"id": "5d20c740-85f9-4cc3-8cbc-4a88a9285228",
+					"isPk": false,
+					"name": "player_server_info_server_player_unique",
+					"cols": [
+						{
+							"id": "71f8929e-b248-4959-82c2-b8cd675ae0ac",
+							"colid": "3c561509-b65f-410c-933d-ea7e829262f3"
+						},
+						{
+							"id": "375826dd-7f1f-4a06-98ae-e38236b4d186",
+							"colid": "70e41690-5333-475c-ae25-60b5cc0475b4"
+						}
+					]
+				}
+			],
+			"indexes": [
+				{
+					"id": "98b0d06f-aae8-49b5-aaac-7965801a3505",
+					"unique": false,
+					"name": "player_server_info_player_uuid_idx",
+					"cols": [
+						{
+							"id": "ab3200e9-8243-446b-b34b-209c4ae52afa",
+							"colid": "70e41690-5333-475c-ae25-60b5cc0475b4",
+							"pg": {
+								"collate": "",
+								"desc": false,
+								"nullsLast": true,
+								"expression": ""
+							}
+						}
+					],
+					"pg": {
+						"desc": "",
+						"storageParameters": "",
+						"expression": "",
+						"tablespace": ""
+					},
+					"algorithm": "btree"
+				},
+				{
+					"id": "443d4939-6ed7-45f6-bc29-415ef8b5efd9",
+					"unique": false,
+					"name": "player_server_info_server_id_idx",
+					"cols": [
+						{
+							"id": "cbd7762c-cbba-4c64-9114-a5008b316277",
+							"colid": "3c561509-b65f-410c-933d-ea7e829262f3",
+							"pg": {
+								"collate": "",
+								"desc": false,
+								"nullsLast": true,
+								"expression": ""
+							}
+						}
+					],
+					"pg": {
+						"desc": "",
+						"storageParameters": "",
+						"expression": "",
+						"tablespace": ""
+					},
+					"algorithm": "btree"
+				}
+			],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"3b45fc63-5de9-4ed6-be68-d737cd0073fc": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "",
+			"id": "3b45fc63-5de9-4ed6-be68-d737cd0073fc",
+			"name": "prefixes",
+			"cols": [
+				{
+					"data": "",
+					"id": "0ef61d96-d5b8-4c07-abde-5261de603ef8",
+					"name": "prefix_id",
+					"datatype": "serial",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "0d72b06c-181c-42b9-9815-e61d5c51ef49",
+					"name": "prefix_owner_id",
+					"datatype": "uuid",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "7f247607-6b9c-4c23-903f-11a17468559a",
+					"name": "prefix_text",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "b16e787a-fed6-4470-9a44-dabe78821801",
+					"name": "password",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"6677d82e-181a-4e98-b30d-2b7665960045",
+				"e61a79b3-18f4-4253-b5eb-606271b88902"
+			],
+			"keys": [
+				{
+					"id": "d55f1885-3039-4ba2-a2ba-76c17cd996f4",
+					"isPk": true,
+					"name": "prefixes_pkey",
+					"cols": [
+						{
+							"id": "f9c94ff5-7429-4d5c-b722-d6c21f5d96e5",
+							"colid": "0d72b06c-181c-42b9-9815-e61d5c51ef49"
+						},
+						{
+							"id": "9faf1736-7192-4d34-9b81-585d7cb3274c",
+							"colid": "0ef61d96-d5b8-4c07-abde-5261de603ef8"
+						}
+					]
+				},
+				{
+					"id": "44335661-18d9-4fbe-bb85-f1872867572f",
+					"isPk": false,
+					"name": "prefixes_prefix_id_key",
+					"cols": [
+						{
+							"id": "6bd61170-8174-4d89-b85f-3141cbffecd5",
+							"colid": "0ef61d96-d5b8-4c07-abde-5261de603ef8"
+						}
+					]
+				}
+			],
+			"indexes": [],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"4b9ac850-a3c2-460b-b23a-71c8b789dd78": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "",
+			"id": "4b9ac850-a3c2-460b-b23a-71c8b789dd78",
+			"name": "server_admins",
+			"cols": [
+				{
+					"data": "",
+					"id": "91567d48-3b2d-4d90-ad13-cc6ad9d07644",
+					"name": "id",
+					"datatype": "serial",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "e8ec886a-1fb8-4828-8ccc-fd6a9ae24a46",
+					"name": "username",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "351b7c51-0196-4964-a224-5293ac667447",
+					"name": "email",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "71e8d9a6-94d3-4cfc-840e-2d13372bc822",
+					"name": "password",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "c569ac66-ee0f-4fb4-acac-a9e690cbe412",
+					"name": "email_verified",
+					"datatype": "boolean",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "6fde7617-3712-4e93-8a17-900725a7681a",
+					"name": "verification_process_id",
+					"datatype": "serial",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "6143522e-1dfd-403e-b83b-a3afe855e348",
+					"name": "created_at",
+					"datatype": "timestamp without time zone",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "now()",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"1b55ed17-50f0-45a0-bc93-14ae26fe47f2",
+				"b40cb146-8a0c-4742-9dae-c0b09c946016"
+			],
+			"keys": [
+				{
+					"id": "fc336947-2eec-4df6-b30b-19464eac13de",
+					"isPk": false,
+					"name": "server_admins_key",
+					"cols": [
+						{
+							"id": "9eb2b7c2-856d-4802-af47-041390d982f0",
+							"colid": "6fde7617-3712-4e93-8a17-900725a7681a"
+						}
+					]
+				},
+				{
+					"id": "49b58747-7f94-4d0f-8743-a319b078663c",
+					"isPk": false,
+					"name": "server_admins_key1",
+					"cols": [
+						{
+							"id": "b73b772a-1d46-4d5e-8de4-1c3273cbe3e2",
+							"colid": "351b7c51-0196-4964-a224-5293ac667447"
+						}
+					]
+				},
+				{
+					"id": "500a176e-8bac-4b5d-9b0f-111fb0febcc9",
+					"isPk": true,
+					"name": "server_admins_pkey",
+					"cols": [
+						{
+							"id": "b0113a93-6831-446d-be21-3fd12c1c0ff4",
+							"colid": "91567d48-3b2d-4d90-ad13-cc6ad9d07644"
+						}
+					]
+				}
+			],
+			"indexes": [],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"47669aca-9b6d-4c03-976b-8b2cb724b713": {
+			"lines": [],
+			"embeddable": false,
+			"objectType": "table",
+			"pg": {
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"rowsecurity": false,
+				"partitionNames": [],
+				"schema": "public"
+			},
+			"desc": "",
+			"id": "47669aca-9b6d-4c03-976b-8b2cb724b713",
+			"name": "servers",
+			"cols": [
+				{
+					"data": "",
+					"id": "2c7f1616-7dd5-4042-926a-20d7c45d5fba",
+					"name": "id",
+					"datatype": "serial",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "6b960bf3-f783-4752-b46b-b12c52b3d021",
+					"name": "owner_id",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": true,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "58b1c260-c74e-44f2-83ae-7bc5d09145bf",
+					"name": "subdomain",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "23a35591-8791-44cc-b347-33772ff5ccb0",
+					"name": "mc_server_domain",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "42a2bcb4-f95b-4048-848c-6fc9f1926bf4",
+					"name": "discord_url",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "28f7a618-34b7-4ae7-8e23-dce8d096c942",
+					"name": "server_description_short",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "e7b85121-dd4c-4fb0-9329-3b542d68455e",
+					"name": "server_description_long",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "3686ff1e-709f-4dbf-b54b-a4e6fbbafbd6",
+					"name": "server_name",
+					"datatype": "text",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "0d718eb2-b408-4b5f-90f3-2286aa15f2e7",
+					"name": "server_key",
+					"datatype": "character",
+					"param": "64",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "e9434d42-e235-42e4-a097-a2e566517944",
+					"name": "license_type",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "0",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				},
+				{
+					"data": "",
+					"id": "4f71435b-f6ef-4b43-ab89-4721da20d105",
+					"name": "created_at",
+					"datatype": "timestamp without time zone",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "now()",
+					"collation": "",
+					"fk": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"storage": "",
+						"compression": ""
+					},
+					"list": false,
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"bee4247e-5312-453a-8d39-90846e85800b",
+				"b40cb146-8a0c-4742-9dae-c0b09c946016"
+			],
+			"keys": [
+				{
+					"id": "5f38a2b8-4f01-4bb3-9aff-f0f6ed15695d",
+					"isPk": false,
+					"name": "mc_server_domain",
+					"cols": [
+						{
+							"id": "117d3d72-d4ed-4124-bf85-5fb386cfdad8",
+							"colid": "23a35591-8791-44cc-b347-33772ff5ccb0"
+						}
+					]
+				},
+				{
+					"id": "6659699d-1961-4f1c-884d-98150049e340",
+					"isPk": false,
+					"name": "owner_pkey",
+					"cols": [
+						{
+							"id": "f261ef3e-ccbb-4e5f-ab66-ccd620f8d5e7",
+							"colid": "6b960bf3-f783-4752-b46b-b12c52b3d021"
+						}
+					]
+				},
+				{
+					"id": "468bad71-2a84-49ab-bc08-d49688e41e9a",
+					"isPk": false,
+					"name": "server_key",
+					"cols": [
+						{
+							"id": "c258a2b2-197f-428b-b700-5c7438c49477",
+							"colid": "0d718eb2-b408-4b5f-90f3-2286aa15f2e7"
+						}
+					]
+				},
+				{
+					"id": "c8ce2142-ff1d-4b57-9dfa-11b4434b310e",
+					"isPk": false,
+					"name": "server_name",
+					"cols": [
+						{
+							"id": "5bb00f83-e25f-40de-bc46-a6cb42e39872",
+							"colid": "3686ff1e-709f-4dbf-b54b-a4e6fbbafbd6"
+						}
+					]
+				},
+				{
+					"id": "c180dd69-89bb-4e92-be1d-a9b39a0f294c",
+					"isPk": true,
+					"name": "servers_pkey",
+					"cols": [
+						{
+							"id": "6c8ec9f9-e2c6-4733-b3a8-1d1f365c82cf",
+							"colid": "2c7f1616-7dd5-4042-926a-20d7c45d5fba"
+						}
+					]
+				},
+				{
+					"id": "3cdcb3b0-92c1-4a4c-b584-aafb1e38cff9",
+					"isPk": false,
+					"name": "subdomain",
+					"cols": [
+						{
+							"id": "260edbf6-6e8f-4082-9c64-96a7213503eb",
+							"colid": "58b1c260-c74e-44f2-83ae-7bc5d09145bf"
+						}
+					]
+				}
+			],
+			"indexes": [
+				{
+					"id": "0fbcb959-d1c7-47eb-a6b1-10ce0febd584",
+					"unique": false,
+					"name": "servers_id_idx",
+					"cols": [
+						{
+							"id": "c602b5b9-726c-491f-8530-2f88f7ac7dda",
+							"colid": "2c7f1616-7dd5-4042-926a-20d7c45d5fba",
+							"pg": {
+								"collate": "",
+								"desc": false,
+								"nullsLast": true,
+								"expression": ""
+							}
+						}
+					],
+					"pg": {
+						"desc": "",
+						"storageParameters": "",
+						"expression": "",
+						"tablespace": ""
+					},
+					"algorithm": "btree"
+				}
+			],
+			"estimatedSize": "",
+			"visible": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		}
+	},
+	"relations": {
+		"cb226419-a28b-4a32-9a9c-3f884eb45f7b": {
+			"id": "cb226419-a28b-4a32-9a9c-3f884eb45f7b",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "6e539de2-c338-4e85-b1e3-017298a216a2",
+					"parentcol": "913b9268-1c09-40e6-9830-37e815df0529",
+					"childcol": "7349b4a0-e19a-40d8-b60c-15c710d46e5d"
+				}
+			],
+			"child": "bb2a6e46-daa8-4e5c-b77c-757c8f63742f",
+			"parent": "91be2ae3-17d1-48f3-a812-4b187dd7baf7",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_ch": "many",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "actions_player_id_fkey",
+			"desc": "",
+			"parent_key": "7c77cdfb-8899-4a60-995e-ebfa02ece0ca",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		},
+		"afc5ef2b-e6ce-45b8-894e-1ee2accf8580": {
+			"id": "afc5ef2b-e6ce-45b8-894e-1ee2accf8580",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "4edaf39c-f7d1-4f9c-a13a-b981e3c96f38",
+					"parentcol": "ed2a67e6-a5ec-4e28-bbb6-f5a891e41967",
+					"childcol": "2dda61a2-75ec-49bf-b656-9c292d6b64da"
+				}
+			],
+			"child": "1132b51b-f693-4e20-8027-3ef4aea12d0d",
+			"parent": "c63793b5-05c8-4ee9-9a00-98b5c1dc28c7",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_ch": "many",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "ban_reasons_id_fkey",
+			"desc": "",
+			"parent_key": "9549bb61-43d6-49ef-8baa-3beed37b5784",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		},
+		"532ff17c-8fde-4ce2-8780-6a5c7494d9bd": {
+			"id": "532ff17c-8fde-4ce2-8780-6a5c7494d9bd",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "e56754ae-4f11-4cd0-9e51-17adee4fa32f",
+					"parentcol": "913b9268-1c09-40e6-9830-37e815df0529",
+					"childcol": "d0614d01-ed73-4045-961a-76cc592a4c2f"
+				}
+			],
+			"child": "1132b51b-f693-4e20-8027-3ef4aea12d0d",
+			"parent": "91be2ae3-17d1-48f3-a812-4b187dd7baf7",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_ch": "many",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "banned_players_banned_player_id_fkey",
+			"desc": "",
+			"parent_key": "7c77cdfb-8899-4a60-995e-ebfa02ece0ca",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		},
+		"501aee9d-a67a-4352-a437-515b2e40a917": {
+			"id": "501aee9d-a67a-4352-a437-515b2e40a917",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "18144fae-23b3-4bc0-b110-7117acf602ba",
+					"parentcol": "913b9268-1c09-40e6-9830-37e815df0529",
+					"childcol": "98cc7891-8d21-44b8-aaaa-b4b683b50499"
+				}
+			],
+			"child": "1132b51b-f693-4e20-8027-3ef4aea12d0d",
+			"parent": "91be2ae3-17d1-48f3-a812-4b187dd7baf7",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_ch": "many",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "banned_players_moderator_id_fkey",
+			"desc": "",
+			"parent_key": "7c77cdfb-8899-4a60-995e-ebfa02ece0ca",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		},
+		"1b55ed17-50f0-45a0-bc93-14ae26fe47f2": {
+			"id": "1b55ed17-50f0-45a0-bc93-14ae26fe47f2",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "0ac66bf1-b024-4d36-91e7-6dd62159eb23",
+					"parentcol": "6fde7617-3712-4e93-8a17-900725a7681a",
+					"childcol": "2c5780ae-1c42-4b01-9a75-1de228bd1a35"
+				}
+			],
+			"child": "4617a244-3319-4c73-bae6-031c673a3c56",
+			"parent": "4b9ac850-a3c2-460b-b23a-71c8b789dd78",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_ch": "one",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "email_verification_id_fkey",
+			"desc": "",
+			"parent_key": "fc336947-2eec-4df6-b30b-19464eac13de",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		},
+		"880a24e8-3013-4ae5-856a-c111a6e4332b": {
+			"id": "880a24e8-3013-4ae5-856a-c111a6e4332b",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "90fa0a80-b2a4-43dd-a450-5d8e670d17a7",
+					"parentcol": "913b9268-1c09-40e6-9830-37e815df0529",
+					"childcol": "2a2497c9-8132-4008-adaa-3f3644e28d14"
+				}
+			],
+			"child": "82a807c8-b47e-49aa-90f6-874fdc7dd30f",
+			"parent": "91be2ae3-17d1-48f3-a812-4b187dd7baf7",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_ch": "one",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "login_player_id_fkey",
+			"desc": "",
+			"parent_key": "7c77cdfb-8899-4a60-995e-ebfa02ece0ca",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		},
+		"bd655582-29ea-468a-a119-156f9c389f15": {
+			"id": "bd655582-29ea-468a-a119-156f9c389f15",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "e4abedca-560c-48a4-971a-aee7adfb90ee",
+					"parentcol": "0b9a3327-2d44-4a65-9c83-51657b990f04",
+					"childcol": "70e41690-5333-475c-ae25-60b5cc0475b4"
+				}
+			],
+			"child": "91be2ae3-17d1-48f3-a812-4b187dd7baf7",
+			"parent": "d67b69b9-3715-48c3-8d73-7810b3a191c3",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_ch": "one",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "player_server_info_mojang_uuid_fkey",
+			"desc": "",
+			"parent_key": "3d97a991-c6e8-470f-9c51-d17f17d45e17",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		},
+		"6677d82e-181a-4e98-b30d-2b7665960045": {
+			"id": "6677d82e-181a-4e98-b30d-2b7665960045",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "bb35a22e-6aef-401c-85c2-427a7b988b1f",
+					"parentcol": "0ef61d96-d5b8-4c07-abde-5261de603ef8",
+					"childcol": "6a3b2ac2-ef6f-4e6b-8e39-73360cea495a"
+				}
+			],
+			"child": "91be2ae3-17d1-48f3-a812-4b187dd7baf7",
+			"parent": "3b45fc63-5de9-4ed6-be68-d737cd0073fc",
+			"c_mp": "true",
+			"c_mch": "false",
+			"c_ch": "many",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "player_server_info_prefix_id_fkey",
+			"desc": "",
+			"parent_key": "44335661-18d9-4fbe-bb85-f1872867572f",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		},
+		"bee4247e-5312-453a-8d39-90846e85800b": {
+			"id": "bee4247e-5312-453a-8d39-90846e85800b",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "404a6e6d-8538-4bca-8546-12ad3c96209d",
+					"parentcol": "2c7f1616-7dd5-4042-926a-20d7c45d5fba",
+					"childcol": "3c561509-b65f-410c-933d-ea7e829262f3"
+				}
+			],
+			"child": "91be2ae3-17d1-48f3-a812-4b187dd7baf7",
+			"parent": "47669aca-9b6d-4c03-976b-8b2cb724b713",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_ch": "many",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "player_server_info_server_id_fkey",
+			"desc": "",
+			"parent_key": "c180dd69-89bb-4e92-be1d-a9b39a0f294c",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		},
+		"e61a79b3-18f4-4253-b5eb-606271b88902": {
+			"id": "e61a79b3-18f4-4253-b5eb-606271b88902",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "38dd9dda-11c7-439c-a2f9-2a8c10a0f64f",
+					"parentcol": "913b9268-1c09-40e6-9830-37e815df0529",
+					"childcol": "0d72b06c-181c-42b9-9815-e61d5c51ef49"
+				}
+			],
+			"child": "3b45fc63-5de9-4ed6-be68-d737cd0073fc",
+			"parent": "91be2ae3-17d1-48f3-a812-4b187dd7baf7",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_ch": "many",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "prefixes_prefix_owner_id_fkey",
+			"desc": "",
+			"parent_key": "7c77cdfb-8899-4a60-995e-ebfa02ece0ca",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		},
+		"b40cb146-8a0c-4742-9dae-c0b09c946016": {
+			"id": "b40cb146-8a0c-4742-9dae-c0b09c946016",
+			"type": "identifying",
+			"cols": [
+				{
+					"id": "01dbbce7-1f5c-4b10-b472-a41e329d23df",
+					"parentcol": "91567d48-3b2d-4d90-ad13-cc6ad9d07644",
+					"childcol": "6b960bf3-f783-4752-b46b-b12c52b3d021"
+				}
+			],
+			"child": "47669aca-9b6d-4c03-976b-8b2cb724b713",
+			"parent": "4b9ac850-a3c2-460b-b23a-71c8b789dd78",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_ch": "one",
+			"c_p": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"name": "owner_id_fkey",
+			"desc": "",
+			"parent_key": "500a176e-8bac-4b5d-9b0f-111fb0febcc9",
+			"ri_pd": "No action",
+			"ri_pu": "No action",
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent",
+			"visible": true
+		}
+	},
+	"notes": {},
+	"lines": {},
+	"model": {
+		"connectionId": "1f7acd6f-c974-4beb-aca8-d860c115a415",
+		"connectionVersion": "PostgreSQL 13.22 (Debian 13.22-1.pgdg13+1)",
+		"activeDiagram": "749ff37e-d4d9-4982-9e73-a5170b18d561",
+		"caseConvention": "under",
+		"color": "transparent",
+		"def_coltopk": true,
+		"desc": "",
+		"id": "a3603690-89df-4f40-ac2b-ec1cde6b9625",
+		"isDirty": true,
+		"name": "mcconect",
+		"parentTableInFkCols": true,
+		"path": "",
+		"replaceSpace": "_",
+		"sideSelections": true,
+		"storedin": {
+			"major": 8,
+			"minor": 5,
+			"extra": 1
+		},
+		"laststoredin": {
+			"major": 8,
+			"minor": 5,
+			"extra": 1
+		},
+		"type": "PG",
+		"version": 1,
+		"lastSaved": "",
+		"pg": {
+			"schema": "public"
+		},
+		"sqlSettings": {
+			"wrapLines": true,
+			"wrapOffset": 80,
+			"indent": true,
+			"indentationString": "spaces",
+			"indentationSize": 2,
+			"limitItemsOnLine": true,
+			"maxListItemsOnLine": 3,
+			"statementDelimiter": ";",
+			"routineDelimiter": ";",
+			"keywordCase": "upper",
+			"identiferCase": "original",
+			"includeSchema": "always",
+			"quotation": "if_needed",
+			"includeGeneratedNames": "always"
+		},
+		"nameAutoGeneration": {
+			"keys": true,
+			"indexes": true,
+			"relations": true
+		},
+		"writeFileParam": false,
+		"authorName": "",
+		"companyDetails": "",
+		"companyUrl": ""
+	},
+	"otherObjects": {
+		"6dfaa8c1-e36a-40d7-beef-3e10327c1e9f": {
+			"id": "6dfaa8c1-e36a-40d7-beef-3e10327c1e9f",
+			"name": "uuid_nil",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_nil()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_nil$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"845bfef1-7966-4d91-a2d5-4a4c90a92d4e": {
+			"id": "845bfef1-7966-4d91-a2d5-4a4c90a92d4e",
+			"name": "uuid_ns_dns",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_dns()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_dns$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"bc82fd24-faae-4a62-a1b2-db9f8883e375": {
+			"id": "bc82fd24-faae-4a62-a1b2-db9f8883e375",
+			"name": "uuid_ns_url",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_url()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_url$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"090174f4-2cb6-46e3-8117-6d28814b5f3e": {
+			"id": "090174f4-2cb6-46e3-8117-6d28814b5f3e",
+			"name": "uuid_ns_oid",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_oid()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_oid$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"6331d1ec-1a02-4a2c-aab8-5b2569365c31": {
+			"id": "6331d1ec-1a02-4a2c-aab8-5b2569365c31",
+			"name": "uuid_ns_x500",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_ns_x500()\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_ns_x500$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"f031ee56-4d3a-4cc1-9f57-170b07c81030": {
+			"id": "f031ee56-4d3a-4cc1-9f57-170b07c81030",
+			"name": "uuid_generate_v1",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v1()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v1$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"dbd6d5f5-0289-4590-92ea-6e9902c322db": {
+			"id": "dbd6d5f5-0289-4590-92ea-6e9902c322db",
+			"name": "uuid_generate_v1mc",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v1mc()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v1mc$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"83259f61-0203-4c2d-aaf2-72471a3c0081": {
+			"id": "83259f61-0203-4c2d-aaf2-72471a3c0081",
+			"name": "uuid_generate_v3",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v3(namespace uuid, name text)\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v3$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": "namespace uuid, name text"
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"105b66b2-ab87-46de-9e15-47d8413fe19b": {
+			"id": "105b66b2-ab87-46de-9e15-47d8413fe19b",
+			"name": "uuid_generate_v4",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v4()\n RETURNS uuid\n LANGUAGE c\n PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v4$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": ""
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		},
+		"249a6ba6-747c-482e-a625-991d6d2f2ca5": {
+			"id": "249a6ba6-747c-482e-a625-991d6d2f2ca5",
+			"name": "uuid_generate_v5",
+			"desc": "",
+			"type": "Function",
+			"code": "CREATE OR REPLACE FUNCTION public.uuid_generate_v5(namespace uuid, name text)\n RETURNS uuid\n LANGUAGE c\n IMMUTABLE PARALLEL SAFE STRICT\nAS '$libdir/uuid-ossp', $function$uuid_generate_v5$function$\n;\n",
+			"lines": [],
+			"pg": {
+				"schema": "public",
+				"routine": {
+					"signature": "namespace uuid, name text"
+				}
+			},
+			"visible": true,
+			"generateCustomCode": true,
+			"generate": true,
+			"customCode": "",
+			"typeExpression": ""
+		}
+	},
+	"diagrams": {
+		"749ff37e-d4d9-4982-9e73-a5170b18d561": {
+			"id": "749ff37e-d4d9-4982-9e73-a5170b18d561",
+			"lineColor": "transparent",
+			"description": "",
+			"diagramItems": {
+				"bb2a6e46-daa8-4e5c-b77c-757c8f63742f": {
+					"x": 1021,
+					"y": 551,
+					"gHeight": 117,
+					"gWidth": 186,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "bb2a6e46-daa8-4e5c-b77c-757c8f63742f",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"c63793b5-05c8-4ee9-9a00-98b5c1dc28c7": {
+					"x": 1029,
+					"y": 30,
+					"gHeight": 81,
+					"gWidth": 260,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "c63793b5-05c8-4ee9-9a00-98b5c1dc28c7",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"1132b51b-f693-4e20-8027-3ef4aea12d0d": {
+					"x": 653,
+					"y": 50,
+					"gHeight": 153,
+					"gWidth": 305,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "1132b51b-f693-4e20-8027-3ef4aea12d0d",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"fe8a30ef-3ff5-408b-b02f-02debeb66996": {
+					"x": 135,
+					"y": 832,
+					"gHeight": 63,
+					"gWidth": 157,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "fe8a30ef-3ff5-408b-b02f-02debeb66996",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"4617a244-3319-4c73-bae6-031c673a3c56": {
+					"x": 1669,
+					"y": 616,
+					"gHeight": 81,
+					"gWidth": 380,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "4617a244-3319-4c73-bae6-031c673a3c56",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"bc3e72d6-5002-453d-ab32-da05c7501f61": {
+					"x": 465,
+					"y": 832,
+					"gHeight": 63,
+					"gWidth": 152,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "bc3e72d6-5002-453d-ab32-da05c7501f61",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"82a807c8-b47e-49aa-90f6-874fdc7dd30f": {
+					"x": 1302,
+					"y": 117,
+					"gHeight": 99,
+					"gWidth": 313,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "82a807c8-b47e-49aa-90f6-874fdc7dd30f",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"d67b69b9-3715-48c3-8d73-7810b3a191c3": {
+					"x": 267,
+					"y": 489,
+					"gHeight": 63,
+					"gWidth": 153,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "d67b69b9-3715-48c3-8d73-7810b3a191c3",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"91be2ae3-17d1-48f3-a812-4b187dd7baf7": {
+					"x": 657,
+					"y": 259,
+					"gHeight": 189,
+					"gWidth": 311,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "91be2ae3-17d1-48f3-a812-4b187dd7baf7",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"3b45fc63-5de9-4ed6-be68-d737cd0073fc": {
+					"x": 132,
+					"y": 272,
+					"gHeight": 99,
+					"gWidth": 214,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "3b45fc63-5de9-4ed6-be68-d737cd0073fc",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"4b9ac850-a3c2-460b-b23a-71c8b789dd78": {
+					"x": 1288,
+					"y": 528,
+					"gHeight": 153,
+					"gWidth": 311,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "4b9ac850-a3c2-460b-b23a-71c8b789dd78",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"47669aca-9b6d-4c03-976b-8b2cb724b713": {
+					"x": 1300,
+					"y": 253,
+					"gHeight": 225,
+					"gWidth": 311,
+					"background": "#03a9f4",
+					"color": "#ffffff",
+					"referencedItemId": "47669aca-9b6d-4c03-976b-8b2cb724b713",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"6dfaa8c1-e36a-40d7-beef-3e10327c1e9f": {
+					"x": 770,
+					"y": 832,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "6dfaa8c1-e36a-40d7-beef-3e10327c1e9f",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"845bfef1-7966-4d91-a2d5-4a4c90a92d4e": {
+					"x": 1035,
+					"y": 832,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "845bfef1-7966-4d91-a2d5-4a4c90a92d4e",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"bc82fd24-faae-4a62-a1b2-db9f8883e375": {
+					"x": 135,
+					"y": 955,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "bc82fd24-faae-4a62-a1b2-db9f8883e375",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"090174f4-2cb6-46e3-8117-6d28814b5f3e": {
+					"x": 420,
+					"y": 955,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "090174f4-2cb6-46e3-8117-6d28814b5f3e",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"6331d1ec-1a02-4a2c-aab8-5b2569365c31": {
+					"x": 685,
+					"y": 955,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "6331d1ec-1a02-4a2c-aab8-5b2569365c31",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"f031ee56-4d3a-4cc1-9f57-170b07c81030": {
+					"x": 950,
+					"y": 955,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "f031ee56-4d3a-4cc1-9f57-170b07c81030",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"dbd6d5f5-0289-4590-92ea-6e9902c322db": {
+					"x": 135,
+					"y": 1042,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "dbd6d5f5-0289-4590-92ea-6e9902c322db",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"83259f61-0203-4c2d-aaf2-72471a3c0081": {
+					"x": 420,
+					"y": 1042,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "83259f61-0203-4c2d-aaf2-72471a3c0081",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"105b66b2-ab87-46de-9e15-47d8413fe19b": {
+					"x": 685,
+					"y": 1042,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "105b66b2-ab87-46de-9e15-47d8413fe19b",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"249a6ba6-747c-482e-a625-991d6d2f2ca5": {
+					"x": 950,
+					"y": 1042,
+					"gHeight": 44,
+					"gWidth": 150,
+					"background": "#607d8b",
+					"color": "#eee",
+					"referencedItemId": "249a6ba6-747c-482e-a625-991d6d2f2ca5",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				}
+			},
+			"isOpen": true,
+			"main": true,
+			"name": "Main Diagram",
+			"keysgraphics": true,
+			"linegraphics": "detailed",
+			"zoom": 0.7,
+			"background": "transparent",
+			"scroll": {
+				"x": 0,
+				"y": 0
+			},
+			"type": "erd",
+			"showEstimatedSize": false,
+			"showSchemaContainer": false,
+			"showEmbeddedInParents": true,
+			"showCardinalityCaptions": false,
+			"showRelationshipNames": false,
+			"showLineCaptions": true,
+			"showColumns": true,
+			"showColumnDataTypes": true,
+			"showSampleData": false,
+			"showTableIndexes": false,
+			"showTableDescriptions": false,
+			"showRelations": true,
+			"showHorizontal": false,
+			"showDescriptions": true,
+			"showIndicators": false,
+			"showProgress": false,
+			"showIndicatorCaptions": false,
+			"backgroundImage": "na",
+			"descriptionsColor": "transparent",
+			"boxSize": "0",
+			"boxSpacing": "2",
+			"boxAlign": "center",
+			"lineWidth": "2",
+			"embeddedSpacing": "2",
+			"showLabels": true,
+			"showMainIcon": true,
+			"showCustomizations": false
+		}
+	},
+	"diagramsOrder": [],
+	"order": [
+		"d67b69b9-3715-48c3-8d73-7810b3a191c3",
+		"3b45fc63-5de9-4ed6-be68-d737cd0073fc",
+		"4b9ac850-a3c2-460b-b23a-71c8b789dd78",
+		"47669aca-9b6d-4c03-976b-8b2cb724b713",
+		"91be2ae3-17d1-48f3-a812-4b187dd7baf7",
+		"bb2a6e46-daa8-4e5c-b77c-757c8f63742f",
+		"c63793b5-05c8-4ee9-9a00-98b5c1dc28c7",
+		"1132b51b-f693-4e20-8027-3ef4aea12d0d",
+		"fe8a30ef-3ff5-408b-b02f-02debeb66996",
+		"4617a244-3319-4c73-bae6-031c673a3c56",
+		"bc3e72d6-5002-453d-ab32-da05c7501f61",
+		"82a807c8-b47e-49aa-90f6-874fdc7dd30f",
+		"cb226419-a28b-4a32-9a9c-3f884eb45f7b",
+		"afc5ef2b-e6ce-45b8-894e-1ee2accf8580",
+		"532ff17c-8fde-4ce2-8780-6a5c7494d9bd",
+		"501aee9d-a67a-4352-a437-515b2e40a917",
+		"1b55ed17-50f0-45a0-bc93-14ae26fe47f2",
+		"880a24e8-3013-4ae5-856a-c111a6e4332b",
+		"b40cb146-8a0c-4742-9dae-c0b09c946016",
+		"bd655582-29ea-468a-a119-156f9c389f15",
+		"6677d82e-181a-4e98-b30d-2b7665960045",
+		"bee4247e-5312-453a-8d39-90846e85800b",
+		"e61a79b3-18f4-4253-b5eb-606271b88902",
+		"f031ee56-4d3a-4cc1-9f57-170b07c81030",
+		"dbd6d5f5-0289-4590-92ea-6e9902c322db",
+		"83259f61-0203-4c2d-aaf2-72471a3c0081",
+		"105b66b2-ab87-46de-9e15-47d8413fe19b",
+		"249a6ba6-747c-482e-a625-991d6d2f2ca5",
+		"6dfaa8c1-e36a-40d7-beef-3e10327c1e9f",
+		"845bfef1-7966-4d91-a2d5-4a4c90a92d4e",
+		"090174f4-2cb6-46e3-8117-6d28814b5f3e",
+		"bc82fd24-faae-4a62-a1b2-db9f8883e375",
+		"6331d1ec-1a02-4a2c-aab8-5b2569365c31"
+	],
+	"collapsedTreeItems": [],
+	"reverseStats": {}
+}
