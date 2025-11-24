@@ -431,10 +431,21 @@ class DatabaseManager:
 
         return True
 
-    
+    def update_player_status_from_mojang_uuid_and_server_id(self, mojang_uuid, server_id, status):
+        logger.info("update_player_status_from_mojang_uuid_and_server_id is called")
+        query = """
+                UPDATE player_server_info
+                SET online = %s
+                WHERE mojang_uuid = %s
+                AND server_id = %s
+                """
+        data = (True if status == "online"  else False, mojang_uuid, server_id)
 
-
-    
+        logger.debug(f"Executing SQL query: {query}")
+        logger.debug(f"With following data: {data}")
+        self.cursor.execute(query, data)
+        self.conn.commit()
+        
 
     ################################ GET FUNCTIONS ####################################
     ###----------------------------- PLAYER IDs ------------------------------------###
@@ -483,6 +494,22 @@ class DatabaseManager:
         mojang_uuid = result[0]
         logger.info(f'Found player uuid: "{mojang_uuid}" for player id: "{player_id}"')
         return mojang_uuid
+
+    def get_server_id_from_player_id(self, player_id):
+        logger.info("get_server_id_from_player_id is called")
+        query = """
+                SELECT server_id 
+                FROM player_server_info
+                WHERE player_id = %s
+        """
+        data = (player_id, )
+        self.cursor.execute(query, data)
+        result = self.cursor.fetchone()
+        if result is None:
+            logger.warning(f'No server id found for player id: "{player_id}"')
+            return None
+        return result[0]
+
 
     def get_mojang_uuid_from_player_name(self, player_name):
         logger.debug("get_mojang_uuid_from_player_name is called")

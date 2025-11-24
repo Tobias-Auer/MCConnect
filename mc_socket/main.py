@@ -11,7 +11,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from database.databaseManager import DatabaseManager
+from database.databaseManager import DatabaseManagerV2
 from colorlogx import get_logger
 from database.minecraft import Minecraft
 
@@ -65,12 +65,12 @@ def execute_command(data, conn, addr, server_id):
         return
     if command == "!JOIN":
         logger.debug("Join registered")
-        if db_manager.update_player_status_from_player_uuid_and_server_id(value, server_id, "online"):
+        if db_manager.update_player_status_from_mojang_uuid_and_server_id(value, server_id, "online"):
             send_msg("success|101", conn)
         else:
             send_msg("error|003", conn)
     elif command == "!QUIT":
-        if db_manager.update_player_status_from_player_uuid_and_server_id(value, server_id, "offline"):
+        if db_manager.update_player_status_from_mojang_uuid_and_server_id(value, server_id, "offline"):
             send_msg("success|101", conn)
         else:
             send_msg("error|003", conn)
@@ -81,9 +81,10 @@ def execute_command(data, conn, addr, server_id):
             send_msg("error|005", conn)
             return
         print(f"Following stats are provided for uuid: {uuid}:\n\n{stats}\n\n")
-        player_id = db_manager.get_player_id_from_player_uuid_and_server_id(uuid, server_id)
+        player_id = db_manager.get_player_id_from_mojang_uuid_and_server_id(uuid, server_id)
         if not player_id:
-            player_id = db_manager.init_new_player(uuid, server_id)
+            db_manager.add_player(uuid)
+            player_id = db_manager.add_player_server_info(server_id, uuid)
         db_manager.update_player_stats(player_id,stats)
     else:
         send_msg("error|004", conn)
@@ -169,15 +170,15 @@ def handle_client_connection(conn, addr):
     conn.close()
     logger.info(f"{addr} disconnected.")
 
-def login_watcher():
+def login_watcher():  # no waiting, no perma checking; instead webserver can send socket to here to trigger it
     logger.info("Login watcher started")
     while True:
         time.sleep(5)
-        logins = db_manager.get_all_logins()
+        logins = db_manager.get_all_logins()  # not implemented; wont be in future
         for login in logins:
             pin = login[0]
             player_id = login[1]
-            server_id = db_manager.get_server_id_from_player_id(player_id)
+            server_id = db_manager.get_server_id_from_player_id(player_id)  # does not exist, needs to be implemented
             player_uuid = db_manager.get_player_uuid_from_player_id(player_id)
             if server_id:
                 conn = active_connections.get(server_id)
