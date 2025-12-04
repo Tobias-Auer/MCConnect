@@ -256,7 +256,7 @@ class DatabaseManager:
         None
         """
         logger.debug("add_player is called")
-        player_name = minecraft.get_player_name_from_uuid(mojang_uuid)
+        player_name = minecraft.get_player_name_from_mojang_uuid_online(mojang_uuid)
         data = (mojang_uuid, player_name)
         query = """INSERT INTO player (uuid, name)
                     VALUES (%s, %s)
@@ -359,7 +359,7 @@ class DatabaseManager:
         self.conn.commit()
         logger.info(f'Added banned player: "{banned_player_id}" with admin: "{moderator_id}" and ban reason: "{ban_reason_id}" until: "{ban_end}"')
     
-
+    # not used
     def add_login_entry(self, player_id):
         logger.debug("add_login_entry is called")
         self.delete_login_entry(player_id)
@@ -381,6 +381,23 @@ class DatabaseManager:
         self.cursor.execute(query, data)
         self.conn.commit()
         logger.info(f'Deleted login entry for player: "{player_id}"')
+
+    def add_login_entry_from_player_id(self, player_id, pin):
+        logger.debug("add_login_entry is called")
+        self.delete_login_entry(player_id)
+        query = """INSERT INTO login (player_id, pin, timestamp) VALUES (%s, %s, CURRENT_TIMESTAMP)"""
+        data = (player_id, pin)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        try:
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            logger.info(f'Added login entry for player: "{player_id}" with pin: "{pin}"')
+        except Exception as e:
+            logger.error(f'Failed to add login entry for player: "{player_id}". Error: {e}')
+            self.conn.rollback()
+            return False
+        return True
 
     ###----------------------------- Update Functions ------------------------------------###
     def update_email_verification(self, username, code):
@@ -448,6 +465,7 @@ class DatabaseManager:
         
 
     ################################ GET FUNCTIONS ####################################
+
     ###----------------------------- PLAYER IDs ------------------------------------###
     def get_player_id_from_mojang_uuid_and_server_id(self, mojang_uuid, server_id):
         logger.debug("get_player_id_from_mojang_uuid_and_server_id is called")
@@ -465,7 +483,7 @@ class DatabaseManager:
         return player_id
 
     def get_player_id_from_mojang_uuid_and_subdomain(self, mojang_uuid, subdomain):
-        logger.debug("get_player_id_from_player_uuid_and_subdomain is called")
+        logger.debug("get_player_id_from_mojang_uuid_and_subdomain is called")
         query = """SELECT psi.id
                 FROM player_server_info psi
                 JOIN servers s ON psi.server_id = s.id
@@ -675,8 +693,37 @@ class DatabaseManager:
         logger.info(f'Found server id: "{result}" for auth_key: "{auth_key}"')
         return result
     
+
+    def get_all_mojang_uuids_from_subdomain(self, subdomain):
+        logger.debug("get_all_mojang_uuids_from_subdomain is called")
+        query = """SELECT mojang_uuid FROM player_server_info WHERE server_id IN (SELECT id FROM servers WHERE subdomain = %s)"""
+        data = (subdomain,)
+        logger.debug(f"with following data: {data}")
+        self.cursor.execute(query, data)
+        result = self.cursor.fetchall()
+        uuids = [uuid[0] for uuid in result]
+        logger.debug(f"Found uuids: {uuids} for subdomain: {subdomain}")
+        return uuids
     ###----------------------------- Player Statuses ------------------------------------###
     
+    def get_online_status_by_player_uuid_and_subdomain(self, uuid, subdomain):
+        logger.debug("get_online_status_by_player_uuid_and_subdomain is called")
+        query = """
+                SELECT psi.online
+                FROM player_server_info psi
+                JOIN servers s ON psi.server_id = s.id
+                WHERE psi.player_uuid = %s AND s.subdomain = %s;
+                """
+        data = (uuid, subdomain)
+        logger.debug(f"with following data: {data}")
+        self.cursor.execute(query, data)
+        result = self.cursor.fetchone()
+        if result is None:
+            logger.debug(f'No online status found for player uuid: "{uuid}" and subdomain: "{subdomain}"')
+            return None
+        online_status = result[0]
+        logger.debug(f'Found online status: "{online_status}" for player uuid: "{uuid}" and subdomain: "{subdomain}"')
+        return online_status
     
     def get_online_status_by_player_id(self, player_id):
         logger.debug("get_online_status_by_player_id is called")
@@ -849,16 +896,12 @@ class DatabaseManager:
         data = (object,player_id)
         logger.debug(f"executing SQL query: {query}")
         logger.debug(f"with following data: {data}")
-        try:
-            self.cursor.execute(query, data)
-            result = self.cursor.fetchone()
-            result = result[0] if result else None
-            logger.debug(f"Found value: {result} for object: {object}")
-            return result
-        except Exception as e:
-            self.conn.rollback()
-            logger.error(f"Error in get_value_from_unique_object_from_action_table_with_player_id: {e}\n{traceback.format_exc()}")
-            return None
+        self.cursor.execute(query, data)
+        result = self.cursor.fetchone()
+        result = result[0] if result else None
+        logger.debug(f"Found value: {result} for object: {object}")
+        return result
+
     
     def get_all_armor_stats(self, player_id):
         '''
@@ -1084,6 +1127,50 @@ class DatabaseManager:
                 return True
         return False
 
+    def verify_signupcode(self, username, code):
+        logger.debug("verify_signupcode is called")
+        query = """
+                SELECT sa.created_at
+                FROM server_admins sa
+                JOIN email_verification ev ON sa.verification_process_id = ev.id
+                WHERE sa.username = %s
+                AND ev.verification_code = %s
+                AND ev.created_at > NOW() - INTERVAL '5 minutes';
+
+        """
+        query = "SELECT created_at FROM server_admins WHERE username = %s AND verification_code = %s"
+        data = (username, code)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+
+        self.cursor.execute(query, data)
+        timestamp = self.cursor.fetchone()
+        if timestamp is None:
+            logger.info(f'No signup code found for username: "{username}". Or time up...')
+            query = "DELETE FROM server_admins WHERE username = %s AND verification_code = %s"
+            data = (username, code)
+            try: 
+                self.cursor.execute(query, data)
+                self.conn.commit()
+            except Exception as e:
+                ...
+            return False
+
+        logger.info(f'Verified signup code for username: "{username}"')
+        query = """
+                update sa.email_verified = TRUE
+                FROM server_admins sa
+                JOIN email_verification ev ON sa.verification_process_id = ev.id
+                WHERE sa.username = %s
+                AND ev.verification_code = %s;
+
+        """
+        data = (username, code)
+        self.cursor.execute(query, data)
+        logger.debug(f"executing SQL query: {query}")
+        logger.debug(f"with following data: {data}")
+        self.conn.commit()
+        return True
 
     ################################# helper functions #######################################
     def split_items_from_json(self, items):
@@ -1196,6 +1283,43 @@ class DatabaseManager:
         result = self.cursor.fetchone()[0]
         return result
 
+       
+    def format_time(self, seconds):
+        """
+        Formats a given number of seconds into a human-readable time string.
+
+        Args:
+            seconds (int): The number of seconds to be formatted.
+
+        Returns:
+            str: A formatted time string in the format "X Tage, Y Stunden, Z Minuten, W Sekunden",
+                    where the parts are included only if they are non-zero.
+        """
+        days = int(seconds // 86400)
+        seconds %= 86400
+
+        hours = int(seconds // 3600)
+        seconds %= 3600
+
+        minutes = int(seconds // 60)
+        seconds = int(seconds % 60)
+
+        time_parts = []
+        setMinutes, setSeconds = True, True
+        if days > 0:
+            time_parts.append(f"{days} Tag{'e' if days > 1 else ''}")
+            setSeconds, setMinutes = False, False
+        if hours > 0:
+            time_parts.append(f"{hours} Std.")
+            setMinutes = False
+        if minutes > 0 and setMinutes:
+            time_parts.append(f"{minutes} Min.")
+        if seconds > 0 and setSeconds:
+            time_parts.append(f"{seconds} Sec.")
+
+        return ' '.join(time_parts)      
+    
+        
 
 if __name__ == "__main__":
     db = DatabaseManager()

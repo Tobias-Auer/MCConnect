@@ -8,7 +8,7 @@ class Minecraft:
     def __init__(self):
         pass
 
-    def get_player_name_from_uuid(self, uuid):
+    def get_player_name_from_mojang_uuid_online(self, uuid):
         """
         Get the username from the Mojang API using the given UUID.
 

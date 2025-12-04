@@ -24,7 +24,7 @@ if DATABASE_DIR not in sys.path:
     sys.path.insert(0, DATABASE_DIR)
 
 # Imports aus dem database-Paket
-from database.databaseManager import DatabaseManager
+from database.databaseManager import DatabaseManagerV2
 from database.logger import get_logger
 from database.minecraft import Minecraft
 
@@ -73,7 +73,7 @@ def inject_loginVar():
     logger.debug("UUID: %s" % uuid)
     
     if isinstance(uuid, str):
-        name = db_manager.get_player_name_from_uuid__offline(uuid)
+        name = db_manager.get_player_name_from_uuid(uuid)
         loginVar = (f"{name}<br> <a id=logoutLink onclick=\"logout()\" style=\"cursor: "
                     "pointer;font-size:20px;\">Logout</a>")
         
@@ -83,12 +83,12 @@ def inject_loginVar():
                 perm=permission_level,
                 uuid_profile=uuid, 
                 name=name,
-                server_description_short=server_information[9], 
-                server_description_long=server_information[10], 
-                discord_url=server_information[8], 
-                license_type=server_information[2],
-                mc_server_domain=server_information[4],
-                server_name=server_information[11])
+                server_description_short=server_information["server_description_short"], 
+                server_description_long=server_information["server_description_long"], 
+                discord_url=server_information["discord_url"], 
+                license_type=server_information["license_type"],
+                mc_server_domain=server_information["mc_server_domain"],
+                server_name=server_information["server_name"])
 
 
 
@@ -130,7 +130,7 @@ def login(subdomain):
         return render_template("logout_confirmation.html", uuid=uuid)
     uuid = session.get('try_login')
     if isinstance(uuid, str):
-        return render_template("login.html", uuid=db_manager.get_player_name_from_uuid__offline(uuid))
+        return render_template("login.html", uuid=db_manager.get_player_name_from_mojang_uuid(uuid))
     if not request.args.get('next'):
         refer = request.referrer
         path = "/" if not refer else urlparse(refer).path
@@ -165,9 +165,9 @@ def player_overview_route(subdomain):
     user_name = request.args.get('player')
 
     if user_name:
-        uuid = db_manager.get_player_uuid_from_name__offline(user_name)
-        player_id = db_manager.get_player_id_from_player_uuid_and_subdomain(uuid, subdomain)
-        status = db_manager.get_online_status_by_player_uuid_and_subdomain(uuid, subdomain)
+        uuid = db_manager.get_mojang_uuid_from_player_name(user_name)
+        player_id = db_manager.get_player_id_from_mojang_uuid_and_subdomain(uuid, subdomain)
+        status = db_manager.get_online_status_by_player_id(player_id)
         
         armor_stats = db_manager.get_all_armor_stats(player_id)
         tool_stats = db_manager.get_all_tools_stats(player_id)
@@ -177,9 +177,10 @@ def player_overview_route(subdomain):
         custom_stats = db_manager.get_all_custom_stats(player_id)
         
         enddate, startdate = "", ""
-        banned = db_manager.get_ban_info_from_player_uuid_and_subdomain(uuid, subdomain)
+        banned = db_manager.get_ban_reason_from_player_id(player_id)
         if banned:
-            startdate, enddate = banned[4].strftime("%d.%m.%Y %H:%M"), banned[5].strftime(("%d.%m.%Y %H:%M"))
+            start, end = get_ban_start_and_ban_end_by_player_id(player_id)
+            startdate, enddate = start.strftime("%d.%m.%Y %H:%M"), end.strftime(("%d.%m.%Y %H:%M"))
             print(startdate, enddate)
         return render_template("spieler-info.html", uuid=uuid, user_name=user_name, status=status, banned=bool(banned), enddate=enddate,
                                startdate=startdate, armor_stats=armor_stats, tool_stats=tool_stats, item_stats=item_stats, block_stats=block_stats, mob_stats=mob_stats, custom_stats=custom_stats)
@@ -187,10 +188,10 @@ def player_overview_route(subdomain):
     all_users = []
     all_status = []
     combined_users_data = []
-    all_uuids = db_manager.get_all_uuids_from_subdomain(subdomain)
+    all_uuids = db_manager.get_all_mojang_uuids_from_subdomain(subdomain)
 
     for uuid in all_uuids:
-        user_name = db_manager.get_player_name_from_uuid__offline(uuid)
+        user_name = db_manager.get_player_name_from_mojang_uuid(uuid)
         if user_name is None:
             print(f"No username found for UUID: {uuid}")
             continue  # Skip processing if no username found
@@ -219,11 +220,11 @@ def minecraft_login_api(subdomain):
         return {'response': "Invalid pin", "status": "error",
                     "info": "Please enter a valid pin!"}
     if not pin:
-        uuid = db_manager.get_player_uuid_from_name__offline(username)
+        uuid = db_manager.get_mojang_uuid_from_player_name(username)
         if uuid == -1:
             return {'response': "Invalid username", "status": "error",
                     "info": "Given username not found in the database"}
-        player_id = db_manager.get_player_id_from_player_uuid_and_subdomain(uuid, subdomain)
+        player_id = db_manager.get_player_id_from_mojang_uuid_and_subdomain(uuid, subdomain)
         session["id"] = player_id
         online_status = db_manager.get_online_status_by_player_id(player_id)
         print(f"Player status: {online_status}")
@@ -246,7 +247,7 @@ def minecraft_login_api(subdomain):
         return {"response": "Pin is incorrect", "status": "error",
                 "info": "Your pin is incorrect! Please try again!"}
     player_id = session.get("id")
-    validate_login = db_manager.get_login_attempt_validity_from_player_id_and_pin(player_id, secret_pin_from_form)
+    validate_login = db_manager.verify_player_login(player_id, secret_pin_from_form)
     if validate_login[0]:
         # session.clear()
         session["uuid"] = uuid
@@ -275,7 +276,7 @@ def stream_status(subdomain):
     # could be more efficient witth only one db call and return the whole list instead of just uuids
     def generate():
         while True:
-            all_uuids = db_manager.get_all_uuids_from_subdomain(subdomain)
+            all_uuids = db_manager.get_all_mojang_uuids_from_subdomain(subdomain)
             data = []
             for uuid in all_uuids:
                 data.append("online" if db_manager.get_online_status_by_player_uuid_and_subdomain(uuid, subdomain) else "offline")
@@ -287,8 +288,8 @@ def stream_status(subdomain):
 @app.route('/api/player_info/<path:path>', subdomain='<subdomain>')
 def stream_player_info(path,subdomain):
     player_name = path
-    uuid = db_manager.get_player_uuid_from_name__offline(player_name)
-    player_id = db_manager.get_player_id_from_player_uuid_and_subdomain(uuid, subdomain)
+    uuid = db_manager.get_mojang_uuid_from_player_name(player_name)
+    player_id = db_manager.get_player_id_from_mojang_uuid_and_server_id(uuid, subdomain)
     first_seen = db_manager.get_first_seen_by_player_id(player_id).strftime("%d.%m.%Y")
 
     def generate():
@@ -323,7 +324,7 @@ def signup():
     email = data.get("email")
     password = data.get("password")
     
-    success = db_manager.add_new_empty_manager_account(username, password, email)
+    success = db_manager.add_server_admin(username, password, email)
     return ("", 200) if success else ("", 400 )   
 
 @app.route("/api/login", methods=['POST'])
@@ -332,7 +333,7 @@ def server_login_api():
     username = data.get("username")
     password = data.get("password")
     
-    if db_manager.check_server_password_and_username(username, password):
+    if db_manager.verify_admin_login(username, password):
         session["adminUsername"] = username
         return ("", 200)
     else:
