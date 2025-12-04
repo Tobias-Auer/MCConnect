@@ -20,7 +20,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-RESET_DATABASE = True
+RESET_DATABASE = False
 PREFILL_DATABASE = True
 
 TABLE_COUNT = 12
@@ -79,7 +79,9 @@ class DatabaseManager:
         logger.info("Established connection to the database")
         self.cursor = self.conn.cursor()
 
-        if not self._check_database_integrity() or RESET_DATABASE:
+        if (not self._check_database_integrity()) or RESET_DATABASE:
+            print("RESET DATABASE")
+            print(self._check_database_integrity())
             self._reset_database()
             self._prefill_database()
 
@@ -104,6 +106,7 @@ class DatabaseManager:
             return False
         else:
             logger.info("Database integrity check passed.")
+            return True
     
     def _get_all_tables(self):
         """
@@ -140,7 +143,7 @@ class DatabaseManager:
         logger.warning("\nDropping database in 5 Seconds!!!\n\n!!!! To cancel press CTRL+C !!!!\n")
         for i in range(5, 0, -1):
             print(f"Reset in {i}...")
-            time.sleep(0)
+            time.sleep(0.5)
         query = "DROP SCHEMA public CASCADE;CREATE SCHEMA public;"
         logger.debug(f"executing SQL query: {query}")
         self.cursor.execute(query)
@@ -774,8 +777,8 @@ class DatabaseManager:
 
     def get_server_information_dict(self, subdomain):
         logger.debug("getting_server_information_dict is called")
-        query = "SELECT * FROM servers WHERE subdomain = %s;"
-        data = (subdomain,)
+        query = "SELECT * FROM servers WHERE LOWER(subdomain) = %s;"
+        data = (subdomain.lower(),)
         logger.debug(f"executing SQL query: {query}")
         logger.debug(f"with following data: {data}")
 
@@ -1319,7 +1322,15 @@ class DatabaseManager:
 
         return ' '.join(time_parts)      
     
-        
+    def get_all_logins(self):
+        logger.warn("DEPRECATED: get_all_logins is deprecated and will be removed in the future.")
+        logger.debug("get_all_logins is called")
+        query = "SELECT pin, player_id FROM login"
+        logger.debug(f"executing SQL query: {query}")
+        self.cursor.execute(query)
+        logins = self.cursor.fetchall()
+        logger.debug(f"Logins retrieved: {logins}")
+        return logins
 
 if __name__ == "__main__":
     db = DatabaseManager()

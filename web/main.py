@@ -24,7 +24,7 @@ if DATABASE_DIR not in sys.path:
     sys.path.insert(0, DATABASE_DIR)
 
 # Imports aus dem database-Paket
-from database.databaseManager import DatabaseManagerV2
+from database.databaseManagerV2 import DatabaseManager
 from database.logger import get_logger
 from database.minecraft import Minecraft
 
@@ -59,7 +59,7 @@ def inject_loginVar():
     subdomain = host_parts[0] if len(host_parts) > 2 else None
     if subdomain == "mc":
         return dict()  
-    server_information = db_manager.get_server_information(subdomain)
+    server_information = db_manager.get_server_information_dict(subdomain)
     logger.debug("Server information: %s" % str(server_information))
     if server_information is None:
         logger.debug("Server not found, aborting with 404...")

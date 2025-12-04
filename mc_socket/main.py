@@ -11,7 +11,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from database.databaseManager import DatabaseManagerV2
+from database.databaseManagerV2 import DatabaseManager
 from colorlogx import get_logger
 from database.minecraft import Minecraft
 
